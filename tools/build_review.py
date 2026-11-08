@@ -50,6 +50,8 @@ def render_node(n, tid):
         badges.append(f'<span class="b ch">{e(n["chapter"])}</span>')
     if n.get("note"):
         badges.append(f'<span class="b ch">{e(n["note"])}</span>')
+    for c in n.get("corrected", []):
+        badges.append(f'<span class="b fix">已勘误，原作「{e(c["from"])}」</span>')
     if n.get("altNames"):
         badges.append(f'<span class="b bad">别名：{e("、".join(n["altNames"]))}</span>')
     verses_before = [v for v in n["verses"] if v["src"]["table"] == tid and v.get("pos") != "after"]
@@ -119,6 +121,7 @@ section.t h2 small{color:var(--muted);font-family:var(--sans);font-weight:400;fo
 .lv-root>.k .lab{color:var(--ink)}
 .b{font-size:.72rem;padding:0 6px;border-radius:4px;background:var(--okbg);color:var(--ok)}
 .b.bad{background:var(--badbg);color:var(--bad)}
+.b.fix{background:var(--badbg);color:var(--accent);font-weight:600}
 .b.ch{background:transparent;border:1px solid var(--line);color:var(--muted)}
 .verse{font-family:var(--serif);margin:4px 0 6px 14px;padding-left:10px;border-left:3px solid var(--line)}
 .verse p{margin:0}
@@ -151,6 +154,7 @@ def main():
  <div><h3>科判节点</h3><div class="num">{st["nodes"]}</div></div>
  <div><h3>颂词格 / 偈数（按四句计）</h3><div class="num">{st["verseCells"]} / {st["stanzas"]}</div></div>
  <div><h3>自检问题（分N 与实际子科判数不符等）</h3><ul>{"".join(f"<li>{e(c)}</li>" for c in d["checks"]) or "<li>无</li>"}</ul></div>
+ <div><h3>人工勘误</h3><ul>{"".join(f"<li>{e(c['from'])} → {e(c['to'])}：{e(c['reason'])}</li>" for c in d.get("corrections", [])) or "<li>无</li>"}</ul></div>
  <div><h3>转换时自动处理的特殊情况</h3><ul>{"".join(f"<li>{e(w)}</li>" for w in d["warnings"]) or "<li>无</li>"}</ul></div>
 </div>
 <nav class="toc">{"".join(f'<a href="#t{i}">{e(t["id"])}</a>' for i, t in enumerate(d["tables"]))}</nav>"""]

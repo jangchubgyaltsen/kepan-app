@@ -8,7 +8,7 @@
 
 ```bash
 pip install pdfplumber pypdfium2 pillow
-python3 tools/pdf2kepan.py "入行论广释 颂词 科判.pdf" -o data/rxl.json --id rxl
+python3 tools/pdf2kepan.py "入行论广释 颂词 科判.pdf" -o data/rxl.json --id rxl --fixes data/rxl.fixes.json
 # 生成对照页（左原页图，右还原树），用于抽查
 python3 tools/build_review.py data/rxl.json "入行论广释 颂词 科判.pdf" -o review.html
 ```
@@ -16,6 +16,9 @@ python3 tools/build_review.py data/rxl.json "入行论广释 颂词 科判.pdf" 
 转换原理：按单元格几何关系判断上下级（右侧紧贴、上下范围被包含即为子科判），
 竖排合并格里叠放的多层科判会被拆开，分表（表1、表2-1……）按「层级字+序号」和「（表X）」引用并入总表。
 转换后会自检：「分N」与实际子科判数、同级序号是否连续、层级是否一致。
+
+原 PDF 本身有误、需要我们修正的地方写在 `data/<id>.fixes.json`（人工勘误），每次转换后自动套用，
+修正记录会写进输出的 `corrections`，并在对照页上标出原文。
 
 ### JSON 结构（`data/rxl.json`）
 

@@ -420,6 +420,29 @@ def validate(root):
     return out
 
 
+def apply_fixes(root, path, warnings):
+    """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"], "reason": "说明"}]
+    match 与科判原文 raw 的开头比对，必须恰好命中一个节点。"""
+    fixes = json.load(open(path, encoding="utf-8"))
+    done = []
+    for fx in fixes:
+        hits = [n for n, _ in walk(root) if n is not root and n["raw"].startswith(fx["match"])
+                and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))]
+        if len(hits) != 1:
+            warnings.append(f"勘误「{fx['match']}」命中 {len(hits)} 个科判，未套用")
+            continue
+        n = hits[0]
+        before = n["raw"]
+        if fx.get("replace"):
+            old, new = fx["replace"]
+            n["raw"] = n["raw"].replace(old, new, 1)
+        for k, v in fx.get("set", {}).items():
+            n[k] = v
+        n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
+        done.append({"id": n["id"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
+    return done
+
+
 def parse_meta(lines):
     meta = {}
     if lines:
@@ -457,6 +480,7 @@ def main():
     ap.add_argument("-o", "--out", required=True)
     ap.add_argument("--pages", help="只转换这些页，如 1-6 或 1,4,5")
     ap.add_argument("--id", default="book")
+    ap.add_argument("--fixes", help="人工勘误 JSON（原 PDF 有误、需要我们自己修正的地方）")
     args = ap.parse_args()
 
     warnings = []
@@ -487,6 +511,7 @@ def main():
 
     strip_private(root)
     assign_ids(root)
+    corrections = apply_fixes(root, args.fixes, warnings) if args.fixes else []
     checks = validate(root)
     out = {
         "id": args.id,
@@ -496,6 +521,7 @@ def main():
         "stats": stats(root),
         "warnings": warnings,
         "checks": checks,
+        "corrections": corrections,
         "tree": root["children"],
     }
     with open(args.out, "w", encoding="utf-8") as f:
