@@ -15,9 +15,13 @@ def cn2int(s):
     s = s.translate(FW)
     if s.isdigit():
         return int(s)
+    if s == '初':
+        return 1
     n = cur = 0
     for ch in s:
-        if ch == '十':
+        if ch == '百':
+            n += (cur or 1) * 100; cur = 0
+        elif ch == '十':
             n += (cur or 1) * 10; cur = 0
         elif ch in CN:
             cur = CN.index(ch)
@@ -31,15 +35,16 @@ STEMS = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
 N = '[一二三四五六七八九十百]+'
 D = '[0-9０-９]+'
 LABEL_RE = re.compile(
-    rf'^(?:(?P<f>[{STEMS}])(?P<fn>{N})[、，]?|第(?P<h>{N})(?P<hk>[品章课卷节])\s*|(?P<a>{N})、|[（(](?P<b>{N})[）)]|(?P<c>{D})[、.．]|[（(](?P<d>{D})[）)]|(?P<g>{D})[）)]|(?P<e>[①-⑳]))')
-TYPES = {'a': '一、', 'b': '（一）', 'c': '1、', 'd': '（1）', 'e': '①', 'g': '1）'}
-DIV_RE = re.compile(rf'(?:大)?分(?:为)?({N})(?:品|科|大科)?$')
+    rf'^(?:(?P<f>[{STEMS}])(?P<fn>{N}|初)[、，]?|(?P<x>[{STEMS}])[、，]|(?P<u>[上中下])[ \u3000]+(?=\S)|第(?P<h>{N})(?P<hk>[品章课卷节目篇])\s*|第(?P<w>{N})、|(?P<a>{N})、|(?P<y>{N})者、|(?P<s>{N})[ \u3000]+(?=\S)|[（(](?P<b>{N})[）)]|(?P<c>{D})[、.．]|[（(](?P<d>{D})[）)]|(?P<g>{D})[）)]|(?P<e>[①-⑳]))')
+TYPES = {'y': '一者、', 'w': '第一、', 'x': '甲、', 'u': '上中下', 's': '一␣', 'a': '一、', 'b': '（一）', 'c': '1、', 'd': '（1）', 'e': '①', 'g': '1）'}
+DIV_RE = re.compile(rf'(?:大)?分(?:为)?({N})(?:品|科|大科|篇|章|节|段)?(?:\s*\d+\s*颂)?$')
 REF_RE = re.compile(r'[（(]表\s*([0-9a-zA-Z]+(?:-\d+)?)(?:[～~\-](\d+))?((?:[、，,]\s*\d+(?:-\d+)?)*)\s*[）)]')
-NUMSTART = rf'[{STEMS}]{N}、|第{N}[品章]|{N}、|[（(]{N}[）)]|{D}[、）)]|[（(]{D}[）)]|[①-⑳]'
+NUMSTART = rf'[{STEMS}](?:{N}|初)、?|[{STEMS}]、|第{N}[品章节目篇]|{N}、|[（(]{N}[）)]|{D}[、）)]|[（(]{D}[）)]|[①-⑳]'
 
 
 def strip_marks(s):
     s = re.sub(r'【[^】]{1,6}】', '', s)
+    s = re.sub(r'[（(]\d+课(?:音频)?[）)]', '', s)
     return s.strip().replace('　', ' ').strip()
 
 
@@ -48,7 +53,8 @@ def parse_label(raw):
     refs = []
     for a, b, more in REF_RE.findall(s):
         refs.append(a)
-        refs += [x.strip() for x in re.split(r'[、，,]', more) if x.strip()]
+        base = a.rsplit('-', 1)[0] + '-' if '-' in a else ''
+        refs += [(x if '-' in x else base + x) for x in (y.strip() for y in re.split(r'[、，,]', more)) if x]
         if b and '-' in a:
             base, k = a.rsplit('-', 1)
             refs += [f'{base}-{x}' for x in range(int(k) + 1, int(b) + 1)]
@@ -57,7 +63,7 @@ def parse_label(raw):
     typ = num = width = bad = None
     rest = s
     if m:
-        g = next(k for k in ('f', 'h', 'a', 'b', 'c', 'd', 'g', 'e') if m.group(k))
+        g = next(k for k in ('f', 'x', 'u', 'h', 'w', 'a', 'y', 's', 'b', 'c', 'd', 'g', 'e') if m.group(k))
         tok = m.group('fn') if g == 'f' else m.group(g)
         if g == 'f':
             typ = m.group('f')
@@ -65,7 +71,14 @@ def parse_label(raw):
             typ = '第' + m.group('hk')
         else:
             typ = TYPES[g]
-        num = CIRC.index(tok) + 1 if g == 'e' else cn2int(tok)
+        if g == 'e':
+            num = CIRC.index(tok) + 1
+        elif g == 'x':
+            num = STEMS.index(tok) + 1
+        elif g == 'u':
+            num = None
+        else:
+            num = cn2int(tok)
         if g in 'cdg':
             width = '全角' if tok[0] in '０１２３４５６７８９' else '半角'
         lab = m.group(0)
@@ -76,18 +89,41 @@ def parse_label(raw):
         elif g == 'f' and not lab.endswith('、'):
             bad = '层级字后面缺顿号'
         rest = s[m.end():]
+    elif SUFFIX_RE.search(s):
+        ms = SUFFIX_RE.search(s)
+        typ, num, rest = '名称第N', cn2int(ms.group(1)), s[:ms.start()]
     div = None
     md = DIV_RE.search(rest)
     if md:
         div = cn2int(md.group(1)); rest = rest[:md.start()]
+    elif typ and typ in STEMS and m and not m.group(0).endswith('、'):
+        # 古式科判「丁二别释主伴二」：末尾数字即分几
+        mt = re.match(rf'^(.+?)([二三四五六七八九十]|十[一二三四五六七八九])$', rest.strip())
+        if mt and not re.search(r'第$', mt.group(1)):
+            div = cn2int(mt.group(2)); rest = mt.group(1)
     return dict(raw=raw.strip(), type=typ, num=num, width=width, name=rest.strip(' ，,'), div=div, refs=refs, bad=bad)
 
 
-SPLIT_RE = re.compile(rf'((?:大)?分(?:为)?{N}(?:品)?)(?={NUMSTART})')
+SUFFIX_RE = re.compile(rf'^.{{2,16}}?第({N})$')
+SPLIT_RE = re.compile(rf'((?:大)?分(?:为)?{N}(?:品|篇|章|节)?)(?={NUMSTART})')
 
 
 def split_chain(text):
-    return [x for x in SPLIT_RE.sub(r'\1\n', text).split('\n') if x.strip()]
+    out = []
+    for p in SPLIT_RE.sub(r'\1\n', text).split('\n'):
+        # 古式「丁二广释二戊初初别释」：遇到下一级层级字就断开
+        while True:
+            m0 = re.match(rf'([{STEMS}])(?:{N}|初)', p)
+            if not m0 or STEMS.index(m0.group(1)) + 1 >= len(STEMS):
+                break
+            nxt = STEMS[STEMS.index(m0.group(1)) + 1]
+            m = re.search(rf'{nxt}(?:{N}|初)', p[m0.end() + 1:])
+            if not m:
+                break
+            cut = m0.end() + 1 + m.start()
+            out.append(p[:cut]); p = p[cut:]
+        out.append(p)
+    return [x for x in out if x.strip()]
 
 
 HEADER_WORDS = ('科判', '正文', '颂词', '颂文', '经文', '论文', '原文', '条目')
@@ -99,10 +135,22 @@ def is_label(text):
         return False
     if REF_RE.fullmatch(s):
         return False
-    return bool(LABEL_RE.match(s)) or bool(DIV_RE.search(REF_RE.sub('', s).strip()))
+    s2 = REF_RE.sub('', s).strip()
+    if len(s2) > 40 and re.search(r'[。；！？]', s2):
+        return False
+    return bool(LABEL_RE.match(s)) or bool(DIV_RE.search(s2)) or bool(SUFFIX_RE.search(s2))
 
 
 # ---------------- 科判 docx ----------------
+
+def in_ruby(el):
+    """拼音指南（注音）里的字母不算正文"""
+    return any(True for _ in el.iterancestors(qn('w:rt')))
+
+
+def wtext(el):
+    return ''.join(x.text or '' for x in el.iter(qn('w:t')) if not in_ruby(x))
+
 
 def read_cells(tbl):
     cells, open_ = [], {}
@@ -113,7 +161,7 @@ def read_cells(tbl):
             sp = pr.find(qn('w:gridSpan')) if pr is not None else None
             sp = int(sp.get(qn('w:val'))) if sp is not None else 1
             vm = pr.find(qn('w:vMerge')) if pr is not None else None
-            txt = ''.join(x.text or '' for x in tc.iter(qn('w:t'))).strip()
+            txt = wtext(tc).strip()
             if vm is not None and vm.get(qn('w:val')) != 'restart':
                 if c in open_:
                     open_[c]['r1'] = ri
@@ -149,7 +197,7 @@ def table_titles(doc, issues=None):
     out, last = [], None
     for el in body.iterchildren():
         if el.tag == qn('w:p'):
-            t = ''.join(x.text or '' for x in el.iter(qn('w:t'))).strip()
+            t = wtext(el).strip()
             m = TITLE_RE.match(t)
             if m:
                 last = dict(text=t, prefix=m.group(1), id=m.group(2), count=m.group(3))
@@ -173,7 +221,7 @@ def table_titles(doc, issues=None):
         groups = {}
         for t in out:
             if t:
-                groups.setdefault(t['id'].split('-')[0] if '-' in t['id'] else t['id'], []).append(t)
+                groups.setdefault(t['id'].split('-')[0] + '-' if '-' in t['id'] else t['id'], []).append(t)
         for g, ts in groups.items():
             ids = [t['id'] for t in ts]
             if len(ids) != len(set(ids)):
@@ -193,6 +241,8 @@ def build_kepan(path, issues):
     doc = docx.Document(path)
     titles = table_titles(doc, issues)
     root = Node(dict(raw='（全书）', type=None, num=None, width=None, name='（全书）', div=None, refs=[]), '')
+    series = {}
+    series_multi = len({t['id'][0] for t in titles if t and re.match(r'[a-zA-Z]', t['id'])}) > 1
     for ti, tbl in enumerate(doc.tables):
         tt = titles[ti] if ti < len(titles) else None
         tname = ('表' + tt['id']) if tt else f'第{ti+1}个表格'
@@ -213,11 +263,20 @@ def build_kepan(path, issues):
             txt_cells = [c for c in cells if c['c1'] == width and c['text'] and not is_label(c['text'])]
             lab_cells = [c for c in cells if c not in txt_cells]
         labels = [c for c in lab_cells if is_label(c['text'])]
-        texts = [c for c in txt_cells if c['text'] and strip_marks(c['text']) not in HEADER_WORDS]
+        texts = [c for c in txt_cells if c['text'] and strip_marks(c['text']) not in HEADER_WORDS
+                 and REF_RE.sub('', strip_marks(c['text'])).strip()
+                 and not (len(c['text']) < 60 and is_label(c['text']) and not re.search(r'[，。；]', c['text']))]
+        # 标题写「第N品」，表里的品却是别的
+        if tt:
+            mt = re.search(rf'第({N})品', tt['text'])
+            pins = {parse_label(c['text'])['num'] for c in labels if parse_label(c['text'])['type'] == '第品'}
+            if mt and pins and cn2int(mt.group(1)) not in pins:
+                issues.append(dict(level='高', kind='表格标题', where=tname,
+                                   msg=f'标题「{tt["text"][:30]}」写第{mt.group(1)}品，表里的科判却是' + '、'.join(f'第{x}品' for x in sorted(pins))))
         for c in lab_cells:
             s = strip_marks(c['text'])
             if s and c not in labels and not any(s.startswith(w) for w in HEADER_WORDS) and not REF_RE.fullmatch(s):
-                issues.append(dict(level='低' if re.fullmatch(r'[（(][^）)]{1,10}[）)]', s) else '中', kind='版面', where=tname, msg=f'科判栏里有一格不像科判（没有编号）：{s[:24]}'))
+                issues.append(dict(level='低' if re.fullmatch(r'[（(].*', s) or len(REF_RE.sub('', s).strip()) <= 6 else '中', kind='版面', where=tname, msg=f'科判栏里有一格不像科判（没有编号）：{s[:24]}'))
         for c in labels:
             parts = split_chain(c['text'])
             chain = [Node(parse_label(p), tname, c['tc']) for p in parts]
@@ -227,6 +286,16 @@ def build_kepan(path, issues):
                 a.children.append(b); b.parent = a
             c['head'], c['tail'] = chain[0], chain[-1]
         for c in labels:
+            # 同一行左边有同级科判（横排的兄弟），父科就跟它一样
+            sib = [p for p in labels if p is not c and p['r0'] == c['r0'] and p['r1'] == c['r1'] and p['c1'] <= c['c0'] and p.get('nested')
+                   and not any(x is not p and x['r0'] == c['r0'] and p['c1'] <= x['c0'] and x['c1'] <= c['c0'] for x in labels)
+                   and p['head'].type and p['head'].type == c['head'].type and p['head'].parent is not None
+                   and p['head'].num and c['head'].num == p['head'].num + 1]
+            if sib:
+                par = max(sib, key=lambda p: p['c1'])['head'].parent
+                par.children.append(c['head']); c['head'].parent = par
+                c['nested'] = True
+                continue
             cands = [p for p in labels if p['c1'] <= c['c0'] and p['r0'] <= c['r0'] and p['r1'] >= c['r1'] and p is not c
                      and ((p['r1'] - p['r0'] > c['r1'] - c['r0']) or p['c1'] == c['c0']
                           or not any(x['text'] for x in cells if x['c0'] >= p['c1'] and x['c1'] <= c['c0'] and x['r0'] <= c['r0'] <= x['r1']))]
@@ -249,16 +318,41 @@ def build_kepan(path, issues):
                 continue
             seen_par.add(id(par))
             kids = sorted([k for k in par.children if getattr(k, '_cell', None) and k.where[0] == tname], key=lambda k: k._cell)
-            nums = [k.num for k in kids if k.type and k.num]
+            nums = sorted({k.num for k in kids if k.type and k.num})
             for x, y in zip(nums, nums[1:]):
                 if y != x + 1:
                     issues.append(dict(level='高', kind='序号', where=tname,
                                        msg=f'「{par.raw}」底下序号 {x} 之后接 {y}：' + '、'.join(k.raw[:10] for k in par.children)))
                     break
         tops = [c['head'] for c in labels if not c['nested']]
+        target = root
+        if tt and series_multi and re.match(r'[b-zB-Z]', tt['id']):
+            target = series.setdefault(tt['id'][0], None)
+            if target is None:
+                target = Node(dict(raw=f'（{tt["id"][0]}系列：{re.sub(r"^.*?表[）)]", "", tt["text"]).strip()[:12]}）', type=None, num=None, width=None, name=f'（{tt["id"][0]}系列）', div=None, refs=[]), '')
+                target.pseudo = True
+                series[tt['id'][0]] = target
+                root.children.append(target); target.parent = root
         for t in tops:
-            merge(root, t, issues)
+            ex = find_same(target, t, tname) if t.type and target.children and not any(k.key() == t.key() for k in target.children) else None
+            merge(ex.parent if ex is not None else target, t, issues)
     return root, doc
+
+
+def find_same(root, node, tname=''):
+    """分表从半中间开始（如从「丁初」起）：到已有的科判树里找同一个科判"""
+    a = name_core(node.name)
+    cands = []
+    for n, _ in walk(root):
+        if n is not root and n.key() == node.key() and n.parent is not None:
+            b = name_core(n.name)
+            if a and b and (a == b or a.startswith(b) or b.startswith(a)):
+                cands.append(n)
+    if not cands:
+        return None
+    def refd(n):   # 这个科判或它的子孙引用了本表
+        return any(tname == '表' + r or tname.startswith('表' + r + '-') for m, _ in walk(n) for r in m.refs)
+    return max(cands, key=lambda n: (refd(n), name_core(n.name) == a))
 
 
 def merge(parent, node, issues):
@@ -296,15 +390,33 @@ def walk(n, depth=0):
 
 
 def check_structure(root, issues, tables_present):
-    for n, _ in walk(root):
+    nodes = [n for n, _ in walk(root)]
+    # 本书统一采用的写法（多数如此）就不当错误
+    bads = {}
+    for n in nodes:
+        if n.type:
+            bads.setdefault(n.type, [0, 0])
+            bads[n.type][0] += 1
+            if n.bad:
+                bads[n.type][1] += 1
+    house = {t for t, (a, b) in bads.items() if a and b / a > 0.5}
+    for t in house:
+        ex = next(n.bad for n in nodes if n.type == t and n.bad)
+        issues.append(dict(level='低', kind='本书体例', where='', msg=f'「{t}」类编号本书多数如此（{ex}），当作本书体例，不逐条报'))
+    multi = [n for n in nodes if len(n.children) > 1 and n.parent is not None]
+    no_div_ok = multi and sum(1 for n in multi if n.div is None) / len(multi) > 0.5
+    prev_last = {}
+    for n in nodes:
+        if getattr(n, 'pseudo', False):
+            continue
         ks = n.children
         where = '、'.join(dict.fromkeys(n.where)) if n.where[0] else ''
         if n.div is not None and len(ks) != n.div:
             issues.append(dict(level='高', kind='分数', where=where,
                                msg=f'「{n.raw}」写分{n.div}，实际有 {len(ks)} 个子科判：' + '、'.join(k.raw for k in ks)))
-        if n.div is None and len(ks) > 1 and n.parent is not None:
+        if n.div is None and len(ks) > 1 and n.parent is not None and not no_div_ok:
             issues.append(dict(level='中', kind='分数', where=where, msg=f'「{n.raw}」底下有 {len(ks)} 个子科判，但没写「分{len(ks)}」'))
-        if getattr(n, 'bad', None):
+        if getattr(n, 'bad', None) and n.type not in house:
             issues.append(dict(level='高', kind='编号写法', where=where, msg=f'「{n.raw}」{n.bad}'))
         if n.type and len(n.type) == 1 and n.type in STEMS:
             nxt = STEMS[STEMS.index(n.type) + 1] if STEMS.index(n.type) + 1 < len(STEMS) else None
@@ -315,8 +427,15 @@ def check_structure(root, issues, tables_present):
         typs = {k.type for k in ks if k.type}
         if len(typs) > 1:
             issues.append(dict(level='高', kind='层级字', where=where, msg=f'「{n.raw}」底下同级编号样式不一：' + '、'.join(k.raw for k in ks)))
-        nums = [k.num for k in ks if k.type]
-        if nums and sorted(nums) != list(range(1, len(nums) + 1)):
+        nums = [k.num for k in ks if k.type and k.num]
+        # 「2、」底下用「21、22、」这种层层相接的编号
+        if n.num and nums and all(len(str(x)) == len(str(n.num)) + 1 and str(x).startswith(str(n.num)) for x in nums):
+            nums = [x % 10 for x in nums]
+        ktyp = ks[0].type if ks else None
+        cont = nums and nums[0] > 1 and prev_last.get(ktyp) == nums[0] - 1 and sorted(nums) == list(range(nums[0], nums[0] + len(nums)))
+        if nums and ktyp:
+            prev_last[ktyp] = nums[-1]
+        if nums and not cont and sorted(nums) != list(range(1, len(nums) + 1)):
             issues.append(dict(level='高', kind='序号', where=where, msg=f'「{n.raw}」底下序号不连续：{nums}'))
         widths = {k.width for k in ks if k.width}
         if len(widths) > 1:
@@ -327,7 +446,9 @@ def check_structure(root, issues, tables_present):
             if f'表{r}' not in tables_present and not any(t.startswith(f'表{r}-') for t in tables_present):
                 issues.append(dict(level='高', kind='跨表引用', where=where, msg=f'「{n.raw}」引用（表{r}），但文档里没有表{r}'))
             elif f'表{r}' not in n.where and not any(w.startswith(f'表{r}-') for w in n.where):
-                issues.append(dict(level='中', kind='跨表引用', where=where, msg=f'「{n.raw}」引用（表{r}），但表{r}里没有这个科判'))
+                near = '-' in r and any(w.startswith('表' + r.rsplit('-', 1)[0] + '-') and w.rsplit('-', 1)[-1].isdigit()
+                                        and abs(int(w.rsplit('-', 1)[-1]) - int(r.rsplit('-', 1)[-1])) == 1 for w in n.where)
+                issues.append(dict(level='低' if near else '中', kind='跨表引用', where=where, msg=f'「{n.raw}」引用（表{r}），但表{r}里没有这个科判'))
 
 
 # ---------------- 讲记 docx ----------------
@@ -343,6 +464,8 @@ def ptext(p):
     """段落全文，包括 smartTag、修订插入等 python-docx 的 p.text 会漏掉的文字"""
     out = []
     for el in p._p.iter(qn('w:t'), qn('w:tab'), qn('w:br')):
+        if in_ruby(el):
+            continue
         out.append(el.text or '' if el.tag == qn('w:t') else ('\t' if el.tag == qn('w:tab') else ''))
     return ''.join(out)
 
@@ -363,6 +486,8 @@ def split_items(s):
 
 def norm_text(s):
     s = re.sub(r'【[^】]{1,6}】', '', s)
+    s = re.sub(r'[（(][a-zA-Zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü\s]+[）)]', '', s)
+    s = re.sub(r'[a-zA-Zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]+', '', s)
     return re.sub(r'[\s　，。、；：？！“”‘’「」『』（）()【】·—…,.;:?!《》〈〉\'"]', '', s)
 
 
@@ -401,6 +526,9 @@ def pdf_paragraphs(path):
     return out
 
 
+ALLJ = []   # 讲记全部段落（规范化后），用来判断「讲记里有没有」
+
+
 def read_jiangji(path, K):
     Kg = grams(K)
     ps = []
@@ -413,7 +541,7 @@ def read_jiangji(path, K):
         if not t or is_toc(t):
             continue
         if re.sub(r'\s', '', t) in ('思考题',):
-            break
+            continue
         ps.append((i, t, f, st))
     # 1. 认标题字体：编号开头的短段落最多用的字体
     cand, tot = {}, {}
@@ -423,6 +551,7 @@ def read_jiangji(path, K):
             cand[f] = cand.get(f, 0) + 1
     head_fonts = {f for f in cand if f and cand[f] >= 3 and cand[f] / tot[f] >= 0.3}
     heads, sutra, other_heads = [], [], 0
+    ALLJ[:] = [norm_text(t) for _, t, _, _ in ps]
     for i, t, f, st in ps:
         is_head = f in head_fonts or st.startswith('Heading')
         if is_head and len(t) < 160:
@@ -444,6 +573,8 @@ def read_jiangji(path, K):
             if LABEL_RE.match(t):
                 heads.append(dict(info=parse_label(t), para=i, text=t, divline=None))
                 continue
+            if len(t) <= 40 and not re.search(r'[。！？]', t):
+                heads.append(dict(info=parse_label(t), para=i, text=t, divline=None))
             other_heads += 1
             continue
         nt = norm_text(t)
@@ -478,7 +609,10 @@ def mark_diff(a, b):
 
 
 def label_eq(info, n):
-    return info['type'] == n.type and info['num'] == n.num
+    if info['num'] != n.num:
+        return False
+    # 讲记分科常用「一、二、」泛称各级（甲一、乙一……）
+    return info['type'] == n.type or (info['type'] == '一、' and n.type in STEMS)
 
 
 def check_divline(dl, n, issues):
@@ -506,7 +640,7 @@ def check_divline(dl, n, issues):
 
 
 def align(root, heads, issues):
-    kp = [n for n, d in walk(root) if n.parent is not None]
+    kp = [n for n, d in walk(root) if n.parent is not None and not getattr(n, 'pseudo', False)]
     with_kids = [n for n in kp if n.children]
     ptr = 0
     matched = {}
@@ -563,8 +697,9 @@ def align(root, heads, issues):
                                        msg=f'编号不同：讲记标题「{h["text"]}」，科判表是「{n.raw}」'))
                     best = j; break
         if best is None:
-            issues.append(dict(level='中', kind='科判对照讲记', where=f'讲记第{h["para"]+1}段',
-                               msg=f'讲记有标题「{h["text"]}」，科判表里找不到对应科判'))
+            if hi['type']:
+                issues.append(dict(level='中', kind='科判对照讲记', where=f'讲记第{h["para"]+1}段',
+                                   msg=f'讲记有标题「{h["text"]}」，科判表里找不到对应科判'))
             continue
         n = kp[best]
         matched[id(n)] = h
@@ -573,7 +708,7 @@ def align(root, heads, issues):
                 m._skipped = h
         if hi.get('bad'):
             issues.append(dict(level='高', kind='编号写法', where=f'讲记第{h["para"]+1}段', msg=f'讲记标题「{h["text"]}」{hi["bad"]}'))
-        if re.search(r'[。，；]$', h['text']) and not h['divline']:
+        if re.search(r'[。，；]$', h['text']) and not h['divline'] and '：' not in h['text']:
             issues.append(dict(level='中', kind='编号写法', where=f'讲记第{h["para"]+1}段', msg=f'讲记标题「{h["text"]}」末尾多了标点'))
         a, b = name_core(n.name), name_core(hi['name'])
         if a != b and not b.startswith(a):
@@ -603,10 +738,22 @@ def align(root, heads, issues):
                                msg=f'讲记分科列表「{dl["text"][:30]}」在科判表里找不到对应的一组科判'))
     cover = len(matched) / max(1, len(kp))
     if cover >= 0.3:
+        def missing(n):
+            return id(n) not in matched and not getattr(n, '_mentioned', False) and not (n.children and all(id(c) in matched for c in n.children[:1]))
+        kpset = {id(x) for x in kp}
         for n in kp:
-            if id(n) not in matched and not getattr(n, '_mentioned', False) and not (n.children and all(id(c) in matched for c in n.children[:1])):
-                where = '、'.join(dict.fromkeys(n.where))
+            if not missing(n):
+                continue
+            if id(n.parent) in kpset and missing(n.parent):
+                continue   # 上一级已经报了
+            sub = [m for m, _ in walk(n) if m is not n and missing(m)]
+            where = '、'.join(dict.fromkeys(n.where))
+            if len(sub) >= 3:
+                issues.append(dict(level='中', kind='科判对照讲记', where=where, msg=f'科判表有「{n.raw}」及其下 {len(sub)} 个科判，讲记里都没有这些标题（讲记可能不含这一部分）'))
+            else:
                 issues.append(dict(level='中', kind='科判对照讲记', where=where, msg=f'科判表有「{n.raw}」，讲记里没有这个标题'))
+                for m in sub:
+                    issues.append(dict(level='中', kind='科判对照讲记', where='、'.join(dict.fromkeys(m.where)), msg=f'科判表有「{m.raw}」，讲记里没有这个标题'))
     return matched, cover
 
 
@@ -682,10 +829,10 @@ def check_sutra(root, K, owner, sutra, issues, pdf=False):
                            kind='经文异体字' if var else '经文用字', where=where,
                            msg=f'科判表 {ctx}，讲记作〔{y or "（无）"}〕' + (f'（讲记有 {len(set(paras))} 处都这样写）' if len(set(paras)) >= 2 else '')))
     # 科判正文里讲记完全没有的部分
-    J = '\n'.join(nt for _, _, nt in sutra)
+    J = '\n'.join(ALLJ) if ALLJ else '\n'.join(nt for _, _, nt in sutra)
     def found(seg):
-        ch = [seg[x:x + 8] for x in range(0, max(1, len(seg) - 7), 4)]
-        return sum(c in J for c in ch) / len(ch) >= 0.7
+        ch = [seg[x:x + 5] for x in range(0, max(1, len(seg) - 4))]
+        return sum(c in J for c in ch) / len(ch) >= 0.75
     q = 0
     while q < len(K):
         if not covered[q]:
@@ -694,6 +841,11 @@ def check_sutra(root, K, owner, sutra, issues, pdf=False):
                 r += 1
             if r - q >= 8 and not found(K[q:r]) and any(len(norm_text(t)) > 12 for nn in {id(x): x for x in owner[q:r]}.values() for t in nn.text):
                 n = owner[q]
+                if r - q > 3000 or r - q > len(K) * 0.3:
+                    issues.append(dict(level='高', kind='讲记不全', where=f'{n.where[-1]}「{n.raw[:16]}」起',
+                                       msg=f'科判表从这里开始有一大段正文（{r-q}字，约占全部 {100*(r-q)//max(1,len(K))}%）在讲记里都找不到，可能讲记文件不全或选错了文件'))
+                    q = r
+                    continue
                 issues.append(dict(level='中', kind='经文覆盖', where=f'{n.where[-1]}「{n.raw[:16]}」',
                                    msg=f'科判表正文有「{K[q:q+24]}{"…" if r-q > 24 else ""}」（{r-q}字），讲记里找不到'))
             q = r
@@ -747,6 +899,16 @@ def main():
         if k not in seen:
             seen.add(k); uniq.append(i)
     issues = uniq
+    # 同一类低级提示太多，就合成一条
+    xs = [i for i in issues if '末尾多了标点' in i['msg']]
+    if len(xs) > 5:
+        issues = [i for i in issues if '末尾多了标点' not in i['msg']]
+        issues.append(dict(level='低', kind='编号写法', where=xs[0]['where'], msg=f'共 {len(xs)} 处讲记标题末尾带句号等标点（可能是本书体例）。例：' + xs[0]['msg']))
+    for kind in ('讲记标题无编号',):
+        xs = [i for i in issues if i['kind'] == kind]
+        if len(xs) > 5:
+            issues = [i for i in issues if i['kind'] != kind]
+            issues.append(dict(level='低', kind=kind, where=xs[0]['where'], msg=f'共 {len(xs)} 处，讲记这一级标题不带编号（可能是本书体例）。例：' + xs[0]['msg']))
     print(json.dumps(stats, ensure_ascii=False))
     for i in sorted(issues, key=lambda x: (order[x['level']], x['kind'])):
         print(f"[{i['level']}][{i['kind']}] {i['where']}：{i['msg']}")
