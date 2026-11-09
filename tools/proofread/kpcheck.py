@@ -129,14 +129,14 @@ def split_chain(text):
 HEADER_WORDS = ('科判', '正文', '颂词', '颂文', '经文', '论文', '原文', '条目')
 
 
-def is_label(text):
+def is_label(text, strict=True):
     s = strip_marks(text)
     if not s or s.startswith('【') or any(s.startswith(w) for w in HEADER_WORDS) and len(s) < 16:
         return False
     if REF_RE.fullmatch(s):
         return False
     s2 = REF_RE.sub('', s).strip()
-    if len(s2) > 40 and re.search(r'[。；！？]', s2):
+    if strict and len(s2) > 40 and re.search(r'[。；！？]', s2):
         return False
     return bool(LABEL_RE.match(s)) or bool(DIV_RE.search(s2)) or bool(SUFFIX_RE.search(s2))
 
@@ -261,8 +261,12 @@ def build_kepan(path, issues):
             lab_cells = [c for c in lab_cells if c not in txt_cells]
         else:
             txt_cells = [c for c in cells if c['c1'] == width and c['text'] and not is_label(c['text'])]
+            # 最右栏里「1.……」这种带解释的条目：有一条算正文，同栏同类的都算正文
+            longt = {parse_label(c['text'])['type'] for c in txt_cells if LABEL_RE.match(strip_marks(c['text']))}
+            txt_cells += [c for c in cells if c['c1'] == width and c not in txt_cells and c['text']
+                          and parse_label(c['text'])['type'] in longt - {None}]
             lab_cells = [c for c in cells if c not in txt_cells]
-        labels = [c for c in lab_cells if is_label(c['text'])]
+        labels = [c for c in lab_cells if is_label(c['text'], strict=not text_col)]
         texts = [c for c in txt_cells if c['text'] and strip_marks(c['text']) not in HEADER_WORDS
                  and REF_RE.sub('', strip_marks(c['text'])).strip()
                  and not (len(c['text']) < 60 and is_label(c['text']) and not re.search(r'[，。；]', c['text']))]
@@ -411,6 +415,10 @@ def check_structure(root, issues, tables_present):
             continue
         ks = n.children
         where = '、'.join(dict.fromkeys(n.where)) if n.where[0] else ''
+        if n.div is not None and not ks and n.text:
+            heads_ = [h for h in (parse_label(t) for t in n.text if LABEL_RE.match(strip_marks(t))) if h['type'] != n.type]
+            if sorted(h['num'] for h in heads_ if h['num']) == list(range(1, n.div + 1)):
+                continue   # 子科写在正文格里（「1.……」带解释）
         if n.div is not None and len(ks) != n.div:
             issues.append(dict(level='高', kind='分数', where=where,
                                msg=f'「{n.raw}」写分{n.div}，实际有 {len(ks)} 个子科判：' + '、'.join(k.raw for k in ks)))
@@ -526,12 +534,14 @@ def pdf_paragraphs(path):
     return out
 
 
+ALLP = []   # 讲记里的短段落 (段号, 文字, 字体)
 ALLJ = []   # 讲记全部段落（规范化后），用来判断「讲记里有没有」
 
 
 def read_jiangji(path, K):
     Kg = grams(K)
     ps = []
+    in_q = False
     if path.lower().endswith('.pdf'):
         raw = pdf_paragraphs(path)
     else:
@@ -541,7 +551,12 @@ def read_jiangji(path, K):
         if not t or is_toc(t):
             continue
         if re.sub(r'\s', '', t) in ('思考题',):
+            in_q = True
             continue
+        if in_q:
+            if re.match(r'^[0-9０-９]+[、.．]', t) or re.search(r'[？?]', t):
+                continue   # 思考题的题目
+            in_q = False
         ps.append((i, t, f, st))
     # 1. 认标题字体：编号开头的短段落最多用的字体
     cand, tot = {}, {}
@@ -552,6 +567,7 @@ def read_jiangji(path, K):
     head_fonts = {f for f in cand if f and cand[f] >= 3 and cand[f] / tot[f] >= 0.3}
     heads, sutra, other_heads = [], [], 0
     ALLJ[:] = [norm_text(t) for _, t, _, _ in ps]
+    ALLP[:] = [(i, t, f) for i, t, f, _ in ps if len(t) <= 80]
     for i, t, f, st in ps:
         is_head = f in head_fonts or st.startswith('Heading')
         if is_head and len(t) < 160:
@@ -741,6 +757,19 @@ def align(root, heads, issues):
         def missing(n):
             return id(n) not in matched and not getattr(n, '_mentioned', False) and not (n.children and all(id(c) in matched for c in n.children[:1]))
         kpset = {id(x) for x in kp}
+        def body_head(n):
+            want = norm_text(REF_RE.sub('', strip_marks(n.raw)))
+            want = re.sub(rf'(?:大)?分(?:为)?{N}$', '', want)
+            for i, t, f in ALLP:
+                nt = norm_text(t)
+                if len(want) >= 3 and nt.startswith(want) and len(nt) <= len(want) + 4:
+                    return i, f
+            return None
+        for n in kp:
+            if missing(n) and (bh := body_head(n)):
+                matched[id(n)] = None
+                issues.append(dict(level='低', kind='讲记标题格式', where=f'讲记第{bh[0]+1}段',
+                                   msg=f'讲记有「{n.raw}」这个标题，但用的是正文字体（{bh[1]}），没用标题字体'))
         for n in kp:
             if not missing(n):
                 continue
@@ -904,11 +933,11 @@ def main():
     if len(xs) > 5:
         issues = [i for i in issues if '末尾多了标点' not in i['msg']]
         issues.append(dict(level='低', kind='编号写法', where=xs[0]['where'], msg=f'共 {len(xs)} 处讲记标题末尾带句号等标点（可能是本书体例）。例：' + xs[0]['msg']))
-    for kind in ('讲记标题无编号',):
+    for kind in ('讲记标题无编号', '讲记标题格式'):
         xs = [i for i in issues if i['kind'] == kind]
         if len(xs) > 5:
             issues = [i for i in issues if i['kind'] != kind]
-            issues.append(dict(level='低', kind=kind, where=xs[0]['where'], msg=f'共 {len(xs)} 处，讲记这一级标题不带编号（可能是本书体例）。例：' + xs[0]['msg']))
+            issues.append(dict(level='低', kind=kind, where=xs[0]['where'], msg=f'共 {len(xs)} 处' + ('，讲记这一级标题不带编号（可能是本书体例）' if kind == '讲记标题无编号' else '，讲记标题用的是正文字体（可能是本书体例）') + '。例：' + xs[0]['msg']))
     print(json.dumps(stats, ensure_ascii=False))
     for i in sorted(issues, key=lambda x: (order[x['level']], x['kind'])):
         print(f"[{i['level']}][{i['kind']}] {i['where']}：{i['msg']}")
