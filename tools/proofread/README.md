@@ -3,8 +3,8 @@
 纯规则比对，不用 AI。读科判 Word 原稿（表格），可选再读讲记 Word，列出疑点。
 
 ```
-pip install python-docx
-python tools/proofread/kpcheck.py 科判.docx [讲记.docx] [--tree]
+pip install python-docx pdfplumber
+python tools/proofread/kpcheck.py 科判.docx [讲记.docx 或 讲记.pdf] [--tree]
 ```
 
 检查项目：
@@ -12,4 +12,8 @@ python tools/proofread/kpcheck.py 科判.docx [讲记.docx] [--tree]
 - 对照讲记：讲记标题（汉仪粗宋简字体）与科判一一对应、讲记「分N：……」列表、标题标点与括号
 - 经文：科判表正文栏 vs 讲记随文经文 vs 讲记卷首经文，逐字三方比对（异体字单独标出）
 
-目前只按《普贤行愿品讲记》的体例调过（一、（一）１、（1）①），甲乙丙丁体例和讲记字体识别还要用更多样本调。
+- 颂词每句字数一致（提示漏字、多字）
+- 表格标题「表X：（N表）」格式、表号连续、张数相符
+
+已用五套样本调过：普贤行愿品、佛为阿难说人处胎会、君规教言论释、普贤赞、无常悲歌。
+讲记标题字体自动识别；讲记里的经文按内容识别，不靠字体；讲记可以是 Word 或 PDF（PDF 页边文字可能混入，结果要人看）。
