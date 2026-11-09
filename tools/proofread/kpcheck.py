@@ -939,8 +939,18 @@ def main():
             issues = [i for i in issues if i['kind'] != kind]
             issues.append(dict(level='低', kind=kind, where=xs[0]['where'], msg=f'共 {len(xs)} 处' + ('，讲记这一级标题不带编号（可能是本书体例）' if kind == '讲记标题无编号' else '，讲记标题用的是正文字体（可能是本书体例）') + '。例：' + xs[0]['msg']))
     print(json.dumps(stats, ensure_ascii=False))
-    for i in sorted(issues, key=lambda x: (order[x['level']], x['kind'])):
+    # 只是讲记自己的问题（科判表没错）：不标在科判上，最后提醒一句
+    JJ_KINDS = ('讲记前后不一', '讲记标题格式', '讲记标题无编号', '讲记不全')
+    def jiangji_only(i):
+        return i['kind'] in JJ_KINDS or (i['where'].startswith('讲记第') and (
+            i['kind'] == '编号写法' or '讲记写「分' in i['msg'] or '科判表里找不到' in i['msg'] or '讲记分科列表' in i['msg']))
+    main_, remind = [i for i in issues if not jiangji_only(i)], [i for i in issues if jiangji_only(i)]
+    for i in sorted(main_, key=lambda x: (order[x['level']], x['kind'])):
         print(f"[{i['level']}][{i['kind']}] {i['where']}：{i['msg']}")
+    if remind:
+        print(f'—— 提醒：讲记本身另有 {len(remind)} 处可能要看（不标在科判上）——')
+        for i in sorted(remind, key=lambda x: (order[x['level']], x['kind'])):
+            print(f"  · {i['where']}：{i['msg']}")
     if '--tree' in sys.argv:
         for n, d in walk(root):
             print('  ' * d + n.raw, f'({len(n.text)}格正文)' if n.text else '')
