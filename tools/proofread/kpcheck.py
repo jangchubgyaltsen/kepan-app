@@ -939,6 +939,10 @@ def run_check(kpath, jpath=None):
         if k not in seen:
             seen.add(k); uniq.append(i)
     issues = uniq
+    # 同一科判的序号问题只留一条（「2 之后接 4」比「序号不连续」具体）
+    specific = {re.search(r'「([^」]+)」', i['msg']).group(1) for i in issues if i['kind'] == '序号' and '之后接' in i['msg']}
+    issues = [i for i in issues if not (i['kind'] == '序号' and '底下序号不连续' in i['msg']
+                                        and re.search(r'「([^」]+)」', i['msg']).group(1) in specific)]
     # 同一类低级提示太多，就合成一条
     xs = [i for i in issues if '末尾多了标点' in i['msg']]
     if len(xs) > 5:
