@@ -1,0 +1,52 @@
+name: 打包科判校对 exe
+
+on:
+  push:
+    paths:
+      - 'tools/proofread/**'
+      - '.github/workflows/build-proofread-exe.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: tools/proofread
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: 程序自检（造一份带错的小科判跑一遍）
+        run: python selfcheck.py
+
+      - name: 打包
+        run: >
+          pyinstaller --noconfirm --onefile --windowed --name kepan-jiaodui
+          --collect-data opencc --collect-all pypdfium2 --collect-all pdfplumber
+          app.py
+
+      - name: exe 自检
+        shell: pwsh
+        run: |
+          Start-Process -FilePath dist\kepan-jiaodui.exe -ArgumentList '--selftest' -Wait
+          $r = Get-Content dist\selftest.txt -Raw -Encoding utf8
+          Write-Output $r
+          if ($r.Trim() -ne 'ok') { exit 1 }
+          Remove-Item dist\selftest.txt
+          Copy-Item 使用说明.txt dist\
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kepan-jiaodui-windows
+          path: |
+            tools/proofread/dist/kepan-jiaodui.exe
+            tools/proofread/dist/使用说明.txt

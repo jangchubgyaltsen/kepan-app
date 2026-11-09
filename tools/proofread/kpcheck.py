@@ -901,18 +901,27 @@ def check_meter(root, issues):
                                        msg=f'这一格颂词每句 {L} 字，「{x}」却是 {len(x)} 字，可能漏字或多字'))
 
 
-def main():
+JJ_KINDS = ('讲记前后不一', '讲记标题格式', '讲记标题无编号', '讲记不全')
+ORDER = {'高': 0, '中': 1, '低': 2}
+
+
+def jiangji_only(i):
+    """只是讲记自己的问题（科判表没错）：不标在科判上，最后提醒一句"""
+    return i['kind'] in JJ_KINDS or (i['where'].startswith('讲记第') and (
+        i['kind'] == '编号写法' or '讲记写「分' in i['msg'] or '科判表里找不到' in i['msg'] or '讲记分科列表' in i['msg']))
+
+
+def run_check(kpath, jpath=None):
     issues = []
-    args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    root, kdoc = build_kepan(args[0], issues)
+    root, kdoc = build_kepan(kpath, issues)
     tabs = {'表' + t['id'] for t in table_titles(kdoc) if t}
     check_structure(root, issues, tabs)
     check_meter(root, issues)
     nk = sum(1 for _ in walk(root)) - 1
     stats = dict(科判数=nk)
-    if len(args) > 1:
+    if jpath:
         K, owner = kepan_text(root)
-        heads, sutra, hf = read_jiangji(args[1], K)
+        heads, sutra, hf = read_jiangji(jpath, K)
         stats['讲记标题字体'] = '、'.join(str(x) for x in hf)
         stats['讲记标题数'] = len(heads)
         matched, cover = align(root, heads, issues)
@@ -920,8 +929,7 @@ def main():
         if cover < 0.3:
             stats['说明'] = '讲记里没有逐科标题，只比对经文/颂词'
         stats['讲记经文段落'] = len(sutra)
-        check_sutra(root, K, owner, sutra, issues, pdf=args[1].lower().endswith('.pdf'))
-    order = {'高': 0, '中': 1, '低': 2}
+        check_sutra(root, K, owner, sutra, issues, pdf=jpath.lower().endswith('.pdf'))
     seen = set(); uniq = []
     for i in issues:
         k = (i['kind'], i['msg'])
@@ -938,21 +946,24 @@ def main():
         if len(xs) > 5:
             issues = [i for i in issues if i['kind'] != kind]
             issues.append(dict(level='低', kind=kind, where=xs[0]['where'], msg=f'共 {len(xs)} 处' + ('，讲记这一级标题不带编号（可能是本书体例）' if kind == '讲记标题无编号' else '，讲记标题用的是正文字体（可能是本书体例）') + '。例：' + xs[0]['msg']))
-    print(json.dumps(stats, ensure_ascii=False))
-    # 只是讲记自己的问题（科判表没错）：不标在科判上，最后提醒一句
-    JJ_KINDS = ('讲记前后不一', '讲记标题格式', '讲记标题无编号', '讲记不全')
-    def jiangji_only(i):
-        return i['kind'] in JJ_KINDS or (i['where'].startswith('讲记第') and (
-            i['kind'] == '编号写法' or '讲记写「分' in i['msg'] or '科判表里找不到' in i['msg'] or '讲记分科列表' in i['msg']))
-    main_, remind = [i for i in issues if not jiangji_only(i)], [i for i in issues if jiangji_only(i)]
-    for i in sorted(main_, key=lambda x: (order[x['level']], x['kind'])):
+    key = lambda x: (ORDER[x['level']], x['kind'])
+    main_ = sorted([i for i in issues if not jiangji_only(i)], key=key)
+    remind = sorted([i for i in issues if jiangji_only(i)], key=key)
+    return dict(stats=stats, main=main_, remind=remind, root=root, doc=kdoc)
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    r = run_check(args[0], args[1] if len(args) > 1 else None)
+    print(json.dumps(r['stats'], ensure_ascii=False))
+    for i in r['main']:
         print(f"[{i['level']}][{i['kind']}] {i['where']}：{i['msg']}")
-    if remind:
-        print(f'—— 提醒：讲记本身另有 {len(remind)} 处可能要看（不标在科判上）——')
-        for i in sorted(remind, key=lambda x: (order[x['level']], x['kind'])):
+    if r['remind']:
+        print(f'—— 提醒：讲记本身另有 {len(r["remind"])} 处可能要看（不标在科判上）——')
+        for i in r['remind']:
             print(f"  · {i['where']}：{i['msg']}")
     if '--tree' in sys.argv:
-        for n, d in walk(root):
+        for n, d in walk(r['root']):
             print('  ' * d + n.raw, f'({len(n.text)}格正文)' if n.text else '')
 
 
