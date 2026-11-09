@@ -150,8 +150,42 @@ def selftest():
         f.write(msg)
 
 
+def demo(kp, jj, outdir):
+    """演示：自动填好文件、截图、开始校对、完成后再截图，然后退出（打包时生成使用图示用）"""
+    from PIL import ImageGrab
+    app = App()
+    app.geometry('760x520+40+40')
+    app.vars['kp'].set(kp)
+    jj2, ft = guess_partners(kp)
+    app.vars['jj'].set(jj or jj2 or '')
+    app.say(f'自动找到讲记：{os.path.basename(jj or jj2)}（不对的话可以重新选）')
+
+    def shot(name):
+        app.update(); app.lift(); app.attributes('-topmost', True); app.update()
+        x, y = app.winfo_rootx(), app.winfo_rooty()
+        w, h = app.winfo_width(), app.winfo_height()
+        ImageGrab.grab(bbox=(x - 10, y - 40, x + w + 10, y + h + 10)).save(os.path.join(outdir, name))
+
+    def step1():
+        shot('1-选好文件.png')
+        app.start()
+        app.after(500, wait)
+
+    def wait():
+        if str(app.go['state']) == 'disabled':
+            app.after(500, wait)
+        else:
+            shot('2-校对完成.png')
+            app.destroy()
+    app.after(1500, step1)
+    app.mainloop()
+
+
 if __name__ == '__main__':
     if '--selftest' in sys.argv:
         selftest()
+    elif '--demo' in sys.argv:
+        a = sys.argv[sys.argv.index('--demo') + 1:]
+        demo(a[0], a[1] if len(a) > 2 else None, a[-1])
     else:
         App().mainloop()

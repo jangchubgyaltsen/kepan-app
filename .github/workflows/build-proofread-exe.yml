@@ -7,6 +7,9 @@ on:
       - '.github/workflows/build-proofread-exe.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -43,6 +46,34 @@ jobs:
           if ($r.Trim() -ne 'ok') { exit 1 }
           Remove-Item dist\selftest.txt
           Copy-Item 使用说明.txt dist\
+
+      - name: 截使用图示（真实打开 exe，用演示文件跑一遍）
+        shell: pwsh
+        run: |
+          python make_demo.py demo
+          New-Item -ItemType Directory -Force shots | Out-Null
+          $kp = (Resolve-Path 'demo\示例论 科判 1稿1.docx').Path
+          $out = (Resolve-Path shots).Path
+          Start-Process -FilePath dist\kepan-jiaodui.exe -ArgumentList '--demo', "`"$kp`"", "`"$out`"" -Wait
+          Get-ChildItem shots
+          Copy-Item 'demo\示例论 科判 1稿1 校对*.docx' shots\ -ErrorAction SilentlyContinue
+
+      - name: 把截图存回分支
+        shell: pwsh
+        run: |
+          $dst = '..\..\docs\proofread-screenshots'
+          New-Item -ItemType Directory -Force $dst | Out-Null
+          Copy-Item shots\* $dst -Force
+          cd ..\..
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@users.noreply.github.com'
+          git add docs/proofread-screenshots
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m '更新使用截图 [skip ci]'
+            git pull --rebase origin $env:GITHUB_REF_NAME
+            git push origin HEAD:$env:GITHUB_REF_NAME
+          }
 
       - uses: actions/upload-artifact@v4
         with:

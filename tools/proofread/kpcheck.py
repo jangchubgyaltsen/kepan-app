@@ -572,8 +572,11 @@ def read_jiangji(path, K):
         is_head = f in head_fonts or st.startswith('Heading')
         if is_head and len(t) < 160:
             m = re.match(r'^([^：:]{0,60})[：:](.+)$', t)
-            if m and split_items(m.group(2)) and LABEL_RE.match(split_items(m.group(2))[0]):
-                left, items = m.group(1).strip(), split_items(m.group(2))
+            plain = [x.strip(' 　。，,') for x in re.split(r'[；;]', m.group(2)) if x.strip(' 　。，,')] if m else []
+            if m and ((split_items(m.group(2)) and LABEL_RE.match(split_items(m.group(2))[0]))
+                      or (len(plain) >= 2 and DIV_RE.search(m.group(1).strip()) and not LABEL_RE.match(plain[0]))):
+                left = re.split(r'[；;]', m.group(1).strip())[-1].strip()
+                items = split_items(m.group(2)) if LABEL_RE.match(m.group(2).strip()) else plain
                 dl = dict(items=items, para=i, n=None, text=t)
                 md = DIV_RE.search(left)
                 if md:
@@ -646,7 +649,7 @@ def check_divline(dl, n, issues):
     for it, ch in zip(dl['items'], n.children):
         pi = parse_label(it)
         a, b = name_core(ch.name), name_core(pi['name'])
-        if not label_eq(pi, ch):
+        if pi['type'] and not label_eq(pi, ch):
             issues.append(dict(level='高', kind='科判对照讲记', where=where,
                                msg=f'编号不同：讲记分科列表写「{it}」，科判表是「{ch.raw}」'))
         elif a != b:
