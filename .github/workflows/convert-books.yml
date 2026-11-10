@@ -1,0 +1,47 @@
+# 往 sources/ 放科判 PDF、讲记 epub 或勘误文件并推送后，自动转换成 data/ 里的数据并提交回同一分支。
+name: 转换科判和讲记
+
+on:
+  push:
+    paths:
+      - "sources/**"
+      - "tools/pdf2kepan.py"
+      - "tools/epub2shiyi.py"
+      - "tools/build_all.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: convert-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: 转换
+        run: python3 tools/build_all.py | tee convert.log
+      - name: 写进运行摘要
+        run: |
+          echo '### 转换结果' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat convert.log >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - name: 提交生成的数据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "数据没有变化"
+          else
+            git commit -m "自动转换：更新 data/ [skip ci]"
+            git push
+          fi

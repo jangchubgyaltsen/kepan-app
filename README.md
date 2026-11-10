@@ -1,6 +1,16 @@
 # kepan-app
 科判查看与颂词背诵 PWA
 
+## 加一部书（自动转换）
+
+1. 在 `sources/` 下建一个文件夹，名字就是书的代号，如 `sources/rxl/`。
+2. 放进科判 PDF（必须，一个）、讲记 epub（可选）、`fixes.json` 勘误（可选）、`book.json` 书名等补充信息（可选，如 `{"name": "入菩萨行论", "shortName": "入行论"}`）。
+   在 GitHub 网页上「Add file → Upload files」就行。
+3. 推送后 GitHub 自动运行「转换科判和讲记」，把结果提交到 `data/`：`<代号>.json` 科判、`<代号>.shiyi.json` 释义、
+   `reports/<代号>-讲记对照.html` 对照报告、`books.json` 书目。在 Actions 页面的运行摘要里能看到自检结果。
+
+本地也可以跑：`pip install -r requirements.txt && python3 tools/build_all.py`。
+
 ## 数据：从 PDF 转换科判
 
 `tools/pdf2kepan.py` 把 Word 导出的「颂词 + 科判」表格式 PDF 转成 JSON（科判树 + 每个科判下的颂词）。
@@ -8,7 +18,7 @@
 
 ```bash
 pip install pdfplumber pypdfium2 pillow
-python3 tools/pdf2kepan.py "入行论广释 颂词 科判.pdf" -o data/rxl.json --id rxl --fixes data/rxl.fixes.json
+python3 tools/pdf2kepan.py "入行论广释 颂词 科判.pdf" -o data/rxl.json --id rxl --fixes sources/rxl/fixes.json
 # 生成对照页（左原页图，右还原树），用于抽查
 python3 tools/build_review.py data/rxl.json "入行论广释 颂词 科判.pdf" -o review.html
 ```
@@ -17,7 +27,7 @@ python3 tools/build_review.py data/rxl.json "入行论广释 颂词 科判.pdf" 
 竖排合并格里叠放的多层科判会被拆开，分表（表1、表2-1……）按「层级字+序号」和「（表X）」引用并入总表。
 转换后会自检：「分N」与实际子科判数、同级序号是否连续、层级是否一致。
 
-原 PDF 本身有误、需要我们修正的地方写在 `data/<id>.fixes.json`（人工勘误），每次转换后自动套用，
+原 PDF 本身有误、需要我们修正的地方写在 `sources/<id>/fixes.json`（人工勘误），每次转换后自动套用，
 修正记录会写进输出的 `corrections`，并在对照页上标出原文。
 
 ### JSON 结构（`data/rxl.json`）

@@ -1,0 +1,51 @@
+[
+ {
+  "id": "rxl",
+  "meta": {
+   "title": "入行论广释 善说海 偈颂 科判",
+   "credits": "寂天菩萨 造论  无着菩萨 释论  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20250205 12稿 微信qq 973451196 校对 释本心 圆兴 康保成 富海燕",
+   "compiler": "释道净",
+   "proofreaders": [
+    "释本心",
+    "圆兴",
+    "康保成",
+    "富海燕"
+   ],
+   "date": "20250205",
+   "edition": "12稿",
+   "roles": [
+    {
+     "name": "寂天菩萨",
+     "role": "造论"
+    },
+    {
+     "name": "无着菩萨",
+     "role": "释论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "入菩萨行论",
+   "shortName": "入行论"
+  },
+  "stats": {
+   "nodes": 908,
+   "verseCells": 541,
+   "stanzas": 1017
+  },
+  "checks": 0,
+  "corrections": 21,
+  "data": "rxl.json",
+  "shiyi": "rxl.shiyi.json",
+  "report": "reports/rxl-讲记对照.html",
+  "shiyiStats": {
+   "sections": 907,
+   "chars": 103015,
+   "typos": 0,
+   "nameDiffs": 0,
+   "unmatched": 1
+  }
+ }
+]
