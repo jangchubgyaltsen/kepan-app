@@ -29,3 +29,29 @@ python3 tools/build_review.py data/rxl.json "入行论广释 颂词 科判.pdf" 
   - `verses`：颂词 `{kind: verse|note, text, stanzas[], pos?}`，`pos: after` 表示在子科判之后
   - `children`：子科判
 - `warnings` / `checks`：转换时的特殊处理与自检问题
+
+## 数据：讲记 / 释论 epub 按科判切分（释义）
+
+`tools/epub2shiyi.py` 把讲记的 epub 按科判切开，每个科判挂上它底下的释文，供阅读页「点颂词看释义」使用；
+同时把讲记里的科判标题、颂词和科判表逐条比对，生成一页对照报告。只用 Python 标准库。
+
+```bash
+python3 tools/epub2shiyi.py 善说海.epub data/rxl.json -o out/rxl.shiyi.json --report out/rxl.shiyi-report.html
+```
+
+- 自动认出科判标题所用的段落样式（大多写成「甲一、」「乙二（……）分N」的那种），不依赖某一本书的样式名；
+  按样式名里的「颂词」「脚注」「品名」「前后缀」区分颂词、脚注、品名、释论作者的附偈，其余为释文。
+- 讲记标题和科判树按「层级字+序号」序列对齐，对不齐的再按名称相似度配对。
+- 颂词逐字比对，差异分成「疑似错字」「用字不同」（须/需、着/著 等）和「多出或缺少」。
+
+### 释义 JSON 结构
+
+- `sections`：以科判 `id` 为键，`{heading, items: [{type, text, stanza?, lead?}]}`
+  - `type`：`text` 释文、`verse` 颂词、`footnote` 脚注、`chapter` 品名、`chapterEnd` 品释终、`gatha` 附偈
+  - `stanza`：颂词段对应科判表里该科的第几颂（从 0 起），用于高亮
+  - `lead`：品名等出现在本科标题之前的引言段落
+- `front`：第一个科判之前的内容（序、传记、本论全文等）
+- `report`：`nameDiffs` 科名不同、`verseDiffs` 颂词差异、`verseOnlyKepan` / `verseOnlyJiangji`、`missing` / `extra`
+- `stats`：对齐与字数统计
+
+讲记有版权，epub 原文件和生成的释义数据默认不提交进仓库（见 `.gitignore`）。
