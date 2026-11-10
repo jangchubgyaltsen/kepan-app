@@ -2,8 +2,8 @@
 const NUM=["","一","二","三","四","五","六","七","八","九","十"];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
-function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：]+[，。！？：]/g)||[s];const lines=[];
- const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
+function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+ const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
  for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
@@ -24,7 +24,7 @@ function shySheet(app){const old=app.querySelector(".shy");const keep=old&&SHY&&
  el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on")}<p class="shysrc">——《入行论广释·善说海》</p></div>${shyNav()}`;
  if(keep){el.querySelector(".shyb").scrollTop=0;return el}(W?app.querySelector(".body"):app).appendChild(el);if(!W)app.classList.add("shy-open");return el}
 
-function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：]+[，。！？：]/g)||[s];const lines=[];
+function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
  for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${esc(x)}</span>`).join(""));
  return `<span class="stz" data-si="${si}">${lines.map(l=>`<span class="ln">${l}</span>`).join("")}</span>${ins&&ins[si]||""}`}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const STEMS="甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥";
@@ -43,12 +43,13 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
    const [tv,tn]=vsOf(raw,true);const iv=leaf?[]:v;// 有子科判又在本科下直接写的颂词：放在子科判之后单独一行
    const allv=[...iv,...tv],alln=[...tn];if(allv.length||alln.length){const t={id:n.id+"~",code:n.code,title:n.title,v:allv,notes:alln,c:[],depth:n.depth,bk:id,p:n,lvl:lvl+1,x:true};by[t.id]=t;n.tl=t}}
   return n};
+ let seen=false;// 正文之后没有层级的段落（如「科判之结文」）放在书末，之前的（如顶礼）放在书首
  (tree.tree||[]).forEach(raw=>{
-  if(!raw.level&&raw.children&&raw.children.length){// 论名那一层：当作整本书的根
+  if(!raw.level&&raw.children&&raw.children.length){seen=true;// 论名那一层：当作整本书的根
    meta.rootTitle=raw.name;raw.children.forEach(k=>R.c.push(mk(k,R,1)));const [tv,tn]=vsOf(raw,true);const [iv]=vsOf(raw,false);
    if(tv.length||iv.length||tn.length)tails.push({id:raw.id+"~",code:"",title:"",v:[...iv,...tv],notes:tn,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
-  else if(!raw.level){const [v,no]=vsOf(raw,false);front.push({id:raw.id,code:"",title:raw.name||"",v,notes:no,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
-  else R.c.push(mk(raw,R,1))});
+  else if(!raw.level){const [v,no]=vsOf(raw,false);(seen?tails:front).push({id:raw.id,code:"",title:raw.name||"",v,notes:no,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
+  else{seen=true;R.c.push(mk(raw,R,1))}});
  front.concat(tails).forEach(n=>{by[n.id]=n});
  const walk=n=>{if(!n.c.length){if(n!==R)seq.push(n);return}n.c.forEach(walk);if(n.tl)seq.push(n.tl)};
  seq.push(...front);walk(R);seq.push(...tails);
@@ -708,19 +709,19 @@ function wProg(w){const B=BOOKS[w.id];return B?bookFrac(B):0}
 function wLast(w){const B=BOOKS[w.id],r=SR.recent[w.id];if(!B||!r)return null;const n=B.by[r.id];if(!n)return null;const c=B.chOf[n.id];return {txt:(c?c.name:B.title)+" › "+anc(n).slice(-1).map(x=>x.code+" "+x.title).join(""),ago:"",t:r.t||0}}
 function progHTML(f,w){const pc=Math.round(f*100);if(ST.hprog==="none")return "";
  if(ST.hprog==="ring")return `<span class="hring" style="--f:${pc}" title="点亮 ${pc}%"><b>${pc}</b></span>`;
- if(ST.hprog==="beads"){const n=Math.min(24,w.chaps.length*3);const on=Math.round(f*n);return `<span class="hbeads">${Array.from({length:n},(_,i)=>`<i class="${i<on?"on":""}"></i>`).join("")}</span>`}
+ if(ST.hprog==="beads"){const n=Math.min(24,(w.chaps.length||4)*3);const on=Math.round(f*n);return `<span class="hbeads">${Array.from({length:n},(_,i)=>`<i class="${i<on?"on":""}"></i>`).join("")}</span>`}
  return `<span class="hbar"><i style="width:${pc}%"></i></span>`}
 function chapsHTML(w){const B=BOOKS[w.id];if(!B||!B.chaps.length)return "";return `<div class="hchaps ${ST.hexp==="chips"?"chips":""}">${B.chaps.map((ch,i)=>{const c=ch.name;const vt=chapVs(ch);
  return `<button class="hch" data-open="${w.id}" data-at="${ch.first.id}"><span class="hn">${i+1}</span><span class="ht">${esc(c)}</span>${ST.hexp==="chips"?"":`<span class="hbar sm"><i style="width:${vt[1]?Math.round(vt[0]/vt[1]*100):0}%"></i></span><span class="hpc ${vt[0]?"":"z"}"><b>${vt[0]}</b>/${vt[1]} 颂</span>`}</button>`}).join("")}</div>`}
 function searchAll(q){q=q.trim();if(!q)return null;const R={book:[],kp:[],vs:[]};
  WORKS.forEach(w=>{if((w.title+w.full+w.roles.map(r=>r[0]).join("")).includes(q))R.book.push(w)});
  // 颂词里的标点不算：搜「暇满人身」也能找到「暇满人身极难得，」
- const qq=q.replace(/[，。！？：；、\s]/g,"");const strip=t=>t.replace(/[，。！？：；、\s]/g,"");
+ const qq=q.replace(/[，。！？：；、?!\s]/g,"");const strip=t=>t.replace(/[，。！？：；、?!\s]/g,"");
  Object.entries(BOOKS).forEach(([k,B])=>{B.all.forEach(n=>{if(n.p&&n.title.includes(q))R.kp.push({k,n})});if(qq)B.seq.forEach(n=>{const line=n.v.find(v=>strip(v).includes(qq));if(line)R.vs.push({k,n,line})})});
  return R}
 function hl(t,q){if(t.includes(q))return esc(t).split(esc(q)).join(`<mark>${esc(q)}</mark>`);
  // 跨标点的命中：逐字对齐后整段标出
- const qq=q.replace(/[，。！？：；、\s]/g,"");const ch=[...t];let i0=-1,i1=-1;for(let i=0;i<ch.length&&i0<0;i++){let j=i,k=0;while(j<ch.length&&k<qq.length){if(/[，。！？：；、\s]/.test(ch[j])){j++;continue}if(ch[j]!==qq[k])break;j++;k++}if(k===qq.length){i0=i;i1=j}}
+ const qq=q.replace(/[，。！？：；、?!\s]/g,"");const ch=[...t];let i0=-1,i1=-1;for(let i=0;i<ch.length&&i0<0;i++){let j=i,k=0;while(j<ch.length&&k<qq.length){if(/[，。！？：；、?!\s]/.test(ch[j])){j++;continue}if(ch[j]!==qq[k])break;j++;k++}if(k===qq.length){i0=i;i1=j}}
  return i0<0?esc(t):esc(ch.slice(0,i0).join(""))+`<mark>${esc(ch.slice(i0,i1).join(""))}</mark>`+esc(ch.slice(i1).join(""))}
 function resultsHTML(R,q){if(!R)return "";const tot=R.book.length+R.kp.length+R.vs.length;if(!tot)return `<div class="sres"><div class="sempty">没有找到「${esc(q)}」</div></div>`;
  const pth=(k,n)=>{const B=BOOKS[k],c=B.chOf[n.id];return `<span class="spath">${esc(B.title)}${c?" › "+esc(c.name):""}${anc(n).slice(-2).map(x=>" › "+x.code).join("")}</span>`};

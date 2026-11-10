@@ -484,14 +484,14 @@ def parse_meta(lines):
     m = re.search(r"(\S+)\s*整理", blob)
     if m:
         meta["compiler"] = m.group(1)
-    m = re.search(r"校对\s*(.+)$", blob)
+    m = re.search(r"校对\s*(.+?)\s*(?:禁止商用.*)?$", blob)
     if m:
-        meta["proofreaders"] = m.group(1).split()
-    m = re.search(r"(\d{8})\s*(\d+\s*稿)", blob)
+        meta["proofreaders"] = [x for x in m.group(1).split() if not x.startswith(("禁止", "法律"))]
+    m = re.search(r"(\d{8})\s*(\d+[a-z]?\s*稿)", blob)
     if m:
         meta["date"] = m.group(1)
         meta["edition"] = clean(m.group(2))
-    meta["roles"] = re.findall(r"(\S+)\s+(造论|释论|译讲)", blob)
+    meta["roles"] = re.findall(r"(\S+)\s+(造论|造颂|释论|译讲|释讲|著|译)(?=\s|$)", blob)
     meta["roles"] = [{"name": a, "role": b} for a, b in meta["roles"]]
     return meta
 

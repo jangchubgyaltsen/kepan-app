@@ -1,5 +1,111 @@
 [
  {
+  "id": "egjy",
+  "meta": {
+   "title": "二规教言论 积聚圣天世德之宝 讲记 偈颂 科判",
+   "credits": "麦彭仁波切 著 索达吉堪布 译讲 释道净 整理 20241128 6b稿 微信qq 973451196 校对 孙鑫 明 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "proofreaders": [
+    "孙鑫",
+    "明"
+   ],
+   "date": "20241128",
+   "edition": "6b稿",
+   "roles": [
+    {
+     "name": "麦彭仁波切",
+     "role": "著"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "二规教言论",
+   "shortName": "二规"
+  },
+  "stats": {
+   "nodes": 97,
+   "verseCells": 70,
+   "stanzas": 162
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "egjy.json"
+ },
+ {
+  "id": "fzx",
+  "meta": {
+   "title": "佛子行 讲记 偈颂 科判",
+   "credits": "无著菩萨 造颂  索达吉堪布 译讲 释道净 整理 20240710 8b稿 微信qq 973451196 校对 李翠 圆锦 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "proofreaders": [
+    "李翠",
+    "圆锦"
+   ],
+   "date": "20240710",
+   "edition": "8b稿",
+   "roles": [
+    {
+     "name": "无著菩萨",
+     "role": "造颂"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "佛子行三十七颂",
+   "shortName": "佛子行"
+  },
+  "stats": {
+   "nodes": 65,
+   "verseCells": 45,
+   "stanzas": 45
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "fzx.json"
+ },
+ {
+  "id": "qys",
+  "meta": {
+   "title": "亲友书释 白莲鬘 讲记 偈颂 科判",
+   "credits": "龙树菩萨 造颂  麦彭仁波切 释论  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20240710 8稿 微信qq 973451196 校对 富海燕 圆桂",
+   "compiler": "释道净",
+   "proofreaders": [
+    "富海燕",
+    "圆桂"
+   ],
+   "date": "20240710",
+   "edition": "8稿",
+   "roles": [
+    {
+     "name": "龙树菩萨",
+     "role": "造颂"
+    },
+    {
+     "name": "麦彭仁波切",
+     "role": "释论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "亲友书",
+   "shortName": "亲友书"
+  },
+  "stats": {
+   "nodes": 187,
+   "verseCells": 116,
+   "stanzas": 138
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "qys.json"
+ },
+ {
   "id": "rxl",
   "meta": {
    "title": "入行论广释 善说海 偈颂 科判",
@@ -47,5 +153,39 @@
    "nameDiffs": 0,
    "unmatched": 1
   }
+ },
+ {
+  "id": "slgd",
+  "meta": {
+   "title": "胜利道歌 天鼓妙音 讲记 偈颂 科判",
+   "credits": "法王如意宝晋美彭措 造颂  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20240710 6稿 微信qq 973451196 校对 圆锦 德吉措姆",
+   "compiler": "释道净",
+   "proofreaders": [
+    "圆锦",
+    "德吉措姆"
+   ],
+   "date": "20240710",
+   "edition": "6稿",
+   "roles": [
+    {
+     "name": "法王如意宝晋美彭措",
+     "role": "造颂"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "胜利道歌·天鼓妙音",
+   "shortName": "胜利道歌"
+  },
+  "stats": {
+   "nodes": 20,
+   "verseCells": 12,
+   "stanzas": 12
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "slgd.json"
  }
 ]
