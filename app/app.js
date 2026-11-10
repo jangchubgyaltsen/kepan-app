@@ -578,7 +578,7 @@ function streakLamps(){const now0=Date.now();const wk=[6,5,4,3,2,1,0].map(i=>SR.
  const M=ST.skm,mon=CNM[now.getMonth()]+"月";
  const lamps=wk.map((_,i)=>{const fut=i>ti,c=fut?null:wk[6-(ti-i)];const on=i===ti?todayOn:!!(c&&c.n);const full=i===ti?todayFull:!!(c&&c.full);const d=days[i];const newM=i>0&&d.getMonth()!==days[i-1].getMonth();
   const lab=M==="date"||M==="both"?(newM?`${d.getMonth()+1}月`:`${d.getDate()}`):(i===ti?"今":WD[d.getDay()]);
-  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(full?0:4):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
+  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(full?0:1):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
  return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${STK?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${STK}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}

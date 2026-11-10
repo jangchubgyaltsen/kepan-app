@@ -1297,7 +1297,7 @@ function streakLamps(){const wk=HIST.slice(-7);const C=todayCount();const todayO
  const M=ST.skm,mon=CNM[now.getMonth()]+"月";
  const lamps=wk.map((_,i)=>{const fut=i>ti,c=fut?0:wk[6-(ti-i)];const on=i===ti?todayOn:!!c;const d=days[i];const newM=i>0&&d.getMonth()!==days[i-1].getMonth();
   const lab=M==="date"||M==="both"?(newM?`${d.getMonth()+1}月`:`${d.getDate()}`):(i===ti?"今":WD[d.getDay()]);
-  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(i===ti&&!todayFull?4:0):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
+  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(i===ti&&!todayFull?1:0):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
  return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${SR.streak?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${SR.streak}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
@@ -1737,7 +1737,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  <div class="grp"><h3>复习安排</h3><p class="note">已确认：复习时间由 FSRS 按每一条自己的情况算，不再有固定间隔表。按钮仍是“记得 / 模糊”。答对提示“下次大约几天后”，原型里的天数是示意；答错提示“过一会儿再出现”，这题排到本轮末尾再出一次。目标记住率默认 90%，在设置页“复习”里调。</p></div>
  <div class="grp"><h3>书卡 · 继续学习</h3><p class="note">已确认：当天都做完后，书卡左边按钮大小不变，小字换成红底小签「再学 ›」，点了再学下一支。</p><div class="og"><button id="hmdemo">${ST.lstate==="rest"?"回到实际进度":"切到「已复习」看效果"}</button></div></div>
  <div class="grp"><h3>书卡 · 整本圆满</h3>${G("gdemo","预览",{off:"按实际进度",due:"圆满 · 有复习",idle:"圆满 · 没有到期"})}<p class="note">已确认：整本都学完后，书卡按钮变成金底，大字「圆满」，下面一个深色小签。有到期内容时点了照常复习；没有到期时显示「再复习 ›」，点了从学过的里面随机抽 5 条再练一轮。</p></div>
- <div class="grp"><h3>点灯和回向</h3><p class="note">首页的灯按星期排，周一在最左，今天之后的几盏是暗的空灯。完成页有“继续学习”，想多学时再学下一支，不受每天新学数量限制。已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮但火苗小。回向卡片不再自动弹出，改成首页顶栏的“回向”按钮；当天点了灯还没回向时按钮带金色提示，点开看过就恢复。</p></div>
+ <div class="grp"><h3>点灯和回向</h3><p class="note">首页的灯按星期排，周一在最左，今天之后的几盏是暗的空灯。完成页有“继续学习”，想多学时再学下一支，不受每天新学数量限制。已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮、火苗略小。回向卡片不再自动弹出，改成首页顶栏的“回向”按钮；当天点了灯还没回向时按钮带金色提示，点开看过就恢复。</p></div>
  <div class="grp"><h3>发心开屏 · 供灯桌</h3><p class="note">已确认：红布桌面，对齐排列，7 排，每排 11 盏，灯 81px，桌宽 130%（两侧超出屏幕），桌长 100%，桌高 28%，俯视 37°，光晕 100%，文字 26px、高度 37%。宽屏按比例加灯。</p></div>
  <div class="grp"><h3>发心开屏 · 点灯和摇曳</h3><p class="note">已确认：灯火逐盏点燃，从桌子中心向外，出场 1.5 秒，横向扩散 25%、纵向 55%；灯火摇曳幅度 45%、速度 85%，灯光明暗 100%；灯器起始亮度 10%、色彩 50%、变亮 0.5 秒，桌面起始亮度 50%。想再看一遍点“演示”里的“再看一次开屏”。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
