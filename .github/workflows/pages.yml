@@ -1,0 +1,53 @@
+# 把离线应用发布到 GitHub Pages：https://jangchubgyaltsen.github.io/kepan-app/
+# 第一次使用前，在仓库 Settings → Pages 里把 Source 设为「GitHub Actions」。
+# 每日提醒的推送服务地址放在仓库变量 PUSH_SERVER（Settings → Secrets and variables → Actions → Variables），没有就留空。
+name: 发布网页应用
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: 缓存转换模块的依赖
+        uses: actions/cache@v4
+        with:
+          path: web/convert/vendor
+          key: convert-vendor-${{ hashFiles('web/convert/build.py') }}
+      - name: 生成网站
+        env:
+          PUSH_SERVER: ${{ vars.PUSH_SERVER }}
+        run: python3 tools/build_app.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
