@@ -1,0 +1,562 @@
+{
+ "id": "slgd",
+ "meta": {
+  "title": "胜利道歌 天鼓妙音 讲记 偈颂 科判",
+  "credits": "法王如意宝晋美彭措 造颂  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20240710 6稿 微信qq 973451196 校对 圆锦 德吉措姆",
+  "compiler": "释道净",
+  "proofreaders": [
+   "圆锦",
+   "德吉措姆"
+  ],
+  "date": "20240710",
+  "edition": "6稿",
+  "roles": [
+   {
+    "name": "法王如意宝晋美彭措",
+    "role": "造颂"
+   },
+   {
+    "name": "索达吉堪布",
+    "role": "译讲"
+   }
+  ],
+  "name": "胜利道歌·天鼓妙音",
+  "shortName": "胜利道歌"
+ },
+ "source": {
+  "file": "16胜利道歌•天鼓妙音 讲记 偈颂 科判 6稿1.pdf",
+  "pages": [
+   1
+  ]
+ },
+ "tables": [
+  {
+   "id": "p1",
+   "title": null,
+   "page": 1
+  }
+ ],
+ "stats": {
+  "nodes": 20,
+  "verseCells": 12,
+  "stanzas": 12
+ },
+ "warnings": [
+  "第1页：表格没找到标题"
+ ],
+ "checks": [],
+ "corrections": [],
+ "tree": [
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "本论分三个方面",
+   "divisions": null,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "本论分三个方面",
+   "children": [
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 1,
+     "name": "初义",
+     "divisions": 2,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲一（初义）分二",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "题目",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一、题目",
+       "children": [],
+       "verses": [
+        {
+         "kind": "note",
+         "text": "胜利道歌•天鼓妙音",
+         "src": {
+          "table": "p1",
+          "page": 1
+         }
+        }
+       ],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.1.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "顶礼句",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二、顶礼句",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "怙主诸佛智慧身，文殊室利童子尊，恒住八瓣莲蕊心，所言愿利诸有情。",
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "stanzas": [
+          "怙主诸佛智慧身，文殊室利童子尊，恒住八瓣莲蕊心，所言愿利诸有情。"
+         ]
+        }
+       ],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.1.2"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "p1",
+      "page": 1
+     },
+     "id": "k1.1"
+    },
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 2,
+     "name": "论义",
+     "divisions": 4,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲二（论义）分四",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "劝修密法",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一（劝修密法）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "修无上密法之功德",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一、修无上密法之功德",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "甚深光明大圆满，仅闻词句断有根，六月修要得解脱，唯此铭刻于心中。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "甚深光明大圆满，仅闻词句断有根，六月修要得解脱，唯此铭刻于心中。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.1.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "修密法之因缘",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二、修密法之因缘",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "遇此胜法善缘众，前世累劫积资果，与普贤王同缘分，诸道友当生欢喜。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "遇此胜法善缘众，前世累劫积资果，与普贤王同缘分，诸道友当生欢喜。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.1.2"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.2.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "发菩提心",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二（发菩提心）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "发心之理",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一、发心之理",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "为沉恐怖轮回众，获得永乐之佛果，当负利他之重任，舍弃爱自如毒食。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "为沉恐怖轮回众，获得永乐之佛果，当负利他之重任，舍弃爱自如毒食。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.2.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "发心功德",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二、发心功德",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "以此可阻恶趣门，亦可获得善趣乐，趋至究竟解脱地，切莫散乱修此要。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "以此可阻恶趣门，亦可获得善趣乐，趋至究竟解脱地，切莫散乱修此要。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.2.2"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.2.2"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 3,
+       "name": "发出离心",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙三（发出离心）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "护戒功德",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一、护戒功德",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "于诸轮回之盛事，不起羡慕之心念，当持人天供养处，殊胜严饰之净戒。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "于诸轮回之盛事，不起羡慕之心念，当持人天供养处，殊胜严饰之净戒。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.3.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "破戒过失",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二、破戒过失",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "一切增上定胜乐，悉皆依此而生故，倘若破戒堕恶趣，切莫迷惑当取舍。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "一切增上定胜乐，悉皆依此而生故，倘若破戒堕恶趣，切莫迷惑当取舍。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.3.2"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.2.3"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 4,
+       "name": "人格贤善",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙四（人格贤善）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "修习贤善人格之理",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一、修习贤善人格之理",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "言行恒时随顺友，秉性正直心善良，若欲长久利己者，暂时利他乃窍诀。",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "言行恒时随顺友，秉性正直心善良，若欲长久利己者，暂时利他乃窍诀。"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.4.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "贤善人格之功德",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二、贤善人格之功德",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "此乃清净人规法，三世诸佛方便道，亦为四摄之精华，诸位弟子切莫忘！",
+           "src": {
+            "table": "p1",
+            "page": 1
+           },
+           "stanzas": [
+            "此乃清净人规法，三世诸佛方便道，亦为四摄之精华，诸位弟子切莫忘！"
+           ]
+          }
+         ],
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "id": "k1.2.4.2"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.2.4"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "p1",
+      "page": 1
+     },
+     "id": "k1.2"
+    },
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 3,
+     "name": "末义",
+     "divisions": 2,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲三（末义）分二",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "回向",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一、回向",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "以此善根愿诸众，超越轮回之深渊，令诸心子皆欢喜，往生西方极乐刹。",
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "stanzas": [
+          "以此善根愿诸众，超越轮回之深渊，令诸心子皆欢喜，往生西方极乐刹。"
+         ]
+        }
+       ],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.3.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "造论之事",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二、造论之事",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "第十七胜生周丙子年，我等师徒遣除内外密诸违缘，阿旺罗珠宗美于庆祝胜利之吉日，近五千僧人中，即性而唱，善哉！——译于一九九七年三月六日",
+         "src": {
+          "table": "p1",
+          "page": 1
+         },
+         "stanzas": [
+          "第十七胜生周丙子年，我等师徒遣除内外密诸违缘，阿旺罗珠宗美于庆祝胜利之吉日，近五千僧人中，",
+          "即性而唱，善哉！——译于一九九七年三月六日"
+         ]
+        }
+       ],
+       "src": {
+        "table": "p1",
+        "page": 1
+       },
+       "id": "k1.3.2"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "p1",
+      "page": 1
+     },
+     "id": "k1.3"
+    }
+   ],
+   "verses": [],
+   "src": {
+    "table": "p1",
+    "page": 1
+   },
+   "id": "k1"
+  }
+ ],
+ "notes": []
+}

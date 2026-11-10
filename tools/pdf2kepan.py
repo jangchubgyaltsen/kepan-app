@@ -24,6 +24,7 @@ NUMS = "一二三四五六七八九十"
 CN = {c: i + 1 for i, c in enumerate(NUMS)}
 
 LABEL_RE = re.compile(rf"^([{LEVELS}])([{NUMS}]+)([、（(])")
+LABEL_BARE_RE = re.compile(rf"^([{LEVELS}])([{NUMS}]+)(?=[^{NUMS}、（(\s\d])")
 REF_RE = re.compile(r"[（(]\s*表\s*([\d\-]+)\s*[）)]")
 REFCOUNT_RE = re.compile(r"[（(]\s*\d+\s*表\s*[）)]")
 CHAPTER_RE = re.compile(r"(第[一二三四五六七八九十]+品)\s*([^（(]*)")
@@ -50,14 +51,23 @@ def clean(s):
 
 def parse_label(text):
     """'庚二（意乐殊胜）分二 第二品 忏悔罪业（表2）（2表）' → dict；不是科判返回 None。"""
-    t = clean(text)
+    # 「【第1册】」是分册标记，不属于科名；「【第一品 暇满难得】」去掉方括号按品名处理
+    t = re.sub(r"【第[\d一二三四五六七八九十]+册】", "", clean(text))
+    t = re.sub(r"【(第[一二三四五六七八九十]+品[^】]*)】", r"\1", t)
     m = LABEL_RE.match(t)
     if not m:
-        return None
-    level, num, sep = m.group(1), m.group(2), m.group(3)
-    rest = t[m.end() - 1:]
-    if sep == "、":
-        rest = rest[1:]
+        # 漏了顿号的写法，如「丑二广说（——以八喻说明）分八」：后面要有「分N」才认
+        m = LABEL_BARE_RE.match(t)
+        if not m or not re.search(rf"分[{NUMS}]+", t):
+            return None
+        level, num, sep = m.group(1), m.group(2), ""
+        rest = t[m.end():]
+    else:
+        level, num, sep = m.group(1), m.group(2), m.group(3)
+        rest = t[m.end() - 1:]
+    if sep in ("、", ""):
+        if sep:
+            rest = rest[1:]
         # 名称到「（表」或「第X品」为止
         cut = len(rest)
         for pat in (REF_RE, CHAPTER_RE):
@@ -65,6 +75,10 @@ def parse_label(text):
             if mm:
                 cut = min(cut, mm.start())
         name, tail = rest[:cut], rest[cut:]
+        if True:  # 「暇满难得分五」：末尾的分N不属于科名
+            mm = re.search(rf"分[{NUMS}]+$", name)
+            if mm:
+                name, tail = name[:mm.start()], name[mm.start():] + tail
     else:
         depth, i = 0, 0
         for i, ch in enumerate(rest):
@@ -217,6 +231,11 @@ def table_to_tree(t, warnings):
         reaches_right = abs(c["x1"] - x_right) < TOL
         if lab or not reaches_right:
             parts = split_labels(c["text"]) if lab else [c["ct"]]
+            if not lab:
+                # 续表最左列的祖先链，如「全论分三甲二、论义分二」：开头没有序号的「全论」也要拆出来
+                sp = split_labels(c["text"])
+                if len(sp) > 1:
+                    parts = sp
             chain = []
             for part in parts:
                 pl = parse_label(part)
@@ -261,7 +280,12 @@ def table_to_tree(t, warnings):
                 host = next((a for a in reversed(anc) if a["level"] and a["depth"] == c["depth"] - 1), None)
                 if host:
                     n["children"].remove(c)
-                    host["children"].append(c)
+                    # 放在原来所在那一支的后面，保持顺序
+                    chain = anc + [n]
+                    k = chain.index(host)
+                    after = chain[k + 1] if k + 1 < len(chain) else None
+                    pos = host["children"].index(after) + 1 if after in host["children"] else len(host["children"])
+                    host["children"].insert(pos, c)
                     warnings.append(f"{t['id']}（第{t['page']}页）：「{c['raw']}」画在了「{n['raw']}」之内，按层级上移到「{host['raw']}」下")
         for c in list(n["children"]):
             relevel(c, anc + [n])
@@ -285,10 +309,12 @@ def table_to_tree(t, warnings):
     tops = first + rest
 
     for v in sorted(verses, key=lambda c: c["top"]):
-        kind = "note" if re.search(r"释终$|^梵语", v["ct"]) or not re.search(r"[，,。！？?!]", v["ct"]) else "verse"
-        item = {"kind": kind, "text": v["ct"], "src": {"table": t["id"], "page": t["page"]}}
+        vt = re.sub(r"【第[\d一二三四五六七八九十]+(?:册|课|品[^】]*)】", "", v["ct"])  # 分册、课次、品名标记不属于颂词
+        kind = "note" if (re.search(r"释终$|^梵语", vt) or not re.search(r"[，,。！？?!]", vt)
+                          or re.match(r"^顶礼[^，,。]{1,20}[！!]$", vt)) else "verse"
+        item = {"kind": kind, "text": vt, "src": {"table": t["id"], "page": t["page"]}}
         if kind == "verse":
-            item["stanzas"] = split_stanzas(v["ct"])
+            item["stanzas"] = split_stanzas(vt)
         left = [n for n in nodes if abs(n["_c"]["x1"] - v["x0"]) < TOL
                 and min(n["_c"]["bottom"], v["bottom"]) - max(n["_c"]["top"], v["top"]) > 1]
         if not left:
@@ -298,7 +324,9 @@ def table_to_tree(t, warnings):
                 warnings.append(f"{t['id']}（第{t['page']}页）：颂词找不到对应科判：{v['ct'][:20]}")
                 continue
             owner = max(above, key=lambda n: n["_c"]["top"])
-            item["pos"] = "after"
+            kids = [k["_c"] for k in owner["_tail"]["children"] if "_c" in k]
+            # 在第一个子科判之上的（论名、译礼、释论开头偈）放在前面
+            item["pos"] = "before" if kids and v["top"] < min(k["top"] for k in kids) else "after"
             owner["verses"].append(item)
             warnings.append(f"{t['id']}（第{t['page']}页）：通栏颂词挂到「{owner['raw']}」末尾：{v['ct'][:12]}…")
             continue
@@ -423,6 +451,7 @@ def validate(root):
 def apply_fixes(root, path, warnings):
     """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"],
     "verse": ["旧", "新"], "reason": "说明", "skip": true(可选，表示看过、决定保持原样)}]
+    只有 "note"（再加 "skip": true）的条目不改科判，作为说明显示在 app 的「关于这部论」里。
     match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
     replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
     fixes = json.load(open(path, encoding="utf-8")) if isinstance(path, str) else path
@@ -453,13 +482,13 @@ def apply_fixes(root, path, warnings):
             v["text"] = v["text"].replace(old, new)
             v["stanzas"] = [x.replace(old, new) for x in v.get("stanzas", [])]
             n.setdefault("corrected", []).append({"from": old, "to": new, "field": "verse", "reason": fx.get("reason", "")})
-            done.append({"id": n["id"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
+            done.append({"id": n["id"], "raw": n["raw"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
             if not fx.get("replace") and not fx.get("set"):
                 continue
         for k, v in fx.get("set", {}).items():
             n[k] = v
         n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
-        done.append({"id": n["id"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
+        done.append({"id": n["id"], "raw": n["raw"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
     return done
 
 
@@ -480,18 +509,22 @@ def parse_meta(lines):
     if lines:
         meta["title"] = lines[0]
     blob = " ".join(lines[1:])
+    # 版权声明之后是总表表头（如「丙二、有为法无常分二【第二品…】」），不算署名
+    mb = re.search(rf"[{LEVELS}][{NUMS}]+、", blob)
+    if mb:
+        blob = blob[:mb.start()].strip()
     meta["credits"] = blob
     m = re.search(r"(\S+)\s*整理", blob)
     if m:
         meta["compiler"] = m.group(1)
-    m = re.search(r"校对\s*(.+)$", blob)
+    m = re.search(r"(?<!未)校对\s*(.+?)\s*(?:禁止商用.*)?$", blob)
     if m:
-        meta["proofreaders"] = m.group(1).split()
-    m = re.search(r"(\d{8})\s*(\d+\s*稿)", blob)
+        meta["proofreaders"] = [x for x in m.group(1).split() if not x.startswith(("禁止", "法律"))]
+    m = re.search(r"(\d{8})\s*(\d+[a-z]?\s*稿)", blob)
     if m:
         meta["date"] = m.group(1)
         meta["edition"] = clean(m.group(2))
-    meta["roles"] = re.findall(r"(\S+)\s+(造论|释论|译讲)", blob)
+    meta["roles"] = re.findall(r"(\S+)\s+(造论|造颂|释论|著释|译讲|释讲|翻译|著|译)(?=\s|$)", blob)
     meta["roles"] = [{"name": a, "role": b} for a, b in meta["roles"]]
     return meta
 

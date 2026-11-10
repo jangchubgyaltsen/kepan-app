@@ -2,8 +2,8 @@
 const NUM=["","一","二","三","四","五","六","七","八","九","十"];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
-function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：]+[，。！？：]/g)||[s];const lines=[];
- const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
+function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+ const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
  for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
@@ -16,15 +16,15 @@ function shyBody(g,withV){const ps=g.t.filter(x=>x[0]!=="n"),ns=g.t.filter(x=>x[
  return `${withV?`<div class="shyv">${g.l.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}${ps.length?ps.map(x=>`<p${x[0]==="g"?' class="shyg"':""}>${esc(x[1])}</p>`).join(""):`<p class="shy0">讲记里这几句和下一段合在一起解释。</p>`}${ns.length?`<div class="shyn">${ns.map(x=>{const m=x[1].match(/^(\d+)\s*([\s\S]*)$/);return `<p><b>注${m?m[1]:""}</b>${esc(m?m[2]:x[1])}</p>`}).join("")}</div>`:""}`}
 function shyNav(){const L=shyList();const i=L.findIndex(x=>x.n.id===SHY.id&&x.gi===SHY.gi);return `<div class="shyf"><button data-shyn="-1" ${i<=0?"disabled":""}>‹ 上一段</button><span>${i+1} / ${L.length}</span><button data-shyn="1" ${i>=L.length-1?"disabled":""}>下一段 ›</button></div>`}
 function shyIns(n){if(ST.shym!=="inline"||!SHY||SHY.id!==n.id||SHY.bk!==bkKey(BK))return null;const g=shyG(SHY.bk,n.id)[SHY.gi];if(!g)return null;
- const last=g.vs[g.vs.length-1];return {[last]:`<div class="shyin" style="--sf:${ST.shyf}px"><div class="shyh"><span class="shyl">善说海 · 释义</span><button data-shyx aria-label="收起">收起 ⌃</button></div><div class="shyb">${shyBody(g,false)}</div></div>`}}
+ const last=g.vs[g.vs.length-1];return {[last]:`<div class="shyin" style="--sf:${ST.shyf}px"><div class="shyh"><span class="shyl">${esc((BK.syName||"").split(/[·•]/).pop())} · 释义</span><button data-shyx aria-label="收起">收起 ⌃</button></div><div class="shyb">${shyBody(g,false)}</div></div>`}}
 function shyMark(rw){rw.querySelectorAll(".stz.on").forEach(x=>x.classList.remove("on"));rw.querySelectorAll(".verse.shyon").forEach(x=>x.classList.remove("shyon"));if(!SHY||SHY.bk!==bkKey(BK))return;
  const row=rw.querySelector(`.row[data-id="${SHY.id}"]`);const G=shyG(SHY.bk,SHY.id);if(!row||!G||!G[SHY.gi])return;const v=row.querySelector(".verse");v&&v.classList.add("shyon");G[SHY.gi].vs.forEach(si=>{const e=row.querySelector(`.stz[data-si="${si}"]`);e&&e.classList.add("on")})}
 function shySheet(app){const old=app.querySelector(".shy");const keep=old&&SHY&&ST.shym!=="inline"&&SHY.bk===bkKey(BK);if(old&&!keep)old.remove();if(!keep)app.classList.remove("shy-open");if(!SHY||ST.shym==="inline"||SHY.bk!==bkKey(BK))return;
  const n=BK.by[SHY.id],g=shyG(SHY.bk,SHY.id)[SHY.gi];const W=wide();const el=keep?old:document.createElement("div");if(!keep)el.className="shy "+(W?"side":"sheet");el.style.setProperty("--sf",ST.shyf+"px");
- el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on")}<p class="shysrc">——《入行论广释·善说海》</p></div>${shyNav()}`;
+ el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on")}${BK.syName?`<p class="shysrc">——《${esc(BK.syName)}》</p>`:""}</div>${shyNav()}`;
  if(keep){el.querySelector(".shyb").scrollTop=0;return el}(W?app.querySelector(".body"):app).appendChild(el);if(!W)app.classList.add("shy-open");return el}
 
-function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：]+[，。！？：]/g)||[s];const lines=[];
+function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
  for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${esc(x)}</span>`).join(""));
  return `<span class="stz" data-si="${si}">${lines.map(l=>`<span class="ln">${l}</span>`).join("")}</span>${ins&&ins[si]||""}`}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const STEMS="甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥";
@@ -43,19 +43,20 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
    const [tv,tn]=vsOf(raw,true);const iv=leaf?[]:v;// 有子科判又在本科下直接写的颂词：放在子科判之后单独一行
    const allv=[...iv,...tv],alln=[...tn];if(allv.length||alln.length){const t={id:n.id+"~",code:n.code,title:n.title,v:allv,notes:alln,c:[],depth:n.depth,bk:id,p:n,lvl:lvl+1,x:true};by[t.id]=t;n.tl=t}}
   return n};
+ let seen=false;// 正文之后没有层级的段落（如「科判之结文」）放在书末，之前的（如顶礼）放在书首
  (tree.tree||[]).forEach(raw=>{
-  if(!raw.level&&raw.children&&raw.children.length){// 论名那一层：当作整本书的根
+  if(!raw.level&&raw.children&&raw.children.length){seen=true;// 论名那一层：当作整本书的根
    meta.rootTitle=raw.name;raw.children.forEach(k=>R.c.push(mk(k,R,1)));const [tv,tn]=vsOf(raw,true);const [iv]=vsOf(raw,false);
    if(tv.length||iv.length||tn.length)tails.push({id:raw.id+"~",code:"",title:"",v:[...iv,...tv],notes:tn,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
-  else if(!raw.level){const [v,no]=vsOf(raw,false);front.push({id:raw.id,code:"",title:raw.name||"",v,notes:no,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
-  else R.c.push(mk(raw,R,1))});
+  else if(!raw.level){const [v,no]=vsOf(raw,false);(seen?tails:front).push({id:raw.id,code:"",title:raw.name||"",v,notes:no,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
+  else{seen=true;R.c.push(mk(raw,R,1))}});
  front.concat(tails).forEach(n=>{by[n.id]=n});
  const walk=n=>{if(!n.c.length){if(n!==R)seq.push(n);return}n.c.forEach(walk);if(n.tl)seq.push(n.tl)};
  seq.push(...front);walk(R);seq.push(...tails);
  const seqI={};seq.forEach((n,i)=>seqI[n.id]=i);
  // 品：节点上标了 chapter 的是一品的开头；第一品之前的科判（论名、礼赞等）算进第一品，最后的回向偈算进最后一品
  const chaps=[],pre=[];let cur=null;const addLeaf=n=>(cur?cur.leaves:pre).push(n);
- (function w(n){if(n.ch){cur={name:n.ch.replace(/^第[一二三四五六七八九十百]+品\s*/,""),full:n.ch,node:n,leaves:[]};chaps.push(cur)}if(n!==R&&!n.c.length)addLeaf(n);n.c.forEach(w);if(n.tl)addLeaf(n.tl)})(R);
+ (function w(n){if(n.ch){cur={name:n.ch.replace(/^第[一二三四五六七八九十百]+品\s*/,"")||n.ch.replace(/\s+/g,""),full:n.ch,node:n,leaves:[]};chaps.push(cur)}if(n!==R&&!n.c.length)addLeaf(n);n.c.forEach(w);if(n.tl)addLeaf(n.tl)})(R);
  if(chaps.length){chaps[0].leaves.unshift(...front,...pre);chaps[chaps.length-1].leaves.push(...tails)}
  chaps.forEach(c=>{c.first=c.leaves[0]||fl(c.node);c.vs=c.leaves.reduce((a,n)=>a+n.v.length,0)});
  const chOf={};chaps.forEach(c=>c.leaves.forEach(n=>chOf[n.id]=c));
@@ -64,7 +65,7 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
  const B={id,root:R,title:short,all,seq,seqI,by,maxA:Math.max(1,...seq.map(n=>n.lvl))-1,meta,chaps,chOf,syName,builtin:!!info.builtin,info,tree};
  B.bfs=(()=>{const q=[R],o=[];while(q.length){const n=q.shift();o.push(n);q.push(...n.c)}return o})();
  const W={id,title:short,long:meta.name||meta.rootTitle||short,full:meta.name||meta.title||short,roles:(meta.roles||[]).map(r=>[r.name,r.role]),compiler:meta.compiler||"",proof:meta.proofreaders||[],
-  shiyi:syName?"《"+syName+"》":null,ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin};
+  shiyi:syName?"《"+syName+"》":null,ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin,errata:tree.corrections||[],notes:tree.notes||[]};
  return {B,W}}
 function fmtDate(d){d=String(d||"");const m=d.match(/^(\d{4})(\d{2})(\d{2})$/);return m?`${m[1]}-${m[2]}-${m[3]}`:d}
 // 释义：{节点 id: [[类型, 文字, 第几颂]]}，类型 v 颂词 / p 释文 / n 脚注 / g 附偈
@@ -708,19 +709,19 @@ function wProg(w){const B=BOOKS[w.id];return B?bookFrac(B):0}
 function wLast(w){const B=BOOKS[w.id],r=SR.recent[w.id];if(!B||!r)return null;const n=B.by[r.id];if(!n)return null;const c=B.chOf[n.id];return {txt:(c?c.name:B.title)+" › "+anc(n).slice(-1).map(x=>x.code+" "+x.title).join(""),ago:"",t:r.t||0}}
 function progHTML(f,w){const pc=Math.round(f*100);if(ST.hprog==="none")return "";
  if(ST.hprog==="ring")return `<span class="hring" style="--f:${pc}" title="点亮 ${pc}%"><b>${pc}</b></span>`;
- if(ST.hprog==="beads"){const n=Math.min(24,w.chaps.length*3);const on=Math.round(f*n);return `<span class="hbeads">${Array.from({length:n},(_,i)=>`<i class="${i<on?"on":""}"></i>`).join("")}</span>`}
+ if(ST.hprog==="beads"){const n=Math.min(24,(w.chaps.length||4)*3);const on=Math.round(f*n);return `<span class="hbeads">${Array.from({length:n},(_,i)=>`<i class="${i<on?"on":""}"></i>`).join("")}</span>`}
  return `<span class="hbar"><i style="width:${pc}%"></i></span>`}
 function chapsHTML(w){const B=BOOKS[w.id];if(!B||!B.chaps.length)return "";return `<div class="hchaps ${ST.hexp==="chips"?"chips":""}">${B.chaps.map((ch,i)=>{const c=ch.name;const vt=chapVs(ch);
  return `<button class="hch" data-open="${w.id}" data-at="${ch.first.id}"><span class="hn">${i+1}</span><span class="ht">${esc(c)}</span>${ST.hexp==="chips"?"":`<span class="hbar sm"><i style="width:${vt[1]?Math.round(vt[0]/vt[1]*100):0}%"></i></span><span class="hpc ${vt[0]?"":"z"}"><b>${vt[0]}</b>/${vt[1]} 颂</span>`}</button>`}).join("")}</div>`}
 function searchAll(q){q=q.trim();if(!q)return null;const R={book:[],kp:[],vs:[]};
  WORKS.forEach(w=>{if((w.title+w.full+w.roles.map(r=>r[0]).join("")).includes(q))R.book.push(w)});
  // 颂词里的标点不算：搜「暇满人身」也能找到「暇满人身极难得，」
- const qq=q.replace(/[，。！？：；、\s]/g,"");const strip=t=>t.replace(/[，。！？：；、\s]/g,"");
+ const qq=q.replace(/[，。！？：；、?!\s]/g,"");const strip=t=>t.replace(/[，。！？：；、?!\s]/g,"");
  Object.entries(BOOKS).forEach(([k,B])=>{B.all.forEach(n=>{if(n.p&&n.title.includes(q))R.kp.push({k,n})});if(qq)B.seq.forEach(n=>{const line=n.v.find(v=>strip(v).includes(qq));if(line)R.vs.push({k,n,line})})});
  return R}
 function hl(t,q){if(t.includes(q))return esc(t).split(esc(q)).join(`<mark>${esc(q)}</mark>`);
  // 跨标点的命中：逐字对齐后整段标出
- const qq=q.replace(/[，。！？：；、\s]/g,"");const ch=[...t];let i0=-1,i1=-1;for(let i=0;i<ch.length&&i0<0;i++){let j=i,k=0;while(j<ch.length&&k<qq.length){if(/[，。！？：；、\s]/.test(ch[j])){j++;continue}if(ch[j]!==qq[k])break;j++;k++}if(k===qq.length){i0=i;i1=j}}
+ const qq=q.replace(/[，。！？：；、?!\s]/g,"");const ch=[...t];let i0=-1,i1=-1;for(let i=0;i<ch.length&&i0<0;i++){let j=i,k=0;while(j<ch.length&&k<qq.length){if(/[，。！？：；、?!\s]/.test(ch[j])){j++;continue}if(ch[j]!==qq[k])break;j++;k++}if(k===qq.length){i0=i;i1=j}}
  return i0<0?esc(t):esc(ch.slice(0,i0).join(""))+`<mark>${esc(ch.slice(i0,i1).join(""))}</mark>`+esc(ch.slice(i1).join(""))}
 function resultsHTML(R,q){if(!R)return "";const tot=R.book.length+R.kp.length+R.vs.length;if(!tot)return `<div class="sres"><div class="sempty">没有找到「${esc(q)}」</div></div>`;
  const pth=(k,n)=>{const B=BOOKS[k],c=B.chOf[n.id];return `<span class="spath">${esc(B.title)}${c?" › "+esc(c.name):""}${anc(n).slice(-2).map(x=>" › "+x.code).join("")}</span>`};
@@ -729,9 +730,9 @@ function resultsHTML(R,q){if(!R)return "";const tot=R.book.length+R.kp.length+R.
  ${R.vs.length?`<div class="sg">颂词 <small>${R.vs.length}</small></div>${R.vs.slice(0,8).map(({k,n,line})=>`<button class="sr" data-open="${k}" data-at="${n.id}"><span class="sv">${hl(line,q)}</span>${pth(k,n)}</button>`).join("")}`:""}</div>`}
 function aboutHTML(w){return `<div class="hsheet-bg" data-close></div><div class="hsheet"><div class="grab"></div><div class="ah">${esc(w.title)}<small>${esc(w.full)}</small></div>
  <dl class="adl">${w.roles.map(r=>`<dt>${esc(r[1]||"作者")}</dt><dd>${esc(r[0])}</dd>`).join("")}
- ${w.compiler?`<dt>科判整理</dt><dd>${esc(w.compiler)}</dd>`:""}${w.proof?`<dt>校对</dt><dd>${w.proof.map(esc).join("、")}</dd>`:""}
+ ${w.compiler?`<dt>科判整理</dt><dd>${esc(w.compiler)}</dd>`:""}${w.proof&&w.proof.length?`<dt>校对</dt><dd>${w.proof.map(esc).join("、")}</dd>`:""}
  ${w.shiyi?`<dt>释义</dt><dd>${esc(w.shiyi)}</dd>`:""}<dt>版本</dt><dd>${esc([w.ed,w.date].filter(Boolean).join(" · ")||"—")}</dd><dt>规模</dt><dd>${w.chaps.length?w.chaps.length+" 品 · ":""}${w.vs} 颂</dd></dl>
- <p class="anote">此科判仅供学习，禁止商用、篡改。</p>
+ ${errataHTML(w)}<p class="anote">此科判仅供学习，禁止商用、篡改。</p>
  <div class="aacts"><button data-fb>报告错误</button><button class="pri" data-close>好</button></div></div>`}
 function renderHome(){const W=wide();
  const ord=WORKS.map((w,i)=>({w,i,l:wLast(w)}));const rec=ord.filter(o=>o.l).sort((a,b)=>b.l.t-a.l.t);
@@ -962,7 +963,7 @@ function render(){const keep=[...dev.children].filter(e=>e.classList&&(e.classLi
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
- const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${n.notes&&n.notes.length?`<div class="vnote">${n.notes.map(esc).join("　")}</div>`:""}${clineHTML(n)}</div>`).join("");
+ const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
  dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span><button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
@@ -1117,3 +1118,12 @@ async function boot(){layout();dev.innerHTML=`<div class="app home"><div class="
  if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(e=>console.warn("离线缓存没有装上",e));
  if(ST.srem&&pushOK()&&Notification.permission==="granted")pushSub().catch(()=>{})}
 boot();
+
+// 科判下的附注。经名的梵、藏、汉语在 PDF 里是分行写的，转出来连成了一串：按「梵语：」「藏语：」「汉语：」重新分行，用正文颜色
+const NAMEL=/(?=(?:梵语|藏语|汉语|印度语|梵文|藏文)[：:])/;
+function noteHTML(no,tt){if(!no||!no.length)return "";const nm=[],ot=[],isT=/题|名/.test(tt||"");no.forEach(t=>{const p=t.split(NAMEL).map(x=>x.trim()).filter(Boolean);(isT||p.length>1||/^(梵语|藏语|汉语|印度语|梵文|藏文)[：:]/.test(t)?nm:ot).push(...(p.length>1?p:[t]))});
+ return (nm.length?`<div class="vnote vname">${nm.map(x=>`<div>${esc(x)}</div>`).join("")}</div>`:"")+(ot.length?`<div class="vnote">${ot.map(esc).join("　")}</div>`:"")}
+
+function errataHTML(w){const E=w.errata||[],N=w.notes||[];if(!E.length&&!N.length)return "";
+ const lab=c=>(c.raw||"").replace(/（表[^）]*）|（\d+表）/g,"").replace(/分[一二三四五六七八九十]+$/,"");
+ return `<div class="aerr"><div class="aerrh">勘误与说明</div>${N.map(t=>`<p class="aerrn">${esc(t)}</p>`).join("")}${E.length?`<ol>${E.map(c=>`<li><b>${esc(lab(c))}</b>　${esc(c.reason||"")}</li>`).join("")}</ol>`:""}<p class="aerrai">以上勘误由制作者用 AI 校对，用者自行斟酌。</p></div>`}

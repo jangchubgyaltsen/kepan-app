@@ -1,5 +1,284 @@
 [
  {
+  "id": "bryss",
+  "meta": {
+   "title": "摄功德宝经释•正入般若密意之善说 般若摄颂浅释 讲解 偈颂 科判",
+   "credits": "全知麦彭仁波切 著释  索达吉堪布 译讲 禁止商用篡改 法律责任必究 释道净 整理 20251230 13稿 微信qq 973451196 校对 圆兴 富海燕 释圆乾",
+   "compiler": "释道净",
+   "proofreaders": [
+    "圆兴",
+    "富海燕",
+    "释圆乾"
+   ],
+   "date": "20251230",
+   "edition": "13稿",
+   "roles": [
+    {
+     "name": "全知麦彭仁波切",
+     "role": "著释"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "般若摄颂",
+   "shortName": "般若摄颂"
+  },
+  "stats": {
+   "nodes": 458,
+   "verseCells": 263,
+   "stanzas": 321
+  },
+  "checks": 0,
+  "corrections": 5,
+  "data": "bryss.json",
+  "shiyi": "bryss.shiyi.json",
+  "report": "reports/bryss-讲记对照.html",
+  "shiyiStats": {
+   "sections": 457,
+   "chars": 75293,
+   "typos": 5,
+   "nameDiffs": 2,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "dyx",
+  "meta": {
+   "title": "大圆满心性休息（显宗）",
+   "credits": "无垢光尊者 造论  索达吉堪布 译讲（科判取自讲记）",
+   "roles": [
+    {
+     "name": "无垢光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "大圆满心性休息（显宗部分）",
+   "shortName": "心性休息"
+  },
+  "stats": {
+   "nodes": 482,
+   "verseCells": 376,
+   "stanzas": 609
+  },
+  "checks": 2,
+  "corrections": 0,
+  "data": "dyx.json",
+  "shiyi": "dyx.shiyi.json",
+  "report": "reports/dyx-讲记对照.html",
+  "shiyiStats": {
+   "sections": 482,
+   "chars": 159673,
+   "typos": 0,
+   "nameDiffs": 5,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "egjy",
+  "meta": {
+   "title": "二规教言论 积聚圣天世德之宝 讲记 偈颂 科判",
+   "credits": "麦彭仁波切 著 索达吉堪布 译讲 释道净 整理 20241128 6b稿 微信qq 973451196 校对 孙鑫 明 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "proofreaders": [
+    "孙鑫",
+    "明"
+   ],
+   "date": "20241128",
+   "edition": "6b稿",
+   "roles": [
+    {
+     "name": "麦彭仁波切",
+     "role": "著"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "二规教言论",
+   "shortName": "二规"
+  },
+  "stats": {
+   "nodes": 97,
+   "verseCells": 70,
+   "stanzas": 162
+  },
+  "checks": 1,
+  "corrections": 0,
+  "data": "egjy.json"
+ },
+ {
+  "id": "fzx",
+  "meta": {
+   "title": "佛子行 讲记 偈颂 科判",
+   "credits": "无著菩萨 造颂  索达吉堪布 译讲 释道净 整理 20240710 8b稿 微信qq 973451196 校对 李翠 圆锦 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "proofreaders": [
+    "李翠",
+    "圆锦"
+   ],
+   "date": "20240710",
+   "edition": "8b稿",
+   "roles": [
+    {
+     "name": "无著菩萨",
+     "role": "造颂"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "佛子行三十七颂",
+   "shortName": "佛子行"
+  },
+  "stats": {
+   "nodes": 65,
+   "verseCells": 45,
+   "stanzas": 45
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "fzx.json",
+  "shiyi": "fzx.shiyi.json",
+  "report": "reports/fzx-讲记对照.html",
+  "shiyiStats": {
+   "sections": 64,
+   "chars": 43137,
+   "typos": 0,
+   "nameDiffs": 8,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "gdz",
+  "meta": {
+   "title": "功德藏自释——二谛车 1-4品 颂词 科判",
+   "credits": "智悲光尊者 造论 索达吉堪布 翻译 本科判未校对 释道净 整理 20260807 1稿 微信qq 973451196 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "date": "20260807",
+   "edition": "1稿",
+   "roles": [
+    {
+     "name": "智悲光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "翻译"
+    }
+   ],
+   "name": "功德藏（第一至四品）",
+   "shortName": "功德藏"
+  },
+  "stats": {
+   "nodes": 128,
+   "verseCells": 84,
+   "stanzas": 128
+  },
+  "checks": 2,
+  "corrections": 1,
+  "data": "gdz.json",
+  "shiyi": "gdz.shiyi.json",
+  "report": "reports/gdz-讲记对照.html",
+  "shiyiStats": {
+   "sections": 127,
+   "chars": 100995,
+   "typos": 0,
+   "nameDiffs": 1,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "qys",
+  "meta": {
+   "title": "亲友书释 白莲鬘 讲记 偈颂 科判",
+   "credits": "龙树菩萨 造颂  麦彭仁波切 释论  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20240710 8稿 微信qq 973451196 校对 富海燕 圆桂",
+   "compiler": "释道净",
+   "proofreaders": [
+    "富海燕",
+    "圆桂"
+   ],
+   "date": "20240710",
+   "edition": "8稿",
+   "roles": [
+    {
+     "name": "龙树菩萨",
+     "role": "造颂"
+    },
+    {
+     "name": "麦彭仁波切",
+     "role": "释论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "亲友书",
+   "shortName": "亲友书"
+  },
+  "stats": {
+   "nodes": 187,
+   "verseCells": 116,
+   "stanzas": 137
+  },
+  "checks": 0,
+  "corrections": 4,
+  "data": "qys.json",
+  "shiyi": "qys.shiyi.json",
+  "report": "reports/qys-讲记对照.html",
+  "shiyiStats": {
+   "sections": 186,
+   "chars": 18483,
+   "typos": 0,
+   "nameDiffs": 0,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "rxbz",
+  "meta": {
+   "title": "如意宝藏论",
+   "credits": "无垢光尊者 造论  索达吉堪布 翻译（科判取自讲记）",
+   "roles": [
+    {
+     "name": "无垢光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "翻译"
+    }
+   ],
+   "name": "大乘窍诀论如意宝藏",
+   "shortName": "如意宝藏"
+  },
+  "stats": {
+   "nodes": 673,
+   "verseCells": 942,
+   "stanzas": 1421
+  },
+  "checks": 0,
+  "corrections": 1,
+  "data": "rxbz.json",
+  "shiyi": "rxbz.shiyi.json",
+  "report": "reports/rxbz-讲记对照.html",
+  "shiyiStats": {
+   "sections": 673,
+   "chars": 305939,
+   "typos": 0,
+   "nameDiffs": 1,
+   "unmatched": 0
+  }
+ },
+ {
   "id": "rxl",
   "meta": {
    "title": "入行论广释 善说海 偈颂 科判",
@@ -47,5 +326,39 @@
    "nameDiffs": 0,
    "unmatched": 1
   }
+ },
+ {
+  "id": "slgd",
+  "meta": {
+   "title": "胜利道歌 天鼓妙音 讲记 偈颂 科判",
+   "credits": "法王如意宝晋美彭措 造颂  索达吉堪布 译讲  禁止商用篡改 法律责任必究 释道净 整理 20240710 6稿 微信qq 973451196 校对 圆锦 德吉措姆",
+   "compiler": "释道净",
+   "proofreaders": [
+    "圆锦",
+    "德吉措姆"
+   ],
+   "date": "20240710",
+   "edition": "6稿",
+   "roles": [
+    {
+     "name": "法王如意宝晋美彭措",
+     "role": "造颂"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "胜利道歌·天鼓妙音",
+   "shortName": "胜利道歌"
+  },
+  "stats": {
+   "nodes": 20,
+   "verseCells": 12,
+   "stanzas": 12
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "slgd.json"
  }
 ]
