@@ -24,3 +24,4 @@ label.sdl{display:inline-flex;align-items:center}
 .twist.sreal img,.tassel.sreal img{filter:drop-shadow(calc(var(--rsh,6px)*.35) calc(var(--rsh,6px)*.55) calc(var(--rsh,6px)*.5) rgb(50 25 10/.26))}
 /* 平板、电脑上：书架和设置居中，不要拉得太宽 */
 .wide .hbody2>*,.wide .app.settings .sbody>*{max-width:860px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box;width:100%}
+.vnote.vname{color:var(--ink);font-size:16px;line-height:1.8;margin-top:6px}

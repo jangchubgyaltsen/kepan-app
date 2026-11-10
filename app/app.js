@@ -963,7 +963,7 @@ function render(){const keep=[...dev.children].filter(e=>e.classList&&(e.classLi
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
- const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${n.notes&&n.notes.length?`<div class="vnote">${n.notes.map(esc).join("　")}</div>`:""}${clineHTML(n)}</div>`).join("");
+ const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
  dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span><button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
@@ -1118,3 +1118,8 @@ async function boot(){layout();dev.innerHTML=`<div class="app home"><div class="
  if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(e=>console.warn("离线缓存没有装上",e));
  if(ST.srem&&pushOK()&&Notification.permission==="granted")pushSub().catch(()=>{})}
 boot();
+
+// 科判下的附注。经名的梵、藏、汉语在 PDF 里是分行写的，转出来连成了一串：按「梵语：」「藏语：」「汉语：」重新分行，用正文颜色
+const NAMEL=/(?=(?:梵语|藏语|汉语|印度语|梵文|藏文)[：:])/;
+function noteHTML(no,tt){if(!no||!no.length)return "";const nm=[],ot=[],isT=/题|名/.test(tt||"");no.forEach(t=>{const p=t.split(NAMEL).map(x=>x.trim()).filter(Boolean);(isT||p.length>1||/^(梵语|藏语|汉语|印度语|梵文|藏文)[：:]/.test(t)?nm:ot).push(...(p.length>1?p:[t]))});
+ return (nm.length?`<div class="vnote vname">${nm.map(x=>`<div>${esc(x)}</div>`).join("")}</div>`:"")+(ot.length?`<div class="vnote">${ot.map(esc).join("　")}</div>`:"")}
