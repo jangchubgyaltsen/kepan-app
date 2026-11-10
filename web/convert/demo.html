@@ -53,25 +53,27 @@ mark { background: var(--mark); color: inherit }
 .meta { font-size: .9rem; color: var(--muted) }
 .meta b { color: var(--fg); font-weight: 600 }
 .note { font-size: .82rem; color: var(--muted) }
+.fixbox { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 6px }
+.fixbox h3 { font: 600 1rem var(--serif); margin: 0 }
+.seg { display: flex; flex-direction: column; gap: 2px; white-space: nowrap; font-size: .85rem }
+.seg label { display: flex; gap: 4px; align-items: center; cursor: pointer }
+.seg input { accent-color: var(--accent) }
 @media (prefers-reduced-motion: reduce) { .bar i { transition: none } }
 </style>
 
 <div class="wrap">
   <header>
     <h1>科判转换试用</h1>
-    <p class="lede">在这台设备上把科判 PDF 和讲记 epub 转成 app 用的数据，文件不会上传到任何服务器。第一次打开要下载约 15MB 的运行环境，之后会快很多。</p>
+    <p class="lede">在这台设备上把科判 PDF 和讲记 epub 转成 app 用的数据，文件不会上传到任何服务器。第一次打开要下载约 18MB 的运行环境，之后会快很多。</p>
   </header>
 
   <section class="step" aria-labelledby="s1">
     <h2 id="s1">第一步 · 科判 <small>PDF</small></h2>
     <div class="row">
       <label class="file" for="pdf">科判 PDF（Word 导出的表格式科判）<input id="pdf" type="file" accept=".pdf,application/pdf"></label>
-      <label class="file" for="fixes">勘误文件（可选，.json）<input id="fixes" type="file" accept=".json,application/json"></label>
+      <label class="file" for="fixes">上次存下的勘误文件（可选）<input id="fixes" type="file" accept=".json,application/json"></label>
     </div>
-    <div class="row">
-      <label class="file" for="bookid" style="flex:0 1 200px">书的代号<input id="bookid" type="text" value="rxl" autocomplete="off"></label>
-      <button id="go1" disabled>转换科判</button>
-    </div>
+    <div class="row"><button id="go1" disabled>转换科判</button></div>
     <div class="bar" aria-hidden="true"><i id="bar1"></i></div>
     <div class="status" id="st1" role="status">请选择科判 PDF。</div>
     <div id="out1" hidden></div>
@@ -138,12 +140,14 @@ $('go1').addEventListener('click', async () => {
   try {
     let fixes = null;
     if ($('fixes').files[0]) fixes = JSON.parse(await $('fixes').files[0].text());
+    savedFixes = fixes ? fixes.slice() : [];
     setStatus('st1', '正在准备运行环境…');
     tree = await getConv().kepanFromPdf($('pdf').files[0], {
-      id: $('bookid').value.trim() || 'book', fixes,
+      id: 'book', fixes,
       onProgress: (i, n) => { $('bar1').style.width = `${(i / n) * 100}%`; setStatus('st1', `正在读第 ${i} / ${n} 页…`); },
     });
     $('bar1').style.width = '100%';
+    tree.id = bookId(tree);
     setStatus('st1', `转换完成，用时 ${((performance.now() - t0) / 1000).toFixed(0)} 秒。`, 'ok');
     renderTree(tree);
   } catch (e) {
@@ -151,6 +155,15 @@ $('go1').addEventListener('click', async () => {
   }
   syncButtons();
 });
+
+// 书的代号自动生成：按书名算一个短码，同一部书换了新稿代号不变，学习进度可以接上
+function bookId(t) {
+  const key = (t.meta && t.meta.title) || ($('pdf').files[0] || {}).name || String(Date.now());
+  let h = 0x811c9dc5;
+  for (const ch of key) { h ^= ch.codePointAt(0); h = Math.imul(h, 0x01000193) >>> 0; }
+  return 'b' + h.toString(36);
+}
+const fileBase = (t) => ((t.meta && t.meta.title) || t.id || 'book').replace(/[\\/:*?"<>|\s]+/g, '_');
 
 function renderTree(t) {
   const s = t.stats || {}, m = t.meta || {};
@@ -170,7 +183,7 @@ function renderTree(t) {
     ${corr.length ? `<details><summary>套用的勘误（${corr.length}）</summary><ul class="list">${corr.map((c) => `<li>${esc(c.from)} → ${esc(c.to)}　<span class="note">${esc(c.reason)}</span></li>`).join('')}</ul></details>` : ''}
     <div class="row" style="margin-top:12px"><button class="ghost" id="save1">保存科判数据</button></div>`;
   $('out1').hidden = false;
-  $('save1').onclick = () => save(`${t.id || 'book'}.json`, JSON.stringify(t), 'st1');
+  $('save1').onclick = () => save(`${fileBase(t)}.json`, JSON.stringify(t), 'st1');
   setStatus('st2', '可以选讲记 epub 了。');
 }
 
@@ -185,7 +198,7 @@ $('go2').addEventListener('click', async () => {
     const r = await getConv().shiyiFromEpub($('epub').files[0], tr);
     shiyi = r;
     setStatus('st2', `完成，用时 ${((performance.now() - t0) / 1000).toFixed(0)} 秒。`, 'ok');
-    renderShiyi(r.data, r.reportHtml, tr);
+    renderShiyi(r, tr);
   } catch (e) {
     setStatus('st2', `失败：${e.message || e}`, 'bad');
   }
@@ -196,32 +209,65 @@ function hl(ctx, piece) {
   const i = piece ? ctx.indexOf(piece) : -1;
   return i < 0 ? esc(ctx) : esc(ctx.slice(0, i)) + '<mark>' + esc(piece) + '</mark>' + esc(ctx.slice(i + piece.length));
 }
-function renderShiyi(d, reportHtml, tr) {
-  const s = d.stats, r = d.report;
-  const rows = { 疑似错字: [], 用字不同: [], other: [] };
-  r.verseDiffs.forEach((v) => v.diffs.forEach((x) => (rows[x.kind] || rows.other).push([v, x])));
-  const table = (list) => list.length ? `<div class="tw"><table><tr><th>科判</th><th>科判表</th><th>讲记</th></tr>${list.map(([v, x]) => `<tr><td>${esc(v.raw)}</td><td>${hl(x.ctxKepan, x.kepan)}</td><td>${hl(x.ctxJiangji, x.jiangji)}</td></tr>`).join('')}</table></div>` : '<p class="note">没有</p>';
+// 勘误：上次存下的勘误文件 + 这次确认套用的
+let savedFixes = [];
+function renderShiyi(r, tr) {
+  const d = r.data, s = d.stats, rep = d.report;
+  // 勘误文件里标了「保持科判」的，不再提
+  const key = (f) => JSON.stringify([f.match, f.table, f.id || '', f.verse || f.replace || '']);
+  const skipped = new Set(savedFixes.filter((f) => f.skip).map(key));
+  const sug = (r.suggestions || []).filter((x) => !skipped.has(key(x.fix)));
+  const other = [];
+  rep.verseDiffs.forEach((v) => v.diffs.forEach((x) => { if (!['疑似错字', '用字不同'].includes(x.kind)) other.push([v, x]); }));
+  const count = (k) => sug.filter((x) => x.kind === k).length;
+  const sugRows = sug.map((x, i) => `
+    <tr><td>${esc(x.raw)}<br><span class="pill ${x.kind === '疑似错字' ? 'bad' : 'warn'}">${esc(x.kind)}</span></td>
+      <td>${hl(x.kepan, x.piece[0])}</td><td>${hl(x.jiangji, x.piece[1])}</td>
+      <td><div class="seg" role="radiogroup" aria-label="${esc(x.raw)}">
+        <label><input type="radio" name="c${i}" value="j" checked> 用讲记</label>
+        <label><input type="radio" name="c${i}" value="k"> 保持科判</label></div></td></tr>`).join('');
   $('out2').innerHTML = `
     <div class="nums">
       <div><b>${s.sections}/${s.nodes}</b><span>科判挂上了释义</span></div>
       <div><b>${s.chars.toLocaleString()}</b><span>释义字数</span></div>
-      <div><b>${rows['疑似错字'].length}</b><span>颂词疑似错字 <span class="pill ${rows['疑似错字'].length ? 'bad' : 'ok'}">${rows['疑似错字'].length ? '请确认' : '无'}</span></span></div>
-      <div><b>${rows['用字不同'].length}</b><span>颂词用字不同</span></div>
-      <div><b>${s.nameDiffs}</b><span>科名写法不同</span></div>
+      <div><b>${count('疑似错字')}</b><span>颂词疑似错字 <span class="pill ${count('疑似错字') ? 'bad' : 'ok'}">${count('疑似错字') ? '请确认' : '无'}</span></span></div>
+      <div><b>${count('用字不同')}</b><span>颂词用字不同</span></div>
+      <div><b>${count('科名不同')}</b><span>科名写法不同</span></div>
       <div><b>${s.missing + s.extra}</b><span>没对上的科判</span></div>
     </div>
-    <details ${rows['疑似错字'].length ? 'open' : ''}><summary>颂词疑似错字（请确认）</summary>${table(rows['疑似错字'])}</details>
-    <details><summary>颂词用字不同（仅供参考）</summary>${table(rows['用字不同'])}</details>
-    <details><summary>颂词多出或缺少（请看一下）</summary>${table(rows.other)}</details>
-    <details><summary>科名写法不同（${r.nameDiffs.length}）</summary><ul class="list">${r.nameDiffs.map((x) => `<li>科判：${esc(x.kepan)}<br>讲记：${esc(x.jiangji)}</li>`).join('') || '<li>没有</li>'}</ul></details>
-    <details><summary>讲记里多出的标题（${r.extra.length}）</summary><ul class="list">${r.extra.map((x) => `<li>${esc(x.heading)}</li>`).join('') || '<li>没有</li>'}</ul></details>
+    ${sug.length ? `
+    <div class="fixbox">
+      <h3>勘误（${sug.length} 处）</h3>
+      <p class="note">默认用讲记的写法，不同意的改选「保持科判」。点「套用勘误」后科判会更新，勘误文件自动生成，可以存下来，下次换新稿时在第一步选上，就会自动套用。</p>
+      <div class="tw"><table><tr><th>科判</th><th>科判表</th><th>讲记</th><th>用哪个</th></tr>${sugRows}</table></div>
+      <div class="row" style="margin-top:10px"><button id="apply">套用勘误</button></div>
+    </div>` : `<p class="note">颂词和科名都和讲记一致（或者已经处理过），没有要勘误的地方。</p>`}
+    <details><summary>颂词多出或缺少（${other.length}，保持科判）</summary>${other.length ? `<div class="tw"><table><tr><th>科判</th><th>科判表</th><th>讲记</th></tr>${other.map(([v, x]) => `<tr><td>${esc(v.raw)}</td><td>${hl(x.ctxKepan, x.kepan)}</td><td>${hl(x.ctxJiangji, x.jiangji)}</td></tr>`).join('')}</table></div>` : '<p class="note">没有</p>'}</details>
+    <details><summary>科判表有颂词、讲记这一科没有（${rep.verseOnlyKepan.length}，保持科判）</summary><ul class="list">${rep.verseOnlyKepan.map((x) => `<li>${esc(x.raw)}${x.inGatha ? '　<span class="note">讲记放在品末附偈</span>' : ''}</li>`).join('') || '<li>没有</li>'}</ul></details>
+    <details><summary>讲记里多出的标题（${rep.extra.length}，不用管）</summary><ul class="list">${rep.extra.map((x) => `<li>${esc(x.heading)}</li>`).join('') || '<li>没有</li>'}</ul></details>
     <div class="row" style="margin-top:12px">
       <button class="ghost" id="save2">保存释义数据</button>
       <button class="ghost" id="save3">保存对照报告</button>
+      <button class="ghost" id="save4" ${savedFixes.length ? '' : 'hidden'}>保存勘误文件（${savedFixes.length} 条）</button>
     </div>`;
   $('out2').hidden = false;
-  const id = d.bookId || tr.id || 'book';
-  $('save2').onclick = () => save(`${id}.shiyi.json`, JSON.stringify(d), 'st2');
-  $('save3').onclick = () => save(`${id}.讲记对照.html`, reportHtml, 'st2');
+  const base = fileBase(tr);
+  $('save2').onclick = () => save(`${base}.释义.json`, JSON.stringify(d), 'st2');
+  $('save3').onclick = () => save(`${base}.讲记对照.html`, r.reportHtml, 'st2');
+  $('save4').onclick = () => save(`${base}.勘误.json`, JSON.stringify(savedFixes, null, 1), 'st2');
+  if ($('apply')) $('apply').onclick = async () => {
+    const choice = (i) => (document.querySelector(`input[name="c${i}"]:checked`) || {}).value;
+    const picked = sug.filter((x, i) => choice(i) === 'j').map((x) => x.fix);
+    const kept = sug.filter((x, i) => choice(i) === 'k').map((x) => ({ ...x.fix, skip: true, reason: '看过，保持科判：' + x.fix.reason }));
+    $('apply').disabled = true; activeStatus = 'st2';
+    setStatus('st2', picked.length ? `正在套用 ${picked.length} 处勘误，重新比对…` : '正在记下你的选择…');
+    try {
+      const res = await getConv().applyFixes(tr, picked);
+      tree = res.tree; savedFixes = savedFixes.concat(picked, kept);
+      renderTree(tree);
+      setStatus('st2', `已套用 ${picked.length} 处勘误${kept.length ? `，${kept.length} 处保持科判` : ''}。勘误文件可以存下来，下次直接用。`, 'ok');
+      renderShiyi(res, tree);
+    } catch (e) { setStatus('st2', `套用失败：${e.message || e}`, 'bad'); $('apply').disabled = false; }
+  };
 }
 </script>

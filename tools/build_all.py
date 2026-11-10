@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把 sources/ 里每部书的原文件转成 app 用的数据。GitHub 上每次推送 sources/ 都会自动跑一遍。
+"""把 sources/ 里每部书的原文件转成 app 用的数据。内置的书用它生成。
 
     python3 tools/build_all.py [书的代号 …]
 

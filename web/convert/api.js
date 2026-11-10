@@ -2,7 +2,8 @@
 //   import { createConverter } from './kepan-convert.js';
 //   const conv = createConverter({ onLog: s => console.log(s) });
 //   const tree = await conv.kepanFromPdf(file, { id: 'rxl', fixes: [...] , onProgress: (i, n) => {} });
-//   const { data, reportHtml } = await conv.shiyiFromEpub(epubFile, tree);
+//   const { data, reportHtml, suggestions } = await conv.shiyiFromEpub(epubFile, tree);
+//   const fixed = await conv.applyFixes(tree, suggestions.map(s => s.fix));  // 用户确认后套用勘误
 // 默认在 Web Worker 里跑，不卡界面；浏览器不允许时自动退回主线程。
 // 运行环境 Pyodide 和本文件放在一起（dist/pyodide/），离线缓存和国内访问都更稳；也可以传 indexURL 指向别处。
 const DEFAULT_INDEX = new URL('./pyodide/', import.meta.url).href;
@@ -21,6 +22,7 @@ export function createConverter({ indexURL = DEFAULT_INDEX, stdLibURL, onLog, wo
       init: () => eng.init(),
       kepanFromPdf: (buf, o, p) => eng.kepanFromPdf(buf, o, p),
       shiyiFromEpub: (buf, t, o) => eng.shiyiFromEpub(buf, t, o),
+      applyFixes: (t, f) => eng.applyFixes(t, f),
     };
   }
 
@@ -59,6 +61,7 @@ onmessage = async (e) => {
       init: () => call('init', []),
       kepanFromPdf: (buf, o, p) => call('kepanFromPdf', [buf, o, null], p, [buf]),
       shiyiFromEpub: (buf, t, o) => call('shiyiFromEpub', [buf, t, o], null, [buf]),
+      applyFixes: (t, f) => call('applyFixes', [t, f]),
     };
   }
 
@@ -77,6 +80,11 @@ onmessage = async (e) => {
       const { onProgress, ...o } = opts;
       if (!o.name && file && file.name) o.name = file.name;
       return (await get()).kepanFromPdf(await toBuf(file), o, onProgress);
+    },
+    // 把勘误套到科判上（fixes 用 shiyiFromEpub 返回的 suggestions[].fix 或已存的勘误文件），
+    // 返回 {tree, data?, reportHtml?, suggestions?}；之前读过讲记的话会一起重新比对
+    async applyFixes(tree, fixes) {
+      return (await get()).applyFixes(tree, fixes);
     },
     async shiyiFromEpub(file, tree, opts = {}) {
       const o = { ...opts }; if (!o.name && file && file.name) o.name = file.name;

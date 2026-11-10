@@ -422,12 +422,14 @@ def validate(root):
 
 def apply_fixes(root, path, warnings):
     """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"],
-    "verse": ["旧", "新"], "reason": "说明"}]
+    "verse": ["旧", "新"], "reason": "说明", "skip": true(可选，表示看过、决定保持原样)}]
     match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
     replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
     fixes = json.load(open(path, encoding="utf-8")) if isinstance(path, str) else path
     done = []
     for fx in fixes:
+        if fx.get("skip"):  # 看过、决定保持原样的，只作记录
+            continue
         hits = [n for n, _ in walk(root) if n is not root and n["raw"].startswith(fx["match"])
                 and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))
                 and (not fx.get("id") or n.get("id") == fx["id"])]
@@ -459,6 +461,18 @@ def apply_fixes(root, path, warnings):
         n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
         done.append({"id": n["id"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
     return done
+
+
+def apply_fixes_to_tree(tree_json, fixes):
+    """把勘误套到已经转换好的科判数据上（不用重读 PDF），并重新自检。手机上确认勘误后用。"""
+    root = {"level": None, "name": "ROOT", "children": tree_json["tree"], "verses": [], "refs": [],
+            "src": {"table": "", "page": 0}}
+    warnings = []
+    done = apply_fixes(root, fixes, warnings)
+    tree_json["corrections"] = tree_json.get("corrections", []) + done
+    tree_json["warnings"] = tree_json.get("warnings", []) + warnings
+    tree_json["checks"] = validate(root)
+    return tree_json
 
 
 def parse_meta(lines):

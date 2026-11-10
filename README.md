@@ -1,15 +1,14 @@
 # kepan-app
 科判查看与颂词背诵 PWA
 
-## 加一部书（自动转换）
+## 内置的书（sources/ → data/）
 
 1. 在 `sources/` 下建一个文件夹，名字就是书的代号，如 `sources/rxl/`。
 2. 放进科判 PDF（必须，一个）、讲记 epub（可选）、`fixes.json` 勘误（可选）、`book.json` 书名等补充信息（可选，如 `{"name": "入菩萨行论", "shortName": "入行论"}`）。
-   在 GitHub 网页上「Add file → Upload files」就行。
-3. 推送后 GitHub 自动运行「转换科判和讲记」，把结果提交到 `data/`：`<代号>.json` 科判、`<代号>.shiyi.json` 释义、
-   `reports/<代号>-讲记对照.html` 对照报告、`books.json` 书目。在 Actions 页面的运行摘要里能看到自检结果。
+3. 运行 `pip install -r requirements.txt && python3 tools/build_all.py`，结果写到 `data/`：`<代号>.json` 科判、
+   `<代号>.shiyi.json` 释义、`reports/<代号>-讲记对照.html` 对照报告、`books.json` 书目。
 
-本地也可以跑：`pip install -r requirements.txt && python3 tools/build_all.py`。
+用户自己导入的书在手机上转换（见下面「在浏览器 / 手机上转换」），不经过 GitHub。
 
 ## 数据：从 PDF 转换科判
 
@@ -80,7 +79,8 @@ app 里这样用（`dist/` 整个目录一起发布，`pyodide/` 要和 `kepan-c
 import { createConverter } from './convert/kepan-convert.js';
 const conv = createConverter({ onLog: (s) => console.log(s) });
 const tree = await conv.kepanFromPdf(pdfFile, { id: 'rxl', fixes, onProgress: (i, n) => {} });  // 同 data/rxl.json
-const { data, reportHtml } = await conv.shiyiFromEpub(epubFile, tree);                         // 释义数据 + 对照报告
+const { data, reportHtml, suggestions } = await conv.shiyiFromEpub(epubFile, tree);            // 释义数据 + 对照报告 + 勘误建议
+const fixed = await conv.applyFixes(tree, suggestions.map((s) => s.fix));                       // 用户确认后套用，返回新的 tree 和重新比对的结果
 ```
 
 - 默认在 Web Worker 里跑，不卡界面；不允许 Worker 时自动退回主线程。

@@ -73,10 +73,30 @@ _t = json.loads(_tree)
 _d = epub2shiyi.convert('/kp/in.epub', _t)
 _d['source']['file'] = _name
 _title = (_t.get('meta') or {}).get('title') or _t.get('id') or ''
-json.dumps({'data': _d, 'reportHtml': epub2shiyi.build_report(_d, _title)}, ensure_ascii=False)
+json.dumps({'data': _d, 'reportHtml': epub2shiyi.build_report(_d, _title),
+            'suggestions': epub2shiyi.suggest_fixes(_d, _t)}, ensure_ascii=False)
 `);
     return JSON.parse(out);
   }
 
-  return { init, kepanFromPdf, shiyiFromEpub };
+  // 套用勘误（不用重读 PDF），重新自检；读过讲记的话再重新比对一次
+  async function applyFixes(tree, fixes) {
+    await init();
+    py.globals.set('_tree', JSON.stringify(tree));
+    py.globals.set('_fixes', JSON.stringify(fixes));
+    const out = py.runPython(`
+import json, os
+_t = pdf2kepan.apply_fixes_to_tree(json.loads(_tree), json.loads(_fixes))
+_res = {'tree': _t}
+if os.path.exists('/kp/in.epub'):
+    _d = epub2shiyi.convert('/kp/in.epub', _t)
+    _d['source']['file'] = _name if '_name' in globals() else 'in.epub'
+    _title = (_t.get('meta') or {}).get('title') or _t.get('id') or ''
+    _res.update(data=_d, reportHtml=epub2shiyi.build_report(_d, _title), suggestions=epub2shiyi.suggest_fixes(_d, _t))
+json.dumps(_res, ensure_ascii=False)
+`);
+    return JSON.parse(out);
+  }
+
+  return { init, kepanFromPdf, shiyiFromEpub, applyFixes };
 }

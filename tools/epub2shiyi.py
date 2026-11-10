@@ -358,6 +358,76 @@ def convert(epub_path, tree_json):
     return out
 
 
+# ---------------------------------------------------------------- 勘误建议
+
+def _match_key(n, nodes):
+    """勘误用的定位：科判原文 + 所在表；同表同名时再加 id。"""
+    t = n["src"]["table"]
+    hits = [m for m in nodes if m["raw"].startswith(n["raw"]) and t in m.get("seenIn", [m["src"]["table"]])]
+    fx = {"match": n["raw"], "table": t}
+    if len(hits) != 1:
+        fx["id"] = n["id"]
+    return fx
+
+
+def suggest_fixes(data, tree_json):
+    """按对照结果生成勘误建议（tools/pdf2kepan.py 的勘误格式）。
+
+    每条带 kind（疑似错字 / 用字不同 / 科名不同）、kepan、jiangji、raw，以及 fix（选「用讲记」时要套用的勘误）。
+    颂词多出或缺少、讲记多出的标题这类没法自动改，不在这里，界面上只作提示。"""
+    nodes = flatten(tree_json["tree"])
+    byid = {n["id"]: n for n in nodes}
+    out = []
+    for v in data["report"]["verseDiffs"]:
+        n = byid.get(v["id"])
+        if not n:
+            continue
+        for d in v["diffs"]:
+            if d["kind"] not in ("疑似错字", "用字不同"):
+                continue
+            fix = None
+            for vv in n.get("verses", []):
+                if vv.get("kind") != "verse":
+                    continue
+                text = vv["text"]
+                idx = [i for i, ch in enumerate(text) if han(ch)]
+                h = "".join(text[i] for i in idx)
+                p = h.find(d["ctxKepan"])
+                if p < 0:
+                    continue
+                for off in [o for o in range(len(d["ctxKepan"])) if d["ctxKepan"].startswith(d["kepan"], o)]:
+                    k = p + off
+                    for w in range(1, 8):
+                        a, b = max(0, k - w), min(len(idx), k + len(d["kepan"]) + w)
+                        old = text[idx[a]:idx[b - 1] + 1]
+                        if text.count(old) == 1:
+                            rel = idx[k] - idx[a]
+                            new = old[:rel] + d["jiangji"] + old[rel + len(d["kepan"]):]
+                            fix = dict(_match_key(n, nodes), verse=[old, new],
+                                       reason=f"颂词按讲记：{d['kepan']}→{d['jiangji']}（{d['kind']}）")
+                            break
+                    if fix:
+                        break
+                if fix:
+                    break
+            if fix and all(o["fix"] != fix for o in out):
+                out.append({"kind": d["kind"], "raw": n["raw"], "kepan": d["ctxKepan"], "jiangji": d["ctxJiangji"],
+                            "piece": [d["kepan"], d["jiangji"]], "fix": fix})
+    for x in data["report"]["nameDiffs"]:
+        n = byid.get(x["id"])
+        if not n or not n.get("level"):
+            continue
+        lv, num, jn, _ = parse_heading(x["jiangji"])
+        jn = re.split(rf"分[{NUMS}]+[：:]", jn)[0]
+        if not jn or jn == n["name"] or n["name"] not in n["raw"]:
+            continue
+        fix = dict(_match_key(n, nodes), replace=[n["name"], jn], set={"name": jn},
+                   reason=f"科名按讲记：{n['name']}→{jn}")
+        out.append({"kind": "科名不同", "raw": n["raw"], "kepan": n["name"], "jiangji": jn,
+                    "piece": [n["name"], jn], "fix": fix})
+    return out
+
+
 # ---------------------------------------------------------------- 报告页
 
 def build_report(data, title):
