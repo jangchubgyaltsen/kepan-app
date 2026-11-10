@@ -578,7 +578,7 @@ function streakLamps(){const now0=Date.now();const wk=[6,5,4,3,2,1,0].map(i=>SR.
  const M=ST.skm,mon=CNM[now.getMonth()]+"月";
  const lamps=wk.map((_,i)=>{const fut=i>ti,c=fut?null:wk[6-(ti-i)];const on=i===ti?todayOn:!!(c&&c.n);const full=i===ti?todayFull:!!(c&&c.full);const d=days[i];const newM=i>0&&d.getMonth()!==days[i-1].getMonth();
   const lab=M==="date"||M==="both"?(newM?`${d.getMonth()+1}月`:`${d.getDate()}`):(i===ti?"今":WD[d.getDay()]);
-  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(full?0:1):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
+  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?0:10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
  return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${STK?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${STK}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
@@ -963,10 +963,22 @@ function offerHTML(W0,H){const W=W0*ST.ofw/100,R=+ST.ofr,N=Math.max(1,Math.round
    const du=(1.5+h2*1.3)/(ST.ofsv/100);lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};--d:${(fr*ST.ofit).toFixed(2)}s;--du:${du.toFixed(2)}s;--ph:${(-h*du*2).toFixed(2)}s">${fireWrap(pillLampAt(0,z))}</span>`}}
  const tw=(narrow*50).toFixed(1);
  return `<span class="oft c-${ST.ofc}" style="height:${(apron+Dp+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100};--sa:${(ST.ofsa*.09).toFixed(2)};--sl:${(ST.ofsl/100).toFixed(2)};--it:${ST.ofit}s;--bd:${ST.ofbd/100};--bs:${ST.ofbs/100};--bt:${ST.ofbt}s;--td:${ST.oftd/100};--gdu:${(3.3/(ST.ofsv/100)).toFixed(2)}s"><i class="ofgw"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
+function a2Due(){const s=a2State();return !s.off&&(!s.next||Date.now()>=s.next)}
+function showA2hs(force){const k=a2Kind();const old=dev.querySelector(".a2h");if(old)old.remove();if(!k)return;if(!force&&!a2Due())return;const el=document.createElement("div");el.className="a2h";
+ const SH='<svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 16V2.5M6.5 6.5 11 2l4.5 4.5M6 10H4.5A2.5 2.5 0 0 0 2 12.500v9A2.5 2.5 0 0 0 4.5 24h13a2.5 2.5 0 0 0 2.500-2.500v-9A2.5 2.5 0 0 0 17.500 10H16"/></svg>',PL='<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="2" width="18" height="18" rx="4.5"/><path d="M11 6.500v9M6.500 11h9"/></svg>';
+ const body=k==="ios"?`<ol class="a2s"><li><i>1</i><span>点屏幕底部的<b>分享</b>按钮</span>${SH}</li><li><i>2</i><span>往下找到<b>添加到主屏幕</b></span>${PL}</li><li><i>3</i><span>点右上角的<b>添加</b></span></li></ol><p class="a2n">要用 Safari 打开才有这一项。如果是在微信等 App 里打开的，请先点右上角「在 Safari 中打开」。</p>`
+  :k==="prompt"?"":`<p class="a2n">在浏览器的菜单（⋮ 或 ⋯）里选「安装应用」或「添加到主屏幕」。</p>`;
+ const pri=k==="ios"?["a2done","我加好了"]:k==="prompt"?["a2go","添加到主屏幕"]:["a2later","知道了"];
+ el.innerHTML=`<div class="a2c" role="dialog" aria-label="添加到主屏幕"><span class="a2i">科</span><b class="a2t">把「科判」加到主屏幕</b><p class="a2p">学习进度只存在这台手机里。加到主屏幕、像 App 一样打开，进度才不会被浏览器清掉。</p>${body}<div class="a2f">${k==="other"?"":`<button data-a2="a2later">以后再说</button>`}<button class="pri" data-a2="${pri[0]}">${pri[1]}</button></div><button class="a2off" data-a2="a2off">不再提示</button></div>`;
+ dev.appendChild(el);const close=()=>{el.classList.add("out");setTimeout(()=>el.remove(),320)};
+ el.onclick=e=>{const b=e.target.closest("[data-a2]");if(!b)return;const a=b.dataset.a2,s=a2State();
+  if(a==="a2later"){s.n=(s.n||0)+1;s.next=Date.now()+3*864e5;a2Save(s);close()}
+  else if(a==="a2off"||a==="a2done"){s.off=true;a2Save(s);close()}
+  else if(a==="a2go")a2Go(close)}}
 function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash i-"+ST.ofi;el.setAttribute("aria-label","发心后点击进入");
  const W=dev.clientWidth,H=dev.clientHeight,TH=H*ST.ofh/100+ST.ofz*.9;
  el.innerHTML=`<span class="spc" style="top:${ST.ofy}%"><span class="spt" style="font-size:${ST.oft}px"><span>为了使片等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small></span>${offerHTML(W,H)}`;
- dev.appendChild(el);el.onclick=()=>{if(el.classList.contains("out"))return;el.classList.add("out");dev.classList.add("enter");setTimeout(()=>{el.remove();dev.classList.remove("enter")},1350)}}
+ dev.appendChild(el);el.onclick=()=>{if(el.classList.contains("out"))return;el.classList.add("out");dev.classList.add("enter");setTimeout(()=>{el.remove();dev.classList.remove("enter");showA2hs()},1350)}}
 function splashLive(){const o=dev.querySelector(".splash");showSplash();const e=dev.querySelector(".splash");e.classList.add("still")}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
@@ -997,8 +1009,9 @@ function renderSettings(){const dk=isDarkNow();
   <div class="sh">数据</div>
   <div class="sc"><div class="sr"><b>备份背诵记录</b><span class="sv" style="flex:1">换手机时用</span><button class="sdl" data-bkup>导出</button><label class="sdl">导入<input type="file" accept=".json,application/json" data-rstr hidden></label></div></div>
   <div class="sh">关于</div>
-  <div class="sc"><div class="sr"><b>版本</b><span class="sv">${esc(APPVER)}</span></div><div class="sr"><b>复习算法</b><span class="sv">FSRS（ts-fsrs，MIT 协议）</span></div></div>
+  <div class="sc"><div class="sr"><b>版本</b><span class="sv">${esc(APPVER)}</span></div><div class="sr"><b>复习算法</b><span class="sv">FSRS（ts-fsrs，MIT 协议）</span></div>${a2Kind()?`<button class="sr go" data-a2open><b>添加到主屏幕</b></button>`:""}</div>
  </div></div></div>`;
+ {const ab=dev.querySelector("[data-a2open]");if(ab)ab.onclick=()=>showA2hs(true)}
  const re=()=>{const y=dev.querySelector(".sbody").scrollTop;applyColors();renderSettings();dev.querySelector(".sbody").scrollTop=y;save()};
  dev.querySelector("[data-shome]").onclick=()=>{ST.screen="home";render();bindPanel()};
  dev.querySelectorAll("[data-sbg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.sbg;re();bindPanel()});
@@ -1135,6 +1148,13 @@ async function removeBook(id){await idbDel("book:"+id);await idbDel("shiyi:"+id)
 // ===== 每日提醒 =====
 // 有推送服务（push/ 里的 Cloudflare Worker，地址写在 config.js）时用 Web Push；没有时可以把每天的提醒加到手机日历
 const CFG=window.KEPAN_CONFIG||{};
+let A2P=null;const A2K="kepan-a2hs";
+function a2State(){try{return JSON.parse(localStorage.getItem(A2K))||{}}catch(e){return {}}}
+function a2Save(o){try{localStorage.setItem(A2K,JSON.stringify(o))}catch(e){}}
+function a2Kind(){return STANDALONE()?null:IOS?"ios":A2P?"prompt":"other"}
+function a2Go(close){if(!A2P){close();return}const p=A2P;A2P=null;p.prompt();p.userChoice.then(r=>{if(r&&r.outcome==="accepted")a2Save({off:true});close()}).catch(close)}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();A2P=e;if(dev.querySelector(".a2h"))showA2hs(true)});
+window.addEventListener("appinstalled",()=>{a2Save({off:true});const o=dev.querySelector(".a2h");if(o)o.remove()});
 const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 const STANDALONE=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
 const pushOK=()=>!!CFG.pushServer&&"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window;

@@ -622,6 +622,25 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .dedc p{margin:0;display:grid;gap:1px;justify-items:center}
 .dedc .bo{font-family:"Noto Serif Tibetan","Kailasa","Microsoft Himalaya","Jomolhari",serif;font-size:14px;line-height:1.75}
 .dedc small{font-size:13.5px;color:var(--muted);letter-spacing:.08em}
+.a2h{position:absolute;inset:0;z-index:56;background:rgb(0 0 0 / .42);display:flex;align-items:flex-end;justify-content:center;animation:a2in .35s ease both;transition:opacity .3s ease}
+.a2h.out{opacity:0;pointer-events:none}
+.a2c{width:100%;max-width:440px;background:var(--panel);color:var(--ink);border-radius:20px 20px 0 0;padding:22px 20px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;justify-items:center;text-align:center;font-family:var(--sans);animation:a2up .4s cubic-bezier(.2,.8,.2,1) both;box-shadow:0 -8px 30px rgb(0 0 0 / .18)}
+.a2i{width:54px;height:54px;border-radius:13px;background:linear-gradient(180deg,#9c2a1e,#6e1a11);color:#f6e7d0;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:26px;box-shadow:0 3px 10px rgb(0 0 0 / .2)}
+.a2t{font-family:var(--serif);font-size:18px;letter-spacing:.04em}
+.a2p{margin:0;font-size:13.5px;line-height:1.7;color:var(--muted);max-width:26em}
+.a2s{list-style:none;margin:2px 0 0;padding:0;width:100%;display:grid;gap:8px;text-align:left}
+.a2s li{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px}
+.a2s li>i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:12px;flex:none}
+.a2s li>span{flex:1}.a2s li b{font-weight:600}
+.a2s svg{flex:none;color:#2f7cf6}
+.a2n{margin:0;font-size:12px;line-height:1.6;color:var(--muted)}
+.a2f{display:flex;gap:10px;width:100%;margin-top:4px}
+.a2f button{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:12px 10px;font-size:15px;font-family:var(--serif);cursor:pointer}
+.a2f button.pri{background:#9c2a1e;border-color:#9c2a1e;color:#fff6e2;flex:1.6}
+.a2off{border:0;background:none;color:var(--muted);font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:2px 8px}
+@keyframes a2in{from{background:rgb(0 0 0 / 0)}}@keyframes a2up{from{transform:translateY(40px);opacity:0}}
+@media (min-width:701px){.a2h{align-items:center}.a2c{border-radius:20px}}
+@media (prefers-reduced-motion:reduce){.a2h,.a2c{animation:none}}
 .dedi{cursor:pointer}
 .dedt{font-style:normal;font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-indent:.3em;color:var(--muted);margin-top:8px;animation:splp 2.6s ease-in-out 1.5s infinite}
 .dedc .zh{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.14em;text-indent:.14em;line-height:1.5}
@@ -850,7 +869,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,hmore:"chip",hgold:"seal",gdemo:"off",shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,hmore:"chip",a2k:"ios",hgold:"seal",gdemo:"off",shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -1297,7 +1316,7 @@ function streakLamps(){const wk=HIST.slice(-7);const C=todayCount();const todayO
  const M=ST.skm,mon=CNM[now.getMonth()]+"月";
  const lamps=wk.map((_,i)=>{const fut=i>ti,c=fut?0:wk[6-(ti-i)];const on=i===ti?todayOn:!!c;const d=days[i];const newM=i>0&&d.getMonth()!==days[i-1].getMonth();
   const lab=M==="date"||M==="both"?(newM?`${d.getMonth()+1}月`:`${d.getDate()}`):(i===ti?"今":WD[d.getDay()]);
-  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?(i===ti&&!todayFull?1:0):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
+  return `<span class="sl ${on?"on":"off"} ${i===ti?"td":""} ${fut?"fut":""}">${pillLampAt(on?0:10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
  return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${SR.streak?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${SR.streak}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
@@ -1612,10 +1631,25 @@ function offerHTML(W0,H){const W=W0*ST.ofw/100,R=+ST.ofr,N=Math.max(1,Math.round
    const du=(1.5+h2*1.3)/(ST.ofsv/100);lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};--d:${(fr*ST.ofit).toFixed(2)}s;--du:${du.toFixed(2)}s;--ph:${(-h*du*2).toFixed(2)}s">${fireWrap(pillLampAt(0,z))}</span>`}}
  const tw=(narrow*50).toFixed(1);
  return `<span class="oft c-${ST.ofc}" style="height:${(apron+Dp+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100};--sa:${(ST.ofsa*.09).toFixed(2)};--sl:${(ST.ofsl/100).toFixed(2)};--it:${ST.ofit}s;--bd:${ST.ofbd/100};--bs:${ST.ofbs/100};--bt:${ST.ofbt}s;--td:${ST.oftd/100};--gdu:${(3.3/(ST.ofsv/100)).toFixed(2)}s"><i class="ofgw"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
+let A2S={};const a2State=()=>A2S,a2Save=o=>{A2S=o};
+function a2Kind(){return ST.a2k==="none"?null:ST.a2k}
+function a2Go(close){A2S={off:true};const c=dev.querySelector(".a2c");if(c){c.querySelector(".a2t").textContent="已添加到主屏幕";c.querySelector(".a2f").remove();c.querySelector(".a2off").remove()}setTimeout(close,1100)}
+function a2Due(){const s=a2State();return !s.off&&(!s.next||Date.now()>=s.next)}
+function showA2hs(force){const k=a2Kind();const old=dev.querySelector(".a2h");if(old)old.remove();if(!k)return;if(!force&&!a2Due())return;const el=document.createElement("div");el.className="a2h";
+ const SH='<svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 16V2.5M6.5 6.5 11 2l4.5 4.5M6 10H4.5A2.5 2.5 0 0 0 2 12.500v9A2.5 2.5 0 0 0 4.5 24h13a2.5 2.5 0 0 0 2.500-2.500v-9A2.5 2.5 0 0 0 17.500 10H16"/></svg>',PL='<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="2" width="18" height="18" rx="4.5"/><path d="M11 6.500v9M6.500 11h9"/></svg>';
+ const body=k==="ios"?`<ol class="a2s"><li><i>1</i><span>点屏幕底部的<b>分享</b>按钮</span>${SH}</li><li><i>2</i><span>往下找到<b>添加到主屏幕</b></span>${PL}</li><li><i>3</i><span>点右上角的<b>添加</b></span></li></ol><p class="a2n">要用 Safari 打开才有这一项。如果是在微信等 App 里打开的，请先点右上角「在 Safari 中打开」。</p>`
+  :k==="prompt"?"":`<p class="a2n">在浏览器的菜单（⋮ 或 ⋯）里选「安装应用」或「添加到主屏幕」。</p>`;
+ const pri=k==="ios"?["a2done","我加好了"]:k==="prompt"?["a2go","添加到主屏幕"]:["a2later","知道了"];
+ el.innerHTML=`<div class="a2c" role="dialog" aria-label="添加到主屏幕"><span class="a2i">科</span><b class="a2t">把「科判」加到主屏幕</b><p class="a2p">学习进度只存在这台手机里。加到主屏幕、像 App 一样打开，进度才不会被浏览器清掉。</p>${body}<div class="a2f">${k==="other"?"":`<button data-a2="a2later">以后再说</button>`}<button class="pri" data-a2="${pri[0]}">${pri[1]}</button></div><button class="a2off" data-a2="a2off">不再提示</button></div>`;
+ dev.appendChild(el);const close=()=>{el.classList.add("out");setTimeout(()=>el.remove(),320)};
+ el.onclick=e=>{const b=e.target.closest("[data-a2]");if(!b)return;const a=b.dataset.a2,s=a2State();
+  if(a==="a2later"){s.n=(s.n||0)+1;s.next=Date.now()+3*864e5;a2Save(s);close()}
+  else if(a==="a2off"||a==="a2done"){s.off=true;a2Save(s);close()}
+  else if(a==="a2go")a2Go(close)}}
 function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash i-"+ST.ofi;el.setAttribute("aria-label","发心后点击进入");
  const W=dev.clientWidth,H=dev.clientHeight,TH=H*ST.ofh/100+ST.ofz*.9;
  el.innerHTML=`<span class="spc" style="top:${ST.ofy}%"><span class="spt" style="font-size:${ST.oft}px"><span>为了使片等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small></span>${offerHTML(W,H)}`;
- dev.appendChild(el);el.onclick=()=>{if(el.classList.contains("out"))return;el.classList.add("out");dev.classList.add("enter");setTimeout(()=>{el.remove();dev.classList.remove("enter")},1350)}}
+ dev.appendChild(el);el.onclick=()=>{if(el.classList.contains("out"))return;el.classList.add("out");dev.classList.add("enter");setTimeout(()=>{el.remove();dev.classList.remove("enter");showA2hs()},1350)}}
 function splashLive(){const o=dev.querySelector(".splash");showSplash();const e=dev.querySelector(".splash");e.classList.add("still")}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
@@ -1640,8 +1674,9 @@ function renderSettings(){const dk=isDarkNow();
   <div class="sh">提醒</div>
   <div class="sc"><div class="sr"><b>每日提醒</b><span class="sv">${ST.srem?"每天 20:30":""}</span><button class="stog" data-stog="srem" aria-pressed="${!!ST.srem}" aria-label="每日提醒"></button></div></div>
   <div class="sh">关于</div>
-  <div class="sc"><div class="sr"><b>版本</b><span class="sv">0.1 原型</span></div></div>
+  <div class="sc"><div class="sr"><b>版本</b><span class="sv">0.1 原型</span></div>${a2Kind()?`<button class="sr go" data-a2open><b>添加到主屏幕</b></button>`:""}</div>
  </div></div></div>`;
+ {const ab=dev.querySelector("[data-a2open]");if(ab)ab.onclick=()=>showA2hs(true)}
  const re=()=>{const y=dev.querySelector(".sbody").scrollTop;applyColors();renderSettings();dev.querySelector(".sbody").scrollTop=y};
  dev.querySelector("[data-shome]").onclick=()=>{ST.screen="home";render();bindPanel()};
  dev.querySelectorAll("[data-sbg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.sbg;re();bindPanel()});
@@ -1735,9 +1770,10 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  return `<h2>调整</h2>
  <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button><button id="dedibtn">看回向卡片</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
  <div class="grp"><h3>复习安排</h3><p class="note">已确认：复习时间由 FSRS 按每一条自己的情况算，不再有固定间隔表。按钮仍是“记得 / 模糊”。答对提示“下次大约几天后”，原型里的天数是示意；答错提示“过一会儿再出现”，这题排到本轮末尾再出一次。目标记住率默认 90%，在设置页“复习”里调。</p></div>
+ <div class="grp"><h3>添加到主屏幕</h3>${G("a2k","设备",{ios:"iPhone（图示三步）",prompt:"安卓 / Chrome（一键添加）",other:"其他浏览器",none:"已经是 App，不显示"})}<div class="og"><button id="a2btn">看引导</button></div><p class="note">第一次打开时，发心界面点掉之后出现。点「以后再说」三天后再提醒；点「我加好了」或「不再提示」就不再出现；已经从主屏幕打开的不显示。设置页「关于」里可以再打开。</p></div>
  <div class="grp"><h3>书卡 · 继续学习</h3><p class="note">已确认：当天都做完后，书卡左边按钮大小不变，小字换成红底小签「再学 ›」，点了再学下一支。</p><div class="og"><button id="hmdemo">${ST.lstate==="rest"?"回到实际进度":"切到「已复习」看效果"}</button></div></div>
  <div class="grp"><h3>书卡 · 整本圆满</h3>${G("gdemo","预览",{off:"按实际进度",due:"圆满 · 有复习",idle:"圆满 · 没有到期"})}<p class="note">已确认：整本都学完后，书卡按钮变成金底，大字「圆满」，下面一个深色小签。有到期内容时点了照常复习；没有到期时显示「再复习 ›」，点了从学过的里面随机抽 5 条再练一轮。</p></div>
- <div class="grp"><h3>点灯和回向</h3><p class="note">首页的灯按星期排，周一在最左，今天之后的几盏是暗的空灯。完成页有“继续学习”，想多学时再学下一支，不受每天新学数量限制。已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮、火苗略小。回向卡片不再自动弹出，改成首页顶栏的“回向”按钮；当天点了灯还没回向时按钮带金色提示，点开看过就恢复。</p></div>
+ <div class="grp"><h3>点灯和回向</h3><p class="note">首页的灯按星期排，周一在最左，今天之后的几盏是暗的空灯。完成页有“继续学习”，想多学时再学下一支，不受每天新学数量限制。已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。只要点了灯就是满火，不分做了一部分还是全部。回向卡片不再自动弹出，改成首页顶栏的“回向”按钮；当天点了灯还没回向时按钮带金色提示，点开看过就恢复。</p></div>
  <div class="grp"><h3>发心开屏 · 供灯桌</h3><p class="note">已确认：红布桌面，对齐排列，7 排，每排 11 盏，灯 81px，桌宽 130%（两侧超出屏幕），桌长 100%，桌高 28%，俯视 37°，光晕 100%，文字 26px、高度 37%。宽屏按比例加灯。</p></div>
  <div class="grp"><h3>发心开屏 · 点灯和摇曳</h3><p class="note">已确认：灯火逐盏点燃，从桌子中心向外，出场 1.5 秒，横向扩散 25%、纵向 55%；灯火摇曳幅度 45%、速度 85%，灯光明暗 100%；灯器起始亮度 10%、色彩 50%、变亮 0.5 秒，桌面起始亮度 50%。想再看一遍点“演示”里的“再看一次开屏”。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
@@ -1750,7 +1786,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
 function summary(){const s=document.getElementById("summary");if(!s)return;
  s.textContent=`书卡复习条：宽 ${ST.ew}px，灯 ${ST.plz}px，字 ${ST.efs}px，圆角 ${ST.er}px，${{top:"靠上",mid:"居中",bot:"靠下"}[ST.eal]}，底色 ${{k0:"朱红",deep:"深绛",bronze:"古铜",ink:"墨",soft:"浅底红字"}[ST.eclr]}，文字 ${{two:"两行",one:"只写复习数",num:"只写数字",none:"不写字"}[ST.esub]}，天数标 ${{tr:"右上角",bottom:"底部一行",off:"不显示"}[ST.edt]}；酥油灯：${LST[ST.lst]}，大小 目录导图 ${ST.rsz}px / 书卡 ${ST.plz}px / 反馈 ${ST.fbz}px${ST.lst==="t7"?"；造型 "+Object.entries(LPL).map(([k,a])=>a[0]+" "+((ST.lp||LPD)[k])).join("，"):""}；颂词字号（读者可调）：${ST.vf}px；层级色：${PAL[ST.pal].name}；背景：${BG[ST.bg].name}`}
 function bindPanel(){panel.innerHTML=panelHTML();summary();
- panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel();if(k==="ofc"||k==="ofs")splashLive();if(k==="ofi"||k==="ofo")showSplash()});
+ panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel();if(k==="ofc"||k==="ofs")splashLive();if(k==="ofi"||k==="ofo")showSplash();if(k==="a2k"){A2S={};showA2hs(true)}});
  panel.querySelectorAll("[data-pal]").forEach(b=>b.onclick=()=>{ST.pal=b.dataset.pal;render();bindPanel()});
  panel.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.bg;render();bindPanel()});
  const R=(id,fn,unit)=>{const el=panel.querySelector("#"+id);if(!el)return;el.oninput=()=>{const v=+el.value;panel.querySelector("#"+id+"o").textContent=v+unit;fn(v);summary()}};
@@ -1775,7 +1811,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
  const dd=panel.querySelector("#dedibtn");if(dd)dd.onclick=showDedi;
- const sp2=panel.querySelector("#splashbtn2");if(sp2)sp2.onclick=()=>showSplash();["ofsa: %","ofsv: %","ofsl: %"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u)});R("ofit",v=>{ST.ofit=v;showSplash()}," 秒");[["ofbd"," %"],["ofbs"," %"],["ofbt"," 秒"],["oftd"," %"],["ofvx"," %"],["ofvy"," %"]].forEach(([k,u])=>{R(k,v=>{ST[k]=v},u);const e=panel.querySelector("#"+k);if(e)e.onchange=()=>showSplash()});{const hd=panel.querySelector("#hmdemo");if(hd)hd.onclick=()=>{ST.lstate=ST.lstate==="rest"?"auto":"rest";ST.screen="home";render();bindPanel()}}const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
+ const sp2=panel.querySelector("#splashbtn2");if(sp2)sp2.onclick=()=>showSplash();["ofsa: %","ofsv: %","ofsl: %"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u)});R("ofit",v=>{ST.ofit=v;showSplash()}," 秒");[["ofbd"," %"],["ofbs"," %"],["ofbt"," 秒"],["oftd"," %"],["ofvx"," %"],["ofvy"," %"]].forEach(([k,u])=>{R(k,v=>{ST[k]=v},u);const e=panel.querySelector("#"+k);if(e)e.onchange=()=>showSplash()});{const hd=panel.querySelector("#hmdemo");if(hd)hd.onclick=()=>{ST.lstate=ST.lstate==="rest"?"auto":"rest";ST.screen="home";render();bindPanel()}}{const ab=panel.querySelector("#a2btn");if(ab)ab.onclick=()=>{A2S={};showA2hs(true)}}const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
  const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
  const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{FIRST=false;if(!SR.streak)SR.streak=12;seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
  const ot=panel.querySelector("#opentoc");if(ot)ot.onclick=()=>{ST.tocOpen=!ST.tocOpen;render();bindPanel()};
