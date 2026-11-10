@@ -804,7 +804,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:80,ofh:28,ofa:38,ofc:"red",ofs:"off",oft:23,ofg:100,ofw:100,ofy:36,shym:"sheet",shyv:"on",shyf:15,tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:80,ofh:28,ofa:38,ofc:"red",ofs:"off",oft:23,ofg:100,ofw:100,ofy:36,ofd:100,shym:"sheet",shyv:"on",shyf:15,tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -1241,14 +1241,14 @@ function paceSheetHTML(){if(!PACESH)return "";const c=ST.pace==="course",m=cours
 function resetHTML(){if(!RESETC)return "";return `<div class="cpov cfov" data-rsno><div class="cfd" role="alertdialog" aria-label="确认重置进度"><b>重置《入行论》的进度？</b><p>所有背诵和复习记录都会清空，从第一颂重新开始。这一步不能撤销。</p><div class="cfb"><button data-rsno>取消</button><button class="danger" data-rsyes>重置</button></div></div></div>`}
 // ---- 连续点灯条
 const CNM=["一","二","三","四","五","六","七","八","九","十","十一","十二"];
-function streakLamps(){const wk=HIST.slice(-7);const C=todayCount();const todayOn=!C.tot;const z=+ST.sklz;const now=new Date();
+function streakLamps(){const wk=HIST.slice(-7);const C=todayCount();const todayOn=!!(SR.today&&SR.today.n),todayFull=todayOn&&!C.tot;const z=+ST.sklz;const now=new Date();
  const days=wk.map((_,i)=>{const d=new Date(now);d.setDate(now.getDate()-(6-i));return d});const WD="日一二三四五六";
  const wsum=wk.reduce((a,b)=>a+b,0);const vs=Object.values(BOOKS).reduce((a,B)=>a+bookVs(B)[0],0);
  const ex=ST.skc==="streak"?"":`<span class="skx">${[`本周 <b>${wsum}</b> 题`,...(ST.skc==="full"?[`已背 <b>${vs}</b> 颂`,`正确率 <b>86</b>%`]:[])].join('<i class="sep">·</i>')}</span>`;
  const M=ST.skm,mon=CNM[now.getMonth()]+"月";
  const lamps=wk.map((c,i)=>{const on=i===6?todayOn:!!c;const d=days[i];const newM=i>0&&d.getMonth()!==days[i-1].getMonth();
   const lab=M==="date"||M==="both"?(newM?`${d.getMonth()+1}月`:`${d.getDate()}`):(i===6?"今":WD[d.getDay()]);
-  return `<span class="sl ${on?"on":"off"} ${i===6?"td":""}">${pillLampAt(on?0:10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
+  return `<span class="sl ${on?"on":"off"} ${i===6?"td":""}">${pillLampAt(on?(i===6&&!todayFull?4:0):10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
  return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${SR.streak?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${SR.streak}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
@@ -1280,10 +1280,12 @@ function initTask(t){if(!t)return null;const n=t.n;
  if(t.k==="exp"){let dis=[];if(!t.isNew){const pool=t.B.all.filter(x=>x.lvl===n.lvl+1&&x.p!==n);const i0=t.B.all.indexOf(n);pool.sort((a,b)=>Math.abs(t.B.all.indexOf(a)-i0)-Math.abs(t.B.all.indexOf(b)-i0));dis=pool.slice(0,n.c.length>2?2:1).map(x=>x.id)}
   return {kind:"exp",order:shuffle([...n.c.map(x=>x.id),...dis],n.c.length*13+dis.length),dis:new Set(dis),placed:[],wrong:0,shake:null,done:false}}
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
-function grade(t,ok){if(t.daily){SR.daily={done:true,ok,used:5-SS.t.chances};return}const key=t.n.id+"|"+t.k;const o=SR.it[key];const was=!!o;let lv;
+function dayMark(){if(!SR.today)SR.today={n:0,dedi:false};if(!SR.today.n)SR.streak++;SR.today.n++}
+function dediMaybe(){if(SR.today&&SR.today.n>0&&!SR.today.dedi){SR.today.dedi=true;setTimeout(showDedi,600)}}
+function grade(t,ok){dayMark();if(t.daily){SR.daily={done:true,ok,used:5-SS.t.chances};return}const key=t.n.id+"|"+t.k;const o=SR.it[key];const was=!!o;let lv;
  if(t.isNew||!o)lv=0;else lv=ok?Math.min(5,o.lv+1):Math.max(0,o.lv-2);SR.it[key]={lv,due:INTV[lv]};if(t.isNew&&t.k==="mask")SR.wkNew+=t.n.v.length;SS.res.push({t,ok,first:!was,lv})}
 function startSession(opt){SS={q:opt&&opt.daily?[opt.daily]:buildQueue(),i:0,res:[],daily:!!(opt&&opt.daily),from:ST.screen==="study"?"home":ST.screen};SS.t=initTask(SS.q[0]);ST.screen="study";ST.tocOpen=false;render();bindPanel()}
-function exitSession(){const f=SS&&SS.from||"home";SS=null;ST.screen=f;render();bindPanel()}
+function exitSession(){const f=SS&&SS.from||"home";SS=null;ST.screen=f;render();bindPanel();dediMaybe()}
 function chipsPath(A){return `<div class="spath">${A.map(x=>`<span style="--lc:var(--k${x.depth})"><b>${x.code}</b>${esc(x.title)}</span>`).join("<i>›</i>")}</div>`}
 function whyBody(t,T){const G=shyG(bkKey(t.B),T.leaf.id);
  if(!G||!G.some(g=>g.t.length))return `<p>科判名本身就是这几颂的概括：「${esc(t.n.title)}」说的正是上面这段颂词的内容。</p><small>这一科还没有挂上释义。</small>`;
@@ -1336,7 +1338,7 @@ function renderStudy(){if(!SS){startSession();return}
   const sh=document.createElement("div");sh.className="ssheet "+(T.done?"low":"");sh.innerHTML=head+`<div class="sbody">${inner}</div>`;app.appendChild(sh);root=sh;
   if(T.done){const row=app.querySelector(`.row[data-id="${(t.k==="loc"?T.leaf:fl(t.n)).id}"]`);if(row)row.classList.add("flash")}}
  else{dev.innerHTML=`<div class="app study sv-${ST.sview==="sheet"?"full":ST.sview}">${head}<div class="sbody">${ST.sview==="card"&&!fin?`<div class="sstack"><div class="scard ${!T.done&&SS.shownI!==SS.i?"in":""}">${inner}</div></div>`:inner}</div></div>`;root=dev;SS.shownI=SS.i}
- bindStudy(root,t,T);if(fin&&SS.res.length&&!SS.daily&&!SS.dedi){SS.dedi=true;setTimeout(()=>{if(SS&&ST.screen==="study")showDedi()},700)}}
+ bindStudy(root,t,T);if(fin||(SS.daily&&T&&T.done))dediMaybe()}
 function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  root.querySelectorAll("[data-sx]").forEach(b=>b.onclick=exitSession);
  root.querySelectorAll("[data-tree]").forEach(b=>b.onclick=()=>{SS=null;BK=BOOKS.p2;ST.view="map";ST.screen="reader";ST.tocOpen=!wide();mmReset(null);render();bindPanel()});
@@ -1515,20 +1517,20 @@ function welcomeHTML(){if(!FIRST||WELX)return "";const c=courseLeaf();const star
   <button class="wels ${c?"dn":""}" data-welpace><i>${c?"✓":"1"}</i><span>告诉我课讲到哪了<small>${c?esc(c.code+" "+c.title):"新学的颂词不会超过课程进度"}</small></span><em>›</em></button>
   <button class="wels ${started?"dn":""}" data-wellearn><i>${started?"✓":"2"}</i><span>背第一颂<small>每天学完当天的，就点亮一盏灯</small></span><em>›</em></button>
   <button class="wels" data-welread><i>3</i><span>或者先读一读<small>点颂词可以看释义</small></span><em>›</em></button></div>`}
-function firstRun(){FIRST=true;PACEASKED=false;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
+function firstRun(){FIRST=true;SR.today=null;PACEASKED=false;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
 const DEDI=[["བསོད་ནམས་འདི་ཡིས་ཐམས་ཅད་གཟིགས་པ་ཉིད། །","索南德益檀嘉热巴涅","此福已得一切智"],["ཐོབ་ནས་ཉེས་པའི་དགྲ་རྣམས་ཕམ་བྱས་ཏེ། །","托内尼波扎南攀旭得","催伏一切过患敌"],["སྐྱེ་རྒ་ན་འཆིའི་རྦ་ཀློང་འཁྲུགས་པ་ཡི། །","杰嘎那齐瓦隆彻巴耶","生老病死犹波涛"],["སྲིད་པའི་མཚོ་ལས་འགྲོ་བ་སྒྲོལ་བར་ཤོག །","哲波措类卓瓦卓瓦秀","愿度有海诸有情"]];
 const DEDIM=["ཨོཾ་ཨཱཿཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ༔","嗡啊吽班匝儿格热巴玛色德吽"];
 function showDedi(){const old=dev.querySelector(".dedi");if(old)old.remove();const el=document.createElement("div");el.className="dedi";
  el.innerHTML=`<div class="dedc" role="dialog" aria-label="回向"><span class="dedl">${pillLampAt(0,54)}</span><b class="dedh">回向</b>${DEDI.map(l=>`<p><span class="bo" lang="bo">${l[0]}</span><small>${l[1]}</small><span class="zh">${l[2]}</span></p>`).join("")}<p class="dedm"><span class="bo" lang="bo">${DEDIM[0]}</span><small>${DEDIM[1]}</small></p><em class="dedt">回向完点击</em></div>`;
  dev.appendChild(el);el.setAttribute("role","button");el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),700)}}
 function offerHTML(W0,H){const W=W0*ST.ofw/100,R=+ST.ofr,N=Math.max(1,Math.round(+ST.ofn*Math.max(1,W0/390)*ST.ofw/100)),Z=+ST.ofz,rad=ST.ofa*Math.PI/180,sn=Math.sin(rad),cs=Math.cos(rad);
- const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,(TH-apron)*sn+8),back=1-.5*cs,narrow=.34*cs;
+ const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,((TH-apron)*sn+8)*ST.ofd/100),back=1-.5*cs,narrow=.34*cs;
  let lamps="";
  for(let r=R-1;r>=0;r--){const t=R>1?r/(R-1):0,sc=1-(1-back)*t,z=Math.max(10,Math.round(Z*sc));const n=ST.ofs==="on"&&r%2?Math.max(1,N-1):N;
   const w=W*(1-narrow*t),gap=w/N,y=apron+4+t*Math.max(0,Dp-z*.5-8);
   for(let k=0;k<n;k++){const x=W/2+(k-(n-1)/2)*gap;lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};animation-delay:${((k*37+r*53)%19)/10}s">${pillLampAt(0,z)}</span>`}}
  const tw=(narrow*50).toFixed(1);
- return `<span class="oft c-${ST.ofc}" style="height:${(TH+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100}"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
+ return `<span class="oft c-${ST.ofc}" style="height:${(apron+Dp+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100}"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
 function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash";el.setAttribute("aria-label","发心后点击进入");
  const W=dev.clientWidth,H=dev.clientHeight,TH=H*ST.ofh/100+ST.ofz*.9;
  el.innerHTML=`<span class="spc" style="top:${ST.ofy}%"><span class="spt" style="font-size:${ST.oft}px"><span>为了使片等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small></span>${offerHTML(W,H)}`;
@@ -1644,7 +1646,8 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  const R=(id,label,min,max,step,val,unit)=>`<div class="og"><b>${label}</b><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" aria-label="${label}"><output id="${id}o">${val}${unit}</output></div>`;
  return `<h2>调整</h2>
  <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button><button id="dedibtn">看回向卡片</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
- <div class="grp"><h3>发心开屏 · 供灯桌</h3>${G("ofc","桌面",{red:"红布",gold:"金",wood:"木",none:"不画桌"})}${G("ofs","排列",{on:"错位",off:"对齐"})}${R("ofr","排数",1,7,1,ST.ofr," 排")}${R("ofn","每排盏数",2,14,1,ST.ofn," 盏")}${R("ofz","灯大小",20,90,1,ST.ofz," px")}${R("ofw","桌子宽度",40,200,1,ST.ofw," %")}${R("ofh","桌子高度",10,60,1,ST.ofh," %")}${R("ofa","俯视角度",5,90,1,ST.ofa,"°")}${R("ofg","灯光光晕",0,100,5,ST.ofg," %")}${R("oft","文字大小",15,30,1,ST.oft," px")}${R("ofy","文字高度",15,70,1,ST.ofy," %")}<p class="note">文字高度是文字中心离屏幕顶端的距离。每排盏数是手机满宽时的数量，桌子变窄或屏幕变宽时按比例增减。拖动时开屏会留在屏幕上，点一下才淡出。</p></div>
+ <div class="grp"><h3>点灯和回向</h3><p class="note">已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮但火苗小。回向卡片在当天第一次结束学习时弹一次。</p></div>
+ <div class="grp"><h3>发心开屏 · 供灯桌</h3>${G("ofc","桌面",{red:"红布",gold:"金",wood:"木",none:"不画桌"})}${G("ofs","排列",{on:"错位",off:"对齐"})}${R("ofr","排数",1,7,1,ST.ofr," 排")}${R("ofn","每排盏数",2,14,1,ST.ofn," 盏")}${R("ofz","灯大小",20,90,1,ST.ofz," px")}${R("ofw","桌子宽度",40,200,1,ST.ofw," %")}${R("ofd","桌子长度",30,300,5,ST.ofd," %")}${R("ofh","桌子高度",10,60,1,ST.ofh," %")}${R("ofa","俯视角度",5,90,1,ST.ofa,"°")}${R("ofg","灯光光晕",0,100,5,ST.ofg," %")}${R("oft","文字大小",15,30,1,ST.oft," px")}${R("ofy","文字高度",15,70,1,ST.ofy," %")}<p class="note">桌子长度是桌面从前到后的纵深，拉长后各排灯之间拉开、桌面往上延伸。文字高度是文字中心离屏幕顶端的距离。每排盏数是手机满宽时的数量，桌子变窄或屏幕变宽时按比例增减。拖动时开屏会留在屏幕上，点一下才淡出。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
   <p class="note">平板和电脑：导图右下角多一个 ⛶，点了铺满整个界面，再点 ⤡ 退回侧栏。点路径卡片 → 顶部正中切到「导图」。单指拖动画布，双指或滚轮缩放；点有分支的科判展开 / 收起（右侧 +N 是收起的子科数），点最末一科直接跳到颂词。选中某一科后底部会出现「跳到…」。右下角：放大、缩小、看全图、回到当前位置。一打开只展开当前所在的那一条路径，当前段落用金框标出。</p></div>
@@ -1677,7 +1680,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("fkP",v=>{ST.fkP=v},"×");R("fkW",v=>{ST.fkW=v},"×");
  R("vgy",v=>{ST.vgy=v;render()}," px");R("vgx",v=>{ST.vgx=v;render()}," px");R("vls",v=>{ST.vls=v;render()},"%");R("vpd",v=>{ST.vpd=v;render()}," px");
  R("sklz",v=>{ST.sklz=v;render()}," px");R("sktf",v=>{ST.sktf=v;render()}," px");R("skgap",v=>{ST.skgap=v;render()}," px");R("sknf",v=>{ST.sknf=v;render()}," px");
- ["ofr:  排","ofn: 盏","ofz: px","ofh: %","ofa:°","ofg: %","oft: px","ofw: %","ofy: %"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u.replace("  "," "))});R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
+ ["ofr:  排","ofn: 盏","ofz: px","ofh: %","ofa:°","ofg: %","oft: px","ofw: %","ofy: %","ofd: %"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u.replace("  "," "))});R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
  const dd=panel.querySelector("#dedibtn");if(dd)dd.onclick=showDedi;
  const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
