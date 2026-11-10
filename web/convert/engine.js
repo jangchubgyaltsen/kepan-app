@@ -2,7 +2,7 @@
 // 这个文件的内容会被 build.py 原样嵌进 kepan-convert.js，既可以放进 Web Worker 跑，也可以在主线程跑。
 // PY_FILES、WHEELS 两个占位由 build.py 填入。
 /* global loadPyodide, importScripts */
-function makeEngine(indexURL, log) {
+function makeEngine(indexURL, log, stdLibURL) {
   const PY_FILES = __PY_FILES__;   // {文件名: 源码}
   const WHEELS = __WHEELS__;       // {文件名: base64}
   let py = null;
@@ -23,7 +23,7 @@ function makeEngine(indexURL, log) {
         s.onload = ok; s.onerror = () => bad(new Error('运行环境下载失败，请检查网络')); document.head.appendChild(s);
       });
     }
-    py = await loadPyodide({ indexURL });
+    py = await loadPyodide(stdLibURL ? { indexURL, stdLibURL } : { indexURL });
     py.FS.mkdirTree('/kp/wheels');
     for (const [name, data] of Object.entries(WHEELS)) py.FS.writeFile('/kp/wheels/' + name, b64(data));
     for (const [name, src] of Object.entries(PY_FILES)) py.FS.writeFile('/kp/' + name, src);

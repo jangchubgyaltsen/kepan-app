@@ -98,7 +98,11 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 let tree = null, shiyi = null;
 let conv = null;
-const getConv = () => conv || (conv = createConverter({ onLog: (s) => setStatus(activeStatus, s) }));
+// 发布成单页时，标准库被嵌进页面（STDLIB_B64），用 blob 地址交给运行环境
+const stdLibURL = typeof STDLIB_B64 === 'string'
+  ? URL.createObjectURL(new Blob([Uint8Array.from(atob(STDLIB_B64), (c) => c.charCodeAt(0))]))
+  : undefined;
+const getConv = () => conv || (conv = createConverter({ stdLibURL, onLog: (s) => setStatus(activeStatus, s) }));
 let activeStatus = 'st1';
 function setStatus(id, s, cls) { const el = $(id); el.textContent = s; el.style.color = cls ? `var(--${cls})` : ''; }
 

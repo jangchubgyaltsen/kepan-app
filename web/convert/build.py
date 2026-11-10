@@ -87,6 +87,8 @@ def main():
     (DIST / "kepan-convert.js").write_text(js, encoding="utf-8")
     demo = (HERE / "demo.html").read_text(encoding="utf-8")
     module = js.replace("export function createConverter", "function createConverter")
+    if "--embed-stdlib" in sys.argv:  # 发布到不能放 .zip 的地方时，把标准库嵌进试用页
+        module = "const STDLIB_B64 = " + json.dumps(base64.b64encode((pyo / "python_stdlib.zip").read_bytes()).decode()) + ";\n" + module
     demo = demo.replace("/*__CONVERTER__*/", module.replace("</script", "<\\/script"))
     (DIST / "demo.html").write_text(demo, encoding="utf-8")
     for f in ("kepan-convert.js", "demo.html", *[f"pyodide/{x}" for x in PYODIDE_FILES]):

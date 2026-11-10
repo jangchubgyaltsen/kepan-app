@@ -7,7 +7,7 @@
 // 运行环境 Pyodide 和本文件放在一起（dist/pyodide/），离线缓存和国内访问都更稳；也可以传 indexURL 指向别处。
 const DEFAULT_INDEX = new URL('./pyodide/', import.meta.url).href;
 
-export function createConverter({ indexURL = DEFAULT_INDEX, onLog, worker = true } = {}) {
+export function createConverter({ indexURL = DEFAULT_INDEX, stdLibURL, onLog, worker = true } = {}) {
   const toBuf = async (x) => {
     if (x instanceof ArrayBuffer) return x;
     if (ArrayBuffer.isView(x)) return x.buffer.slice(x.byteOffset, x.byteOffset + x.byteLength);
@@ -16,7 +16,7 @@ export function createConverter({ indexURL = DEFAULT_INDEX, onLog, worker = true
   let impl = null;
 
   function mainThread() {
-    const eng = makeEngine(indexURL, onLog);
+    const eng = makeEngine(indexURL, onLog, stdLibURL);
     return {
       init: () => eng.init(),
       kepanFromPdf: (buf, o, p) => eng.kepanFromPdf(buf, o, p),
@@ -30,7 +30,7 @@ let eng = null; const log = (s) => postMessage({ log: s });
 onmessage = async (e) => {
   const { id, fn, args } = e.data;
   try {
-    eng = eng || makeEngine(${JSON.stringify(indexURL)}, log);
+    eng = eng || makeEngine(${JSON.stringify(indexURL)}, log, ${JSON.stringify(stdLibURL || null)});
     if (fn === 'kepanFromPdf') args[2] = (a, b) => postMessage({ id, progress: [a, b] });
     const result = await eng[fn](...args);
     postMessage({ id, result });
