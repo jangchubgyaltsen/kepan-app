@@ -31,3 +31,21 @@ label.sdl{display:inline-flex;align-items:center}
 .aerrn{font-size:13.5px;line-height:1.7;margin:0 0 8px;color:var(--ink)}
 .aerr ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.7;color:var(--ink)}.aerr li{margin-bottom:4px}.aerr b{font-weight:600}
 .aerrai{font-size:12px;color:var(--muted);margin:8px 0 0}
+.tocbtn.dedb{font-family:var(--serif);letter-spacing:.1em}
+.tocbtn.dedb.hot{border-color:#c79a3a;color:#8a5a12;background:color-mix(in srgb,#e2b84a 16%,var(--panel));box-shadow:0 0 0 3px color-mix(in srgb,#e2b84a 20%,transparent)}
+.sl.fut{opacity:.42}
+.hside.more{cursor:pointer}.hside.more small{white-space:nowrap}
+.hside.more.hm-chip small{background:#9c2a1e;color:#fff6e2;opacity:1;border-radius:99px;padding:1px 6px;font-size:10.5px;margin-top:2px}
+.hside.gold{cursor:pointer}.hside.gold small{white-space:nowrap;opacity:1}
+.hside.gold.hg-seal.hg-seal{background:linear-gradient(180deg,#ecd07e,#c59a36 60%,#a87a22);color:#3a2408;box-shadow:inset 0 0 0 1px #f6e3a6,inset 0 0 0 2px #a87a22}
+.hside.gold .gchip{border-radius:99px;padding:1px 6px;font-size:10.5px;margin-top:2px;background:#4a2a08;color:#f6e3a6}
+.smore{display:grid;gap:2px;width:100%;margin:14px 0 0;padding:11px 14px;border:1.5px dashed color-mix(in srgb,var(--k0) 55%,transparent);border-radius:12px;background:color-mix(in srgb,var(--k0) 5%,transparent);color:var(--k0);font-family:var(--serif);text-align:left;cursor:pointer}.smore b{font-size:15px}.smore small{font-size:12.5px;color:var(--muted);font-family:var(--sans)}
+.row:has(.verse.tap){cursor:pointer}
+.lt[data-lt]{cursor:default}.lt[data-lt] .badge,.lt[data-lt] .ltt{cursor:pointer}
+.immode{margin-bottom:4px}.immode button{flex:1;padding:8px 10px;font-size:13.5px}
+.impbk{width:100%;border:0;background:none;text-align:left;cursor:pointer;font:inherit;color:inherit;gap:12px;justify-content:flex-start}
+.impbk+.impbk{border-top:1px solid var(--line)}
+.impbk .imfb small{display:block}
+.imrd{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex:none;box-sizing:border-box}
+.impbk[aria-pressed="true"] .imrd{border:5.5px solid var(--k0)}
+.imwarn{color:var(--k0)!important}
