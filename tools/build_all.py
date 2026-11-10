@@ -48,6 +48,9 @@ def build(book_dir):
     else:  # 科判只有扫描件时：从讲记 epub 的科判标题和颂词搭科判树
         tree = epub2kepan.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid, str(fixes) if fixes.exists() else None)
     tree["meta"].update(info)
+    # 勘误文件里的「note」：讲记和科判不同而保留科判、或其他需要说明的地方，显示在 app 的「关于」里
+    tree["notes"] = [fx["note"] for fx in (json.loads(fixes.read_text(encoding="utf-8")) if fixes.exists() else [])
+                     if fx.get("note")]
     dump(DATA / f"{bid}.json", tree, indent=1)
     entry = {"id": bid, "meta": tree["meta"], "stats": tree["stats"], "checks": len(tree["checks"]),
              "corrections": len(tree["corrections"]), "data": f"{bid}.json"}

@@ -65,7 +65,7 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
  const B={id,root:R,title:short,all,seq,seqI,by,maxA:Math.max(1,...seq.map(n=>n.lvl))-1,meta,chaps,chOf,syName,builtin:!!info.builtin,info,tree};
  B.bfs=(()=>{const q=[R],o=[];while(q.length){const n=q.shift();o.push(n);q.push(...n.c)}return o})();
  const W={id,title:short,long:meta.name||meta.rootTitle||short,full:meta.name||meta.title||short,roles:(meta.roles||[]).map(r=>[r.name,r.role]),compiler:meta.compiler||"",proof:meta.proofreaders||[],
-  shiyi:syName?"《"+syName+"》":null,ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin};
+  shiyi:syName?"《"+syName+"》":null,ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin,errata:tree.corrections||[],notes:tree.notes||[]};
  return {B,W}}
 function fmtDate(d){d=String(d||"");const m=d.match(/^(\d{4})(\d{2})(\d{2})$/);return m?`${m[1]}-${m[2]}-${m[3]}`:d}
 // 释义：{节点 id: [[类型, 文字, 第几颂]]}，类型 v 颂词 / p 释文 / n 脚注 / g 附偈
@@ -730,9 +730,9 @@ function resultsHTML(R,q){if(!R)return "";const tot=R.book.length+R.kp.length+R.
  ${R.vs.length?`<div class="sg">颂词 <small>${R.vs.length}</small></div>${R.vs.slice(0,8).map(({k,n,line})=>`<button class="sr" data-open="${k}" data-at="${n.id}"><span class="sv">${hl(line,q)}</span>${pth(k,n)}</button>`).join("")}`:""}</div>`}
 function aboutHTML(w){return `<div class="hsheet-bg" data-close></div><div class="hsheet"><div class="grab"></div><div class="ah">${esc(w.title)}<small>${esc(w.full)}</small></div>
  <dl class="adl">${w.roles.map(r=>`<dt>${esc(r[1]||"作者")}</dt><dd>${esc(r[0])}</dd>`).join("")}
- ${w.compiler?`<dt>科判整理</dt><dd>${esc(w.compiler)}</dd>`:""}${w.proof?`<dt>校对</dt><dd>${w.proof.map(esc).join("、")}</dd>`:""}
+ ${w.compiler?`<dt>科判整理</dt><dd>${esc(w.compiler)}</dd>`:""}${w.proof&&w.proof.length?`<dt>校对</dt><dd>${w.proof.map(esc).join("、")}</dd>`:""}
  ${w.shiyi?`<dt>释义</dt><dd>${esc(w.shiyi)}</dd>`:""}<dt>版本</dt><dd>${esc([w.ed,w.date].filter(Boolean).join(" · ")||"—")}</dd><dt>规模</dt><dd>${w.chaps.length?w.chaps.length+" 品 · ":""}${w.vs} 颂</dd></dl>
- <p class="anote">此科判仅供学习，禁止商用、篡改。</p>
+ ${errataHTML(w)}<p class="anote">此科判仅供学习，禁止商用、篡改。</p>
  <div class="aacts"><button data-fb>报告错误</button><button class="pri" data-close>好</button></div></div>`}
 function renderHome(){const W=wide();
  const ord=WORKS.map((w,i)=>({w,i,l:wLast(w)}));const rec=ord.filter(o=>o.l).sort((a,b)=>b.l.t-a.l.t);
@@ -1123,3 +1123,7 @@ boot();
 const NAMEL=/(?=(?:梵语|藏语|汉语|印度语|梵文|藏文)[：:])/;
 function noteHTML(no,tt){if(!no||!no.length)return "";const nm=[],ot=[],isT=/题|名/.test(tt||"");no.forEach(t=>{const p=t.split(NAMEL).map(x=>x.trim()).filter(Boolean);(isT||p.length>1||/^(梵语|藏语|汉语|印度语|梵文|藏文)[：:]/.test(t)?nm:ot).push(...(p.length>1?p:[t]))});
  return (nm.length?`<div class="vnote vname">${nm.map(x=>`<div>${esc(x)}</div>`).join("")}</div>`:"")+(ot.length?`<div class="vnote">${ot.map(esc).join("　")}</div>`:"")}
+
+function errataHTML(w){const E=w.errata||[],N=w.notes||[];if(!E.length&&!N.length)return "";
+ const lab=c=>(c.raw||"").replace(/（表[^）]*）|（\d+表）/g,"").replace(/分[一二三四五六七八九十]+$/,"");
+ return `<div class="aerr"><div class="aerrh">勘误与说明</div>${N.map(t=>`<p class="aerrn">${esc(t)}</p>`).join("")}${E.length?`<ol>${E.map(c=>`<li><b>${esc(lab(c))}</b>　${esc(c.reason||"")}</li>`).join("")}</ol>`:""}</div>`}

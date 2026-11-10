@@ -451,6 +451,7 @@ def validate(root):
 def apply_fixes(root, path, warnings):
     """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"],
     "verse": ["旧", "新"], "reason": "说明", "skip": true(可选，表示看过、决定保持原样)}]
+    只有 "note"（再加 "skip": true）的条目不改科判，作为说明显示在 app 的「关于这部论」里。
     match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
     replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
     fixes = json.load(open(path, encoding="utf-8")) if isinstance(path, str) else path
@@ -481,13 +482,13 @@ def apply_fixes(root, path, warnings):
             v["text"] = v["text"].replace(old, new)
             v["stanzas"] = [x.replace(old, new) for x in v.get("stanzas", [])]
             n.setdefault("corrected", []).append({"from": old, "to": new, "field": "verse", "reason": fx.get("reason", "")})
-            done.append({"id": n["id"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
+            done.append({"id": n["id"], "raw": n["raw"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
             if not fx.get("replace") and not fx.get("set"):
                 continue
         for k, v in fx.get("set", {}).items():
             n[k] = v
         n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
-        done.append({"id": n["id"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
+        done.append({"id": n["id"], "raw": n["raw"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
     return done
 
 
