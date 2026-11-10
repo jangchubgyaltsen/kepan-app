@@ -4,7 +4,7 @@
     python3 tools/build_all.py [书的代号 …]
 
 约定：每部书一个文件夹 sources/<代号>/，里面放
-    *.pdf        科判（Word 导出的表格式 PDF），必须有且只有一个
+    *.pdf        科判（Word 导出的表格式 PDF），最多一个；没有时从讲记 epub 的科判标题搭科判树
     *.epub       讲记 / 释论，可选；没有 epub 时也可以放从 PDF 导出的 *.txt
     fixes.json   人工勘误，可选（格式见 tools/pdf2kepan.py 的 apply_fixes）
     book.json    可选，补充或覆盖书的信息，如 {"title": "入菩萨行论"}；"pages": "1-7" 只转换这些页
@@ -21,6 +21,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
+import epub2kepan  # noqa: E402
 import epub2shiyi  # noqa: E402
 import pdf2kepan  # noqa: E402
 
@@ -36,13 +37,16 @@ def dump(path, obj, indent=None):
 def build(book_dir):
     bid = book_dir.name
     pdfs = sorted(book_dir.glob("*.pdf"))
-    if len(pdfs) != 1:
-        raise SystemExit(f"{bid}：要有且只有一个科判 PDF，现在有 {len(pdfs)} 个")
+    if len(pdfs) > 1 or not (pdfs or list(book_dir.glob("*.epub"))):
+        raise SystemExit(f"{bid}：要有且只有一个科判 PDF（或者没有 PDF、只有讲记 epub），现在有 {len(pdfs)} 个")
     fixes = book_dir / "fixes.json"
     extra = book_dir / "book.json"
     info = json.loads(extra.read_text(encoding="utf-8")) if extra.exists() else {}
     pages = info.pop("pages", None)  # 只转换这些页，如 "1-7"（跳过只列了后面品名的空表）
-    tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None, pages)
+    if pdfs:
+        tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None, pages)
+    else:  # 科判只有扫描件时：从讲记 epub 的科判标题和颂词搭科判树
+        tree = epub2kepan.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid, str(fixes) if fixes.exists() else None)
     tree["meta"].update(info)
     dump(DATA / f"{bid}.json", tree, indent=1)
     entry = {"id": bid, "meta": tree["meta"], "stats": tree["stats"], "checks": len(tree["checks"]),

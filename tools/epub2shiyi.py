@@ -69,7 +69,7 @@ def han(s):
 def norm_name(s):
     s = re.split(rf"分[{NUMS}]+[：:]", s or "")[0]
     s = re.sub(rf"分[{NUMS}]+$", "", re.sub(r"[\s：:。]+$", "", s))
-    return re.sub(r"[\s，、。：:；;！!？?“”‘’「」『』\[\]【】（）()]", "", s or "")
+    return re.sub(r"[\s，、。：:；;！!？?“”‘’「」『』\[\]【】（）()［］⁰¹²³⁴⁵⁶⁷⁸⁹]", "", s or "")
 
 
 # ---------------------------------------------------------------- epub 读取
@@ -231,6 +231,10 @@ def classify(paras):
 
 def parse_heading(t):
     t = re.sub(r"[：:。\s]+$", "", t)
+    # 「（卯二）（人）分二」「［甲一］总处」这类写法统一成「卯二（人）分二」「甲一、总处」
+    t = re.sub(rf"^（([{LEVELS}][{NUMS}]+)）", r"\1", t)
+    t = re.sub(rf"^[［\[]([{LEVELS}][{NUMS}]+)[］\]]\s*(（|\()?",
+               lambda m: m.group(1) + (m.group(2) or "、"), t)
     m = LABEL_RE.match(t)
     if not m:
         return None, None, t, t

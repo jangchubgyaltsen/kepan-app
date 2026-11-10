@@ -44,6 +44,42 @@
   }
  },
  {
+  "id": "dyx",
+  "meta": {
+   "title": "大圆满心性休息（显宗）",
+   "credits": "无垢光尊者 造论  索达吉堪布 译讲（科判取自讲记）",
+   "roles": [
+    {
+     "name": "无垢光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "大圆满心性休息（显宗部分）",
+   "shortName": "心性休息"
+  },
+  "stats": {
+   "nodes": 482,
+   "verseCells": 376,
+   "stanzas": 609
+  },
+  "checks": 2,
+  "corrections": 0,
+  "data": "dyx.json",
+  "shiyi": "dyx.shiyi.json",
+  "report": "reports/dyx-讲记对照.html",
+  "shiyiStats": {
+   "sections": 482,
+   "chars": 159673,
+   "typos": 0,
+   "nameDiffs": 5,
+   "unmatched": 0
+  }
+ },
+ {
   "id": "egjy",
   "meta": {
    "title": "二规教言论 积聚圣天世德之宝 讲记 偈颂 科判",
@@ -203,6 +239,42 @@
    "chars": 18483,
    "typos": 0,
    "nameDiffs": 0,
+   "unmatched": 0
+  }
+ },
+ {
+  "id": "rxbz",
+  "meta": {
+   "title": "如意宝藏论",
+   "credits": "无垢光尊者 造论  索达吉堪布 翻译（科判取自讲记）",
+   "roles": [
+    {
+     "name": "无垢光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "翻译"
+    }
+   ],
+   "name": "大乘窍诀论如意宝藏",
+   "shortName": "如意宝藏"
+  },
+  "stats": {
+   "nodes": 673,
+   "verseCells": 942,
+   "stanzas": 1421
+  },
+  "checks": 0,
+  "corrections": 1,
+  "data": "rxbz.json",
+  "shiyi": "rxbz.shiyi.json",
+  "report": "reports/rxbz-讲记对照.html",
+  "shiyiStats": {
+   "sections": 673,
+   "chars": 305939,
+   "typos": 0,
+   "nameDiffs": 1,
    "unmatched": 0
   }
  },
