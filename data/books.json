@@ -1,5 +1,40 @@
 [
  {
+  "id": "bryss",
+  "meta": {
+   "title": "摄功德宝经释•正入般若密意之善说 般若摄颂浅释 讲解 偈颂 科判",
+   "credits": "全知麦彭仁波切 著释  索达吉堪布 译讲 禁止商用篡改 法律责任必究 释道净 整理 20251230 13稿 微信qq 973451196 校对 圆兴 富海燕 释圆乾",
+   "compiler": "释道净",
+   "proofreaders": [
+    "圆兴",
+    "富海燕",
+    "释圆乾"
+   ],
+   "date": "20251230",
+   "edition": "13稿",
+   "roles": [
+    {
+     "name": "全知麦彭仁波切",
+     "role": "著释"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "译讲"
+    }
+   ],
+   "name": "般若摄颂",
+   "shortName": "般若摄颂"
+  },
+  "stats": {
+   "nodes": 458,
+   "verseCells": 263,
+   "stanzas": 322
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "bryss.json"
+ },
+ {
   "id": "egjy",
   "meta": {
    "title": "二规教言论 积聚圣天世德之宝 讲记 偈颂 科判",

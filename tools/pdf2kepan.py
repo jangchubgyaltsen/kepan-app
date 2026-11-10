@@ -24,6 +24,7 @@ NUMS = "一二三四五六七八九十"
 CN = {c: i + 1 for i, c in enumerate(NUMS)}
 
 LABEL_RE = re.compile(rf"^([{LEVELS}])([{NUMS}]+)([、（(])")
+LABEL_BARE_RE = re.compile(rf"^([{LEVELS}])([{NUMS}]+)(?=[^{NUMS}、（(\s\d])")
 REF_RE = re.compile(r"[（(]\s*表\s*([\d\-]+)\s*[）)]")
 REFCOUNT_RE = re.compile(r"[（(]\s*\d+\s*表\s*[）)]")
 CHAPTER_RE = re.compile(r"(第[一二三四五六七八九十]+品)\s*([^（(]*)")
@@ -53,11 +54,18 @@ def parse_label(text):
     t = clean(text)
     m = LABEL_RE.match(t)
     if not m:
-        return None
-    level, num, sep = m.group(1), m.group(2), m.group(3)
-    rest = t[m.end() - 1:]
-    if sep == "、":
-        rest = rest[1:]
+        # 漏了顿号的写法，如「丑二广说（——以八喻说明）分八」：后面要有「分N」才认
+        m = LABEL_BARE_RE.match(t)
+        if not m or not re.search(rf"分[{NUMS}]+", t):
+            return None
+        level, num, sep = m.group(1), m.group(2), ""
+        rest = t[m.end():]
+    else:
+        level, num, sep = m.group(1), m.group(2), m.group(3)
+        rest = t[m.end() - 1:]
+    if sep in ("、", ""):
+        if sep:
+            rest = rest[1:]
         # 名称到「（表」或「第X品」为止
         cut = len(rest)
         for pat in (REF_RE, CHAPTER_RE):
@@ -65,6 +73,10 @@ def parse_label(text):
             if mm:
                 cut = min(cut, mm.start())
         name, tail = rest[:cut], rest[cut:]
+        if not sep:
+            mm = re.search(rf"分[{NUMS}]+$", name)
+            if mm:
+                name, tail = name[:mm.start()], name[mm.start():] + tail
     else:
         depth, i = 0, 0
         for i, ch in enumerate(rest):
@@ -261,7 +273,12 @@ def table_to_tree(t, warnings):
                 host = next((a for a in reversed(anc) if a["level"] and a["depth"] == c["depth"] - 1), None)
                 if host:
                     n["children"].remove(c)
-                    host["children"].append(c)
+                    # 放在原来所在那一支的后面，保持顺序
+                    chain = anc + [n]
+                    k = chain.index(host)
+                    after = chain[k + 1] if k + 1 < len(chain) else None
+                    pos = host["children"].index(after) + 1 if after in host["children"] else len(host["children"])
+                    host["children"].insert(pos, c)
                     warnings.append(f"{t['id']}（第{t['page']}页）：「{c['raw']}」画在了「{n['raw']}」之内，按层级上移到「{host['raw']}」下")
         for c in list(n["children"]):
             relevel(c, anc + [n])
@@ -491,7 +508,7 @@ def parse_meta(lines):
     if m:
         meta["date"] = m.group(1)
         meta["edition"] = clean(m.group(2))
-    meta["roles"] = re.findall(r"(\S+)\s+(造论|造颂|释论|译讲|释讲|著|译)(?=\s|$)", blob)
+    meta["roles"] = re.findall(r"(\S+)\s+(造论|造颂|释论|著释|译讲|释讲|著|译)(?=\s|$)", blob)
     meta["roles"] = [{"name": a, "role": b} for a, b in meta["roles"]]
     return meta
 

@@ -56,7 +56,7 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
  const seqI={};seq.forEach((n,i)=>seqI[n.id]=i);
  // 品：节点上标了 chapter 的是一品的开头；第一品之前的科判（论名、礼赞等）算进第一品，最后的回向偈算进最后一品
  const chaps=[],pre=[];let cur=null;const addLeaf=n=>(cur?cur.leaves:pre).push(n);
- (function w(n){if(n.ch){cur={name:n.ch.replace(/^第[一二三四五六七八九十百]+品\s*/,""),full:n.ch,node:n,leaves:[]};chaps.push(cur)}if(n!==R&&!n.c.length)addLeaf(n);n.c.forEach(w);if(n.tl)addLeaf(n.tl)})(R);
+ (function w(n){if(n.ch){cur={name:n.ch.replace(/^第[一二三四五六七八九十百]+品\s*/,"")||n.ch.replace(/\s+/g,""),full:n.ch,node:n,leaves:[]};chaps.push(cur)}if(n!==R&&!n.c.length)addLeaf(n);n.c.forEach(w);if(n.tl)addLeaf(n.tl)})(R);
  if(chaps.length){chaps[0].leaves.unshift(...front,...pre);chaps[chaps.length-1].leaves.push(...tails)}
  chaps.forEach(c=>{c.first=c.leaves[0]||fl(c.node);c.vs=c.leaves.reduce((a,n)=>a+n.v.length,0)});
  const chOf={};chaps.forEach(c=>c.leaves.forEach(n=>chOf[n.id]=c));
