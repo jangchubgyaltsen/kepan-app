@@ -421,13 +421,18 @@ def validate(root):
 
 
 def apply_fixes(root, path, warnings):
-    """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"], "reason": "说明"}]
-    match 与科判原文 raw 的开头比对，必须恰好命中一个节点。"""
-    fixes = json.load(open(path, encoding="utf-8"))
+    """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"],
+    "verse": ["旧", "新"], "reason": "说明", "skip": true(可选，表示看过、决定保持原样)}]
+    match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
+    replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
+    fixes = json.load(open(path, encoding="utf-8")) if isinstance(path, str) else path
     done = []
     for fx in fixes:
+        if fx.get("skip"):  # 看过、决定保持原样的，只作记录
+            continue
         hits = [n for n, _ in walk(root) if n is not root and n["raw"].startswith(fx["match"])
-                and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))]
+                and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))
+                and (not fx.get("id") or n.get("id") == fx["id"])]
         if len(hits) != 1:
             warnings.append(f"勘误「{fx['match']}」命中 {len(hits)} 个科判，未套用")
             continue
@@ -436,11 +441,38 @@ def apply_fixes(root, path, warnings):
         if fx.get("replace"):
             old, new = fx["replace"]
             n["raw"] = n["raw"].replace(old, new, 1)
+            if old in (n.get("name") or ""):
+                n["name"] = n["name"].replace(old, new, 1)
+        if fx.get("verse"):
+            old, new = fx["verse"]
+            vs = [v for v in n.get("verses", []) if old in v["text"]]
+            if len(vs) != 1 or vs[0]["text"].count(old) != 1:
+                warnings.append(f"勘误「{fx['match']}」颂词里「{old}」出现 {sum(v['text'].count(old) for v in vs)} 次，未套用")
+                continue
+            v = vs[0]
+            v["text"] = v["text"].replace(old, new)
+            v["stanzas"] = [x.replace(old, new) for x in v.get("stanzas", [])]
+            n.setdefault("corrected", []).append({"from": old, "to": new, "field": "verse", "reason": fx.get("reason", "")})
+            done.append({"id": n["id"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
+            if not fx.get("replace") and not fx.get("set"):
+                continue
         for k, v in fx.get("set", {}).items():
             n[k] = v
         n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
         done.append({"id": n["id"], "from": before, "to": n["raw"], "reason": fx.get("reason", "")})
     return done
+
+
+def apply_fixes_to_tree(tree_json, fixes):
+    """把勘误套到已经转换好的科判数据上（不用重读 PDF），并重新自检。手机上确认勘误后用。"""
+    root = {"level": None, "name": "ROOT", "children": tree_json["tree"], "verses": [], "refs": [],
+            "src": {"table": "", "page": 0}}
+    warnings = []
+    done = apply_fixes(root, fixes, warnings)
+    tree_json["corrections"] = tree_json.get("corrections", []) + done
+    tree_json["warnings"] = tree_json.get("warnings", []) + warnings
+    tree_json["checks"] = validate(root)
+    return tree_json
 
 
 def parse_meta(lines):
@@ -474,24 +506,19 @@ def parse_pages(spec, n):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("pdf")
-    ap.add_argument("-o", "--out", required=True)
-    ap.add_argument("--pages", help="只转换这些页，如 1-6 或 1,4,5")
-    ap.add_argument("--id", default="book")
-    ap.add_argument("--fixes", help="人工勘误 JSON（原 PDF 有误、需要我们自己修正的地方）")
-    args = ap.parse_args()
-
+def convert(pdf_path, book_id="book", fixes=None, pages_spec=None, progress=None):
+    """转换一份科判 PDF，返回 JSON 对象。fixes 为勘误文件路径或已读入的列表；progress(已完成页, 总页) 可选。"""
     warnings = []
-    pdf = pdfplumber.open(args.pdf)
-    pages = parse_pages(args.pages, len(pdf.pages))
+    pdf = pdfplumber.open(pdf_path)
+    pages = parse_pages(pages_spec, len(pdf.pages))
     tables, meta_lines = [], []
-    for pno in pages:
+    for k, pno in enumerate(pages):
         tinfo, hdr = parse_page(pdf.pages[pno - 1], pno, warnings)
         if pno == 1:
             meta_lines = hdr
         tables += tinfo
+        if progress:
+            progress(k + 1, len(pages))
 
     tables.sort(key=lambda t: (table_sort_key(t["id"]), t["page"]))
     root = {"level": None, "name": "ROOT", "children": [], "verses": [], "refs": [],
@@ -511,12 +538,12 @@ def main():
 
     strip_private(root)
     assign_ids(root)
-    corrections = apply_fixes(root, args.fixes, warnings) if args.fixes else []
+    corrections = apply_fixes(root, fixes, warnings) if fixes else []
     checks = validate(root)
-    out = {
-        "id": args.id,
+    return {
+        "id": book_id,
         "meta": parse_meta(meta_lines),
-        "source": {"file": args.pdf.split("/")[-1], "pages": pages},
+        "source": {"file": pdf_path.split("/")[-1], "pages": pages},
         "tables": table_list,
         "stats": stats(root),
         "warnings": warnings,
@@ -524,13 +551,24 @@ def main():
         "corrections": corrections,
         "tree": root["children"],
     }
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("pdf")
+    ap.add_argument("-o", "--out", required=True)
+    ap.add_argument("--pages", help="只转换这些页，如 1-6 或 1,4,5")
+    ap.add_argument("--id", default="book")
+    ap.add_argument("--fixes", help="人工勘误 JSON（原 PDF 有误、需要我们自己修正的地方）")
+    args = ap.parse_args()
+    out = convert(args.pdf, args.id, args.fixes, args.pages)
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    print(json.dumps(out["stats"], ensure_ascii=False), f"warnings={len(warnings)}", file=sys.stderr)
-    for w in warnings:
+    print(json.dumps(out["stats"], ensure_ascii=False), f"warnings={len(out['warnings'])}", file=sys.stderr)
+    for w in out["warnings"]:
         print("  ⚠", w, file=sys.stderr)
-    print(f"自检：{len(checks)} 处问题", file=sys.stderr)
-    for w in checks:
+    print(f"自检：{len(out['checks'])} 处问题", file=sys.stderr)
+    for w in out["checks"]:
         print("  ✗", w, file=sys.stderr)
 
 
