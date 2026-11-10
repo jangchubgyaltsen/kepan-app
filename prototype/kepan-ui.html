@@ -552,7 +552,7 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .splash .spt span{animation:splin 1.2s ease both}
 .splash .spt span:nth-child(1){animation-delay:.2s}.splash .spt span:nth-child(2){animation-delay:.6s}.splash .spt span:nth-child(3){animation-delay:1s;color:var(--k0)}
 .splash small{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--muted);animation:splin 1s ease 1.8s both,splp 2.6s ease-in-out 2.8s infinite}
-.splash.still *{animation:none!important}
+.splash.still .spc *,.splash.still .ofl,.splash.still .ofire,.splash.still .ofgw{animation:none!important}
 .oft{position:absolute;left:0;right:0;bottom:0;display:block}
 .ofglow{position:absolute;left:-10%;right:-10%;bottom:0;top:-40%;background:radial-gradient(ellipse at 50% 78%,rgb(255 190 90 / calc(.5*var(--og))),rgb(255 170 70 / calc(.16*var(--og))) 38%,transparent 66%);pointer-events:none}
 .ofsurf{position:absolute;left:0;right:0;background:linear-gradient(#6d1717,#a32a22)}
@@ -560,7 +560,20 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .c-wood .ofsurf{background:linear-gradient(#5a3a22,#8a5a34)}.c-wood .ofapr{background:linear-gradient(#6d4526,#42291a);border-top-color:#a8794a;box-shadow:none}
 .c-gold .ofsurf{background:linear-gradient(#a8802e,#d9b25a)}.c-gold .ofapr{background:linear-gradient(#b88f38,#7d5d1c);border-top-color:#f0d58a}
 .c-none .ofsurf,.c-none .ofapr{display:none}
-.ofl{position:absolute;display:block;line-height:0;animation:ofli 1.4s ease both}
+.ofl{position:absolute;display:block;line-height:0}
+.ofl .plamp,.ofl .plamp .tf{filter:none}
+.ofgw{position:absolute;inset:0;pointer-events:none;display:block}
+.splash.i-whole .ofl{animation:ofli 1.4s ease var(--d) both}
+.splash.i-whole .ofgw,.splash.i-fire .ofgw{animation:ofli calc(var(--it) + 1s) ease-in both}
+.ofire,.ofsw{transform-box:view-box;transform-origin:15px 15px}
+.splash.i-fire .ofire{animation:ofig .9s ease-out var(--d) both}
+.ofsw{animation:ofsw var(--du) ease-in-out var(--ph) infinite}
+.ofl .fh{animation:offh calc(var(--du)*1.37) ease-in-out var(--ph) infinite}
+.ofglow{animation:ofgf var(--gdu) ease-in-out infinite}
+@keyframes ofig{0%{opacity:0;transform:scale(.15)}55%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+@keyframes ofsw{0%,100%{transform:skewX(0deg) scale(1,1)}18%{transform:skewX(calc(var(--sa)*-1deg)) scale(calc(1 - var(--sa)*.006),calc(1 + var(--sa)*.014))}40%{transform:skewX(calc(var(--sa)*.6deg)) scale(1,calc(1 - var(--sa)*.012))}63%{transform:skewX(calc(var(--sa)*-.35deg)) scale(calc(1 + var(--sa)*.005),calc(1 + var(--sa)*.008))}82%{transform:skewX(calc(var(--sa)*.9deg)) scale(1,calc(1 - var(--sa)*.006))}}
+@keyframes offh{0%,100%{opacity:1}27%{opacity:calc(1 - var(--sl)*.85)}52%{opacity:calc(1 - var(--sl)*.25)}78%{opacity:calc(1 - var(--sl)*.6)}}
+@keyframes ofgf{0%,100%{opacity:1}23%{opacity:calc(1 - var(--sl)*.4)}47%{opacity:calc(1 - var(--sl)*.1)}71%{opacity:calc(1 - var(--sl)*.3)}}
 .ofl .plamp{display:block}
 @keyframes ofli{from{opacity:0}}
 @keyframes splin{from{opacity:0;transform:translateY(6px)}}
@@ -804,7 +817,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"front",ofit:3,ofsa:50,ofsv:100,ofsl:40,shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -1523,15 +1536,18 @@ const DEDIM=["ཨོཾ་ཨཱཿཧཱུྃ་བཛྲ་གུ་རུ་
 function showDedi(){const old=dev.querySelector(".dedi");if(old)old.remove();const el=document.createElement("div");el.className="dedi";
  el.innerHTML=`<div class="dedc" role="dialog" aria-label="回向"><span class="dedl">${pillLampAt(0,54)}</span><b class="dedh">回向</b>${DEDI.map(l=>`<p><span class="bo" lang="bo">${l[0]}</span><small>${l[1]}</small><span class="zh">${l[2]}</span></p>`).join("")}<p class="dedm"><span class="bo" lang="bo">${DEDIM[0]}</span><small>${DEDIM[1]}</small></p><em class="dedt">回向完点击</em></div>`;
  dev.appendChild(el);el.setAttribute("role","button");el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),700)}}
+function fireWrap(L){const i=L.lastIndexOf("<ellipse");if(i<0||L.indexOf("flHalo",i)<0)return L;const j=L.indexOf("<path",i);if(j<0)return L;
+ return L.slice(0,i)+'<g class="ofire">'+L.slice(i,j).replace("<ellipse",'<ellipse class="fh"')+'<g class="ofsw">'+L.slice(j).replace("</svg>","</g></g></svg>")}
 function offerHTML(W0,H){const W=W0*ST.ofw/100,R=+ST.ofr,N=Math.max(1,Math.round(+ST.ofn*Math.max(1,W0/390)*ST.ofw/100)),Z=+ST.ofz,rad=ST.ofa*Math.PI/180,sn=Math.sin(rad),cs=Math.cos(rad);
  const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,((TH-apron)*sn+8)*ST.ofd/100),back=1-.5*cs,narrow=.34*cs;
  let lamps="";
  for(let r=R-1;r>=0;r--){const t=R>1?r/(R-1):0,sc=1-(1-back)*t,z=Math.max(10,Math.round(Z*sc));const n=ST.ofs==="on"&&r%2?Math.max(1,N-1):N;
   const w=W*(1-narrow*t),gap=w/N,y=apron+4+t*Math.max(0,Dp-z*.5-8);
-  for(let k=0;k<n;k++){const x=W/2+(k-(n-1)/2)*gap;lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};animation-delay:${((k*37+r*53)%19)/10}s">${pillLampAt(0,z)}</span>`}}
+  for(let k=0;k<n;k++){const x=W/2+(k-(n-1)/2)*gap;const h=((k*37+r*53)%19)/19,h2=((k*61+r*29)%23)/23,cx=n>1?Math.abs(k-(n-1)/2)/((n-1)/2):0;const fr=ST.ofo==="rand"?h:ST.ofo==="front"?t*.85+h*.15:ST.ofo==="mid"?cx*.85+h2*.15:(n>1?k/(n-1):0)*.9+h2*.1;
+   const du=(1.5+h2*1.3)/(ST.ofsv/100);lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};--d:${(fr*ST.ofit).toFixed(2)}s;--du:${du.toFixed(2)}s;--ph:${(-h*du*2).toFixed(2)}s">${fireWrap(pillLampAt(0,z))}</span>`}}
  const tw=(narrow*50).toFixed(1);
- return `<span class="oft c-${ST.ofc}" style="height:${(apron+Dp+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100}"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
-function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash";el.setAttribute("aria-label","发心后点击进入");
+ return `<span class="oft c-${ST.ofc}" style="height:${(apron+Dp+Z*1.3).toFixed(0)}px;width:${W.toFixed(0)}px;left:${((W0-W)/2).toFixed(0)}px;right:auto;--og:${ST.ofg/100};--sa:${(ST.ofsa*.09).toFixed(2)};--sl:${(ST.ofsl/100).toFixed(2)};--it:${ST.ofit}s;--gdu:${(3.3/(ST.ofsv/100)).toFixed(2)}s"><i class="ofgw"><i class="ofglow" style="left:${(-(W0-W)/2-W0*.1).toFixed(0)}px;right:${(-(W0-W)/2-W0*.1).toFixed(0)}px"></i></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
+function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash i-"+ST.ofi;el.setAttribute("aria-label","发心后点击进入");
  const W=dev.clientWidth,H=dev.clientHeight,TH=H*ST.ofh/100+ST.ofz*.9;
  el.innerHTML=`<span class="spc" style="top:${ST.ofy}%"><span class="spt" style="font-size:${ST.oft}px"><span>为了使片等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small></span>${offerHTML(W,H)}`;
  dev.appendChild(el);el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),900)}}
@@ -1653,6 +1669,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  <div class="grp"><h3>复习安排</h3><p class="note">已确认：复习时间由 FSRS 按每一条自己的情况算，不再有固定间隔表。按钮仍是“记得 / 模糊”。答对提示“下次大约几天后”，原型里的天数是示意；答错提示“过一会儿再出现”，这题排到本轮末尾再出一次。目标记住率默认 90%，在设置页“复习”里调。</p></div>
  <div class="grp"><h3>点灯和回向</h3><p class="note">已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮但火苗小。回向卡片在当天第一次结束学习时弹一次。</p></div>
  <div class="grp"><h3>发心开屏 · 供灯桌</h3><p class="note">已确认：红布桌面，对齐排列，7 排，每排 11 盏，灯 81px，桌宽 130%（两侧超出屏幕），桌长 100%，桌高 28%，俯视 37°，光晕 100%，文字 26px、高度 37%。宽屏按比例加灯。</p></div>
+ <div class="grp"><h3>发心开屏 · 点灯和摇曳</h3>${G("ofi","出场",{fire:"灯火逐盏点燃",whole:"整盏依次出现",none:"直接出现"})}${G("ofo","顺序",{front:"前排到后排",mid:"中间向两边",left:"左到右",rand:"随机"})}${R("ofit","出场时长",0.5,8,0.5,ST.ofit," 秒")}${R("ofsa","灯火摇曳幅度",0,100,5,ST.ofsa," %")}${R("ofsv","摇曳速度",40,250,5,ST.ofsv," %")}${R("ofsl","灯光明暗幅度",0,100,5,ST.ofsl," %")}<div class="og"><button id="splashbtn2">重放开屏</button></div><p class="note">改出场、顺序、时长会自动重放一遍。摇曳的三项拖动时直接在屏幕上看效果，幅度调到 0 就是不动。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
   <p class="note">平板和电脑：导图右下角多一个 ⛶，点了铺满整个界面，再点 ⤡ 退回侧栏。点路径卡片 → 顶部正中切到「导图」。单指拖动画布，双指或滚轮缩放；点有分支的科判展开 / 收起（右侧 +N 是收起的子科数），点最末一科直接跳到颂词。选中某一科后底部会出现「跳到…」。右下角：放大、缩小、看全图、回到当前位置。一打开只展开当前所在的那一条路径，当前段落用金框标出。</p></div>
@@ -1663,7 +1680,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
 function summary(){const s=document.getElementById("summary");if(!s)return;
  s.textContent=`书卡复习条：宽 ${ST.ew}px，灯 ${ST.plz}px，字 ${ST.efs}px，圆角 ${ST.er}px，${{top:"靠上",mid:"居中",bot:"靠下"}[ST.eal]}，底色 ${{k0:"朱红",deep:"深绛",bronze:"古铜",ink:"墨",soft:"浅底红字"}[ST.eclr]}，文字 ${{two:"两行",one:"只写复习数",num:"只写数字",none:"不写字"}[ST.esub]}，天数标 ${{tr:"右上角",bottom:"底部一行",off:"不显示"}[ST.edt]}；酥油灯：${LST[ST.lst]}，大小 目录导图 ${ST.rsz}px / 书卡 ${ST.plz}px / 反馈 ${ST.fbz}px${ST.lst==="t7"?"；造型 "+Object.entries(LPL).map(([k,a])=>a[0]+" "+((ST.lp||LPD)[k])).join("，"):""}；颂词字号（读者可调）：${ST.vf}px；层级色：${PAL[ST.pal].name}；背景：${BG[ST.bg].name}`}
 function bindPanel(){panel.innerHTML=panelHTML();summary();
- panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel();if(k==="ofc"||k==="ofs")splashLive()});
+ panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel();if(k==="ofc"||k==="ofs")splashLive();if(k==="ofi"||k==="ofo")showSplash()});
  panel.querySelectorAll("[data-pal]").forEach(b=>b.onclick=()=>{ST.pal=b.dataset.pal;render();bindPanel()});
  panel.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.bg;render();bindPanel()});
  const R=(id,fn,unit)=>{const el=panel.querySelector("#"+id);if(!el)return;el.oninput=()=>{const v=+el.value;panel.querySelector("#"+id+"o").textContent=v+unit;fn(v);summary()}};
@@ -1688,7 +1705,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
  const dd=panel.querySelector("#dedibtn");if(dd)dd.onclick=showDedi;
- const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
+ const sp2=panel.querySelector("#splashbtn2");if(sp2)sp2.onclick=()=>showSplash();["ofsa: %","ofsv: %","ofsl: %"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u)});R("ofit",v=>{ST.ofit=v;showSplash()}," 秒");const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
  const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
  const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{FIRST=false;if(!SR.streak)SR.streak=12;seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
  const ot=panel.querySelector("#opentoc");if(ot)ot.onclick=()=>{ST.tocOpen=!ST.tocOpen;render();bindPanel()};
