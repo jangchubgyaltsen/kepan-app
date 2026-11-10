@@ -482,6 +482,13 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .imst .dn i{border-color:var(--k0);color:var(--k0)}
 .imf{display:flex;align-items:center;gap:12px;background:var(--panel);border:1.5px dashed var(--line);border-radius:14px;padding:14px;cursor:pointer}
 .imf.has{border-style:solid;border-color:var(--k0)}
+.immode{margin-bottom:4px}.immode button{flex:1;padding:8px 10px;font-size:13.5px}
+.impbk{width:100%;border:0;background:none;text-align:left;cursor:pointer;font:inherit;color:inherit;gap:12px;justify-content:flex-start}
+.impbk+.impbk{border-top:1px solid var(--line)}
+.impbk .imfb small{display:block}
+.imrd{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex:none;box-sizing:border-box}
+.impbk[aria-pressed="true"] .imrd{border:5.5px solid var(--k0)}
+.imwarn{color:var(--k0)!important}
 .imfi{width:42px;height:42px;border-radius:10px;background:color-mix(in srgb,var(--k0) 12%,transparent);color:var(--k0);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:18px;flex:none}
 .imfb{flex:1;min-width:0;display:grid;gap:2px}
 .imfb b{font-size:15px;font-weight:600}.imfb b em{font-style:normal;font-weight:400;font-size:11.5px;color:var(--muted);margin-left:8px}
@@ -1416,7 +1423,7 @@ function renderHome(){const W=wide();
   const lrn=ST.lentry==="book"&&(w.real||DL[w.id]==="ok")?studyPill(w):"";const ws=wStudy(w);const stale=ST.lentry==="book"&&ST.lhint==="spine"&&ws?"stale"+tempOf(ws.last):"";
   const L=ST.hlay;let outer="";const lrnB=L==="row"?`<span class="hrow2">${lastH}${lrn}</span>`:L==="side"||L==="foot"?"":lrn;
   const SP=ST.hsidep,sideIn=lrn&&L==="side"&&SP!=="right"&&SP!=="edge"?sideHTML(ws,w.id).replace(/class="hside/,`class="hside in-${SP}`):"";if(lrn&&L==="side"&&(SP==="right"||SP==="edge"))outer=sideHTML(ws,w.id).replace(/class="hside/,`class="hside at-${SP}`);if(lrn&&L==="foot")outer=`<div class="hfoot">${lrn}</div>`;
-  const menu=MENU===w.id?`<div class="hmenu"><button data-about="${w.id}">关于这部论</button>${w.real?`<button data-pacesh="${w.id}">学习节奏</button><button data-reset="${w.id}" class="mdanger">重置进度</button>`:""}<button data-exp2="${w.id}">查看各品</button></div>`:"";
+  const menu=MENU===w.id?`<div class="hmenu"><button data-about="${w.id}">关于这部论</button><button data-addshy="${w.id}">${w.shiyi?"换讲记":"加讲记"}</button>${w.real?`<button data-pacesh="${w.id}">学习节奏</button><button data-reset="${w.id}" class="mdanger">重置进度</button>`:""}<button data-exp2="${w.id}">查看各品</button></div>`:"";
   return `<div class="hw hc-${ST.hcard} hl-${ST.hlay} sp-${ST.hsidep} ea-${ST.eal} ec-${ST.eclr} ed-${ST.edt} ${lrn?"has-l":""} ${w.real?"":"na"} ${stale}" data-w="${w.id}" style="--hgap:${ST.hgap}px;--ew:${ST.ew}px;--efs:${ST.efs}px;--er:${ST.er}px"><div class="hwm" data-wopen="${w.id}" role="button" tabindex="0">
    ${sideIn&&SP==="left"?sideIn:""}${ST.hcard==="spine"&&sideIn&&SP==="under"?`<span class="hspcol"><span class="hsp">${esc(w.title)}</span>${sideIn}</span>`:ST.hcard==="spine"?`<span class="hsp">${esc(w.title)}</span>${sideIn&&SP==="mid"?sideIn:""}`:ST.hcard==="grid"?`<span class="hcov"><b>${esc(w.title)}</b></span>`:""}
    <span class="hwb"><span class="hwt"><b>${esc(ST.hcard==="spine"?w.long||w.full||w.title:w.title)}</b>${cloudHTML(w)}${ST.hcard!=="row"?"":`<small>${esc(w.full!==w.title?w.full:"")}</small>`}</span>${meta}${paceLine(w)}${L==="row"&&lrn?"":lastH}${lrnB}${progHTML(f,w)}</span></div>${outer}${ab}${ar}${menu}
@@ -1435,6 +1442,7 @@ function renderHome(){const W=wide();
  {const q=(s,f)=>{const e=dev.querySelector(s);if(e)e.onclick=f};q("[data-welx]",()=>{WELX=true;rer()});q("[data-welpace]",()=>{PACESH=true;PRESTART=false;rer()});
   q("[data-wellearn]",()=>{const l=dev.querySelector('.hw[data-w="rxl"] [data-learn]');if(l)l.click()});q("[data-welread]",()=>{const o=dev.querySelector('.hwm[data-wopen="rxl"]');if(o)o.click()})}
  {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
+ dev.querySelectorAll("[data-addshy]").forEach(b=>b.onclick=e=>{e.stopPropagation();impReset();IMP.mode="add";IMP.book=b.dataset.addshy;ST.screen="import";MENU=null;render();bindPanel()});
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
  const go=(key,at)=>{RECENT.rxl={bk:key,id:at||RECENT.rxl&&RECENT.rxl.bk===key&&RECENT.rxl.id||null};LAST.bk=key;BK=BOOKS[key];document.querySelectorAll("[data-bk]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.bk===key));ST.screen="reader";if(at)ST.openAt=at;else if(RECENT.rxl.id)ST.openAt=RECENT.rxl.id;HQ="";ST.sOpen=false;render();bindPanel()};
@@ -1471,22 +1479,29 @@ function renderHome(){const W=wide();
 const IMPD={"pages":32,"stats":{"nodes":908,"stanzas":1017,"sections":907},"diffs":[{"code":"丁一","name":"宣说身所依暇满难得","ch":"第一品菩提心利益","kind":"疑似错字","g":"v","a":"人生极","b":"人身极","note":""},{"code":"辛二","name":"顶礼","ch":"第二品忏悔罪业","kind":"用字不同","g":"v","a":"匍伏我","b":"匍匐我","note":""},{"code":"卯二","name":"广说","ch":"第二品忏悔罪业","kind":"疑似错字","g":"v","a":"处若无","b":"处苦无","note":""},{"code":"丑二","name":"皈依具愿力之菩萨","ch":"第二品忏悔罪业","kind":"用字不同","g":"v","a":"惊战栗","b":"惊颤栗","note":""},{"code":"丑一","name":"以患者之喻说明","ch":"第二品忏悔罪业","kind":"疑似错字","g":"v","a":"一惑若","b":"一嗔若","note":""},{"code":"癸二","name":"观察对治之功德而不厌倦","ch":"第四品不放逸","kind":"疑似错字","g":"v","a":"如配勋","b":"如佩勋","note":""},{"code":"丑三","name":"安忍度","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"何须足","b":"何需足","note":""},{"code":"辛二","name":"护持方法","ch":"第五品正知正念","kind":"疑似错字","g":"v","a":"疮，臵身","b":"疮，置身","note":""},{"code":"丑一","name":"断除贪执散漫","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"贪着","b":"贪著","note":""},{"code":"寅一","name":"身体无有所贪精华","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"贪着，爱","b":"贪著，爱","note":""},{"code":"子二","name":"理当不餍足异熟安乐","ch":"第七品精进","kind":"用字不同","g":"v","a":"何须足","b":"何需足","note":""},{"code":"寅三","name":"以比喻决定不净","ch":"第八品静虑","kind":"疑似错字","g":"v","a":"迸袭尸","b":"迸裂尸","note":""},{"code":"子一","name":"真实宣说摄义","ch":"第八品静虑","kind":"用字不同","g":"v","a":"何须强","b":"何需强","note":""},{"code":"子一","name":"真实宣说摄义","ch":"第八品静虑","kind":"用字不同","g":"v","a":"何须除","b":"何需除","note":""},{"code":"子二","name":"依殊胜对境而忏悔特殊罪业之方式","ch":"第二品忏悔罪业","kind":"科名不同","g":"n","a":"依殊胜对境忏罪（而忏悔）特殊罪业之方式","b":"依殊胜对境而忏悔特殊罪业之方式","note":""},{"code":"癸三","name":"遣除争论","ch":"第四品不放逸","kind":"科名不同","g":"n","a":"遣除争（诤）论","b":"遣除争论","note":""},{"code":"子二","name":"将阻碍赞誉视为有益","ch":"第六品安忍","kind":"科名不同","g":"n","a":"将阻碍赞誉（者）视为有益","b":"将阻碍赞誉视为有益","note":""},{"code":"子二","name":"遣除争论","ch":"第八品静虑","kind":"科名不同","g":"n","a":"遣除诤（争）论","b":"遣除争论","note":""},{"code":"庚二","name":"修持有境正道","ch":"第九品智慧","kind":"科名不同","g":"n","a":"修持（行）有境正道","b":"修持有境正道","note":""},{"code":"子二","name":"破与支分不相联之身","ch":"第九品智慧","kind":"科名不同","g":"n","a":"破与支分（分支）不相联之身","b":"破与支分不相联之身","note":""}],"auto":["原 PDF 写「分二」，但下有己一略说、己二广说、己三摄义三科（表4-2），故改为分三","表0-3（第3页）：通栏颂词挂到「完整无缺、正确无误开明大乘道的这部入菩萨行论分二」末尾：三时诸佛之遗道，六波罗蜜…","表4-2（第9页）：「己三、摄义」画在了「庚三（谨慎所断烦恼）分三」之内，按层级上移到「戊一（不放逸）分二第四品不放逸」下","表8-6（第19页）：「己三、修胜义菩提心」在表格最左列，按层级挂到「戊三（谨持对治）分三」下","同一科判名称不一致：「修持（行）有境正道」vs「修持有境正道」（表9-2）"],"meta":{"long":"入菩萨行论","short":"入行论","roles":[["寂天菩萨","造论"],["无着菩萨","释论"],["索达吉堪布","译讲"]],"ed":"12稿","pdf":"01-1入行论广释 颂词 （善说海） 科判 12稿32.pdf","epub":"入行论广释·善说海.epub","short0":"入行论广释"},"hints":["辰三、破除妨害遮破：科判多出一段颂词「见闻与觉知于此不遮除此处…」","有 3 科的颂词，讲记放在品末附偈里：乙二（所入之自性）分三第一品、戊二（正知正念）分三第五品正、己二（广说）分二","有 2 科在科判表里有颂词，讲记这一科没有：完整无缺、正确无误开明大乘道、乙二、译礼","讲记多出一个标题：（藏文中此处有科判三，但前文中无有，请观察：）"]};
 
 let IMP=null,IMPT=null;
-function impReset(){clearInterval(IMPT);IMP={step:1,pdf:null,epub:null,p:0,diffs:IMPD.diffs.map(d=>({...d,pick:"b"})),flt:"all",long:"",short:"",autoOpen:false,hintOpen:false}}
+function impReset(){clearInterval(IMPT);IMP={step:1,pdf:null,epub:null,p:0,diffs:IMPD.diffs.map(d=>({...d,pick:"b"})),flt:"all",long:"",short:"",autoOpen:false,hintOpen:false,mode:"new",book:null,sname:""}}
 function impDiffStr(x,y){if(x.length!==y.length)return esc(x);return [...x].map((c,i)=>c===[...y][i]?esc(c):`<mark>${esc(c)}</mark>`).join("")}
-function renderImport(){if(!IMP)impReset();const I=IMP;const hasE=!!I.epub;
- const steps=["选文件","转换",hasE||I.step<3?"核对":"核对","书名"];
+function renderImport(){if(!IMP)impReset();const I=IMP;const hasE=!!I.epub;const add=I.mode==="add",BKW=add?WORKS.find(w=>w.id===I.book):null;
+ const steps=add?["选书和讲记","转换","核对","讲记名"]:["选文件","转换","核对","书名"];
  const bar=`<div class="imst">${steps.map((t,i)=>`<span class="${I.step===i+1?"on":I.step>i+1?"dn":""}"><i>${I.step>i+1?"✓":i+1}</i>${t}</span>`).join("<u></u>")}</div>`;
  let body="",foot="";
  if(I.step===1){
   const card=(k,ti,sub,need,acc)=>`<label class="imf ${I[k]?"has":""}"><input type="file" accept="${acc}" data-impf="${k}" hidden><span class="imfi">${k==="pdf"?"科":"讲"}</span><span class="imfb"><b>${ti}<em>${need}</em></b><small>${I[k]?esc(I[k]):sub}</small></span><span class="imfx">${I[k]?"换一个":"选择"}</span></label>`;
-  body=`<div class="sh">要导入的文件</div>${card("pdf","科判 PDF","Word 导出的表格式科判","必选",".pdf,application/pdf")}${card("epub","讲记 epub","有讲记才能点颂词看释义，也才能自动校对颂词","可选",".epub,application/epub+zip")}
+  const modes=`<div class="imflt immode">${[["new","导入新的一部论"],["add","给已有的书加讲记"]].map(([v,t])=>`<button data-impmode="${v}" aria-pressed="${I.mode===v}">${t}</button>`).join("")}</div>`;
+  if(add){body=`${modes}<div class="sh">加到哪本书</div><div class="sc">${WORKS.map(w=>`<button class="sr impbk" data-impbk="${w.id}" aria-pressed="${I.book===w.id}"><i class="imrd"></i><span class="imfb"><b>${esc(w.long||w.full||w.title)}</b><small>${w.shiyi?"已有讲记 "+esc(w.shiyi):"还没有讲记"}</small></span></button>`).join("")}</div>
+   <div class="sh">讲记文件</div>${card("epub","讲记 epub","按科名把释义挂到这本书的科判上，并校对颂词","必选",".epub,application/epub+zip")}
+   ${BKW&&BKW.shiyi?`<p class="snote imwarn">这本书已经有讲记，加入后会换成新的这一份。学习进度和已确认的勘误不受影响。</p>`:""}
+   <p class="snote">转换在这台设备上完成，文件不会上传。讲记要和这本书的科判是同一部论，科名对不上的段落会列出来给你看。</p>
+   <button class="imdemo" data-impdemo>没有文件？用《入行论》示例走一遍</button>`;
+   foot=`<button class="impri" data-impgo ${I.book&&I.epub?"":"disabled"}>开始转换</button>`}
+  else{body=`${modes}<div class="sh">要导入的文件</div>${card("pdf","科判 PDF","Word 导出的表格式科判","必选",".pdf,application/pdf")}${card("epub","讲记 epub","有讲记才能点颂词看释义，也才能自动校对颂词","可选",".epub,application/epub+zip")}
    <p class="snote">转换在这台设备上完成，文件不会上传。加密的 PDF 转不了，请先另存一份不加密的。</p>
    <button class="imdemo" data-impdemo>没有文件？用《入行论》示例走一遍</button>`;
-  foot=`<button class="impri" data-impgo ${I.pdf?"":"disabled"}>开始转换</button>`}
- else if(I.step===2){const p=I.p;const st=[["准备转换程序","第一次要下载约 18MB，之后离线也能用",0,30],["读科判",`第 ${Math.min(IMPD.pages,Math.max(1,Math.round((p-30)/50*IMPD.pages)))} / ${IMPD.pages} 页`,30,80],...(hasE?[["挂上释义并比对","逐科对照讲记里的科名和颂词",80,100]]:[])];
+  foot=`<button class="impri" data-impgo ${I.pdf?"":"disabled"}>开始转换</button>`}}
+ else if(I.step===2){const p=I.p;const st=[["准备转换程序","第一次要下载约 18MB，之后离线也能用",0,30],["读科判",`第 ${Math.min(IMPD.pages,Math.max(1,Math.round((p-30)/50*IMPD.pages)))} / ${IMPD.pages} 页`,30,80],...(hasE?[["挂上释义并比对","逐科对照讲记里的科名和颂词",80,100]]:[])];if(add)st.splice(1,2,["挂上释义并比对","逐科对照这本书的科判和讲记里的科名、颂词",30,100]);
   const end=hasE?100:80;
   body=`<div class="sh">正在转换</div><div class="sc">${st.map(([t,sub,a,b])=>{const on=p>=a&&p<b,dn=p>=b;return `<div class="sr imrow ${on?"on":dn?"dn":""}"><span class="imdot">${dn?"✓":on?'<i class="imspin"></i>':""}</span><span class="imfb"><b>${t}</b><small>${dn?"完成":on?sub:"等待中"}</small>${on?(a===0?`<span class="imbar ind"><i></i></span>`:`<span class="imbar"><i style="width:${Math.round((p-a)/(b-a)*100)}%"></i></span>`):""}</span></div>`}).join("")}</div>
-   <p class="snote">可以先离开这一页，转好了会提醒你。${esc(I.pdf||"")}</p>`;
+   <p class="snote">可以先离开这一页，转好了会提醒你。${esc(add?I.epub||"":I.pdf||"")}</p>`;
   foot=`<button class="imsec" data-impcancel>取消</button>`}
  else if(I.step===3){const S=IMPD.stats;const ds=I.diffs;const cnt=g=>ds.filter(d=>d.g===g).length;const list=ds.map((d,i)=>({d,i})).filter(x=>I.flt==="all"||x.d.g===I.flt);
   const nb=ds.filter(d=>d.pick==="b").length;
@@ -1495,25 +1510,33 @@ function renderImport(){if(!IMP)impReset();const I=IMP;const hasE=!!I.epub;
    <div class="imflt">${[["all","全部 "+ds.length],["v","颂词 "+cnt("v")],["n","科名 "+cnt("n")]].map(([v,t])=>`<button data-impflt="${v}" aria-pressed="${I.flt===v}">${t}</button>`).join("")}</div>
    <div class="imbulk"><span>已选：用讲记 ${nb} 处，保持科判 ${ds.length-nb} 处</span><button data-impall="b">全用讲记</button><button data-impall="a">全保持科判</button></div>
    <div class="imdl">${list.map(({d,i})=>`<div class="imd"><div class="imdh">${d.ch?`<small>${esc(d.ch)}</small>`:""}<b>${esc(d.code)} ${esc(d.name)}</b><em class="k-${d.g}">${d.kind}</em></div>
-     <div class="imdc"><button data-imppick="${i}:a" aria-pressed="${d.pick==="a"}"><small>科判</small><span>${impDiffStr(d.a,d.b)}</span></button><button data-imppick="${i}:b" aria-pressed="${d.pick==="b"}"><small>讲记</small><span>${impDiffStr(d.b,d.a)}</span></button></div>${d.note?`<p class="imdn">${esc(d.note)}</p>`:""}</div>`).join("")}</div>`:`<p class="snote">这次没有选讲记，所以没有可比对的内容。以后可以在这本书的 ⋯ 里补上讲记。</p>`}
+     <div class="imdc"><button data-imppick="${i}:a" aria-pressed="${d.pick==="a"}"><small>科判</small><span>${impDiffStr(d.a,d.b)}</span></button><button data-imppick="${i}:b" aria-pressed="${d.pick==="b"}"><small>讲记</small><span>${impDiffStr(d.b,d.a)}</span></button></div>${d.note?`<p class="imdn">${esc(d.note)}</p>`:""}</div>`).join("")}</div>`:`<p class="snote">这次没有选讲记，所以没有可比对的内容。以后可以在这本书的 ⋯ 里点“加讲记”，或在导入页选“给已有的书加讲记”。</p>`}
    ${hasE?`<div class="sc imauto"><div class="sr go ${I.hintOpen?"open":""}" data-imphint><b>只作提示、保持科判的 ${IMPD.hints.length} 处</b></div>${I.hintOpen?IMPD.hints.map(x=>`<div class="sr"><span class="imaw">${esc(x)}</span></div>`).join(""):""}</div>`:""}
    <div class="sc imauto"><div class="sr go ${I.autoOpen?"open":""}" data-impauto><b>程序自动处理的 ${IMPD.auto.length} 处版式问题</b></div>${I.autoOpen?IMPD.auto.map(x=>`<div class="sr"><span class="imaw">${esc(x)}</span></div>`).join(""):""}</div>
    <p class="snote">你的选择会存成这本书的勘误，下次导入新一稿时自动套用。</p>`;
   foot=`<button class="imsec" data-impback>重新选文件</button><button class="impri" data-impnext>下一步</button>`}
+ else if(add){const nb=I.diffs.filter(d=>d.pick==="b").length;
+  body=`<div class="sh">讲记名称</div><div class="sc"><div class="sr col"><b>名称 <small class="sv">显示在“关于这部论”里</small></b><input class="imin" data-impsn value="${esc(I.sname)}" placeholder="比如：《入行论广释·善说海》"></div></div>
+   <div class="sh">这次加入的内容</div><div class="sc"><div class="sr"><b>加到</b><span class="sv">${esc(BKW?BKW.long||BKW.full||BKW.title:"")}</span></div><div class="sr"><b>释义</b><span class="sv">${IMPD.stats.sections} 段</span></div><div class="sr"><b>不一致处</b><span class="sv">用讲记 ${nb} 处，保持科判 ${I.diffs.length-nb} 处</span></div></div>
+   <p class="snote">加好后，在这本书里点颂词就能看释义，定位题答完也能看“为什么归在这一科”。</p><button class="imdemo" data-impsave>另存一份勘误文件</button>`;
+  foot=`<button class="imsec" data-impback3>上一步</button><button class="impri" data-impadd ${I.sname.trim()?"":"disabled"}>加到这本书</button>`}
  else{const sp=(I.short||"").slice(0,5);
   body=`<div class="sh">书名</div><div class="sc"><div class="sr col"><b>全称</b><input class="imin" data-impin="long" value="${esc(I.long)}" placeholder="比如：入菩萨行论"></div><div class="sr col"><b>书背简称 <small class="sv">最多 5 个字</small></b><input class="imin" data-impin="short" maxlength="5" value="${esc(I.short)}" placeholder="比如：入行论"></div></div>
    <div class="sh">书架上的样子</div><div class="impv"><span class="hsp">${esc(sp||"简称")}</span><span class="imfb"><b>${esc(I.long||"全称")}</b><small>${esc(IMPD.meta.roles.map(r=>r[0]).join(" · "))}</small></span></div>
    <div class="sh">从科判里读到的信息</div><div class="sc">${IMPD.meta.roles.map(r=>`<div class="sr"><b>${esc(r[1])}</b><span class="sv">${esc(r[0])}</span></div>`).join("")}<div class="sr"><b>版本</b><span class="sv">${esc(IMPD.meta.ed)}</span></div></div>
    ${hasE?`<button class="imdemo" data-impsave>另存一份勘误文件</button>`:""}`;
   foot=`<button class="imsec" data-impback3>上一步</button><button class="impri" data-impdone ${I.long.trim()&&I.short.trim()?"":"disabled"}>加入书架</button>`}
- dev.innerHTML=`<div class="app settings imp"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-impx aria-label="返回">‹</button><span>导入一部论</span></span><span></span></div>${bar}</div><div class="sbody"><div class="sin">${body}</div></div><div class="imfoot"><div class="sin2">${foot}</div></div><div class="htoast" hidden></div></div>`;
+ dev.innerHTML=`<div class="app settings imp"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-impx aria-label="返回">‹</button><span>${add?"加讲记":"导入一部论"}</span></span><span></span></div>${bar}</div><div class="sbody"><div class="sin">${body}</div></div><div class="imfoot"><div class="sin2">${foot}</div></div><div class="htoast" hidden></div></div>`;
  const keep=fn=>{const y=dev.querySelector(".sbody").scrollTop;fn();if(ST.screen==="import"){renderImport();dev.querySelector(".sbody").scrollTop=y}};
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;setTimeout(()=>el.hidden=true,1800)};
  const q=(sel,fn)=>dev.querySelectorAll(sel).forEach(b=>b.onclick=e=>fn(b,e));
  dev.querySelector("[data-impx]").onclick=()=>{clearInterval(IMPT);if(I.step===2)I.step=1;ST.screen="home";render();bindPanel()};
  dev.querySelectorAll("[data-impf]").forEach(i=>i.onchange=()=>{if(i.files[0])keep(()=>{I[i.dataset.impf]=i.files[0].name})});
- q("[data-impdemo]",()=>keep(()=>{I.pdf=IMPD.meta.pdf;I.epub=IMPD.meta.epub}));
- const run=()=>{I.step=2;I.p=0;clearInterval(IMPT);const end=I.epub?100:80;IMPT=setInterval(()=>{I.p+=I.p<30?3:I.p<80?2.5:4;if(I.p>=end){clearInterval(IMPT);I.step=3;if(!I.short)I.short=IMPD.meta.short0}if(ST.screen==="import")renderImport()},110);renderImport()};
+ q("[data-impdemo]",()=>keep(()=>{if(I.mode==="add"){if(!I.book)I.book="rxl"}else I.pdf=IMPD.meta.pdf;I.epub=IMPD.meta.epub}));
+ q("[data-impmode]",b=>keep(()=>{I.mode=b.dataset.impmode}));q("[data-impbk]",b=>keep(()=>{I.book=b.dataset.impbk}));
+ {const i=dev.querySelector("[data-impsn]");if(i)i.oninput=()=>{I.sname=i.value;dev.querySelector("[data-impadd]").disabled=!I.sname.trim()}}
+ q("[data-impadd]",()=>{const w=WORKS.find(w=>w.id===I.book);const had=w&&w.shiyi;if(w)w.shiyi=I.sname.trim();const msg=w?"《"+w.title+"》"+(had?"已换成新的讲记":"已加上讲记"):"";IMP=null;ST.screen="home";render();bindPanel();const el=dev.querySelector(".htoast");if(el&&msg){el.textContent=msg;el.hidden=false;setTimeout(()=>el.hidden=true,2000)}});
+ const run=()=>{I.step=2;I.p=0;clearInterval(IMPT);const end=I.epub?100:80;IMPT=setInterval(()=>{I.p+=I.p<30?3:I.p<80?2.5:4;if(I.p>=end){clearInterval(IMPT);I.step=3;if(!I.short)I.short=IMPD.meta.short0;if(!I.sname)I.sname=I.epub===IMPD.meta.epub?"《入行论广释·善说海》":"《"+String(I.epub||"").replace(/\.epub$/i,"")+"》"}if(ST.screen==="import")renderImport()},110);renderImport()};
  q("[data-impgo]",run);q("[data-impcancel]",()=>{clearInterval(IMPT);I.step=1;renderImport()});
  q("[data-impflt]",b=>keep(()=>{I.flt=b.dataset.impflt}));q("[data-impall]",b=>keep(()=>{I.diffs.forEach(d=>d.pick=b.dataset.impall)}));
  q("[data-imppick]",b=>keep(()=>{const [i,v]=b.dataset.imppick.split(":");I.diffs[+i].pick=v}));
