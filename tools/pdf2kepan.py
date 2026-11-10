@@ -425,7 +425,7 @@ def apply_fixes(root, path, warnings):
     "verse": ["旧", "新"], "reason": "说明"}]
     match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
     replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
-    fixes = json.load(open(path, encoding="utf-8"))
+    fixes = json.load(open(path, encoding="utf-8")) if isinstance(path, str) else path
     done = []
     for fx in fixes:
         hits = [n for n, _ in walk(root) if n is not root and n["raw"].startswith(fx["match"])
@@ -492,24 +492,19 @@ def parse_pages(spec, n):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("pdf")
-    ap.add_argument("-o", "--out", required=True)
-    ap.add_argument("--pages", help="只转换这些页，如 1-6 或 1,4,5")
-    ap.add_argument("--id", default="book")
-    ap.add_argument("--fixes", help="人工勘误 JSON（原 PDF 有误、需要我们自己修正的地方）")
-    args = ap.parse_args()
-
+def convert(pdf_path, book_id="book", fixes=None, pages_spec=None, progress=None):
+    """转换一份科判 PDF，返回 JSON 对象。fixes 为勘误文件路径或已读入的列表；progress(已完成页, 总页) 可选。"""
     warnings = []
-    pdf = pdfplumber.open(args.pdf)
-    pages = parse_pages(args.pages, len(pdf.pages))
+    pdf = pdfplumber.open(pdf_path)
+    pages = parse_pages(pages_spec, len(pdf.pages))
     tables, meta_lines = [], []
-    for pno in pages:
+    for k, pno in enumerate(pages):
         tinfo, hdr = parse_page(pdf.pages[pno - 1], pno, warnings)
         if pno == 1:
             meta_lines = hdr
         tables += tinfo
+        if progress:
+            progress(k + 1, len(pages))
 
     tables.sort(key=lambda t: (table_sort_key(t["id"]), t["page"]))
     root = {"level": None, "name": "ROOT", "children": [], "verses": [], "refs": [],
@@ -529,12 +524,12 @@ def main():
 
     strip_private(root)
     assign_ids(root)
-    corrections = apply_fixes(root, args.fixes, warnings) if args.fixes else []
+    corrections = apply_fixes(root, fixes, warnings) if fixes else []
     checks = validate(root)
-    out = {
-        "id": args.id,
+    return {
+        "id": book_id,
         "meta": parse_meta(meta_lines),
-        "source": {"file": args.pdf.split("/")[-1], "pages": pages},
+        "source": {"file": pdf_path.split("/")[-1], "pages": pages},
         "tables": table_list,
         "stats": stats(root),
         "warnings": warnings,
@@ -542,13 +537,24 @@ def main():
         "corrections": corrections,
         "tree": root["children"],
     }
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("pdf")
+    ap.add_argument("-o", "--out", required=True)
+    ap.add_argument("--pages", help="只转换这些页，如 1-6 或 1,4,5")
+    ap.add_argument("--id", default="book")
+    ap.add_argument("--fixes", help="人工勘误 JSON（原 PDF 有误、需要我们自己修正的地方）")
+    args = ap.parse_args()
+    out = convert(args.pdf, args.id, args.fixes, args.pages)
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    print(json.dumps(out["stats"], ensure_ascii=False), f"warnings={len(warnings)}", file=sys.stderr)
-    for w in warnings:
+    print(json.dumps(out["stats"], ensure_ascii=False), f"warnings={len(out['warnings'])}", file=sys.stderr)
+    for w in out["warnings"]:
         print("  ⚠", w, file=sys.stderr)
-    print(f"自检：{len(checks)} 处问题", file=sys.stderr)
-    for w in checks:
+    print(f"自检：{len(out['checks'])} 处问题", file=sys.stderr)
+    for w in out["checks"]:
         print("  ✗", w, file=sys.stderr)
 
 

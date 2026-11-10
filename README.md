@@ -55,3 +55,25 @@ python3 tools/epub2shiyi.py 善说海.epub data/rxl.json -o out/rxl.shiyi.json -
 - `stats`：对齐与字数统计
 
 讲记有版权，epub 原文件和生成的释义数据默认不提交进仓库（见 `.gitignore`）。
+
+## 在浏览器 / 手机上转换
+
+`web/convert/` 把上面两个 Python 程序原样放进浏览器里跑（Pyodide），手机上选文件就能转换，不经过服务器，结果和电脑上完全一致。
+
+```bash
+python3 web/convert/build.py     # 生成 web/convert/dist/：kepan-convert.js、demo.html、pyodide/
+```
+
+app 里这样用（`dist/` 整个目录一起发布，`pyodide/` 要和 `kepan-convert.js` 放在同一层）：
+
+```js
+import { createConverter } from './convert/kepan-convert.js';
+const conv = createConverter({ onLog: (s) => console.log(s) });
+const tree = await conv.kepanFromPdf(pdfFile, { id: 'rxl', fixes, onProgress: (i, n) => {} });  // 同 data/rxl.json
+const { data, reportHtml } = await conv.shiyiFromEpub(epubFile, tree);                         // 释义数据 + 对照报告
+```
+
+- 默认在 Web Worker 里跑，不卡界面；不允许 Worker 时自动退回主线程。
+- 第一次要下载约 15MB（运行环境 14MB + 转换程序 4MB），之后由浏览器缓存；PWA 可以把 `dist/` 放进离线缓存。
+- 入行论 32 页在电脑浏览器里约 12 秒，善说海 epub 约 1 秒；手机上会慢一些。
+- 不支持加密 PDF（浏览器版没有带解密库）。

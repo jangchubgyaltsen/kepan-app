@@ -1,0 +1,223 @@
+<title>科判转换试用</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+/* 布局：单列、两步卡片（科判 → 讲记），结果紧跟在每一步下面 */
+:root {
+  --bg: #f3f4f1; --surface: #ffffff; --fg: #1f2421; --muted: #66706a; --line: #dde1dc;
+  --accent: #23466b; --accent-soft: #e3ebf3; --ok: #2f6b45; --warn: #9a5b12; --bad: #a3322a; --mark: #f3dc9c;
+  --serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --sans: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161a18; --surface: #1f2421; --fg: #e8ebe7; --muted: #9aa49e; --line: #333a36;
+  --accent: #8fb3d9; --accent-soft: #233243; --ok: #7cc49a; --warn: #e0a85a; --bad: #ec8a80; --mark: #6b5718; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #161a18; --surface: #1f2421; --fg: #e8ebe7; --muted: #9aa49e; --line: #333a36;
+  --accent: #8fb3d9; --accent-soft: #233243; --ok: #7cc49a; --warn: #e0a85a; --bad: #ec8a80; --mark: #6b5718; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.65 var(--sans); }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 20px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 16px; }
+h1 { font: 700 1.6rem/1.3 var(--serif); margin: 0; text-wrap: balance }
+.lede { color: var(--muted); margin: 4px 0 0 }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0 }
+.step h2 { font: 600 1.15rem/1.3 var(--serif); margin: 0; display: flex; gap: 10px; align-items: baseline }
+.step h2 small { font: 500 .8rem var(--sans); color: var(--muted); letter-spacing: .02em }
+.row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center }
+label.file { display: flex; flex-direction: column; gap: 4px; flex: 1 1 260px; min-width: 0; font-size: .85rem; color: var(--muted) }
+input[type=file], input[type=text] { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px; width: 100%; min-width: 0 }
+button { font: 600 .95rem var(--sans); border-radius: 6px; padding: 9px 16px; border: 1px solid var(--accent); background: var(--accent); color: var(--surface); cursor: pointer }
+button.ghost { background: transparent; color: var(--accent) }
+button:disabled { opacity: .45; cursor: default }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.bar { height: 6px; background: var(--accent-soft); border-radius: 3px; overflow: hidden }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s }
+.status { font-size: .88rem; color: var(--muted); min-height: 1.4em }
+.nums { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px }
+.nums div { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px }
+.nums b { display: block; font: 700 1.3rem/1.2 var(--sans); font-variant-numeric: tabular-nums }
+.nums span { font-size: .8rem; color: var(--muted) }
+.pill { display: inline-block; font-size: .75rem; padding: 1px 8px; border-radius: 99px; border: 1px solid currentColor; letter-spacing: .02em }
+.pill.ok { color: var(--ok) } .pill.warn { color: var(--warn) } .pill.bad { color: var(--bad) }
+details { border-top: 1px solid var(--line); padding-top: 8px }
+summary { cursor: pointer; font-weight: 600 }
+ul.list { margin: 6px 0 0; padding-left: 1.2em; font-size: .9rem }
+.tw { overflow-x: auto }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; margin-top: 6px }
+td, th { border: 1px solid var(--line); padding: 5px 7px; text-align: left; vertical-align: top }
+th { color: var(--muted); font-weight: 500 }
+mark { background: var(--mark); color: inherit }
+.meta { font-size: .9rem; color: var(--muted) }
+.meta b { color: var(--fg); font-weight: 600 }
+.note { font-size: .82rem; color: var(--muted) }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>科判转换试用</h1>
+    <p class="lede">在这台设备上把科判 PDF 和讲记 epub 转成 app 用的数据，文件不会上传到任何服务器。第一次打开要下载约 15MB 的运行环境，之后会快很多。</p>
+  </header>
+
+  <section class="step" aria-labelledby="s1">
+    <h2 id="s1">第一步 · 科判 <small>PDF</small></h2>
+    <div class="row">
+      <label class="file" for="pdf">科判 PDF（Word 导出的表格式科判）<input id="pdf" type="file" accept=".pdf,application/pdf"></label>
+      <label class="file" for="fixes">勘误文件（可选，.json）<input id="fixes" type="file" accept=".json,application/json"></label>
+    </div>
+    <div class="row">
+      <label class="file" for="bookid" style="flex:0 1 200px">书的代号<input id="bookid" type="text" value="rxl" autocomplete="off"></label>
+      <button id="go1" disabled>转换科判</button>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="bar1"></i></div>
+    <div class="status" id="st1" role="status">请选择科判 PDF。</div>
+    <div id="out1" hidden></div>
+  </section>
+
+  <section class="step" aria-labelledby="s2">
+    <h2 id="s2">第二步 · 讲记 <small>epub，可选</small></h2>
+    <div class="row">
+      <label class="file" for="epub">讲记 / 释论 epub<input id="epub" type="file" accept=".epub,application/epub+zip"></label>
+      <label class="file" for="tree">或者用已有的科判数据（.json，代替第一步）<input id="tree" type="file" accept=".json,application/json"></label>
+    </div>
+    <div class="row"><button id="go2" disabled>挂上释义并比对</button></div>
+    <div class="status" id="st2" role="status">先完成第一步，或选一份已有的科判数据。</div>
+    <div id="out2" hidden></div>
+  </section>
+
+  <p class="note">遇到加密的 PDF 会转换失败，请先另存一份不加密的。转换结果和电脑上用 tools/pdf2kepan.py、tools/epub2shiyi.py 得到的完全一样。</p>
+</div>
+
+<script type="module">
+/*__CONVERTER__*/
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let tree = null, shiyi = null;
+let conv = null;
+const getConv = () => conv || (conv = createConverter({ onLog: (s) => setStatus(activeStatus, s) }));
+let activeStatus = 'st1';
+function setStatus(id, s, cls) { const el = $(id); el.textContent = s; el.style.color = cls ? `var(--${cls})` : ''; }
+
+let downloads;
+async function save(filename, data, statusId) {
+  try {
+    downloads = downloads === undefined ? await (window.claude?.use?.('downloads') ?? null) : downloads;
+  } catch { downloads = null; }
+  if (downloads) {
+    try { await downloads.save({ filename, data }); setStatus(statusId, `已保存 ${filename}`, 'ok'); }
+    catch (e) { if (e?.code !== 'declined') setStatus(statusId, `没能保存：${e?.message || e}`, 'bad'); }
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([data], { type: filename.endsWith('.html') ? 'text/html' : 'application/json' }));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+}
+
+function syncButtons() {
+  $('go1').disabled = !$('pdf').files.length;
+  $('go2').disabled = !$('epub').files.length || !(tree || $('tree').files.length);
+}
+['pdf', 'epub', 'tree'].forEach((id) => $(id).addEventListener('change', syncButtons));
+$('pdf').addEventListener('change', () => {
+  const f = $('pdf').files[0];
+  if (f) setStatus('st1', `已选：${f.name}（${(f.size / 1e6).toFixed(1)} MB）`);
+});
+
+$('go1').addEventListener('click', async () => {
+  activeStatus = 'st1';
+  $('go1').disabled = true; $('out1').hidden = true; $('bar1').style.width = '0';
+  const t0 = performance.now();
+  try {
+    let fixes = null;
+    if ($('fixes').files[0]) fixes = JSON.parse(await $('fixes').files[0].text());
+    setStatus('st1', '正在准备运行环境…');
+    tree = await getConv().kepanFromPdf($('pdf').files[0], {
+      id: $('bookid').value.trim() || 'book', fixes,
+      onProgress: (i, n) => { $('bar1').style.width = `${(i / n) * 100}%`; setStatus('st1', `正在读第 ${i} / ${n} 页…`); },
+    });
+    $('bar1').style.width = '100%';
+    setStatus('st1', `转换完成，用时 ${((performance.now() - t0) / 1000).toFixed(0)} 秒。`, 'ok');
+    renderTree(tree);
+  } catch (e) {
+    setStatus('st1', `转换失败：${e.message || e}`, 'bad');
+  }
+  syncButtons();
+});
+
+function renderTree(t) {
+  const s = t.stats || {}, m = t.meta || {};
+  const checks = t.checks || [], warns = t.warnings || [], corr = t.corrections || [];
+  const roles = (m.roles || []).map((r) => `${esc(r.name)} ${esc(r.role)}`).join(' · ');
+  $('out1').innerHTML = `
+    <p class="meta"><b>${esc(m.title || t.id)}</b><br>${roles}${m.compiler ? ` · 整理 ${esc(m.compiler)}` : ''}${m.edition ? ` · ${esc(m.edition)}` : ''}${m.date ? ` · ${esc(m.date)}` : ''}${(m.proofreaders || []).length ? `<br>校对 ${esc(m.proofreaders.join('、'))}` : ''}</p>
+    <div class="nums">
+      <div><b>${s.nodes ?? '–'}</b><span>科判</span></div>
+      <div><b>${s.verseCells ?? '–'}</b><span>颂词格</span></div>
+      <div><b>${s.stanzas ?? '–'}</b><span>颂</span></div>
+      <div><b>${checks.length}</b><span>自检问题 <span class="pill ${checks.length ? 'bad' : 'ok'}">${checks.length ? '请确认' : '通过'}</span></span></div>
+      <div><b>${corr.length}</b><span>已套用勘误</span></div>
+    </div>
+    ${checks.length ? `<details open><summary>自检问题（请确认）</summary><ul class="list">${checks.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></details>` : ''}
+    ${warns.length ? `<details><summary>转换时的特殊处理（${warns.length}）</summary><ul class="list">${warns.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></details>` : ''}
+    ${corr.length ? `<details><summary>套用的勘误（${corr.length}）</summary><ul class="list">${corr.map((c) => `<li>${esc(c.from)} → ${esc(c.to)}　<span class="note">${esc(c.reason)}</span></li>`).join('')}</ul></details>` : ''}
+    <div class="row" style="margin-top:12px"><button class="ghost" id="save1">保存科判数据</button></div>`;
+  $('out1').hidden = false;
+  $('save1').onclick = () => save(`${t.id || 'book'}.json`, JSON.stringify(t), 'st1');
+  setStatus('st2', '可以选讲记 epub 了。');
+}
+
+$('go2').addEventListener('click', async () => {
+  activeStatus = 'st2';
+  $('go2').disabled = true; $('out2').hidden = true;
+  const t0 = performance.now();
+  try {
+    let tr = tree;
+    if (!tr) tr = JSON.parse(await $('tree').files[0].text());
+    setStatus('st2', '正在切分讲记、比对颂词…');
+    const r = await getConv().shiyiFromEpub($('epub').files[0], tr);
+    shiyi = r;
+    setStatus('st2', `完成，用时 ${((performance.now() - t0) / 1000).toFixed(0)} 秒。`, 'ok');
+    renderShiyi(r.data, r.reportHtml, tr);
+  } catch (e) {
+    setStatus('st2', `失败：${e.message || e}`, 'bad');
+  }
+  syncButtons();
+});
+
+function hl(ctx, piece) {
+  const i = piece ? ctx.indexOf(piece) : -1;
+  return i < 0 ? esc(ctx) : esc(ctx.slice(0, i)) + '<mark>' + esc(piece) + '</mark>' + esc(ctx.slice(i + piece.length));
+}
+function renderShiyi(d, reportHtml, tr) {
+  const s = d.stats, r = d.report;
+  const rows = { 疑似错字: [], 用字不同: [], other: [] };
+  r.verseDiffs.forEach((v) => v.diffs.forEach((x) => (rows[x.kind] || rows.other).push([v, x])));
+  const table = (list) => list.length ? `<div class="tw"><table><tr><th>科判</th><th>科判表</th><th>讲记</th></tr>${list.map(([v, x]) => `<tr><td>${esc(v.raw)}</td><td>${hl(x.ctxKepan, x.kepan)}</td><td>${hl(x.ctxJiangji, x.jiangji)}</td></tr>`).join('')}</table></div>` : '<p class="note">没有</p>';
+  $('out2').innerHTML = `
+    <div class="nums">
+      <div><b>${s.sections}/${s.nodes}</b><span>科判挂上了释义</span></div>
+      <div><b>${s.chars.toLocaleString()}</b><span>释义字数</span></div>
+      <div><b>${rows['疑似错字'].length}</b><span>颂词疑似错字 <span class="pill ${rows['疑似错字'].length ? 'bad' : 'ok'}">${rows['疑似错字'].length ? '请确认' : '无'}</span></span></div>
+      <div><b>${rows['用字不同'].length}</b><span>颂词用字不同</span></div>
+      <div><b>${s.nameDiffs}</b><span>科名写法不同</span></div>
+      <div><b>${s.missing + s.extra}</b><span>没对上的科判</span></div>
+    </div>
+    <details ${rows['疑似错字'].length ? 'open' : ''}><summary>颂词疑似错字（请确认）</summary>${table(rows['疑似错字'])}</details>
+    <details><summary>颂词用字不同（仅供参考）</summary>${table(rows['用字不同'])}</details>
+    <details><summary>颂词多出或缺少（请看一下）</summary>${table(rows.other)}</details>
+    <details><summary>科名写法不同（${r.nameDiffs.length}）</summary><ul class="list">${r.nameDiffs.map((x) => `<li>科判：${esc(x.kepan)}<br>讲记：${esc(x.jiangji)}</li>`).join('') || '<li>没有</li>'}</ul></details>
+    <details><summary>讲记里多出的标题（${r.extra.length}）</summary><ul class="list">${r.extra.map((x) => `<li>${esc(x.heading)}</li>`).join('') || '<li>没有</li>'}</ul></details>
+    <div class="row" style="margin-top:12px">
+      <button class="ghost" id="save2">保存释义数据</button>
+      <button class="ghost" id="save3">保存对照报告</button>
+    </div>`;
+  $('out2').hidden = false;
+  const id = d.bookId || tr.id || 'book';
+  $('save2').onclick = () => save(`${id}.shiyi.json`, JSON.stringify(d), 'st2');
+  $('save3').onclick = () => save(`${id}.讲记对照.html`, reportHtml, 'st2');
+}
+</script>
