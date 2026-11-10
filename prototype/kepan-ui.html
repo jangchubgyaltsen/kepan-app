@@ -85,6 +85,13 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .cord.s3d{background:linear-gradient(90deg,rgb(0 0 0 / .38),rgb(0 0 0 / 0) 28%,rgb(255 255 255 / .16) 44%,rgb(0 0 0 / 0) 62%,rgb(0 0 0 / .42)),var(--tex);background-size:100% 100%,var(--cw) auto;background-repeat:no-repeat,repeat-y;box-shadow:0 1px 2px rgb(0 0 0 / .22)}
 .tassel{position:absolute;z-index:1;pointer-events:none;line-height:0}
 .hcloud{border:0;background:none;color:var(--k0);padding:0 2px;cursor:pointer;display:inline-flex;align-self:center;line-height:0}.hcloud.ing{color:var(--k0)}.hpace{font-size:11.5px;color:var(--muted);font-family:var(--serif);display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden}.hpace .flag{font-style:normal;color:var(--k0)}.hpace button{border:0;background:none;color:var(--k0);font-size:11.5px;padding:0 2px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}.hside.idle{cursor:default}.hside.more{cursor:pointer}
+.hside.gold small{white-space:nowrap;opacity:1}
+.hside.gold.hg-solid.hg-solid,.hside.gold.hg-seal.hg-seal{background:linear-gradient(180deg,#ecd07e,#c59a36 60%,#a87a22);color:#3a2408;box-shadow:inset 0 0 0 1px #f6e3a6,inset 0 0 0 2px #a87a22}
+.hside.gold.hg-line.hg-line{background:linear-gradient(180deg,#7a2418,#4e150d);color:#f1d688;box-shadow:inset 0 0 0 1.5px #d9b45a,inset 0 0 0 4px #5a180f,inset 0 0 0 5px color-mix(in srgb,#d9b45a 55%,transparent)}
+.hside.gold.hg-pale.hg-pale{background:color-mix(in srgb,#e2b84a 20%,var(--panel));color:#7a5612;box-shadow:inset -1px 0 0 #d3ab52}
+.hside.gold .gchip{border-radius:99px;padding:1px 6px;font-size:10.5px;margin-top:2px;background:#4a2a08;color:#f6e3a6}
+.hside.gold.hg-line .gchip{background:#d9b45a;color:#4e150d}
+.hside.gold.hg-pale .gchip{background:#b98a2c;color:#fff8e6}
 .hside.more.hm-swap small{color:#a0321f;opacity:1;font-weight:600}
 .hside.more.hm-chip small{background:#9c2a1e;color:#fff6e2;opacity:1;border-radius:99px;padding:1px 6px;font-size:10.5px;margin-top:2px}
 .hside.more small{white-space:nowrap}.hmp{position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:#9c2a1e;color:#fff6e2;font-style:normal;font-size:11px;line-height:14px;text-align:center;font-family:var(--sans)}
@@ -842,7 +849,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,hmore:"swap",shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,hmore:"chip",hgold:"solid",gdemo:"off",shym:"sheet",shyv:"on",shyf:15,ret:90,tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -1303,7 +1310,14 @@ function pillHTML(st,id){const d=st.last,tot=st.rev+st.nw;
  const dk=[0,8,22,22,38,38,38,38][d]??52,rd=d<1?0:Math.min(100,Math.round((d-1)/6*100));
  return `<span class="hlrow"><button class="hlearn plb" ${id?`data-learn="${id}"`:""} style="--dk:${dk}%;padding-left:${+ST.plz+2}px">${pillLamp(d)}<span>复习 ${st.rev}${st.nw?` · 新学 ${st.nw}`:""}</span>${d>=1?`<i class="pday" style="--rd:${rd}%">${d} 天</i>`:""}</button></span>`}
 const HLAY={stack:"A 按钮在信息下方",inline:"C 灯收进按钮",side:"D 右侧灯签",foot:"E 底栏"};
+const HGOLD={solid:"A 金底深字",line:"B 深红底金边金字",seal:"C 金底「圆满」+ 小签",pale:"D 淡金底"};
+function allDone(){return Object.keys(SR.it).length>0&&!Object.values(BOOKS).some(B=>newNodeAny(B))}
+function freeQueue(){const L=[];Object.values(BOOKS).forEach(B=>bfsAll(B).forEach(n=>stepsOf(n).forEach(k=>{if(itm(n,k))L.push({n,k,B,isNew:false})})));return shuffle(L,L.length*5+new Date().getDate()).slice(0,5)}
+function goldSide(st,id){const V=ST.hgold,due=ST.gdemo==="idle"?0:(st.rev||(ST.gdemo==="due"?6:0));const lamp=pillLamp(0);
+ const b=due?(V==="seal"?"圆满":"复习 "+due):"圆满",sm=due?(V==="seal"?"复习 "+due+" ›":"圆满"):"再复习 ›";
+ return `<button class="hside gold hg-${V} ${due?"":"gidle"}" ${due?`data-learn="${id}"`:`data-grev="${id}"`} aria-label="${due?"整本圆满，复习 "+due+" 条":"整本圆满，再复习几条"}">${lamp}<b>${b}</b><small class="${!due||V==="seal"?"gchip":""}">${sm}</small></button>`}
 function sideHTML(st,id){const d=st.last,tot=st.rev+st.nw;
+ if(id==="rxl"&&(ST.gdemo!=="off"||allDone()))return goldSide(st,id);
  if(!tot)return idleSide(st.state||"rest",id);
  const dk=[0,8,22,22,38,38,38,38][d]??52,rd=d<1?0:Math.min(100,Math.round((d-1)/6*100));
  return `<button class="hside" ${id?`data-learn="${id}"`:""} style="--dk:${dk}%">${pillLamp(d)}${ST.esub==="none"?"":ST.esub==="num"?`<b class="enum">${tot}</b>`:st.rev?`<b>复习 ${st.rev}</b>`:`<b>开始学</b>`}${ST.esub==="two"?(st.nw?`<small>新学 ${st.nw}</small>`:"<small>&nbsp;</small>"):""}${d>=1&&ST.edt!=="off"?`<i class="pday" style="--rd:${rd}%">${d} 天${ST.edt==="bottom"?"没复习":""}</i>`:""}</button>`}
@@ -1366,7 +1380,7 @@ function extraQueue(){for(const B of Object.values(BOOKS)){const n=newNode(B)||n
 function moreBtn(){const q=extraQueue();return q.length?`<button class="smore" data-smore><b>继续学习</b><small>再学一支：${esc(q[0].n.code||"")} ${esc(q[0].n.title)}</small></button>`:""}
 function doneHTML(){const R=SS.res;if(R.length)SR.last=0;const rv=R.filter(x=>!x.t.isNew),nw=R.filter(x=>x.t.isNew);const seen=[];R.forEach(x=>{if(!seen.includes(x.t.n))seen.push(x.t.n)});
  if(!R.length)return `<div class="sdone"><div class="sdt">今天没有要复习的</div><p>新学的也都学完了。可以回去读一读，或者做每日一颂。</p>${moreBtn()}<div class="sacts"><button class="pri" data-sx>回书架</button></div></div>`;
- return `<div class="sdone"><div class="sdt">${SS.extra?"又学完一支":"今天的完成了"}</div><div class="sstat"><span><b>${rv.length}</b>条复习<small>答对 ${rv.filter(x=>x.ok).length}</small></span><span><b>${nw.length?1:0}</b>支新学<small>${nw.length?esc(nw[0].t.n.title):"—"}</small></span><span><b>${SR.streak}</b>天连续</span></div>
+ return `<div class="sdone"><div class="sdt">${SS.free?"又复习了一轮":SS.extra?"又学完一支":"今天的完成了"}</div><div class="sstat"><span><b>${rv.length}</b>条复习<small>答对 ${rv.filter(x=>x.ok).length}</small></span><span><b>${nw.length?1:0}</b>支新学<small>${nw.length?esc(nw[0].t.n.title):"—"}</small></span><span><b>${SR.streak}</b>天连续</span></div>
   <div class="slist">${seen.map(n=>`<div class="sli">${ringHTML(n)}${n.p?badge(n):""}<span>${esc(n.p?n.title:bookOf(n).title)}</span></div>`).join("")}</div>
   ${moreBtn()}<div class="sacts"><button data-tree>看点亮树</button><button class="pri" data-sx>回书架</button></div></div>`}
 function progHead(){const q=SS.q,i=SS.i,fin=i>=q.length;if(SS.daily){const c=SS.t?SS.t.chances:0;return `<span class="sttl">每日一颂</span><span class="spd chance">${[0,1,2,3,4].map(j=>`<i class="${j<c?"ok":"no"}"></i>`).join("")}</span>`}
@@ -1468,6 +1482,7 @@ function renderHome(){const W=wide();
  {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
  dev.querySelectorAll("[data-addshy]").forEach(b=>b.onclick=e=>{e.stopPropagation();impReset();IMP.mode="add";IMP.book=b.dataset.addshy;ST.screen="import";MENU=null;render();bindPanel()});
  {const db=dev.querySelector("[data-dedi]");if(db)db.onclick=()=>{if(SR.today)SR.today.dedi=true;db.classList.remove("hot");showDedi()}}
+ dev.querySelectorAll("[data-grev]").forEach(b=>b.onclick=e=>{e.stopPropagation();const q=freeQueue();if(!q.length)return;SS={q,i:0,res:[],daily:false,from:"home",extra:true,free:true};SS.t=initTask(q[0]);ST.screen="study";MENU=null;render();bindPanel()});
  dev.querySelectorAll("[data-more]").forEach(b=>b.onclick=e=>{e.stopPropagation();const q=extraQueue();if(!q.length)return;RECENT.rxl=RECENT.rxl||null;SS={q,i:0,res:[],daily:false,from:"home",extra:true};SS.t=initTask(q[0]);ST.screen="study";MENU=null;render();bindPanel()});
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
@@ -1719,7 +1734,8 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  return `<h2>调整</h2>
  <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button><button id="dedibtn">看回向卡片</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
  <div class="grp"><h3>复习安排</h3><p class="note">已确认：复习时间由 FSRS 按每一条自己的情况算，不再有固定间隔表。按钮仍是“记得 / 模糊”。答对提示“下次大约几天后”，原型里的天数是示意；答错提示“过一会儿再出现”，这题排到本轮末尾再出一次。目标记住率默认 90%，在设置页“复习”里调。</p></div>
- <div class="grp"><h3>书卡 · 继续学习</h3>${G("hmore","已复习后的提示",HMORE)}<p class="note">当天的都做完后，书卡左边的按钮大小不变，仍然可以点，点了再学下一支。</p><div class="og"><button id="hmdemo">${ST.lstate==="rest"?"回到实际进度":"切到「已复习」看效果"}</button></div></div>
+ <div class="grp"><h3>书卡 · 继续学习</h3><p class="note">已确认：当天都做完后，书卡左边按钮大小不变，小字换成红底小签「再学 ›」，点了再学下一支。</p><div class="og"><button id="hmdemo">${ST.lstate==="rest"?"回到实际进度":"切到「已复习」看效果"}</button></div></div>
+ <div class="grp"><h3>书卡 · 整本圆满</h3>${G("hgold","金色按钮",HGOLD)}${G("gdemo","预览",{off:"按实际进度",due:"圆满 · 有复习",idle:"圆满 · 没有到期"})}<p class="note">整本都学完后，书卡按钮变成金色。有到期内容时点了照常复习；没有到期时显示「再复习 ›」，点了从学过的里面随机抽 5 条再练一轮。</p></div>
  <div class="grp"><h3>点灯和回向</h3><p class="note">首页的灯按星期排，周一在最左，今天之后的几盏是暗的空灯。完成页有“继续学习”，想多学时再学下一支，不受每天新学数量限制。已确认：当天答完 1 题就算点灯，中途退出也算，每日一颂也算，只读不练不算。当天到期的全部做完，今天那盏灯满亮；只做了一部分，灯亮但火苗小。回向卡片不再自动弹出，改成首页顶栏的“回向”按钮；当天点了灯还没回向时按钮带金色提示，点开看过就恢复。</p></div>
  <div class="grp"><h3>发心开屏 · 供灯桌</h3><p class="note">已确认：红布桌面，对齐排列，7 排，每排 11 盏，灯 81px，桌宽 130%（两侧超出屏幕），桌长 100%，桌高 28%，俯视 37°，光晕 100%，文字 26px、高度 37%。宽屏按比例加灯。</p></div>
  <div class="grp"><h3>发心开屏 · 点灯和摇曳</h3><p class="note">已确认：灯火逐盏点燃，从桌子中心向外，出场 1.5 秒，横向扩散 25%、纵向 55%；灯火摇曳幅度 45%、速度 85%，灯光明暗 100%；灯器起始亮度 10%、色彩 50%、变亮 0.5 秒，桌面起始亮度 50%。想再看一遍点“演示”里的“再看一次开屏”。</p></div>
