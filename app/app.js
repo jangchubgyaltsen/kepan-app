@@ -335,7 +335,11 @@ const nstate=n=>{const S=stepsOf(n),L=S.filter(k=>itm(n,k));return {S,L,gold:L.l
 const bfsAll=B=>B.bfs;
 // ---- 复习状态。每个科判的「定位」「展开」、每段颂词的「遮字」各是一张卡，用 FSRS（ts-fsrs）排下次复习
 // SR 存在本机（IndexedDB），见 store.js
-const SR={it:{},hist:{},today:null,daily:null,wk:{id:"",n:0},recent:{},course:{},last:{},paceAsked:false,v:1};
+const SR={it:{},hist:{},today:null,daily:null,wk:{id:"",n:0},recent:{},course:{},last:{},lm:{},paceAsked:false,v:1};
+// 学习模式：每部科判单独开关。undefined=还没问过，第一次打开时弹窗问
+function lmFix(){if(!SR.lm)SR.lm={};Object.keys(SR.it||{}).forEach(k=>{const b=k.slice(0,k.indexOf(":"));if(b&&SR.lm[b]===undefined)SR.lm[b]="on"})}
+const lmOn=B=>!!B&&SR.lm[B.id]==="on";let LMASK=null;
+function lmAskHTML(){const B=LMASK&&BOOKS[LMASK.key];if(!B)return "";return `<div class="cpov cfov"><div class="cfd lmd" role="dialog" aria-label="学习模式"><b>要开启《${esc(B.title)}》的学习模式吗？</b><p>开启后，书卡上会出现学习按钮，按你选的节奏安排背诵和复习。不开启就只是阅读。</p><p class="lmn">以后可以在书卡 ⋯ 的「学习节奏」里更改。</p><div class="cfb"><button data-lmset="off">只阅读</button><button class="lmy" data-lmset="on">开启</button></div></div></div>`}
 const DAY=864e5;
 const sod=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
 const dkey=t=>{const d=new Date(t==null?Date.now():t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
@@ -362,7 +366,7 @@ function newNode(B){return newNodes(B,1)[0]}
 function todayRec(){const k=dkey();if(!SR.today||SR.today.date!==k)SR.today={date:k,n:0,dedi:false,nodes:{}};return SR.today}
 // 今天还能新学几支：每天默认 1 支（设置里 1–5），到期复习超过 20 条时暂停新学
 function newLeft(B){const T=todayRec();const done=Object.keys(T.nodes).filter(k=>k.startsWith(B.id+":")).length;return Math.max(0,(+ST.npd||1)-done)}
-function bookCount(B){const rev=dueList(B).length;const nw=rev>20||quotaFull()?0:newNodes(B,newLeft(B)).length;return {rev,nw,tot:rev+nw}}
+function bookCount(B){if(!lmOn(B))return {rev:0,nw:0,tot:0};const rev=dueList(B).length;const nw=rev>20||quotaFull()?0:newNodes(B,newLeft(B)).length;return {rev,nw,tot:rev+nw}}
 function todayCount(){let rev=0,nw=0;Object.values(BOOKS).forEach(B=>{const c=bookCount(B);rev+=c.rev;nw+=c.nw});return {rev,nw,tot:rev+nw}}
 // 点灯：当天答完 1 题就点亮；当天到期的都做完，灯满亮
 function streakN(){let d=Date.now();if(!(SR.hist[dkey(d)]||{}).n)d-=DAY;let n=0;while((SR.hist[dkey(d)]||{}).n){n++;d-=DAY}return n}
@@ -516,7 +520,7 @@ function idleSide(state,id){const lamp=pillLamp(state==="done"?0:0);const B=id&&
  if(state==="quota")return `<span class="hside at-edge done idle">${lamp}<b>${ST.qpw}/${ST.qpw}</b><small>本周已满</small></span>`;
  if(state==="done")return `<span class="hside at-edge gold idle">${lamp}<b>圆满</b><small>整本背完</small></span>`;
  return `<span class="hside at-edge done idle">${lamp}<b>已复习</b><small>今日 ✓</small></span>`}
-function paceLine(w){if(!w.real||ST.cshow==="off")return "";
+function paceLine(w){if(!w.real||ST.cshow==="off"||!lmOn(BOOKS[w.id]))return "";
  if(ST.pace==="course"){const B=BOOKS[w.id],m=courseLeaf(B);return `<span class="hpace"><i class="flag">⚑</i>课到 ${m?esc(m.code+" "+m.title):"（未设）"} · 待学 ${courseLeft(B)} 颂<button data-course="${w.id}">改</button></span>`}
  if(ST.pace==="quota")return `<span class="hpace">本周新学 ${Math.min(wkNew(),+ST.qpw)}/${ST.qpw} 颂</span>`;return ""}
 function coursePickHTML(){if(!COURSEP)return "";const B=BOOKS[COURSEP]||BK;if(!B)return "";const m=courseLeaf(B);
@@ -546,12 +550,12 @@ function leafState(n){if(!n.v||!n.v.length)return null;const S=stepsOf(n),L=S.fi
  if(S.length&&L.length===S.length)return "done";
  if(L.length)return "ing";return "new"}
 const LSN={done:"已背",due:"该复习",ing:"学到一半",new:"待学",after:"课程后面"};
-function ltProg(n){const s=leafState(n);if(!s||ST.rprog==="off")return "";const S=stepsOf(n);
+function ltProg(n){const s=leafState(n);if(!s||ST.rprog==="off"||!lmOn(bookOf(n)))return "";const S=stepsOf(n);
  if(ST.rprog==="bar")return `<span class="lpb s-${s}" title="${LSN[s]}">${S.map(k=>{const t=itm(n,k);return `<i class="${t?(t.due<=0?"due":"on"):""}"></i>`}).join("")}</span>`;
  if(ST.rprog==="chip"||ST.rprog==="bg")return `<span class="lpc s-${s}">${LSN[s]}</span>`;
  return ""}
 const vLeaves=B=>B.seq.filter(n=>n.v.length&&!n.x);
-function clineHTML(n){if(ST.pace!=="course"||ST.redit==="menu"||courseLeaf(bookOf(n))!==n)return "";
+function clineHTML(n){if(!lmOn(bookOf(n))||ST.pace!=="course"||ST.redit==="menu"||courseLeaf(bookOf(n))!==n)return "";
  return `<div class="cline"><span class="cl">⚑ 课程讲到这里</span><span class="cbtn"><button data-cmv="-1" aria-label="课程往前一颂">▲</button><button data-cmv="1" aria-label="课程往后一颂">▼</button></span></div>`}
 function moveCourse(d){const L=vLeaves(BK);const m=courseLeaf(BK);let i=L.indexOf(m);if(i<0)i=0;const t=L[Math.max(0,Math.min(L.length-1,i+d))];SR.course[BK.id]=t.id;ST.anchor=t.id;ST.anchorKeep=null;render()}
 function ltSheet(n,app){const old=app.querySelector(".ltsh");if(old)old.remove();const isC=courseLeaf(bookOf(n))===n;const el=document.createElement("div");el.className="ltsh";
@@ -562,11 +566,12 @@ function ltSheet(n,app){const old=app.querySelector(".ltsh");if(old)old.remove()
 let RESETC=false;
 function paceSheetHTML(){if(!PACESH)return "";const B=BOOKS[PACESH]||BK;const c=ST.pace==="course",m=courseLeaf(B);
  return `<div class="cpov" data-cpclose><div class="cpsh pcsh" role="dialog" aria-label="学习节奏"><div class="cph"><b>${PRESTART?"先选一种学习节奏":"学习节奏 · "+esc(B.title)}</b><button data-cpclose aria-label="关闭">✕</button></div>
-  <button class="pco ${c?"on":""}" data-pace="course"><i></i><span><b>跟课程</b></span></button>
+  ${PRESTART?"":`<button class="lmsw ${lmOn(B)?"on":""}" data-lmsw="${B.id}" role="switch" aria-checked="${lmOn(B)}"><span><b>学习模式</b><small>${lmOn(B)?"书卡上显示学习按钮，安排背诵和复习":"已关闭，只阅读。学过的记录都还在"}</small></span><i></i></button>`}
+  ${!PRESTART&&!lmOn(B)?`<button class="pri pdone" data-pdone>完成</button></div></div>`:`<button class="pco ${c?"on":""}" data-pace="course"><i></i><span><b>跟课程</b></span></button>
   ${c?`<button class="pcbtn" data-course="${B.id}" aria-label="修改课程进度"><span class="pcl">课到</span><b>${m?esc(m.code+" "+m.title):"未设"}</b><span class="pcg">改 ›</span></button>`:""}
   <button class="pco ${!c?"on":""}" data-pace="quota"><i></i><span><b>每周定量</b></span></button>
   ${!c?`<div class="pcx"><span class="stp"><button data-qd="-1" aria-label="少一颂">−</button><b>${ST.qpw}</b><button data-qd="1" aria-label="多一颂">＋</button></span> 颂 / 周</div>`:""}
-  <button class="pri pdone" data-pdone>${PRESTART?"开始学":"完成"}</button></div></div>`}
+  <button class="pri pdone" data-pdone>${PRESTART?"开始学":"完成"}</button></div></div>`}`}
 function resetHTML(){if(!RESETC)return "";const B=BOOKS[RESETC];return `<div class="cpov cfov" data-rsno><div class="cfd" role="alertdialog" aria-label="确认重置进度"><b>重置《${esc(B?B.title:"")}》的进度？</b><p>所有背诵和复习记录都会清空，从第一颂重新开始。这一步不能撤销。</p><div class="cfb"><button data-rsno>取消</button><button class="danger" data-rsyes>重置</button></div></div></div>`}
 // ---- 连续点灯条
 const CNM=["一","二","三","四","五","六","七","八","九","十","十一","十二"];
@@ -759,7 +764,7 @@ function renderHome(){const W=wide();
   const meta=`<span class="hmeta">${esc(w.roles.map(r=>r[0]).join(" · "))}${w.prose?" · 散文":""}</span>`;
   const ab=ST.habout==="icon"?`<button class="hab" data-about="${w.id}" aria-label="关于${esc(w.title)}">ⓘ</button>`:`<button class="hab" data-menu="${w.id}" aria-label="更多">⋯</button>`;
   const ar=ST.hexp==="arrow"?`<button class="hex ${ex?"on":""}" data-exp="${w.id}" aria-label="展开各品">⌄</button>`:"";
-  const lrn=ST.lentry==="book"&&(w.real||DL[w.id]==="ok")?studyPill(w):"";const ws=wStudy(w);const stale=ST.lentry==="book"&&ST.lhint==="spine"&&ws?"stale"+tempOf(ws.last):"";
+  const lrn=ST.lentry==="book"&&lmOn(BOOKS[w.id])?studyPill(w):"";const ws=wStudy(w);const stale=ST.lentry==="book"&&ST.lhint==="spine"&&ws?"stale"+tempOf(ws.last):"";
   const L=ST.hlay;let outer="";const lrnB=L==="row"?`<span class="hrow2">${lastH}${lrn}</span>`:L==="side"||L==="foot"?"":lrn;
   const SP=ST.hsidep,sideIn=lrn&&L==="side"&&SP!=="right"&&SP!=="edge"?sideHTML(ws,w.id).replace(/class="hside/,`class="hside in-${SP}`):"";if(lrn&&L==="side"&&(SP==="right"||SP==="edge"))outer=sideHTML(ws,w.id).replace(/class="hside/,`class="hside at-${SP}`);if(lrn&&L==="foot")outer=`<div class="hfoot">${lrn}</div>`;
   const menu=MENU===w.id?`<div class="hmenu"><button data-about="${w.id}">关于这部论</button><button data-addshy="${w.id}">${w.shiyi?"换讲记":"加讲记"}</button><button data-pacesh="${w.id}">学习节奏</button>${w.chaps.length?`<button data-exp2="${w.id}">查看各品</button>`:""}<button data-reset="${w.id}" class="mdanger">重置进度</button>${w.builtin?"":`<button data-bdel="${w.id}" class="mdanger">从书架删除</button>`}</div>`:"";
@@ -777,11 +782,11 @@ function renderHome(){const W=wide();
   if(!R){if(ST.lentry==="top")body=todayHTML()+body;else if(ST.lentry==="book")body=todayHTML("strip")+body;else if(TAB&&ST.htab==="today")body=todayHTML("page")}
  const C0=todayCount();
  dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn dedb ${(()=>{const T=todayRec();return T.n>0&&!T.dedi?"hot":""})()}" data-dedi>回向</button><button class="tocbtn" data-import aria-label="导入一部论">＋</button><button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
-  <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT&&WORKS.find(w=>w.id===ABOUT)?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${DELC?delHTML():""}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
+  <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT&&WORKS.find(w=>w.id===ABOUT)?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${DELC?delHTML():""}${lmAskHTML()}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
   {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
- const go=(key,at)=>{const B=BOOKS[key];if(!B)return;BK=B;const r=SR.recent[key];ST.screen="reader";ST.openAt=at||(r&&r.id)||null;HQ="";ST.sOpen=false;render()};
+ const go=(key,at)=>{const B=BOOKS[key];if(!B)return;if(SR.lm[key]===undefined){LMASK={key,at};MENU=null;rer();return}BK=B;const r=SR.recent[key];ST.screen="reader";ST.openAt=at||(r&&r.id)||null;HQ="";ST.sOpen=false;render()};
  const rer=()=>{const inp=dev.querySelector(".hsearch input");const had=inp&&document.activeElement===inp;const pos=had?inp.selectionStart:0;renderHome();if(had){const i2=dev.querySelector(".hsearch input");i2.focus();i2.setSelectionRange(pos,pos)}};
  dev.querySelectorAll("[data-wopen]").forEach(b=>b.onclick=e=>{if(e.target.closest("[data-about],[data-menu],[data-exp]"))return;go(b.dataset.wopen)});
  dev.querySelectorAll("[data-open]").forEach(b=>b.onclick=e=>{e.stopPropagation();go(b.dataset.open,b.dataset.at)});
@@ -808,9 +813,11 @@ function renderHome(){const W=wide();
  dev.querySelectorAll("[data-bdel]").forEach(b=>b.onclick=e=>{e.stopPropagation();MENU=null;DELC=b.dataset.bdel;rer()});
  dev.querySelectorAll("[data-delno]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-delno]"))return;e.stopPropagation();DELC=null;rer()});
  dev.querySelectorAll("[data-delyes]").forEach(b=>b.onclick=async e=>{e.stopPropagation();const id=DELC;DELC=null;await removeBook(id);rer();toast("已从书架删除")});
+ dev.querySelectorAll("[data-lmset]").forEach(b=>b.onclick=e=>{e.stopPropagation();const a=LMASK;LMASK=null;if(!a)return;SR.lm[a.key]=b.dataset.lmset;save();go(a.key,a.at)});
+ dev.querySelectorAll("[data-lmsw]").forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.lmsw;SR.lm[k]=SR.lm[k]==="on"?"off":"on";save();rer()});
  dev.querySelectorAll("[data-rsno]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-rsno]"))return;e.stopPropagation();RESETC=false;rer()});
  dev.querySelectorAll("[data-rsyes]").forEach(b=>b.onclick=e=>{e.stopPropagation();resetBook(RESETC);RESETC=false;rer();toast("已重置，从第一颂重新开始")});
- dev.querySelectorAll("[data-pdone]").forEach(b=>b.onclick=e=>{e.stopPropagation();const pb=BOOKS[PACESH]||BK;PACESH=false;if(PRESTART){PRESTART=false;SR.paceAsked=true;startSession({B:pb});return}rer();toast(ST.pace==="course"?"跟课程":`每周定量 ${ST.qpw} 颂`)});
+ dev.querySelectorAll("[data-pdone]").forEach(b=>b.onclick=e=>{e.stopPropagation();const pb=BOOKS[PACESH]||BK;PACESH=false;if(PRESTART){PRESTART=false;SR.paceAsked=true;startSession({B:pb});return}rer();toast(!lmOn(pb)?"学习模式已关闭":ST.pace==="course"?"跟课程":`每周定量 ${ST.qpw} 颂`)});
  dev.querySelectorAll("[data-cpick]").forEach(b=>b.onclick=e=>{e.stopPropagation();const i=b.dataset.cpick.indexOf(":");SR.course[b.dataset.cpick.slice(0,i)]=b.dataset.cpick.slice(i+1);COURSEP=false;rer()});
  dev.querySelectorAll("[data-cpclose]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-cpclose]"))return;e.stopPropagation();COURSEP=false;PACESH=false;PRESTART=false;rer()});
  dev.querySelectorAll("[data-daily]").forEach(b=>b.onclick=()=>{if(dailyToday()){toast("今天的每日一颂做过了，明天再来");return}const d=pickDaily();if(!d){toast("先背几颂，每日一颂只从学过的颂里出题");return}startSession({daily:d,B:d.B})});
@@ -1023,7 +1030,7 @@ function renderSettings(){const dk=isDarkNow();
  {const t=dev.querySelector("[data-remt]");if(t)t.onchange=async()=>{if(!/^\d\d:\d\d$/.test(t.value))return;ST.remT=t.value;save();await remSync();if(ST.screen==="settings")re()}}
  {const b=dev.querySelector("[data-ics]");if(b)b.onclick=()=>{downloadFile("每日背诵提醒.ics",icsText(ST.remT),"text/calendar");toastNow("打开下载的文件，加到日历里")}}
  {const b=dev.querySelector("[data-bkup]");if(b)b.onclick=()=>{downloadFile("科判背诵记录-"+dkey()+".json",JSON.stringify({kepan:1,SR,ST:stSaved()}),"application/json")}}
- {const i=dev.querySelector("[data-rstr]");if(i)i.onchange=async()=>{const f=i.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!o||!o.kepan||!o.SR)throw new Error("不是背诵记录文件");Object.assign(SR,o.SR);if(o.ST)stLoad(o.ST);save();re();toastNow("已导入背诵记录")}catch(e){toastNow("导入没有成功："+e.message)}}}
+ {const i=dev.querySelector("[data-rstr]");if(i)i.onchange=async()=>{const f=i.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!o||!o.kepan||!o.SR)throw new Error("不是背诵记录文件");Object.assign(SR,o.SR);lmFix();if(o.ST)stLoad(o.ST);save();re();toastNow("已导入背诵记录")}catch(e){toastNow("导入没有成功："+e.message)}}}
  [["s-vf","vf"],["s-shyf","shyf"]].forEach(([id,k])=>{const i=dev.querySelector("#"+id);const out=i.parentNode.querySelector("output"),demo=i.closest(".sr").querySelector(".sdemo");i.oninput=()=>{out.textContent=i.value+"px";demo.style.fontSize=i.value+"px"};i.onchange=()=>{ST[k]=+i.value;if(k==="vf")dev.style.setProperty("--vf",ST.vf+"px");save()}});
 }
 // 换画面时，开屏和回向卡片留在最上面；画完存一次
@@ -1037,10 +1044,10 @@ function render(){const keep=[...dev.children].filter(e=>e.classList&&(e.classLi
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
- const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
- const TD=todayCount();const PR=ST.rentry==="btn"?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
+ const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
+ const TD=todayCount();const PR=ST.rentry==="btn"&&lmOn(BK)?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
  dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span><button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
-  <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
+  <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot&&lmOn(BK)?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
  const app=dev.querySelector(".app"),rs=dev.querySelector("#rs"),rw=dev.querySelector("#rw"),outer=dev.querySelector("#outer"),dock=dev.querySelector("#dock");
  // 先一次量好每一行的位置，再画色带和编绳（边量边插会反复重排，整本书时很慢）
  const ROWS={};rw.querySelectorAll(".row").forEach(e=>ROWS[e.dataset.id]=e);const rowOf=n=>ROWS[n.id];
@@ -1194,6 +1201,7 @@ async function loadImported(){const keys=(await IDB.keys().catch(()=>[]))||[];
  for(const k of keys){if(typeof k!=="string"||!k.startsWith("book:"))continue;try{const b=await idbGet(k);if(!b)continue;const s=b.info.hasShiyi?await idbGet("shiyi:"+b.info.id):null;installBook(b.info,b.tree,s)}catch(e){console.warn("导入的书读取失败",k,e)}}}
 async function boot(){layout();dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span></div></div></div>`;showSplash();
  try{const st=await idbGet("state");if(st){Object.assign(SR,st.SR||{});stLoad(st.ST||{})}}catch(e){}
+ lmFix();
  try{await loadBuiltin()}catch(e){console.warn(e)}
  await loadImported();
  BK=(Object.values(SR.recent).sort((a,b)=>b.t-a.t)[0]&&Object.keys(SR.recent).sort((a,b)=>SR.recent[b].t-SR.recent[a].t).map(id=>BOOKS[id]).find(Boolean))||Object.values(BOOKS)[0]||null;
