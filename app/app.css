@@ -666,3 +666,6 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .sdl{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:4px 12px;font-size:12.5px;cursor:pointer}
 .sdl.del{color:var(--k0)}
 .snote{font-size:12px;color:var(--muted);line-height:1.6;margin:2px 6px}
+
+/* 学习模式 */
+.cfb .lmy{background:var(--k0);color:var(--kt0);font-weight:700}.lmd .lmn{font-size:12px;opacity:.85}.lmsw{display:flex;gap:12px;align-items:center;justify-content:space-between;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:4px 2px 12px;margin-bottom:2px;font-family:var(--serif);color:var(--ink);cursor:pointer}.lmsw span{display:grid;gap:2px}.lmsw b{font-size:15.5px}.lmsw small{font-size:12px;color:var(--muted);font-family:var(--sans)}.lmsw i{flex:none;width:44px;height:26px;border-radius:13px;background:color-mix(in srgb,var(--ink) 18%,transparent);position:relative;transition:background .2s}.lmsw i::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgb(0 0 0 / .3);transition:transform .2s}.lmsw.on i{background:var(--k0)}.lmsw.on i::after{transform:translateX(18px)}
