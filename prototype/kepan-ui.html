@@ -1,7 +1,7 @@
 <title>科判查看器方案</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Serif+Tibetan:wght@500&display=swap">
 <style>
 /* Layout: 左边设备框里是可操作的阅读界面，右边是调整面板；窄屏上下排列 */
 :root{
@@ -566,6 +566,21 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 @keyframes splin{from{opacity:0;transform:translateY(6px)}}
 @keyframes splp{50%{opacity:.35}}
 @media (prefers-reduced-motion:reduce){.splash *,.splash{animation:none!important;transition:none}}
+.dedi{position:absolute;inset:0;z-index:55;background:rgb(0 0 0 / .42);display:grid;place-items:center;padding:16px;animation:dedin .5s ease both;transition:opacity .6s ease}
+.dedi.out{opacity:0;pointer-events:none}
+.dedc{width:100%;max-width:400px;max-height:100%;overflow:auto;box-sizing:border-box;background:var(--panel);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold,#c9a24a) 55%,var(--line));border-radius:18px;padding:16px 16px 14px;text-align:center;display:grid;gap:9px;justify-items:center;box-shadow:0 18px 50px rgb(0 0 0 / .3);background-image:radial-gradient(ellipse at 50% 0,color-mix(in srgb,var(--gold,#c9a24a) 20%,transparent),transparent 60%)}
+.dedl{line-height:0;position:relative;display:block;width:54px;height:54px}
+.dedl svg{position:static!important;display:block;inset:auto!important;transform:none!important}
+.dedc p+p{margin-top:5px}
+.dedh{font-family:var(--serif);font-size:13px;letter-spacing:.5em;text-indent:.5em;color:var(--k0)}
+.dedc p{margin:0;display:grid;gap:1px;justify-items:center}
+.dedc .bo{font-family:"Noto Serif Tibetan","Kailasa","Microsoft Himalaya","Jomolhari",serif;font-size:17px;line-height:1.75}
+.dedc small{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.dedc .zh{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.14em;text-indent:.14em;line-height:1.5}
+.dedm{margin-top:4px!important;padding-top:9px;border-top:1px solid var(--line);width:100%}
+.dedm .bo{color:var(--k0)}
+.dedc .pri{margin-top:4px;border:0;background:var(--k0);color:var(--kt0);border-radius:12px;padding:10px 44px;font-family:var(--serif);font-size:15.5px;font-weight:700;letter-spacing:.3em;text-indent:.3em;cursor:pointer}
+@keyframes dedin{from{opacity:0}}
 /* settings */
 .app.settings .sbody{flex:1;overflow:auto;padding:10px 14px 30px;display:flex;flex-direction:column;gap:6px}
 .app.settings .sbody>.sin{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
@@ -1319,7 +1334,7 @@ function renderStudy(){if(!SS){startSession();return}
   const sh=document.createElement("div");sh.className="ssheet "+(T.done?"low":"");sh.innerHTML=head+`<div class="sbody">${inner}</div>`;app.appendChild(sh);root=sh;
   if(T.done){const row=app.querySelector(`.row[data-id="${(t.k==="loc"?T.leaf:fl(t.n)).id}"]`);if(row)row.classList.add("flash")}}
  else{dev.innerHTML=`<div class="app study sv-${ST.sview==="sheet"?"full":ST.sview}">${head}<div class="sbody">${ST.sview==="card"&&!fin?`<div class="sstack"><div class="scard ${!T.done&&SS.shownI!==SS.i?"in":""}">${inner}</div></div>`:inner}</div></div>`;root=dev;SS.shownI=SS.i}
- bindStudy(root,t,T)}
+ bindStudy(root,t,T);if(fin&&SS.res.length&&!SS.daily&&!SS.dedi){SS.dedi=true;setTimeout(()=>{if(SS&&ST.screen==="study")showDedi()},700)}}
 function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  root.querySelectorAll("[data-sx]").forEach(b=>b.onclick=exitSession);
  root.querySelectorAll("[data-tree]").forEach(b=>b.onclick=()=>{SS=null;BK=BOOKS.p2;ST.view="map";ST.screen="reader";ST.tocOpen=!wide();mmReset(null);render();bindPanel()});
@@ -1499,6 +1514,11 @@ function welcomeHTML(){if(!FIRST||WELX)return "";const c=courseLeaf();const star
   <button class="wels ${started?"dn":""}" data-wellearn><i>${started?"✓":"2"}</i><span>背第一颂<small>每天学完当天的，就点亮一盏灯</small></span><em>›</em></button>
   <button class="wels" data-welread><i>3</i><span>或者先读一读<small>点颂词可以看释义</small></span><em>›</em></button></div>`}
 function firstRun(){FIRST=true;PACEASKED=false;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
+const DEDI=[["བསོད་ནམས་འདི་ཡིས་ཐམས་ཅད་གཟིགས་པ་ཉིད། །","索南德益檀嘉热巴涅","此福已得一切智"],["ཐོབ་ནས་ཉེས་པའི་དགྲ་རྣམས་ཕམ་བྱས་ཏེ། །","托内尼波扎南攀旭得","催伏一切过患敌"],["སྐྱེ་རྒ་ན་འཆིའི་རྦ་ཀློང་འཁྲུགས་པ་ཡི། །","杰嘎那齐瓦隆彻巴耶","生老病死犹波涛"],["སྲིད་པའི་མཚོ་ལས་འགྲོ་བ་སྒྲོལ་བར་ཤོག །","哲波措类卓瓦卓瓦秀","愿度有海诸有情"]];
+const DEDIM=["ཨོཾ་ཨཱཿཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ༔","嗡啊吽班匝儿格热巴玛色德吽"];
+function showDedi(){const old=dev.querySelector(".dedi");if(old)old.remove();const el=document.createElement("div");el.className="dedi";
+ el.innerHTML=`<div class="dedc" role="dialog" aria-label="回向"><span class="dedl">${pillLampAt(0,54)}</span><b class="dedh">回向</b>${DEDI.map(l=>`<p><span class="bo" lang="bo">${l[0]}</span><small>${l[1]}</small><span class="zh">${l[2]}</span></p>`).join("")}<p class="dedm"><span class="bo" lang="bo">${DEDIM[0]}</span><small>${DEDIM[1]}</small></p><button class="pri" data-dedx>回向</button></div>`;
+ dev.appendChild(el);el.querySelector("[data-dedx]").onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),700)}}
 function offerHTML(W,H){const R=+ST.ofr,N=+ST.ofn,Z=+ST.ofz,rad=ST.ofa*Math.PI/180,sn=Math.sin(rad),cs=Math.cos(rad);
  const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,(TH-apron)*sn+8),back=1-.5*cs,narrow=.34*cs;
  let lamps="";
@@ -1621,7 +1641,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  const G=(k,label,opts)=>`<div class="og"><b>${label}</b>${Object.entries(opts).map(([v,t])=>`<button data-o="${k}" data-v="${v}" aria-pressed="${String(ST[k])===v}">${t}</button>`).join("")}</div>`;
  const R=(id,label,min,max,step,val,unit)=>`<div class="og"><b>${label}</b><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" aria-label="${label}"><output id="${id}o">${val}${unit}</output></div>`;
  return `<h2>调整</h2>
- <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
+ <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button><button id="dedibtn">看回向卡片</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
  <div class="grp"><h3>发心开屏 · 供灯桌</h3>${G("ofc","桌面",{red:"红布",gold:"金",wood:"木",none:"不画桌"})}${G("ofs","排列",{on:"错位",off:"对齐"})}${R("ofr","排数",1,7,1,ST.ofr," 排")}${R("ofn","每排盏数",2,14,1,ST.ofn," 盏")}${R("ofz","灯大小",20,90,1,ST.ofz," px")}${R("ofh","桌子高度",10,60,1,ST.ofh," %")}${R("ofa","俯视角度",5,90,1,ST.ofa,"°")}${R("ofg","灯光光晕",0,100,5,ST.ofg," %")}${R("oft","文字大小",15,30,1,ST.oft," px")}<p class="note">拖动时开屏会留在屏幕上方便看，点一下屏幕就淡出。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
@@ -1657,6 +1677,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("sklz",v=>{ST.sklz=v;render()}," px");R("sktf",v=>{ST.sktf=v;render()}," px");R("skgap",v=>{ST.skgap=v;render()}," px");R("sknf",v=>{ST.sknf=v;render()}," px");
  ["ofr:  排","ofn: 盏","ofz: px","ofh: %","ofa:°","ofg: %","oft: px"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u.replace("  "," "))});R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
+ const dd=panel.querySelector("#dedibtn");if(dd)dd.onclick=showDedi;
  const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
  const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
  const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{FIRST=false;if(!SR.streak)SR.streak=12;seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
