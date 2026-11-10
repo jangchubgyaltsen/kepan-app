@@ -461,6 +461,15 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .shyin .shyl{font-size:12px;color:var(--k0);font-weight:600;letter-spacing:.08em}
 .shyin .shyb{padding:10px 14px 2px}
 .shyin .shyf{padding:6px 10px}
+
+.appbar{padding:13px 14px 11px}
+.ttl{font-size:1.08rem}
+.tocbtn{padding:6px 13px;font-size:.9rem;min-height:36px;border-radius:10px}
+.bk{font-size:27px;padding:2px 8px 4px 0}
+.tbs{gap:8px;align-items:center}
+.shysw{display:inline-flex;border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 5%,var(--panel));border-radius:10px;padding:2px;min-height:36px;box-sizing:border-box}
+.shysw button{border:0;background:none;color:var(--muted);font-size:.86rem;padding:0 10px;border-radius:8px;cursor:pointer;font-family:var(--sans)}
+.shysw button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgb(0 0 0 / .14);font-weight:600}
 /* settings */
 .app.settings .sbody{flex:1;overflow:auto;padding:10px 14px 30px;display:flex;flex-direction:column;gap:6px}
 .app.settings .sbody>.sin{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
@@ -1339,8 +1348,7 @@ function renderSettings(){const dk=isDarkNow();
   <div class="sh">阅读</div>
   <div class="sc"><div class="sr col"><b>颂词字号</b>${rng("s-vf",14,26,ST.vf,"px")}<div class="sdemo" style="font-size:${ST.vf}px">暇满人身极难得，既得能办人生利，</div></div>
    <div class="sr col"><b>释义字号</b>${rng("s-shyf",13,20,ST.shyf,"px")}<div class="sdemo" style="font-size:${ST.shyf}px;text-indent:2em">这般暇满的士夫具有成办增上生与决定胜的能力。</div></div>
-   <div class="sr"><b>点颂词看释义</b><div class="sseg">${[["sheet","弹出"],["inline","颂下展开"]].map(([v,t])=>`<button data-sshym="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</div></div>
-   ${ST.shym==="sheet"?`<div class="sr"><b>弹窗里重复颂词</b><button class="stog" data-stog="shyv" aria-pressed="${ST.shyv==="on"}" aria-label="弹窗里重复颂词"></button></div>`:""}</div>
+   <div class="sr"><b>释义弹窗里重复颂词</b><button class="stog" data-stog="shyv" aria-pressed="${ST.shyv==="on"}" aria-label="释义弹窗里重复颂词"></button></div></div>
   <div class="sh">提醒</div>
   <div class="sc"><div class="sr"><b>每日提醒</b><span class="sv">${ST.srem?"每天 20:30":""}</span><button class="stog" data-stog="srem" aria-pressed="${!!ST.srem}" aria-label="每日提醒"></button></div></div>
   <div class="sh">关于</div>
@@ -1350,7 +1358,6 @@ function renderSettings(){const dk=isDarkNow();
  dev.querySelector("[data-shome]").onclick=()=>{ST.screen="home";render();bindPanel()};
  dev.querySelectorAll("[data-sbg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.sbg;re();bindPanel()});
  dev.querySelectorAll("[data-spal]").forEach(b=>b.onclick=()=>{ST.pal=b.dataset.spal;re();bindPanel()});
- dev.querySelectorAll("[data-sshym]").forEach(b=>b.onclick=()=>{ST.shym=b.dataset.sshym;re()});
  dev.querySelectorAll("[data-stog]").forEach(b=>b.onclick=()=>{const k=b.dataset.stog;if(k==="shyv")ST.shyv=ST.shyv==="on"?"off":"on";else if(k==="sklamp")ST.sklamp=ST.sklamp===false;else ST[k]=!ST[k];re()});
  [["s-vf","vf"],["s-shyf","shyf"]].forEach(([id,k])=>{const i=dev.querySelector("#"+id);const out=i.parentNode.querySelector("output"),demo=i.closest(".sr").querySelector(".sdemo");i.oninput=()=>{out.textContent=i.value+"px";demo.style.fontSize=i.value+"px"};i.onchange=()=>{ST[k]=+i.value;if(k==="vf")dev.style.setProperty("--vf",ST.vf+"px");bindPanel()}});
  dev.querySelectorAll("[data-sdl]").forEach(b=>b.onclick=()=>{const id=b.dataset.sdl;SDL[id]="ing";re();setTimeout(()=>{delete SDL[id];DL[id]="ok";if(ST.screen==="settings")re()},1200)});
@@ -1362,7 +1369,7 @@ function renderReader(){
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
  const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${clineHTML(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
- dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span></span><span class="tbs">${PR}<button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
+ dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span></span><span class="tbs">${PR}<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span><button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
  const app=dev.querySelector(".app"),rs=dev.querySelector("#rs"),rw=dev.querySelector("#rw"),outer=dev.querySelector("#outer"),dock=dev.querySelector("#dock");
  const rowOf=n=>rw.querySelector(`[data-id="${n.id}"]`);
@@ -1405,6 +1412,7 @@ function renderReader(){
   pp.querySelector("input").onchange=e=>set(+e.target.value);pp.querySelector("input").oninput=e=>{pp.querySelector(".aav").textContent=e.target.value+"px"};
   pp.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>set(ST.vf+ +b.dataset.d))};
  dev.querySelector("[data-aa]").onclick=aaOpen;
+ dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
  {const ta=dev.querySelector("[data-tabout]");if(ta)ta.onclick=()=>{const bg=document.createElement("div");bg.innerHTML=aboutHTML(WORKS[0]);while(bg.firstChild)app.appendChild(bg.firstChild);app.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>{app.querySelectorAll(".hsheet,.hsheet-bg").forEach(z=>z.remove())})}}
  dev.querySelector("[data-home]").onclick=()=>{RECENT.rxl={bk:Object.keys(BOOKS).find(k=>BOOKS[k]===BK),id:cur.id};LAST={bk:Object.keys(BOOKS).find(k=>BOOKS[k]===BK),id:cur.id};ST.screen="home";ST.tocOpen=false;render();bindPanel()};
  dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{RECENT.rxl={bk:bkKey(BK),id:cur.id};startSession()});
