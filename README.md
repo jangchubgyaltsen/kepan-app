@@ -87,3 +87,48 @@ const fixed = await conv.applyFixes(tree, suggestions.map((s) => s.fix));       
 - 第一次要下载约 15MB（运行环境 14MB + 转换程序 4MB），之后由浏览器缓存；PWA 可以把 `dist/` 放进离线缓存。
 - 入行论 32 页在电脑浏览器里约 12 秒，善说海 epub 约 1 秒；手机上会慢一些。
 - 不支持加密 PDF（浏览器版没有带解密库）。
+
+## 应用本体（`app/` → GitHub Pages）
+
+`app/` 是正式版的离线网页应用（PWA），由原型 `prototype/` 定稿后移植而来，不用任何框架。
+
+```bash
+python3 tools/build_app.py              # 生成 site/：应用 + data/ 里的内置书 + 转换模块，约 20MB
+python3 tools/build_app.py --no-convert # 不带转换模块（只能看和背内置的书，不能导入）
+cd site && python3 -m http.server 8000  # 本地试用：http://localhost:8000/
+```
+
+- 推到 `main` 后，`.github/workflows/pages.yml` 自动构建并发布到 https://jangchubgyaltsen.github.io/kepan-app/
+  （第一次要在仓库 Settings → Pages 里把 Source 设为「GitHub Actions」）。
+- 学习记录、导入的书都存在手机本地（IndexedDB），不上传；设置里可以导出 / 导入备份。
+- 复习排程用 [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs)（MIT）：「记得」= Good，「模糊」= Again，
+  记忆保持率默认 90%（设置里 80–95%），答错的题在本轮最后再问一次。
+- `data/` 里的内置书（含释义）会随网站公开发布。
+- `sw.js` 预先缓存应用和内置书，转换模块和字体第一次用到时缓存；每次构建会换版本号，旧缓存自动清掉。
+
+## 每日提醒（`push/`）
+
+网页应用自己没法定时叫醒手机，提醒要靠一个很小的推送服务：`push/` 是一个 Cloudflare Worker（免费额度足够），
+保存每台手机的推送订阅和提醒时间，每 5 分钟检查一次，到点就发一条不带内容的推送；
+手机上的应用收到后自己算出「今天还有几条要复习」再弹通知，所以服务端不保存任何学习记录。
+
+架设（一次性，在电脑上）：
+
+```bash
+cd push
+npx wrangler login
+npx wrangler d1 create kepan-push            # 把输出的 database_id 填进 wrangler.toml
+npx wrangler d1 execute kepan-push --remote --file=schema.sql
+node keygen.mjs                              # 公钥填进 wrangler.toml 的 VAPID_PUBLIC
+npx wrangler secret put VAPID_PRIVATE_JWK    # 粘贴 keygen 输出的私钥
+npx wrangler deploy                          # 得到 https://kepan-push.<你的子域>.workers.dev
+```
+
+然后在 GitHub 仓库 Settings → Secrets and variables → Actions → Variables 新建 `PUSH_SERVER`，
+值为上面的 Worker 地址，重新运行一次「发布网页应用」。
+
+手机端：
+
+- iPhone / iPad 要 iOS 16.4 以上，并且先用 Safari「分享 → 添加到主屏幕」，从主屏幕打开后才能开提醒（苹果的限制）。
+- 安卓 Chrome 直接在设置里打开「每日提醒」即可。
+- 没有架推送服务时，设置里的「加到手机日历」会下载一个每天重复的日历提醒，作为替代。
