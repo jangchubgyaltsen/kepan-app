@@ -5,7 +5,7 @@
 
 约定：每部书一个文件夹 sources/<代号>/，里面放
     *.pdf        科判（Word 导出的表格式 PDF），必须有且只有一个
-    *.epub       讲记 / 释论，可选
+    *.epub       讲记 / 释论，可选；没有 epub 时也可以放从 PDF 导出的 *.txt
     fixes.json   人工勘误，可选（格式见 tools/pdf2kepan.py 的 apply_fixes）
     book.json    可选，补充或覆盖书的信息，如 {"title": "入菩萨行论"}；"pages": "1-7" 只转换这些页
 
@@ -51,7 +51,7 @@ def build(book_dir):
     for c in tree["checks"]:
         print("  ✗", c)
 
-    epubs = sorted(book_dir.glob("*.epub"))
+    epubs = sorted(book_dir.glob("*.epub")) or sorted(book_dir.glob("*.txt"))  # 讲记：epub，或从 PDF 导出的 txt
     if epubs:
         sh = epub2shiyi.convert(str(epubs[0]), tree)
         dump(DATA / f"{bid}.shiyi.json", sh)

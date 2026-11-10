@@ -109,7 +109,16 @@
   },
   "checks": 0,
   "corrections": 0,
-  "data": "fzx.json"
+  "data": "fzx.json",
+  "shiyi": "fzx.shiyi.json",
+  "report": "reports/fzx-讲记对照.html",
+  "shiyiStats": {
+   "sections": 64,
+   "chars": 43137,
+   "typos": 0,
+   "nameDiffs": 8,
+   "unmatched": 0
+  }
  },
  {
   "id": "gdz",
@@ -138,8 +147,17 @@
    "stanzas": 128
   },
   "checks": 2,
-  "corrections": 0,
-  "data": "gdz.json"
+  "corrections": 1,
+  "data": "gdz.json",
+  "shiyi": "gdz.shiyi.json",
+  "report": "reports/gdz-讲记对照.html",
+  "shiyiStats": {
+   "sections": 127,
+   "chars": 100995,
+   "typos": 0,
+   "nameDiffs": 1,
+   "unmatched": 0
+  }
  },
  {
   "id": "qys",

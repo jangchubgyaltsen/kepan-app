@@ -314,7 +314,7 @@ def table_to_tree(t, warnings):
                           or re.match(r"^顶礼[^，,。]{1,20}[！!]$", vt)) else "verse"
         item = {"kind": kind, "text": vt, "src": {"table": t["id"], "page": t["page"]}}
         if kind == "verse":
-            item["stanzas"] = split_stanzas(v["ct"])
+            item["stanzas"] = split_stanzas(vt)
         left = [n for n in nodes if abs(n["_c"]["x1"] - v["x0"]) < TOL
                 and min(n["_c"]["bottom"], v["bottom"]) - max(n["_c"]["top"], v["top"]) > 1]
         if not left:

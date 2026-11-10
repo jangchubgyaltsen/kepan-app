@@ -20,6 +20,7 @@ import difflib
 import html
 import json
 import posixpath
+import pathlib
 import re
 import sys
 import zipfile
@@ -116,6 +117,86 @@ def read_epub(path):
                 paras.append({"cls": cls, "text": text, "file": href})
     return paras, meta
 
+
+VERSE_LINE_RE = re.compile(r"^(?:[㐀-鿿]{4,11}[，。！？；：?!])+$")
+
+
+def _is_verse_line(t):
+    """「依于三宝美誉书，令珍珠藤极欢喜，」：每句字数相同的整句偈颂行。"""
+    if not VERSE_LINE_RE.match(t):
+        return False
+    lens = {len(x) for x in re.split(r"[，。！？；：?!]", t) if x}
+    return len(lens) == 1
+
+
+def read_txt(path, tree_json=None):
+    """从 PDF 导出的纯文本讲记（每行固定宽度折行、夹着页码）里读出段落，格式同 read_epub。
+    科判标题行：以「甲一、」「乙二（……）分N」开头，列举子科时可能折成几行；
+    紧跟在标题后面、每句字数相同的行算颂词，释文中间再出现的颂词行要和科判里的颂词对得上才算；
+    其余按行宽拼回段落。"""
+    known = {}
+    for n in flatten(tree_json["tree"]) if tree_json else []:
+        for st in stanza_index(n):
+            for ph in re.split(r"[，。！？；：?!]", st):
+                ph = han(ph)
+                if ph:
+                    known.setdefault(len(ph), set()).add(ph)
+
+    def near(ph):
+        cands = known.get(len(ph), ())
+        if ph in cands:
+            return True
+        return any(sum(x != y for x, y in zip(ph, c)) <= 1 for c in cands)
+
+    def kepan_verse(t, cont=False):
+        if not _is_verse_line(t):
+            return False
+        phs = [han(x) for x in re.split(r"[，。！？；：?!]", t) if han(x)]
+        # 单独一句的行（偈颂折行剩下的半句）只在紧接着颂词时才算
+        return (len(phs) >= 2 or cont) and sum(map(near, phs)) * 2 >= len(phs)
+
+    raw = open(path, encoding="utf-8", errors="ignore").read().replace("\r", "")
+    lines = [x.strip().replace("\u3000", "") for x in raw.split("\n")]
+    lines = [x for x in lines if x and not re.fullmatch(r"\d{1,4}", x)]
+    # 每页页眉（如「所造论之自性」）：反复出现、又不以标点结尾的短行
+    freq = Counter(lines)
+    lines = [x for x in lines if not (freq[x] >= 8 and len(x) <= 24 and not re.search(r"[，。！？；：”」）]$", x))]
+    widths = sorted(len(x) for x in lines if len(x) > 8)
+    full = widths[int(len(widths) * 0.8)] if widths else 20
+    paras, k, buf = [], 0, []
+
+    def flush():
+        if buf:
+            paras.append({"cls": "正文", "text": "".join(buf), "file": ""})
+            buf.clear()
+    while k < len(lines):
+        t = lines[k]
+        if LABEL_RE.match(t):
+            flush()
+            h = t
+            # 「甲一（初义）分三：一、礼赞三宝功德；二、」这种列举子科的标题会折行
+            while (re.search(r"[、；]$", h) or (re.search(rf"分[{NUMS}]+[：:]", h) and not re.search(r"[。]$", h))) \
+                    and k + 1 < len(lines) and len(h) < 200 and not LABEL_RE.match(lines[k + 1]):
+                k += 1
+                h += lines[k]
+            paras.append({"cls": "标题", "text": re.sub(r"[，,]$", "", h), "file": ""})
+            k += 1
+            while k < len(lines) and (kepan_verse(lines[k], paras[-1]["cls"] == "颂词") if known
+                                      else _is_verse_line(lines[k])):
+                paras.append({"cls": "颂词", "text": lines[k], "file": ""})
+                k += 1
+            continue
+        if known and kepan_verse(t, not buf and paras and paras[-1]["cls"] == "颂词"):
+            flush()
+            paras.append({"cls": "颂词", "text": t, "file": ""})
+            k += 1
+            continue
+        buf.append(t)
+        if len(t) < full - 1 and re.search(r"[。！？”」）：；…]$", t):
+            flush()
+        k += 1
+    flush()
+    return paras, {"title": pathlib.Path(path).stem}
 
 def classify(paras):
     """认出科判标题样式，并给每段标上类型。"""
@@ -275,7 +356,10 @@ def compare_verses(node, seg):
 # ---------------------------------------------------------------- 主流程
 
 def convert(epub_path, tree_json):
-    paras, epub_meta = read_epub(epub_path)
+    if epub_path.lower().endswith(".txt"):
+        paras, epub_meta = read_txt(epub_path, tree_json)
+    else:
+        paras, epub_meta = read_epub(epub_path)
     head_cls = classify(paras)
     heads = []
     for k, p in enumerate(paras):
