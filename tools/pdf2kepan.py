@@ -421,13 +421,16 @@ def validate(root):
 
 
 def apply_fixes(root, path, warnings):
-    """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"], "reason": "说明"}]
-    match 与科判原文 raw 的开头比对，必须恰好命中一个节点。"""
+    """勘误文件格式：[{"match": "原文科判开头", "table": "表4-1"(可选), "set": {字段: 值}, "replace": ["旧", "新"],
+    "verse": ["旧", "新"], "reason": "说明"}]
+    match 与科判原文 raw 的开头比对，必须恰好命中一个节点；同表同名时再加 "id" 区分。
+    replace 改科判原文 raw（同时改名称 name）；verse 改该科颂词（text 和 stanzas），旧文字必须在颂词里恰好出现一次。"""
     fixes = json.load(open(path, encoding="utf-8"))
     done = []
     for fx in fixes:
         hits = [n for n, _ in walk(root) if n is not root and n["raw"].startswith(fx["match"])
-                and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))]
+                and (not fx.get("table") or fx["table"] in n.get("seenIn", [n["src"]["table"]]))
+                and (not fx.get("id") or n.get("id") == fx["id"])]
         if len(hits) != 1:
             warnings.append(f"勘误「{fx['match']}」命中 {len(hits)} 个科判，未套用")
             continue
@@ -436,6 +439,21 @@ def apply_fixes(root, path, warnings):
         if fx.get("replace"):
             old, new = fx["replace"]
             n["raw"] = n["raw"].replace(old, new, 1)
+            if old in (n.get("name") or ""):
+                n["name"] = n["name"].replace(old, new, 1)
+        if fx.get("verse"):
+            old, new = fx["verse"]
+            vs = [v for v in n.get("verses", []) if old in v["text"]]
+            if len(vs) != 1 or vs[0]["text"].count(old) != 1:
+                warnings.append(f"勘误「{fx['match']}」颂词里「{old}」出现 {sum(v['text'].count(old) for v in vs)} 次，未套用")
+                continue
+            v = vs[0]
+            v["text"] = v["text"].replace(old, new)
+            v["stanzas"] = [x.replace(old, new) for x in v.get("stanzas", [])]
+            n.setdefault("corrected", []).append({"from": old, "to": new, "field": "verse", "reason": fx.get("reason", "")})
+            done.append({"id": n["id"], "field": "verse", "from": old, "to": new, "reason": fx.get("reason", "")})
+            if not fx.get("replace") and not fx.get("set"):
+                continue
         for k, v in fx.get("set", {}).items():
             n[k] = v
         n.setdefault("corrected", []).append({"from": before, "reason": fx.get("reason", "")})
