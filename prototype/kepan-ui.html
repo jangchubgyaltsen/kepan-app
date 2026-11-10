@@ -580,7 +580,7 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .splash .spt span{animation:splin 1.2s ease both}
 .splash .spt span:nth-child(1){animation-delay:.2s}.splash .spt span:nth-child(2){animation-delay:.6s}.splash .spt span:nth-child(3){animation-delay:1s;color:var(--k0)}
 .splash small{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--muted);animation:splin 1s ease 1.8s both,splp 2.6s ease-in-out 2.8s infinite}
-.splash.still .spc *,.splash.still .ofl,.splash.still .ofire,.splash.still .ofgw,.splash.still .ofbw,.splash.still .ofsurf,.splash.still .ofapr{animation:none!important}
+.splash.still .spc *,.splash.still .ofl,.splash.still .ofire,.splash.still .ofgw,.splash.still .ofdk,.splash.still .ofsurf,.splash.still .ofapr{animation:none!important}
 .oft{position:absolute;left:0;right:0;bottom:0;display:block}
 .ofglow{position:absolute;left:-10%;right:-10%;bottom:0;top:-40%;background:radial-gradient(ellipse at 50% 78%,rgb(255 190 90 / calc(.5*var(--og))),rgb(255 170 70 / calc(.16*var(--og))) 38%,transparent 66%);pointer-events:none}
 .ofsurf{position:absolute;left:0;right:0;background:linear-gradient(#6d1717,#a32a22)}
@@ -595,9 +595,10 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .splash.i-whole .ofgw,.splash.i-fire .ofgw{animation:ofli calc(var(--it) + 1s) ease-in both}
 .ofire,.ofsw{transform-box:view-box;transform-origin:15px 15px}
 .splash.i-fire .ofire{animation:ofig .9s ease-out var(--d) both}
-.splash.i-fire .ofbw{animation:ofbw var(--bt) ease-out var(--d) both}
+.ofdk{opacity:0;pointer-events:none}.ofdk *{fill:#140b05}.ofdk [fill="none"]{fill:none;stroke:#140b05}
+.splash.i-fire .ofdk{animation:ofdk var(--bt) ease-out var(--d) both}
 .splash.i-fire .ofsurf,.splash.i-fire .ofapr{animation:oftb calc(var(--it) + 1s) ease-in both}
-@keyframes ofbw{from{filter:brightness(var(--bd)) saturate(var(--bs))}to{filter:brightness(1) saturate(1)}}
+@keyframes ofdk{from{opacity:calc(1 - var(--bd) * (.55 + var(--bs) * .9))}to{opacity:0}}
 @keyframes oftb{from{filter:brightness(var(--td))}to{filter:brightness(1)}}
 .ofsw{animation:ofsw var(--du) ease-in-out var(--ph) infinite}
 .ofl .fh{animation:offh calc(var(--du)*1.37) ease-in-out var(--ph) infinite}
@@ -1600,7 +1601,7 @@ const DEDIM=["ཨོཾ་ཨཱཿཧཱུྃ་བཛྲ་གུ་རུ་
 function showDedi(){const old=dev.querySelector(".dedi");if(old)old.remove();const el=document.createElement("div");el.className="dedi";
  el.innerHTML=`<div class="dedc" role="dialog" aria-label="回向"><span class="dedl">${pillLampAt(0,54)}</span><b class="dedh">回向</b>${DEDI.map(l=>`<p><span class="bo" lang="bo">${l[0]}</span><small>${l[1]}</small><span class="zh">${l[2]}</span></p>`).join("")}<p class="dedm"><span class="bo" lang="bo">${DEDIM[0]}</span><small>${DEDIM[1]}</small></p><em class="dedt">回向完点击</em></div>`;
  dev.appendChild(el);el.setAttribute("role","button");el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),700)}}
-function fireWrap(L){const i=L.lastIndexOf("<ellipse");if(i<0||L.indexOf("flHalo",i)<0)return L;let j=L.indexOf("<path",i);if(j<0)return L;const L0=L.slice(0,i).replace("<g transform=",'<g class="ofbw" transform=');
+function fireWrap(L){const i=L.lastIndexOf("<ellipse");if(i<0||L.indexOf("flHalo",i)<0)return L;let j=L.indexOf("<path",i);if(j<0)return L;let L0=L.slice(0,i).replace("<g transform=",'<g class="ofbw" transform=');{const a=L0.indexOf('<g class="ofbw"'),b=L0.indexOf("</g></g>",a);if(a>=0&&b>0){const bowl=L0.slice(a,b+8);L0=L0.slice(0,b+8)+bowl.replace('class="ofbw"','class="ofdk"').replace(/ style="filter:[^"]*"/,"")+L0.slice(b+8)}}
  return L0+'<g class="ofire">'+L.slice(i,j).replace("<ellipse",'<ellipse class="fh"')+'<g class="ofsw">'+L.slice(j).replace("</svg>","</g></g></svg>")}
 function offerHTML(W0,H){const W=W0*ST.ofw/100,R=+ST.ofr,N=Math.max(1,Math.round(+ST.ofn*Math.max(1,W0/390)*ST.ofw/100)),Z=+ST.ofz,rad=ST.ofa*Math.PI/180,sn=Math.sin(rad),cs=Math.cos(rad);
  const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,((TH-apron)*sn+8)*ST.ofd/100),back=1-.5*cs,narrow=.34*cs;
