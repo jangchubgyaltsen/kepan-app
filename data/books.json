@@ -31,8 +31,17 @@
    "stanzas": 322
   },
   "checks": 0,
-  "corrections": 0,
-  "data": "bryss.json"
+  "corrections": 5,
+  "data": "bryss.json",
+  "shiyi": "bryss.shiyi.json",
+  "report": "reports/bryss-讲记对照.html",
+  "shiyiStats": {
+   "sections": 457,
+   "chars": 75293,
+   "typos": 5,
+   "nameDiffs": 2,
+   "unmatched": 0
+  }
  },
  {
   "id": "egjy",
@@ -137,8 +146,17 @@
    "stanzas": 138
   },
   "checks": 0,
-  "corrections": 0,
-  "data": "qys.json"
+  "corrections": 4,
+  "data": "qys.json",
+  "shiyi": "qys.shiyi.json",
+  "report": "reports/qys-讲记对照.html",
+  "shiyiStats": {
+   "sections": 186,
+   "chars": 18483,
+   "typos": 0,
+   "nameDiffs": 0,
+   "unmatched": 0
+  }
  },
  {
   "id": "rxl",

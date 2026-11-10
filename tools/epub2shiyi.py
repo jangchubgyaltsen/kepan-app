@@ -73,6 +73,9 @@ def norm_name(s):
 
 # ---------------------------------------------------------------- epub 读取
 
+SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+
+
 def read_epub(path):
     """按 spine 顺序返回 [(样式, 文字, 文件)]。"""
     z = zipfile.ZipFile(path)
@@ -104,6 +107,9 @@ def read_epub(path):
             cm = CLASS_RE.search(m.group(2))
             cls = cm.group(1).split()[0] if cm else m.group(1)
             inner = re.sub(r"<br\s*/?>", "\n", m.group(3))
+            # 脚注引用号改成上标数字，免得和正文连成「（就会发现）5它」
+            inner = re.sub(r"<a\b[^>]*(?:noteref|_idFootnoteLink)[^>]*>\s*(\d+)\s*</a>",
+                           lambda a: a.group(1).translate(SUP), inner)
             text = html.unescape(re.sub(r"<[^>]+>", "", inner))
             text = re.sub(r"[ \t　]+", " ", text).strip()
             if text:
