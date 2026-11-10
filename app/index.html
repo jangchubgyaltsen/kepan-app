@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>科判</title>
+<meta name="description" content="科判查看与颂词背诵：读科判、背颂词，每天点一盏灯">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="科判">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<!-- 字体不挡住首屏：国内连不上 Google Fonts 时直接用系统宋体 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Serif+Tibetan:wght@500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="pwa.css">
+</head>
+<body>
+<div class="device" id="device"></div>
+<noscript>需要打开 JavaScript 才能使用。</noscript>
+<script src="config.js"></script>
+<script src="vendor/ts-fsrs.umd.js"></script>
+<script type="module">
+  // 转换程序比较大（约 18MB），只有在导入时才下载
+  window.createConverter = (opts) => {
+    let real = null;
+    const load = () => real || (real = import('./convert/kepan-convert.js').then((m) => m.createConverter(opts)));
+    const wrap = (fn) => async (...a) => (await load())[fn](...a);
+    return { ready: wrap('ready'), kepanFromPdf: wrap('kepanFromPdf'), shiyiFromEpub: wrap('shiyiFromEpub'), applyFixes: wrap('applyFixes') };
+  };
+</script>
+<script src="app.js"></script>
+</body>
+</html>
