@@ -470,6 +470,69 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .shysw{display:inline-flex;border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 5%,var(--panel));border-radius:10px;padding:2px;min-height:36px;box-sizing:border-box}
 .shysw button{border:0;background:none;color:var(--muted);font-size:.86rem;padding:0 10px;border-radius:8px;cursor:pointer;font-family:var(--sans)}
 .shysw button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgb(0 0 0 / .14);font-weight:600}
+
+/* import */
+.imst{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:var(--muted)}
+.imst span{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.imst i{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:11px}
+.imst u{flex:1;height:1.5px;background:var(--line);min-width:8px}
+.imst .on{color:var(--ink);font-weight:600}.imst .on i{background:var(--k0);border-color:var(--k0);color:var(--kt0)}
+.imst .dn i{border-color:var(--k0);color:var(--k0)}
+.imf{display:flex;align-items:center;gap:12px;background:var(--panel);border:1.5px dashed var(--line);border-radius:14px;padding:14px;cursor:pointer}
+.imf.has{border-style:solid;border-color:var(--k0)}
+.imfi{width:42px;height:42px;border-radius:10px;background:color-mix(in srgb,var(--k0) 12%,transparent);color:var(--k0);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:18px;flex:none}
+.imfb{flex:1;min-width:0;display:grid;gap:2px}
+.imfb b{font-size:15px;font-weight:600}.imfb b em{font-style:normal;font-weight:400;font-size:11.5px;color:var(--muted);margin-left:8px}
+.imfb small{font-size:12.5px;color:var(--muted);line-height:1.5;overflow-wrap:anywhere}
+.imf.has .imfb small{color:var(--ink)}
+.imfx{font-size:13px;color:var(--k0);border:1px solid currentColor;border-radius:99px;padding:5px 12px;flex:none}
+.imdemo{border:0;background:none;color:var(--k0);font-size:13.5px;padding:10px 4px;text-align:left;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.imfoot{border-top:1px solid var(--line);background:var(--panel);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.imfoot .sin2{max-width:640px;margin:0 auto;display:flex;gap:10px}
+.impri,.imsec{flex:1;border-radius:12px;padding:12px 0;font-family:var(--serif);font-size:15.5px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.impri{background:var(--k0);border-color:var(--k0);color:var(--kt0);font-weight:700;flex:2}
+.impri[disabled]{opacity:.4;cursor:default}
+.imrow{align-items:flex-start}.imrow:not(.on):not(.dn){opacity:.5}
+.imdot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--k0);flex:none;margin-top:1px}
+.imrow.dn .imdot{border-color:var(--k0)}
+.imspin{width:12px;height:12px;border-radius:50%;border:2px solid var(--k0);border-right-color:transparent;animation:imsp .8s linear infinite}
+@keyframes imsp{to{transform:rotate(360deg)}}
+.imbar{display:block;height:5px;border-radius:3px;background:color-mix(in srgb,var(--k0) 14%,transparent);overflow:hidden;margin-top:6px}
+.imbar i{display:block;height:100%;background:var(--k0);transition:width .12s linear}
+.imbar.ind i{width:35%;border-radius:3px;animation:imind 1.1s ease-in-out infinite}
+@keyframes imind{from{transform:translateX(-100%)}to{transform:translateX(290%)}}
+.imnums{display:flex;gap:8px}
+.imnums span{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--muted);display:grid}
+.imnums b{font-size:22px;color:var(--ink);font-family:var(--serif);font-variant-numeric:tabular-nums}
+.imflt{display:flex;gap:6px;flex-wrap:wrap}
+.imflt button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:5px 12px;font-size:13px;cursor:pointer}
+.imflt button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.imbulk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.imbulk span{flex:1;min-width:170px}
+.imbulk button{border:0;background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:12.5px;cursor:pointer}
+.imdl{display:grid;gap:8px}
+.imd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:grid;gap:8px}
+.imdh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.imdh small{font-size:11.5px;color:var(--muted);width:100%}
+.imdh b{font-family:var(--serif);font-size:14.5px;flex:1;min-width:0}
+.imdh em{font-style:normal;font-size:11.5px;border-radius:99px;padding:1px 8px;border:1px solid currentColor;color:var(--muted);white-space:nowrap}
+.imdh em.k-v{color:var(--k0)}
+.imdc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.imdc button{display:grid;gap:2px;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 10px;cursor:pointer;min-width:0}
+.imdc small{font-size:11px;color:var(--muted)}
+.imdc span{font-family:var(--serif);font-size:15.5px;line-height:1.5;overflow-wrap:anywhere}
+.imdc mark{background:color-mix(in srgb,var(--gold,#c9a24a) 45%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.imdc button[aria-pressed="true"]{border-color:var(--k0);background:color-mix(in srgb,var(--k0) 7%,var(--panel))}
+.imdc button[aria-pressed="true"] small{color:var(--k0);font-weight:600}
+.imdc button[aria-pressed="true"] small::before{content:"✓ "}
+.imdn{margin:0;font-size:12px;color:var(--muted);line-height:1.6}
+.imauto .sr.go.open::after{transform:rotate(90deg)}
+.imaw{font-size:12.5px;color:var(--muted);line-height:1.6}
+.imin{font:inherit;font-family:var(--serif);font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box}
+.imin:focus-visible{outline:2px solid var(--k0);outline-offset:1px}
+.impv{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.impv .hsp{writing-mode:vertical-rl;background:var(--k0);color:var(--kt0);font-family:var(--serif);font-weight:700;padding:10px 6px;border-radius:4px;letter-spacing:.12em;font-size:14px;min-height:64px;text-align:center;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--gold,#c9a24a) 70%,transparent)}
+.impv b{font-family:var(--serif);font-size:16px}
 /* settings */
 .app.settings .sbody{flex:1;overflow:auto;padding:10px 14px 30px;display:flex;flex-direction:column;gap:6px}
 .app.settings .sbody>.sin{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
@@ -1299,8 +1362,9 @@ function renderHome(){const W=wide();
  const TAB=ST.lentry==="tab";
  if(!R){if(ST.lentry==="top")body=todayHTML()+body;else if(ST.lentry==="book")body=todayHTML("strip")+body;else if(TAB&&ST.htab==="today")body=todayHTML("page")}
  const C0=todayCount();
- dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
+ dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn" data-import aria-label="导入一部论">＋</button><button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
   <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
+ {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
  const go=(key,at)=>{RECENT.rxl={bk:key,id:at||RECENT.rxl&&RECENT.rxl.bk===key&&RECENT.rxl.id||null};LAST.bk=key;BK=BOOKS[key];document.querySelectorAll("[data-bk]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.bk===key));ST.screen="reader";if(at)ST.openAt=at;else if(RECENT.rxl.id)ST.openAt=RECENT.rxl.id;HQ="";ST.sOpen=false;render();bindPanel()};
@@ -1334,6 +1398,62 @@ function renderHome(){const W=wide();
  dev.querySelectorAll("[data-htab]").forEach(b=>b.onclick=()=>{ST.htab=b.dataset.htab;rer()});
 }
 
+const IMPD={"pages":32,"stats":{"nodes":908,"stanzas":1017,"sections":907},"diffs":[{"code":"丁一","name":"宣说身所依暇满难得","ch":"第一品菩提心利益","kind":"疑似错字","g":"v","a":"人生极","b":"人身极","note":""},{"code":"辛二","name":"顶礼","ch":"第二品忏悔罪业","kind":"用字不同","g":"v","a":"匍伏我","b":"匍匐我","note":""},{"code":"卯二","name":"广说","ch":"第二品忏悔罪业","kind":"疑似错字","g":"v","a":"处若无","b":"处苦无","note":""},{"code":"丑二","name":"皈依具愿力之菩萨","ch":"第二品忏悔罪业","kind":"用字不同","g":"v","a":"惊战栗","b":"惊颤栗","note":""},{"code":"丑一","name":"以患者之喻说明","ch":"第二品忏悔罪业","kind":"疑似错字","g":"v","a":"一惑若","b":"一嗔若","note":""},{"code":"癸二","name":"观察对治之功德而不厌倦","ch":"第四品不放逸","kind":"疑似错字","g":"v","a":"如配勋","b":"如佩勋","note":""},{"code":"丑三","name":"安忍度","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"何须足","b":"何需足","note":""},{"code":"辛二","name":"护持方法","ch":"第五品正知正念","kind":"疑似错字","g":"v","a":"疮，臵身","b":"疮，置身","note":""},{"code":"丑一","name":"断除贪执散漫","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"贪着","b":"贪著","note":""},{"code":"寅一","name":"身体无有所贪精华","ch":"第五品正知正念","kind":"用字不同","g":"v","a":"贪着，爱","b":"贪著，爱","note":""},{"code":"子二","name":"理当不餍足异熟安乐","ch":"第七品精进","kind":"用字不同","g":"v","a":"何须足","b":"何需足","note":""},{"code":"寅三","name":"以比喻决定不净","ch":"第八品静虑","kind":"疑似错字","g":"v","a":"迸袭尸","b":"迸裂尸","note":""},{"code":"子一","name":"真实宣说摄义","ch":"第八品静虑","kind":"用字不同","g":"v","a":"何须强","b":"何需强","note":""},{"code":"子一","name":"真实宣说摄义","ch":"第八品静虑","kind":"用字不同","g":"v","a":"何须除","b":"何需除","note":""},{"code":"子二","name":"依殊胜对境而忏悔特殊罪业之方式","ch":"第二品忏悔罪业","kind":"科名不同","g":"n","a":"依殊胜对境忏罪（而忏悔）特殊罪业之方式","b":"依殊胜对境而忏悔特殊罪业之方式","note":""},{"code":"癸三","name":"遣除争论","ch":"第四品不放逸","kind":"科名不同","g":"n","a":"遣除争（诤）论","b":"遣除争论","note":""},{"code":"子二","name":"将阻碍赞誉视为有益","ch":"第六品安忍","kind":"科名不同","g":"n","a":"将阻碍赞誉（者）视为有益","b":"将阻碍赞誉视为有益","note":""},{"code":"子二","name":"遣除争论","ch":"第八品静虑","kind":"科名不同","g":"n","a":"遣除诤（争）论","b":"遣除争论","note":""},{"code":"庚二","name":"修持有境正道","ch":"第九品智慧","kind":"科名不同","g":"n","a":"修持（行）有境正道","b":"修持有境正道","note":""},{"code":"子二","name":"破与支分不相联之身","ch":"第九品智慧","kind":"科名不同","g":"n","a":"破与支分（分支）不相联之身","b":"破与支分不相联之身","note":""}],"auto":["原 PDF 写「分二」，但下有己一略说、己二广说、己三摄义三科（表4-2），故改为分三","表0-3（第3页）：通栏颂词挂到「完整无缺、正确无误开明大乘道的这部入菩萨行论分二」末尾：三时诸佛之遗道，六波罗蜜…","表4-2（第9页）：「己三、摄义」画在了「庚三（谨慎所断烦恼）分三」之内，按层级上移到「戊一（不放逸）分二第四品不放逸」下","表8-6（第19页）：「己三、修胜义菩提心」在表格最左列，按层级挂到「戊三（谨持对治）分三」下","同一科判名称不一致：「修持（行）有境正道」vs「修持有境正道」（表9-2）"],"meta":{"long":"入菩萨行论","short":"入行论","roles":[["寂天菩萨","造论"],["无着菩萨","释论"],["索达吉堪布","译讲"]],"ed":"12稿","pdf":"01-1入行论广释 颂词 （善说海） 科判 12稿32.pdf","epub":"入行论广释·善说海.epub","short0":"入行论广释"},"hints":["辰三、破除妨害遮破：科判多出一段颂词「见闻与觉知于此不遮除此处…」","有 3 科的颂词，讲记放在品末附偈里：乙二（所入之自性）分三第一品、戊二（正知正念）分三第五品正、己二（广说）分二","有 2 科在科判表里有颂词，讲记这一科没有：完整无缺、正确无误开明大乘道、乙二、译礼","讲记多出一个标题：（藏文中此处有科判三，但前文中无有，请观察：）"]};
+
+let IMP=null,IMPT=null;
+function impReset(){clearInterval(IMPT);IMP={step:1,pdf:null,epub:null,p:0,diffs:IMPD.diffs.map(d=>({...d,pick:"b"})),flt:"all",long:"",short:"",autoOpen:false,hintOpen:false}}
+function impDiffStr(x,y){if(x.length!==y.length)return esc(x);return [...x].map((c,i)=>c===[...y][i]?esc(c):`<mark>${esc(c)}</mark>`).join("")}
+function renderImport(){if(!IMP)impReset();const I=IMP;const hasE=!!I.epub;
+ const steps=["选文件","转换",hasE||I.step<3?"核对":"核对","书名"];
+ const bar=`<div class="imst">${steps.map((t,i)=>`<span class="${I.step===i+1?"on":I.step>i+1?"dn":""}"><i>${I.step>i+1?"✓":i+1}</i>${t}</span>`).join("<u></u>")}</div>`;
+ let body="",foot="";
+ if(I.step===1){
+  const card=(k,ti,sub,need,acc)=>`<label class="imf ${I[k]?"has":""}"><input type="file" accept="${acc}" data-impf="${k}" hidden><span class="imfi">${k==="pdf"?"科":"讲"}</span><span class="imfb"><b>${ti}<em>${need}</em></b><small>${I[k]?esc(I[k]):sub}</small></span><span class="imfx">${I[k]?"换一个":"选择"}</span></label>`;
+  body=`<div class="sh">要导入的文件</div>${card("pdf","科判 PDF","Word 导出的表格式科判","必选",".pdf,application/pdf")}${card("epub","讲记 epub","有讲记才能点颂词看释义，也才能自动校对颂词","可选",".epub,application/epub+zip")}
+   <p class="snote">转换在这台设备上完成，文件不会上传。加密的 PDF 转不了，请先另存一份不加密的。</p>
+   <button class="imdemo" data-impdemo>没有文件？用《入行论》示例走一遍</button>`;
+  foot=`<button class="impri" data-impgo ${I.pdf?"":"disabled"}>开始转换</button>`}
+ else if(I.step===2){const p=I.p;const st=[["准备转换程序","第一次要下载约 18MB，之后离线也能用",0,30],["读科判",`第 ${Math.min(IMPD.pages,Math.max(1,Math.round((p-30)/50*IMPD.pages)))} / ${IMPD.pages} 页`,30,80],...(hasE?[["挂上释义并比对","逐科对照讲记里的科名和颂词",80,100]]:[])];
+  const end=hasE?100:80;
+  body=`<div class="sh">正在转换</div><div class="sc">${st.map(([t,sub,a,b])=>{const on=p>=a&&p<b,dn=p>=b;return `<div class="sr imrow ${on?"on":dn?"dn":""}"><span class="imdot">${dn?"✓":on?'<i class="imspin"></i>':""}</span><span class="imfb"><b>${t}</b><small>${dn?"完成":on?sub:"等待中"}</small>${on?(a===0?`<span class="imbar ind"><i></i></span>`:`<span class="imbar"><i style="width:${Math.round((p-a)/(b-a)*100)}%"></i></span>`):""}</span></div>`}).join("")}</div>
+   <p class="snote">可以先离开这一页，转好了会提醒你。${esc(I.pdf||"")}</p>`;
+  foot=`<button class="imsec" data-impcancel>取消</button>`}
+ else if(I.step===3){const S=IMPD.stats;const ds=I.diffs;const cnt=g=>ds.filter(d=>d.g===g).length;const list=ds.map((d,i)=>({d,i})).filter(x=>I.flt==="all"||x.d.g===I.flt);
+  const nb=ds.filter(d=>d.pick==="b").length;
+  body=`<div class="imnums"><span><b>${S.nodes}</b>条科判</span><span><b>${S.stanzas}</b>颂</span>${hasE?`<span><b>${S.sections}</b>段释义</span>`:""}</div>
+   ${hasE?`<div class="sh">科判和讲记不一致的 ${ds.length} 处</div>
+   <div class="imflt">${[["all","全部 "+ds.length],["v","颂词 "+cnt("v")],["n","科名 "+cnt("n")]].map(([v,t])=>`<button data-impflt="${v}" aria-pressed="${I.flt===v}">${t}</button>`).join("")}</div>
+   <div class="imbulk"><span>已选：用讲记 ${nb} 处，保持科判 ${ds.length-nb} 处</span><button data-impall="b">全用讲记</button><button data-impall="a">全保持科判</button></div>
+   <div class="imdl">${list.map(({d,i})=>`<div class="imd"><div class="imdh">${d.ch?`<small>${esc(d.ch)}</small>`:""}<b>${esc(d.code)} ${esc(d.name)}</b><em class="k-${d.g}">${d.kind}</em></div>
+     <div class="imdc"><button data-imppick="${i}:a" aria-pressed="${d.pick==="a"}"><small>科判</small><span>${impDiffStr(d.a,d.b)}</span></button><button data-imppick="${i}:b" aria-pressed="${d.pick==="b"}"><small>讲记</small><span>${impDiffStr(d.b,d.a)}</span></button></div>${d.note?`<p class="imdn">${esc(d.note)}</p>`:""}</div>`).join("")}</div>`:`<p class="snote">这次没有选讲记，所以没有可比对的内容。以后可以在这本书的 ⋯ 里补上讲记。</p>`}
+   ${hasE?`<div class="sc imauto"><div class="sr go ${I.hintOpen?"open":""}" data-imphint><b>只作提示、保持科判的 ${IMPD.hints.length} 处</b></div>${I.hintOpen?IMPD.hints.map(x=>`<div class="sr"><span class="imaw">${esc(x)}</span></div>`).join(""):""}</div>`:""}
+   <div class="sc imauto"><div class="sr go ${I.autoOpen?"open":""}" data-impauto><b>程序自动处理的 ${IMPD.auto.length} 处版式问题</b></div>${I.autoOpen?IMPD.auto.map(x=>`<div class="sr"><span class="imaw">${esc(x)}</span></div>`).join(""):""}</div>
+   <p class="snote">你的选择会存成这本书的勘误，下次导入新一稿时自动套用。</p>`;
+  foot=`<button class="imsec" data-impback>重新选文件</button><button class="impri" data-impnext>下一步</button>`}
+ else{const sp=(I.short||"").slice(0,5);
+  body=`<div class="sh">书名</div><div class="sc"><div class="sr col"><b>全称</b><input class="imin" data-impin="long" value="${esc(I.long)}" placeholder="比如：入菩萨行论"></div><div class="sr col"><b>书背简称 <small class="sv">最多 5 个字</small></b><input class="imin" data-impin="short" maxlength="5" value="${esc(I.short)}" placeholder="比如：入行论"></div></div>
+   <div class="sh">书架上的样子</div><div class="impv"><span class="hsp">${esc(sp||"简称")}</span><span class="imfb"><b>${esc(I.long||"全称")}</b><small>${esc(IMPD.meta.roles.map(r=>r[0]).join(" · "))}</small></span></div>
+   <div class="sh">从科判里读到的信息</div><div class="sc">${IMPD.meta.roles.map(r=>`<div class="sr"><b>${esc(r[1])}</b><span class="sv">${esc(r[0])}</span></div>`).join("")}<div class="sr"><b>版本</b><span class="sv">${esc(IMPD.meta.ed)}</span></div></div>
+   ${hasE?`<button class="imdemo" data-impsave>另存一份勘误文件</button>`:""}`;
+  foot=`<button class="imsec" data-impback3>上一步</button><button class="impri" data-impdone ${I.long.trim()&&I.short.trim()?"":"disabled"}>加入书架</button>`}
+ dev.innerHTML=`<div class="app settings imp"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-impx aria-label="返回">‹</button><span>导入一部论</span></span><span></span></div>${bar}</div><div class="sbody"><div class="sin">${body}</div></div><div class="imfoot"><div class="sin2">${foot}</div></div><div class="htoast" hidden></div></div>`;
+ const keep=fn=>{const y=dev.querySelector(".sbody").scrollTop;fn();if(ST.screen==="import"){renderImport();dev.querySelector(".sbody").scrollTop=y}};
+ const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;setTimeout(()=>el.hidden=true,1800)};
+ const q=(sel,fn)=>dev.querySelectorAll(sel).forEach(b=>b.onclick=e=>fn(b,e));
+ dev.querySelector("[data-impx]").onclick=()=>{clearInterval(IMPT);if(I.step===2)I.step=1;ST.screen="home";render();bindPanel()};
+ dev.querySelectorAll("[data-impf]").forEach(i=>i.onchange=()=>{if(i.files[0])keep(()=>{I[i.dataset.impf]=i.files[0].name})});
+ q("[data-impdemo]",()=>keep(()=>{I.pdf=IMPD.meta.pdf;I.epub=IMPD.meta.epub}));
+ const run=()=>{I.step=2;I.p=0;clearInterval(IMPT);const end=I.epub?100:80;IMPT=setInterval(()=>{I.p+=I.p<30?3:I.p<80?2.5:4;if(I.p>=end){clearInterval(IMPT);I.step=3;if(!I.short)I.short=IMPD.meta.short0}if(ST.screen==="import")renderImport()},110);renderImport()};
+ q("[data-impgo]",run);q("[data-impcancel]",()=>{clearInterval(IMPT);I.step=1;renderImport()});
+ q("[data-impflt]",b=>keep(()=>{I.flt=b.dataset.impflt}));q("[data-impall]",b=>keep(()=>{I.diffs.forEach(d=>d.pick=b.dataset.impall)}));
+ q("[data-imppick]",b=>keep(()=>{const [i,v]=b.dataset.imppick.split(":");I.diffs[+i].pick=v}));
+ q("[data-impauto]",()=>keep(()=>{I.autoOpen=!I.autoOpen}));q("[data-imphint]",()=>keep(()=>{I.hintOpen=!I.hintOpen}));
+ q("[data-impback]",()=>{I.step=1;renderImport()});q("[data-impnext]",()=>{I.step=4;renderImport()});q("[data-impback3]",()=>{I.step=3;renderImport()});
+ dev.querySelectorAll("[data-impin]").forEach(i=>i.oninput=()=>{I[i.dataset.impin]=i.value;const pv=dev.querySelector(".impv");pv.querySelector(".hsp").textContent=(I.short||"简称").slice(0,5);pv.querySelector("b").textContent=I.long||"全称";dev.querySelector("[data-impdone]").disabled=!(I.long.trim()&&I.short.trim())});
+ q("[data-impsave]",()=>toast("已保存 "+(I.short||"本书")+"-勘误.json"));
+ q("[data-impdone]",()=>{const ex=WORKS.find(w=>w.title===I.short.trim());let msg;if(ex){ex.long=I.long.trim();msg="已更新《"+ex.title+"》";}else{const id="imp"+Date.now();WORKS.splice(1,0,{id,title:I.short.trim(),long:I.long.trim(),full:I.long.trim(),roles:IMPD.meta.roles,chaps:CHAPS,ed:IMPD.meta.ed,date:"刚刚导入",shiyi:I.epub?"已挂讲记":null,fake:{prog:0}});DL[id]="ok";msg="《"+I.short.trim()+"》已加入书架"}
+  IMP=null;ST.screen="home";render();bindPanel();const el=dev.querySelector(".htoast");if(el){el.textContent=msg;el.hidden=false;setTimeout(()=>el.hidden=true,2000)}});
+}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
 function renderSettings(){const dk=isDarkNow();
@@ -1365,7 +1485,7 @@ function renderSettings(){const dk=isDarkNow();
  dev.querySelectorAll("[data-sdl]").forEach(b=>b.onclick=()=>{const id=b.dataset.sdl;SDL[id]="ing";re();setTimeout(()=>{delete SDL[id];DL[id]="ok";if(ST.screen==="settings")re()},1200)});
  dev.querySelectorAll("[data-sdel]").forEach(b=>b.onclick=()=>{delete DL[b.dataset.sdel];re()});
 }
-function render(){document.querySelectorAll("[data-scr]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.scr===ST.screen));if(ST.screen==="home"){applyColors();renderHome();return}if(ST.screen==="study"){applyColors();renderStudy();return}if(ST.screen==="settings"){applyColors();renderSettings();return}renderReader()}
+function render(){document.querySelectorAll("[data-scr]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.scr===ST.screen));if(ST.screen==="home"){applyColors();renderHome();return}if(ST.screen==="study"){applyColors();renderStudy();return}if(ST.screen==="settings"){applyColors();renderSettings();return}if(ST.screen==="import"){applyColors();renderImport();return}renderReader()}
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
