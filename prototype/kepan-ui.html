@@ -545,13 +545,24 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .wels span{flex:1;display:grid;font-size:14.5px;font-family:var(--serif)}
 .wels small{font-size:12px;color:var(--muted);font-family:var(--sans)}
 .wels em{font-style:normal;color:var(--muted);font-size:18px}
-.splash{position:absolute;inset:0;z-index:60;border:0;margin:0;padding:40px 28px;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;cursor:pointer;opacity:1;transition:opacity .8s ease;font-family:var(--serif);background-image:radial-gradient(ellipse at 50% 36%,color-mix(in srgb,var(--gold,#c9a24a) 16%,transparent),transparent 62%)}
+.splash{position:absolute;inset:0;z-index:60;border:0;margin:0;padding:0;background:var(--bg);color:var(--ink);cursor:pointer;opacity:1;transition:opacity .8s ease;font-family:var(--serif);overflow:hidden;display:block;width:100%}
 .splash.out{opacity:0;pointer-events:none}
-.splash .spl{display:block;animation:splin 1.2s ease both}
-.splash .spt{display:grid;gap:.5em;text-align:center;font-size:21px;line-height:1.6;letter-spacing:.14em;font-weight:600}
+.splash .spc{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:0 24px}
+.splash .spt{display:grid;gap:.5em;text-align:center;line-height:1.6;letter-spacing:.14em;font-weight:600}
 .splash .spt span{animation:splin 1.2s ease both}
-.splash .spt span:nth-child(1){animation-delay:.3s}.splash .spt span:nth-child(2){animation-delay:.7s}.splash .spt span:nth-child(3){animation-delay:1.1s;color:var(--k0)}
-.splash small{position:absolute;bottom:38px;left:0;right:0;text-align:center;font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--muted);animation:splin 1s ease 2s both,splp 2.6s ease-in-out 3s infinite}
+.splash .spt span:nth-child(1){animation-delay:.2s}.splash .spt span:nth-child(2){animation-delay:.6s}.splash .spt span:nth-child(3){animation-delay:1s;color:var(--k0)}
+.splash small{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--muted);animation:splin 1s ease 1.8s both,splp 2.6s ease-in-out 2.8s infinite}
+.splash.still *{animation:none!important}
+.oft{position:absolute;left:0;right:0;bottom:0;display:block}
+.ofglow{position:absolute;left:-10%;right:-10%;bottom:0;top:-40%;background:radial-gradient(ellipse at 50% 78%,rgb(255 190 90 / calc(.5*var(--og))),rgb(255 170 70 / calc(.16*var(--og))) 38%,transparent 66%);pointer-events:none}
+.ofsurf{position:absolute;left:0;right:0;background:linear-gradient(#6d1717,#a32a22)}
+.ofapr{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(#8a1f1b,#5c1212);border-top:2px solid #d9b25a;box-shadow:inset 0 5px 0 -3px rgb(217 178 90 / .45)}
+.c-wood .ofsurf{background:linear-gradient(#5a3a22,#8a5a34)}.c-wood .ofapr{background:linear-gradient(#6d4526,#42291a);border-top-color:#a8794a;box-shadow:none}
+.c-gold .ofsurf{background:linear-gradient(#a8802e,#d9b25a)}.c-gold .ofapr{background:linear-gradient(#b88f38,#7d5d1c);border-top-color:#f0d58a}
+.c-none .ofsurf,.c-none .ofapr{display:none}
+.ofl{position:absolute;display:block;line-height:0;animation:ofli 1.4s ease both}
+.ofl .plamp{display:block}
+@keyframes ofli{from{opacity:0}}
 @keyframes splin{from{opacity:0;transform:translateY(6px)}}
 @keyframes splp{50%{opacity:.35}}
 @media (prefers-reduced-motion:reduce){.splash *,.splash{animation:none!important;transition:none}}
@@ -776,7 +787,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,shym:"sheet",shyv:"on",shyf:15,tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:3,ofn:7,ofz:46,ofh:34,ofa:50,ofc:"red",ofs:"on",oft:21,ofg:60,shym:"sheet",shyv:"on",shyf:15,tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -1488,10 +1499,19 @@ function welcomeHTML(){if(!FIRST||WELX)return "";const c=courseLeaf();const star
   <button class="wels ${started?"dn":""}" data-wellearn><i>${started?"✓":"2"}</i><span>背第一颂<small>每天学完当天的，就点亮一盏灯</small></span><em>›</em></button>
   <button class="wels" data-welread><i>3</i><span>或者先读一读<small>点颂词可以看释义</small></span><em>›</em></button></div>`}
 function firstRun(){FIRST=true;PACEASKED=false;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
-function showSplash(){const old=dev.parentNode.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash";el.setAttribute("aria-label","发心后点击进入");
- el.innerHTML=`<span class="spl">${pillLampAt(0,72)}</span><span class="spt"><span>为了使遍等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small>`;
- const r=dev.getBoundingClientRect(),pr=dev.offsetParent?dev.offsetParent.getBoundingClientRect():{left:0,top:0};dev.appendChild(el);
- el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),900)}}
+function offerHTML(W,H){const R=+ST.ofr,N=+ST.ofn,Z=+ST.ofz,rad=ST.ofa*Math.PI/180,sn=Math.sin(rad),cs=Math.cos(rad);
+ const TH=H*ST.ofh/100,apron=Math.round(10+TH*.32*cs),Dp=Math.max(8,(TH-apron)*sn+8),back=1-.5*cs,narrow=.34*cs;
+ let lamps="";
+ for(let r=R-1;r>=0;r--){const t=R>1?r/(R-1):0,sc=1-(1-back)*t,z=Math.max(10,Math.round(Z*sc));const n=ST.ofs==="on"&&r%2?Math.max(1,N-1):N;
+  const w=W*(1-narrow*t),gap=w/N,y=apron+4+t*Math.max(0,Dp-z*.5-8);
+  for(let k=0;k<n;k++){const x=W/2+(k-(n-1)/2)*gap;lamps+=`<span class="ofl" style="left:${(x-z/2).toFixed(1)}px;bottom:${y.toFixed(1)}px;z-index:${R-r};animation-delay:${((k*37+r*53)%19)/10}s">${pillLampAt(0,z)}</span>`}}
+ const tw=(narrow*50).toFixed(1);
+ return `<span class="oft c-${ST.ofc}" style="height:${(TH+Z*1.3).toFixed(0)}px;--og:${ST.ofg/100}"><i class="ofglow"></i><i class="ofsurf" style="bottom:${apron}px;height:${Dp.toFixed(0)}px;clip-path:polygon(${tw}% 0,${(100-tw)}% 0,100% 100%,0 100%)"></i><i class="ofapr" style="height:${apron}px"></i>${lamps}</span>`}
+function showSplash(){const old=dev.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash";el.setAttribute("aria-label","发心后点击进入");
+ const W=dev.clientWidth,H=dev.clientHeight,TH=H*ST.ofh/100+ST.ofz*.9;
+ el.innerHTML=`<span class="spc" style="bottom:${TH.toFixed(0)}px"><span class="spt" style="font-size:${ST.oft}px"><span>为了使片等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small></span>${offerHTML(W,H)}`;
+ dev.appendChild(el);el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),900)}}
+function splashLive(){const o=dev.querySelector(".splash");showSplash();const e=dev.querySelector(".splash");e.classList.add("still")}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
 function renderSettings(){const dk=isDarkNow();
@@ -1602,6 +1622,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  const R=(id,label,min,max,step,val,unit)=>`<div class="og"><b>${label}</b><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" aria-label="${label}"><output id="${id}o">${val}${unit}</output></div>`;
  return `<h2>调整</h2>
  <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
+ <div class="grp"><h3>发心开屏 · 供灯桌</h3>${G("ofc","桌面",{red:"红布",gold:"金",wood:"木",none:"不画桌"})}${G("ofs","排列",{on:"错位",off:"对齐"})}${R("ofr","排数",1,7,1,ST.ofr," 排")}${R("ofn","每排盏数",2,14,1,ST.ofn," 盏")}${R("ofz","灯大小",20,90,1,ST.ofz," px")}${R("ofh","桌子高度",10,60,1,ST.ofh," %")}${R("ofa","俯视角度",5,90,1,ST.ofa,"°")}${R("ofg","灯光光晕",0,100,5,ST.ofg," %")}${R("oft","文字大小",15,30,1,ST.oft," px")}<p class="note">拖动时开屏会留在屏幕上方便看，点一下屏幕就淡出。</p></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
   <p class="note">平板和电脑：导图右下角多一个 ⛶，点了铺满整个界面，再点 ⤡ 退回侧栏。点路径卡片 → 顶部正中切到「导图」。单指拖动画布，双指或滚轮缩放；点有分支的科判展开 / 收起（右侧 +N 是收起的子科数），点最末一科直接跳到颂词。选中某一科后底部会出现「跳到…」。右下角：放大、缩小、看全图、回到当前位置。一打开只展开当前所在的那一条路径，当前段落用金框标出。</p></div>
@@ -1612,7 +1633,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
 function summary(){const s=document.getElementById("summary");if(!s)return;
  s.textContent=`书卡复习条：宽 ${ST.ew}px，灯 ${ST.plz}px，字 ${ST.efs}px，圆角 ${ST.er}px，${{top:"靠上",mid:"居中",bot:"靠下"}[ST.eal]}，底色 ${{k0:"朱红",deep:"深绛",bronze:"古铜",ink:"墨",soft:"浅底红字"}[ST.eclr]}，文字 ${{two:"两行",one:"只写复习数",num:"只写数字",none:"不写字"}[ST.esub]}，天数标 ${{tr:"右上角",bottom:"底部一行",off:"不显示"}[ST.edt]}；酥油灯：${LST[ST.lst]}，大小 目录导图 ${ST.rsz}px / 书卡 ${ST.plz}px / 反馈 ${ST.fbz}px${ST.lst==="t7"?"；造型 "+Object.entries(LPL).map(([k,a])=>a[0]+" "+((ST.lp||LPD)[k])).join("，"):""}；颂词字号（读者可调）：${ST.vf}px；层级色：${PAL[ST.pal].name}；背景：${BG[ST.bg].name}`}
 function bindPanel(){panel.innerHTML=panelHTML();summary();
- panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel()});
+ panel.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const k=b.dataset.o;let v=b.dataset.v;ST[k]=(k==="sepb"||k==="rline")?v==="true":v;render();bindPanel();if(k==="ofc"||k==="ofs")splashLive()});
  panel.querySelectorAll("[data-pal]").forEach(b=>b.onclick=()=>{ST.pal=b.dataset.pal;render();bindPanel()});
  panel.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{ST.bg=b.dataset.bg;render();bindPanel()});
  const R=(id,fn,unit)=>{const el=panel.querySelector("#"+id);if(!el)return;el.oninput=()=>{const v=+el.value;panel.querySelector("#"+id+"o").textContent=v+unit;fn(v);summary()}};
@@ -1634,7 +1655,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("fkP",v=>{ST.fkP=v},"×");R("fkW",v=>{ST.fkW=v},"×");
  R("vgy",v=>{ST.vgy=v;render()}," px");R("vgx",v=>{ST.vgx=v;render()}," px");R("vls",v=>{ST.vls=v;render()},"%");R("vpd",v=>{ST.vpd=v;render()}," px");
  R("sklz",v=>{ST.sklz=v;render()}," px");R("sktf",v=>{ST.sktf=v;render()}," px");R("skgap",v=>{ST.skgap=v;render()}," px");R("sknf",v=>{ST.sknf=v;render()}," px");
- R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
+ ["ofr:  排","ofn: 盏","ofz: px","ofh: %","ofa:°","ofg: %","oft: px"].forEach(x=>{const [k,u]=x.split(":");R(k,v=>{ST[k]=v;splashLive()},u.replace("  "," "))});R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
  const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
  const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
