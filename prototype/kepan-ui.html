@@ -545,6 +545,16 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .wels span{flex:1;display:grid;font-size:14.5px;font-family:var(--serif)}
 .wels small{font-size:12px;color:var(--muted);font-family:var(--sans)}
 .wels em{font-style:normal;color:var(--muted);font-size:18px}
+.splash{position:absolute;inset:0;z-index:60;border:0;margin:0;padding:40px 28px;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;cursor:pointer;opacity:1;transition:opacity .8s ease;font-family:var(--serif);background-image:radial-gradient(ellipse at 50% 36%,color-mix(in srgb,var(--gold,#c9a24a) 16%,transparent),transparent 62%)}
+.splash.out{opacity:0;pointer-events:none}
+.splash .spl{display:block;animation:splin 1.2s ease both}
+.splash .spt{display:grid;gap:.5em;text-align:center;font-size:21px;line-height:1.6;letter-spacing:.14em;font-weight:600}
+.splash .spt span{animation:splin 1.2s ease both}
+.splash .spt span:nth-child(1){animation-delay:.3s}.splash .spt span:nth-child(2){animation-delay:.7s}.splash .spt span:nth-child(3){animation-delay:1.1s;color:var(--k0)}
+.splash small{position:absolute;bottom:38px;left:0;right:0;text-align:center;font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--muted);animation:splin 1s ease 2s both,splp 2.6s ease-in-out 3s infinite}
+@keyframes splin{from{opacity:0;transform:translateY(6px)}}
+@keyframes splp{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.splash *,.splash{animation:none!important;transition:none}}
 /* settings */
 .app.settings .sbody{flex:1;overflow:auto;padding:10px 14px 30px;display:flex;flex-direction:column;gap:6px}
 .app.settings .sbody>.sin{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
@@ -1172,7 +1182,7 @@ function streakHTML(){if(ST.skst==="off"||ST.sklamp===false)return "";if(ST.skst
  return `<div class="skbar sk-${ST.skst} skc-${ST.skc}">${big}${vis}${ex}</div>`}
 function pillLampAt(d,z){const o=ST.plz;ST.plz=z;const s=pillLamp(d).replace('class="plamp"','class="plamp sk"');ST.plz=o;return s}
 // ---- 阅读页：颂词标题上的学习进度 + 直接修改
-let PACESH=false,PRESTART=false;
+let PACESH=false,PRESTART=false,PACEASKED=false;
 function leafState(n){if(!n.v||!n.v.length)return null;const S=stepsOf(n),L=S.filter(k=>itm(n,k));
  if(ST.pace==="course"&&!paceOK(n)&&!L.length)return "after";
  if(L.length&&S.some(k=>{const t=itm(n,k);return t&&t.due<=0}))return "due";
@@ -1194,12 +1204,12 @@ function ltSheet(n,app){const old=app.querySelector(".ltsh");if(old)old.remove()
 // ---- 书卡 ⋯ → 学习节奏
 let RESETC=false;
 function paceSheetHTML(){if(!PACESH)return "";const c=ST.pace==="course",m=courseLeaf();
- return `<div class="cpov" data-cpclose><div class="cpsh pcsh" role="dialog" aria-label="学习节奏"><div class="cph"><b>学习节奏 · 入行论</b><button data-cpclose aria-label="关闭">✕</button></div>
+ return `<div class="cpov" data-cpclose><div class="cpsh pcsh" role="dialog" aria-label="学习节奏"><div class="cph"><b>${PRESTART?"先选一种学习节奏":"学习节奏 · 入行论"}</b><button data-cpclose aria-label="关闭">✕</button></div>
   <button class="pco ${c?"on":""}" data-pace="course"><i></i><span><b>跟课程</b></span></button>
   ${c?`<button class="pcbtn" data-course="rxl" aria-label="修改课程进度"><span class="pcl">课到</span><b>${m?esc(m.code+" "+m.title):"未设"}</b><span class="pcg">改 ›</span></button>`:""}
   <button class="pco ${!c?"on":""}" data-pace="quota"><i></i><span><b>每周定量</b></span></button>
   ${!c?`<div class="pcx"><span class="stp"><button data-qd="-1" aria-label="少一颂">−</button><b>${ST.qpw}</b><button data-qd="1" aria-label="多一颂">＋</button></span> 颂 / 周</div>`:""}
-  <button class="pri pdone" data-pdone>完成</button></div></div>`}
+  <button class="pri pdone" data-pdone>${PRESTART?"开始学":"完成"}</button></div></div>`}
 function resetHTML(){if(!RESETC)return "";return `<div class="cpov cfov" data-rsno><div class="cfd" role="alertdialog" aria-label="确认重置进度"><b>重置《入行论》的进度？</b><p>所有背诵和复习记录都会清空，从第一颂重新开始。这一步不能撤销。</p><div class="cfb"><button data-rsno>取消</button><button class="danger" data-rsyes>重置</button></div></div></div>`}
 // ---- 连续点灯条
 const CNM=["一","二","三","四","五","六","七","八","九","十","十一","十二"];
@@ -1375,8 +1385,7 @@ function renderHome(){const W=wide();
  else if(ST.hsort==="fixed"&&rec.length){body=`<div class="hgroup">最近在读</div><div class="hrecent">${rec.map(o=>`<button class="hrc" data-wopen="${o.w.id}"><b>${esc(o.w.title)}</b><span>${esc(o.l.txt)}</span>${progHTML(wProg(o.w),o.w)}</button>`).join("")}</div><div class="hgroup">全部 ${WORKS.length} 部</div><div class="hlist g-${ST.hcard}">${list.map(card).join("")}</div>`}
  else body=`<div class="hlist g-${ST.hcard}">${list.map(card).join("")}</div>`;
  const TAB=ST.lentry==="tab";
- if(!R)body=welcomeHTML()+body;
- if(!R){if(ST.lentry==="top")body=todayHTML()+body;else if(ST.lentry==="book")body=todayHTML("strip")+body;else if(TAB&&ST.htab==="today")body=todayHTML("page")}
+  if(!R){if(ST.lentry==="top")body=todayHTML()+body;else if(ST.lentry==="book")body=todayHTML("strip")+body;else if(TAB&&ST.htab==="today")body=todayHTML("page")}
  const C0=todayCount();
  dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn" data-import aria-label="导入一部论">＋</button><button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
   <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
@@ -1398,7 +1407,7 @@ function renderHome(){const W=wide();
  const fb=dev.querySelector("[data-fb]");if(fb)fb.onclick=()=>toast("会打开整理者留的反馈方式");
  const so=dev.querySelector("[data-sopen]");if(so)so.onclick=()=>{ST.sOpen=!ST.sOpen;rer();const i=dev.querySelector(".hsearch input");if(i)i.focus()};
  const inp=dev.querySelector(".hsearch input");if(inp)inp.oninput=()=>{HQ=inp.value;rer()};
- dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.learn;if(id&&id!=="rxl"){toast("示例书目，还没有数据");return}startSession()});
+ dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.learn;if(id&&id!=="rxl"){toast("示例书目，还没有数据");return}if(!Object.keys(SR.it).length&&!PACEASKED){PACESH=true;PRESTART=true;MENU=null;rer();return}startSession()});
  dev.querySelectorAll("[data-dl]").forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.dl;DL[id]="ing";rer();requestAnimationFrame(()=>requestAnimationFrame(()=>{const a=dev.querySelector(`.hw[data-w="${id}"] .hcloud .arc`);if(a){a.style.transition="stroke-dashoffset 1.6s linear";a.style.strokeDashoffset="0"}}));setTimeout(()=>{DL[id]="ok";rer();toast("已下载到本机")},1750)});
  dev.querySelectorAll("[data-course]").forEach(b=>b.onclick=e=>{e.stopPropagation();MENU=null;PACESH=false;COURSEP=true;rer()});
  dev.querySelectorAll("[data-pacesh]").forEach(b=>b.onclick=e=>{e.stopPropagation();MENU=null;PACESH=true;PRESTART=false;rer()});
@@ -1407,9 +1416,9 @@ function renderHome(){const W=wide();
  dev.querySelectorAll("[data-reset]").forEach(b=>b.onclick=e=>{e.stopPropagation();MENU=null;RESETC=true;rer()});
  dev.querySelectorAll("[data-rsno]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-rsno]"))return;e.stopPropagation();RESETC=false;rer()});
  dev.querySelectorAll("[data-rsyes]").forEach(b=>b.onclick=e=>{e.stopPropagation();SR.it={};SR.wkNew=0;SR.last=0;RESETC=false;rer();toast("已重置，从第一颂重新开始")});
- dev.querySelectorAll("[data-pdone]").forEach(b=>b.onclick=e=>{e.stopPropagation();PACESH=false;rer();toast(ST.pace==="course"?"跟课程":`每周定量 ${ST.qpw} 颂`)});
+ dev.querySelectorAll("[data-pdone]").forEach(b=>b.onclick=e=>{e.stopPropagation();PACESH=false;if(PRESTART){PRESTART=false;PACEASKED=true;startSession();return}rer();toast(ST.pace==="course"?"跟课程":`每周定量 ${ST.qpw} 颂`)});
  dev.querySelectorAll("[data-cpick]").forEach(b=>b.onclick=e=>{e.stopPropagation();const [k,id]=b.dataset.cpick.split(":");COURSE={bk:k,id};COURSEP=false;rer()});
- dev.querySelectorAll("[data-cpclose]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-cpclose]"))return;e.stopPropagation();COURSEP=false;PACESH=false;rer()});
+ dev.querySelectorAll("[data-cpclose]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-cpclose]"))return;e.stopPropagation();COURSEP=false;PACESH=false;PRESTART=false;rer()});
  dev.querySelectorAll("[data-daily]").forEach(b=>b.onclick=()=>{if(SR.daily){toast("今天的每日一颂做过了，明天再来");return}startSession({daily:pickDaily()})});
  dev.querySelectorAll("[data-tree]").forEach(b=>b.onclick=()=>{ST.view="map";ST.tocOpen=!wide();mmReset(null);go(RECENT.rxl?RECENT.rxl.bk:"p2")});
  dev.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>{const [k,id]=b.dataset.tt.split(":");go(k,id)});
@@ -1478,7 +1487,11 @@ function welcomeHTML(){if(!FIRST||WELX)return "";const c=courseLeaf();const star
   <button class="wels ${c?"dn":""}" data-welpace><i>${c?"✓":"1"}</i><span>告诉我课讲到哪了<small>${c?esc(c.code+" "+c.title):"新学的颂词不会超过课程进度"}</small></span><em>›</em></button>
   <button class="wels ${started?"dn":""}" data-wellearn><i>${started?"✓":"2"}</i><span>背第一颂<small>每天学完当天的，就点亮一盏灯</small></span><em>›</em></button>
   <button class="wels" data-welread><i>3</i><span>或者先读一读<small>点颂词可以看释义</small></span><em>›</em></button></div>`}
-function firstRun(){FIRST=true;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
+function firstRun(){FIRST=true;PACEASKED=false;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
+function showSplash(){const old=dev.parentNode.querySelector(".splash");if(old)old.remove();const el=document.createElement("button");el.className="splash";el.setAttribute("aria-label","发心后点击进入");
+ el.innerHTML=`<span class="spl">${pillLampAt(0,72)}</span><span class="spt"><span>为了使遍等虚空的众生</span><span>都安置于佛果</span><span>发无上殊胜的菩提心</span></span><small>发心后点击</small>`;
+ const r=dev.getBoundingClientRect(),pr=dev.offsetParent?dev.offsetParent.getBoundingClientRect():{left:0,top:0};dev.appendChild(el);
+ el.onclick=()=>{el.classList.add("out");setTimeout(()=>el.remove(),900)}}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
 function renderSettings(){const dk=isDarkNow();
@@ -1562,7 +1575,7 @@ function renderReader(){
  dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
  {const ta=dev.querySelector("[data-tabout]");if(ta)ta.onclick=()=>{const bg=document.createElement("div");bg.innerHTML=aboutHTML(WORKS[0]);while(bg.firstChild)app.appendChild(bg.firstChild);app.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>{app.querySelectorAll(".hsheet,.hsheet-bg").forEach(z=>z.remove())})}}
  dev.querySelector("[data-home]").onclick=()=>{RECENT.rxl={bk:Object.keys(BOOKS).find(k=>BOOKS[k]===BK),id:cur.id};LAST={bk:Object.keys(BOOKS).find(k=>BOOKS[k]===BK),id:cur.id};ST.screen="home";ST.tocOpen=false;render();bindPanel()};
- dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{RECENT.rxl={bk:bkKey(BK),id:cur.id};startSession()});
+ dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{RECENT.rxl={bk:bkKey(BK),id:cur.id};if(!Object.keys(SR.it).length&&!PACEASKED){PACESH=true;PRESTART=true;ST.screen="home";ST.tocOpen=false;render();bindPanel();return}startSession()});
  dev.querySelectorAll("[data-lt]").forEach(b=>b.onclick=e=>{e.stopPropagation();ltSheet(BK.by[b.dataset.lt],dev.querySelector(".app"))});
  dev.querySelectorAll("[data-cmv]").forEach(b=>b.onclick=e=>{e.stopPropagation();moveCourse(+b.dataset.cmv)});
  {const bk=bkKey(BK);
@@ -1588,7 +1601,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  const G=(k,label,opts)=>`<div class="og"><b>${label}</b>${Object.entries(opts).map(([v,t])=>`<button data-o="${k}" data-v="${v}" aria-pressed="${String(ST[k])===v}">${t}</button>`).join("")}</div>`;
  const R=(id,label,min,max,step,val,unit)=>`<div class="og"><b>${label}</b><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" aria-label="${label}"><output id="${id}o">${val}${unit}</output></div>`;
  return `<h2>调整</h2>
- <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">第一次打开的样子</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
+ <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">清空进度（没学过）</button><button id="splashbtn">再看一次开屏</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
   <p class="note">平板和电脑：导图右下角多一个 ⛶，点了铺满整个界面，再点 ⤡ 退回侧栏。点路径卡片 → 顶部正中切到「导图」。单指拖动画布，双指或滚轮缩放；点有分支的科判展开 / 收起（右侧 +N 是收起的子科数），点最末一科直接跳到颂词。选中某一科后底部会出现「跳到…」。右下角：放大、缩小、看全图、回到当前位置。一打开只展开当前所在的那一条路径，当前段落用金框标出。</p></div>
@@ -1623,6 +1636,7 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("sklz",v=>{ST.sklz=v;render()}," px");R("sktf",v=>{ST.sktf=v;render()}," px");R("skgap",v=>{ST.skgap=v;render()}," px");R("sknf",v=>{ST.sknf=v;render()}," px");
  R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
+ const sp=panel.querySelector("#splashbtn");if(sp)sp.onclick=()=>{render();showSplash()};
  const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
  const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{FIRST=false;if(!SR.streak)SR.streak=12;seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
  const ot=panel.querySelector("#opentoc");if(ot)ot.onclick=()=>{ST.tocOpen=!ST.tocOpen;render();bindPanel()};
@@ -1636,4 +1650,5 @@ document.getElementById("bookbar").onclick=e=>{const b=e.target.closest("[data-b
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",render)}catch(e){}
 seedSR();SR.last=1;RECENT.rxl={bk:"p2",id:BOOKS.p2.seq[6].id};
 setDev("phone");
+showSplash();
 </script>
