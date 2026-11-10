@@ -1126,4 +1126,4 @@ function noteHTML(no,tt){if(!no||!no.length)return "";const nm=[],ot=[],isT=/题
 
 function errataHTML(w){const E=w.errata||[],N=w.notes||[];if(!E.length&&!N.length)return "";
  const lab=c=>(c.raw||"").replace(/（表[^）]*）|（\d+表）/g,"").replace(/分[一二三四五六七八九十]+$/,"");
- return `<div class="aerr"><div class="aerrh">勘误与说明</div>${N.map(t=>`<p class="aerrn">${esc(t)}</p>`).join("")}${E.length?`<ol>${E.map(c=>`<li><b>${esc(lab(c))}</b>　${esc(c.reason||"")}</li>`).join("")}</ol>`:""}</div>`}
+ return `<div class="aerr"><div class="aerrh">勘误与说明</div>${N.map(t=>`<p class="aerrn">${esc(t)}</p>`).join("")}${E.length?`<ol>${E.map(c=>`<li><b>${esc(lab(c))}</b>　${esc(c.reason||"")}</li>`).join("")}</ol>`:""}<p class="aerrai">以上勘误由制作者用 AI 校对，用者自行斟酌。</p></div>`}
