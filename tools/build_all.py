@@ -7,7 +7,7 @@
     *.pdf        科判（Word 导出的表格式 PDF），必须有且只有一个
     *.epub       讲记 / 释论，可选
     fixes.json   人工勘误，可选（格式见 tools/pdf2kepan.py 的 apply_fixes）
-    book.json    可选，补充或覆盖书的信息，如 {"title": "入菩萨行论"}
+    book.json    可选，补充或覆盖书的信息，如 {"title": "入菩萨行论"}；"pages": "1-7" 只转换这些页
 
 输出：
     data/<代号>.json          科判树和颂词
@@ -39,10 +39,11 @@ def build(book_dir):
     if len(pdfs) != 1:
         raise SystemExit(f"{bid}：要有且只有一个科判 PDF，现在有 {len(pdfs)} 个")
     fixes = book_dir / "fixes.json"
-    tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None)
     extra = book_dir / "book.json"
-    if extra.exists():
-        tree["meta"].update(json.loads(extra.read_text(encoding="utf-8")))
+    info = json.loads(extra.read_text(encoding="utf-8")) if extra.exists() else {}
+    pages = info.pop("pages", None)  # 只转换这些页，如 "1-7"（跳过只列了后面品名的空表）
+    tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None, pages)
+    tree["meta"].update(info)
     dump(DATA / f"{bid}.json", tree, indent=1)
     entry = {"id": bid, "meta": tree["meta"], "stats": tree["stats"], "checks": len(tree["checks"]),
              "corrections": len(tree["corrections"]), "data": f"{bid}.json"}

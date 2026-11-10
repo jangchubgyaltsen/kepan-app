@@ -184,7 +184,7 @@
  "stats": {
   "nodes": 458,
   "verseCells": 263,
-  "stanzas": 322
+  "stanzas": 321
  },
  "warnings": [
   "表0-1（第1页）：「壬三、宣说不可思议」画在了「壬二、宣说无边」之内，按层级上移到「辛二、（认清修学之有境般若）分四（表3）（1表）」下",
@@ -291,15 +291,12 @@
        "children": [],
        "verses": [
         {
-         "kind": "verse",
+         "kind": "note",
          "text": "顶礼圣者文殊师利！",
          "src": {
           "table": "表0-1",
           "page": 1
-         },
-         "stanzas": [
-          "顶礼圣者文殊师利！"
-         ]
+         }
         }
        ],
        "src": {
@@ -1980,8 +1977,8 @@
                    "level": "辛",
                    "depth": 8,
                    "num": 2,
-                   "name": "（认清修学之有境般若）分四",
-                   "divisions": null,
+                   "name": "（认清修学之有境般若）",
+                   "divisions": 4,
                    "chapter": null,
                    "refs": [
                     "表3"
@@ -2334,8 +2331,8 @@
                                "level": "卯",
                                "depth": 14,
                                "num": 1,
-                               "name": "（产生寂灭安乐）分二",
-                               "divisions": null,
+                               "name": "（产生寂灭安乐）",
+                               "divisions": 2,
                                "chapter": null,
                                "refs": [],
                                "note": null,

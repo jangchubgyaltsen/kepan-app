@@ -112,7 +112,7 @@
  "stats": {
   "nodes": 187,
   "verseCells": 116,
-  "stanzas": 138
+  "stanzas": 137
  },
  "warnings": [
   "第10页：文字溢出单元格，已并入上方单元格：附表（结尾）：科判之结文",
@@ -200,15 +200,12 @@
      "children": [],
      "verses": [
       {
-       "kind": "verse",
+       "kind": "note",
        "text": "顶礼文殊童子！",
        "src": {
         "table": "表0-1",
         "page": 1
-       },
-       "stanzas": [
-        "顶礼文殊童子！"
-       ]
+       }
       }
      ],
      "src": {

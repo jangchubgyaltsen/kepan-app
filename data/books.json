@@ -28,7 +28,7 @@
   "stats": {
    "nodes": 458,
    "verseCells": 263,
-   "stanzas": 322
+   "stanzas": 321
   },
   "checks": 0,
   "corrections": 5,
@@ -73,7 +73,7 @@
    "verseCells": 70,
    "stanzas": 162
   },
-  "checks": 0,
+  "checks": 1,
   "corrections": 0,
   "data": "egjy.json"
  },
@@ -112,6 +112,36 @@
   "data": "fzx.json"
  },
  {
+  "id": "gdz",
+  "meta": {
+   "title": "功德藏自释——二谛车 1-4品 颂词 科判",
+   "credits": "智悲光尊者 造论 索达吉堪布 翻译 本科判未校对 释道净 整理 20260807 1稿 微信qq 973451196 禁止商用篡改 法律责任必究",
+   "compiler": "释道净",
+   "date": "20260807",
+   "edition": "1稿",
+   "roles": [
+    {
+     "name": "智悲光尊者",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "翻译"
+    }
+   ],
+   "name": "功德藏（第一至四品）",
+   "shortName": "功德藏"
+  },
+  "stats": {
+   "nodes": 128,
+   "verseCells": 84,
+   "stanzas": 128
+  },
+  "checks": 2,
+  "corrections": 0,
+  "data": "gdz.json"
+ },
+ {
   "id": "qys",
   "meta": {
    "title": "亲友书释 白莲鬘 讲记 偈颂 科判",
@@ -143,7 +173,7 @@
   "stats": {
    "nodes": 187,
    "verseCells": 116,
-   "stanzas": 138
+   "stanzas": 137
   },
   "checks": 0,
   "corrections": 4,

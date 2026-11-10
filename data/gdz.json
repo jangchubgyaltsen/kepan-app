@@ -1,0 +1,4069 @@
+{
+ "id": "gdz",
+ "meta": {
+  "title": "功德藏自释——二谛车 1-4品 颂词 科判",
+  "credits": "智悲光尊者 造论 索达吉堪布 翻译 本科判未校对 释道净 整理 20260807 1稿 微信qq 973451196 禁止商用篡改 法律责任必究",
+  "compiler": "释道净",
+  "date": "20260807",
+  "edition": "1稿",
+  "roles": [
+   {
+    "name": "智悲光尊者",
+    "role": "造论"
+   },
+   {
+    "name": "索达吉堪布",
+    "role": "翻译"
+   }
+  ],
+  "name": "功德藏（第一至四品）",
+  "shortName": "功德藏"
+ },
+ "source": {
+  "file": "功德藏自释——二谛车 1-4品 颂词 科判 1稿.pdf",
+  "pages": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "tables": [
+  {
+   "id": "表0-1",
+   "title": "表0-1：（2表） 科判总表     丙一、暇满难得分五    【第一品 暇满难得】    （表1）",
+   "page": 1
+  },
+  {
+   "id": "表0-2",
+   "title": "表0-2：（2表） 科判总表     丙三、业因果分三      【第三品 业因果】     （表3-2）",
+   "page": 2
+  },
+  {
+   "id": "表1",
+   "title": "表1：（1表） 甲一、初义  甲二 乙二 丙一、暇满难得分五 【第一品 暇满难得】 【第1册】",
+   "page": 3
+  },
+  {
+   "id": "表2",
+   "title": "表2：（1表） 丙二、有为法无常分二 【第二品 有为法无常】 【第1册】",
+   "page": 4
+  },
+  {
+   "id": "表3-1",
+   "title": "表3-1：（2表） 丙三、业因果分三 【第三品 业因果】 【第1册】",
+   "page": 4
+  },
+  {
+   "id": "表3-2",
+   "title": "表3-2：（2表） 丙三、业因果分三 【第三品 业因果】 【第1册】",
+   "page": 5
+  },
+  {
+   "id": "表4-1",
+   "title": "表4-1：（2表） 丙四、轮回痛苦分二 【第四品 轮回痛苦】 【第1册】",
+   "page": 6
+  },
+  {
+   "id": "表4-2",
+   "title": "表4-2：（2表） 丙四、轮回痛苦分二 【第四品 轮回痛苦】 【第1册】",
+   "page": 7
+  }
+ ],
+ "stats": {
+  "nodes": 128,
+  "verseCells": 84,
+  "stanzas": 128
+ },
+ "warnings": [
+  "表1（第3页）：颂词找不到对应科判：正文",
+  "表1（第3页）：通栏颂词挂到「全论分三」末尾：功德藏自释——二谛车智悲…",
+  "表1（第3页）：通栏颂词挂到「全论分三」末尾：【第1册】顶礼文殊童子与…",
+  "表1（第3页）：通栏颂词挂到「全论分三」末尾：非一不住多，无碍解之意，…"
+ ],
+ "checks": [
+  "k1 全论分三：写「分3」，实际 2 个子科判",
+  "k1.2.2 乙二、广说论义分十三：写「分13」，实际 4 个子科判"
+ ],
+ "corrections": [],
+ "tree": [
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "全论分三",
+   "divisions": 3,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "全论分三",
+   "children": [
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 1,
+     "name": "初义",
+     "divisions": 3,
+     "chapter": null,
+     "refs": [
+      "表1"
+     ],
+     "note": null,
+     "raw": "甲一、初义分三【第1册】（表1）",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "礼赞三宝功德",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一、礼赞三宝功德",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "依于三宝美誉书，令珍珠藤极欢喜，依佛力令如睡莲，魔女容颜成逊色。",
+         "src": {
+          "table": "表1",
+          "page": 3
+         },
+         "stanzas": [
+          "依于三宝美誉书，令珍珠藤极欢喜，依佛力令如睡莲，魔女容颜成逊色。"
+         ]
+        }
+       ],
+       "src": {
+        "table": "表0-1",
+        "page": 1
+       },
+       "seenIn": [
+        "表0-1",
+        "表1"
+       ],
+       "id": "k1.1.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "立誓造论",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二、立誓造论",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "殊胜智者功德藏，浅薄慧者若妄陈，喧嚣浪花极不美，依正法故当谛听。",
+         "src": {
+          "table": "表1",
+          "page": 3
+         },
+         "stanzas": [
+          "殊胜智者功德藏，浅薄慧者若妄陈，喧嚣浪花极不美，依正法故当谛听。"
+         ]
+        }
+       ],
+       "src": {
+        "table": "表0-1",
+        "page": 1
+       },
+       "seenIn": [
+        "表0-1",
+        "表1"
+       ],
+       "id": "k1.1.2"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 3,
+       "name": "不依正法之过",
+       "divisions": null,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙三、不依正法之过",
+       "children": [],
+       "verses": [
+        {
+         "kind": "verse",
+         "text": "无始生老病死患，为疫所袭药甘露，妙法在手却舍弃，我对此众如何劝？",
+         "src": {
+          "table": "表1",
+          "page": 3
+         },
+         "stanzas": [
+          "无始生老病死患，为疫所袭药甘露，妙法在手却舍弃，我对此众如何劝？"
+         ]
+        }
+       ],
+       "src": {
+        "table": "表0-1",
+        "page": 1
+       },
+       "seenIn": [
+        "表0-1",
+        "表1"
+       ],
+       "id": "k1.1.3"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "表0-1",
+      "page": 1
+     },
+     "seenIn": [
+      "表0-1",
+      "表1"
+     ],
+     "id": "k1.1"
+    },
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 2,
+     "name": "论义",
+     "divisions": 2,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲二、论义分二",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "安立论体",
+       "divisions": null,
+       "chapter": null,
+       "refs": [
+        "表1"
+       ],
+       "note": null,
+       "raw": "乙一、安立论体（表1）",
+       "children": [],
+       "verses": [],
+       "src": {
+        "table": "表0-1",
+        "page": 1
+       },
+       "seenIn": [
+        "表0-1",
+        "表1"
+       ],
+       "id": "k1.2.1",
+       "noVerse": true
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "广说论义",
+       "divisions": 13,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二、广说论义分十三",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "暇满难得",
+         "divisions": 5,
+         "chapter": "第一品 暇满难得",
+         "refs": [
+          "表1"
+         ],
+         "note": null,
+         "raw": "丙一、暇满难得分五【第一品暇满难得】（表1）",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "人身分类",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、人身分类",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "久习轮回荒野中，断头截肢受剧苦，未来之苦虽隐蔽，仍贪善趣乐极愚。",
+             "src": {
+              "table": "表1",
+              "page": 3
+             },
+             "stanzas": [
+              "【第一品暇满难得】久习轮回荒野中，断头截肢受剧苦，未来之苦虽隐蔽，仍贪善趣乐极愚。"
+             ]
+            }
+           ],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表1"
+           ],
+           "id": "k1.2.2.1.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "解说违品八无暇",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、解说违品八无暇分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "总说",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、总说",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "意乐毁坏由此堕，三恶趣及无想天，边地根残邪见者，无佛出世处流转。",
+               "src": {
+                "table": "表1",
+                "page": 3
+               },
+               "stanzas": [
+                "意乐毁坏由此堕，三恶趣及无想天，边地根残邪见者，无佛出世处流转。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表1"
+             ],
+             "id": "k1.2.2.1.2.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "别说",
+             "divisions": 8,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、别说分八",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "地狱",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、地狱",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "寻无闲暇烧铁地，反复承受利刃截，夺命不死地狱众，仍系嗔恚恶业网。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "寻无闲暇烧铁地，反复承受利刃截，夺命不死地狱众，仍系嗔恚恶业网。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "饿鬼",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、饿鬼",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "脓血粪等亦难得，饿鬼凄惨何须说，见河流树顷干枯，内脏焦燃苦无尽，业障力感寿无定。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "脓血粪等亦难得，饿鬼凄惨何须说，见河流树顷干枯，内脏焦燃苦无尽，",
+                  "业障力感寿无定。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "旁生",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、旁生",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "旁生彼此互残食，猎人设法凶夺命，役使驯服诚悲惨，若生此处有何策？",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "旁生彼此互残食，猎人设法凶夺命，役使驯服诚悲惨，若生此处有何策？"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.3"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "无想天",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、无想天",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "业力所致寿漫长，无厌离时无色界，灭闻思依无想天，临终邪见非有暇。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "业力所致寿漫长，无厌离时无色界，灭闻思依无想天，临终邪见非有暇。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.4"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 5,
+               "name": "边地",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己五、边地",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "虽具两足人形相，其想非福紧束缚，聪慧边地野蛮众，徘徊错乱取舍林。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "虽具两足人形相，其想非福紧束缚，聪慧边地野蛮众，徘徊错乱取舍林。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.5"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 6,
+               "name": "诸根不全者",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己六、诸根不全者",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "根不齐全喑哑众，纵遇诸圣者商主，如谷回声徒喧嚣，不解义理荒野苦。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "根不齐全喑哑众，纵遇诸圣者商主，如谷回声徒喧嚣，不解义理荒野苦。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.6"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 7,
+               "name": "邪见者",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己七、邪见者",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "渡越生海大舟船，虽获明识飘扬幡，不令出世佛欢喜，执持邪见随魔转。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "渡越生海大舟船，虽获明识飘扬幡，不令出世佛欢喜，执持邪见随魔转。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.7"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 8,
+               "name": "无佛出世",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己八、无佛出世",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "堕入能仁所弃劫，幽暗深渊再难出，虽欲出离依非道，愈向下堕悲惨处。",
+                 "src": {
+                  "table": "表1",
+                  "page": 3
+                 },
+                 "stanzas": [
+                  "堕入能仁所弃劫，幽暗深渊再难出，虽欲出离依非道，愈向下堕悲惨处。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表1"
+               ],
+               "id": "k1.2.2.1.2.2.8"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表1"
+             ],
+             "id": "k1.2.2.1.2.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "摄义",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、摄义",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "罪苦狂风侵扰处，疲惫恐惧福德浊，不求正法八无暇，思此令暇莫虚度。",
+               "src": {
+                "table": "表1",
+                "page": 3
+               },
+               "stanzas": [
+                "罪苦狂风侵扰处，疲惫恐惧福德浊，不求正法八无暇，思此令暇莫虚度。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表1"
+             ],
+             "id": "k1.2.2.1.2.3"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表1"
+           ],
+           "id": "k1.2.2.1.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "认清暇满之体性",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、认清暇满之体性分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "解说“暇满”之义",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、解说“暇满”之义",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表1"
+             ],
+             "id": "k1.2.2.1.3.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "别说自他五圆满",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、别说自他五圆满",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "中土净地诸根全，于生信处生净信，业际花未遭罪毁，人身如意树极罕。佛如昙花出世间，法花遍开佛法苑，未灭住世真实入，依圣凉荫较彼稀。",
+               "src": {
+                "table": "表1",
+                "page": 3
+               },
+               "stanzas": [
+                "中土净地诸根全，于生信处生净信，业际花未遭罪毁，人身如意树极罕。",
+                "佛如昙花出世间，法花遍开佛法苑，未灭住世真实入，依圣凉荫较彼稀。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表1"
+             ],
+             "id": "k1.2.2.1.3.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表1"
+           ],
+           "id": "k1.2.2.1.3"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "解说难得之理由",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四、解说难得之理由",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "因自圆满之妙树，他缘圆满优昙花，二者功德十圆满，拥八闲暇不复得。以龟颈与木轭喻，人与旁生数量比，如同昼星与夜星，饿鬼地狱依次知。",
+             "src": {
+              "table": "表1",
+              "page": 3
+             },
+             "stanzas": [
+              "因自圆满之妙树，他缘圆满优昙花，二者功德十圆满，拥八闲暇不复得。",
+              "以龟颈与木轭喻，人与旁生数量比，如同昼星与夜星，饿鬼地狱依次知。"
+             ]
+            }
+           ],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表1"
+           ],
+           "id": "k1.2.2.1.4"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 5,
+           "name": "本品摄义",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁五、本品摄义",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "故掌闲暇大舟时，未渡苦海至彼岸，求法旅客寻际遇，觅之无果成枉然。",
+             "src": {
+              "table": "表1",
+              "page": 3
+             },
+             "stanzas": [
+              "故掌闲暇大舟时，未渡苦海至彼岸，求法旅客寻际遇，觅之无果成枉然。"
+             ]
+            }
+           ],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表1"
+           ],
+           "id": "k1.2.2.1.5"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "表0-1",
+          "page": 1
+         },
+         "seenIn": [
+          "表0-1",
+          "表1"
+         ],
+         "id": "k1.2.2.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "有为法无常",
+         "divisions": 2,
+         "chapter": "第二品 有为法无常",
+         "refs": [
+          "表2"
+         ],
+         "note": null,
+         "raw": "丙二、有为法无常分二【第二品有为法无常】（表2）",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "总说",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、总说分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "总说器世界无常",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、总说器世界无常",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "成住坏空器情界，时量体性一大劫，坏灭所依名贬义，终为七火一水毁。",
+               "src": {
+                "table": "表2",
+                "page": 4
+               },
+               "stanzas": [
+                "【第二品有为法无常】成住坏空器情界，时量体性一大劫，坏灭所依名贬义，终为七火一水毁。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表2"
+             ],
+             "id": "k1.2.2.2.1.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "别说有情世界无常",
+             "divisions": 4,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、别说有情世界无常分四",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "思维圣士而说无常",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、思维圣士而说无常",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "人天师胜金刚身，常见者前示消逝，虽离毁坏显变异，寂灭界中趣涅槃。",
+                 "src": {
+                  "table": "表2",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "人天师胜金刚身，常见者前示消逝，虽离毁坏显变异，寂灭界中趣涅槃。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表2"
+               ],
+               "id": "k1.2.2.2.1.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "思维世间主而说无常",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、思维世间主而说无常",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "成就禅定住数劫，见彼死亡终无义，梵帝自在转轮王，亦无法避死主魔。",
+                 "src": {
+                  "table": "表2",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "成就禅定住数劫，见彼死亡终无义，梵帝自在转轮王，亦无法避死主魔。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表2"
+               ],
+               "id": "k1.2.2.2.1.2.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "思维死亡自性而说无常",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、思维死亡自性而说无常",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "善趣乐园令人醉，生命无常如悬丝，持追命棒之猎人，唯寻一事更无他。",
+                 "src": {
+                  "table": "表2",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "善趣乐园令人醉，生命无常如悬丝，持追命棒之猎人，唯寻一事更无他。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表2"
+               ],
+               "id": "k1.2.2.2.1.2.3"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "思维种种喻义而说无常",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、思维种种喻义而说无常",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "春夏酷热所恼众，乐求秋季明月光，自寿百日已耗尽，思此何不生恐惧？",
+                 "src": {
+                  "table": "表2",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "春夏酷热所恼众，乐求秋季明月光，自寿百日已耗尽，思此何不生恐惧？"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表2"
+               ],
+               "id": "k1.2.2.2.1.2.4"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表2"
+             ],
+             "id": "k1.2.2.2.1.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表2"
+           ],
+           "id": "k1.2.2.2.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "必要",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、必要分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "举例说明寿命流逝快慢",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、举例说明寿命流逝快慢",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "士夫奋力射箭速，地游饿鬼较此快，空游饿鬼日月天，渐快寿逝最迅速。",
+               "src": {
+                "table": "表2",
+                "page": 4
+               },
+               "stanzas": [
+                "士夫奋力射箭速，地游饿鬼较此快，空游饿鬼日月天，渐快寿逝最迅速。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表2"
+             ],
+             "id": "k1.2.2.2.2.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "特说毁坏轮回之四大轮",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、特说毁坏轮回之四大轮",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "风华正茂为老摧，身体安康为病扰，圆满缘起衰所毁，死亡速至害性命。",
+               "src": {
+                "table": "表2",
+                "page": 4
+               },
+               "stanzas": [
+                "风华正茂为老摧，身体安康为病扰，圆满缘起衰所毁，死亡速至害性命。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表2"
+             ],
+             "id": "k1.2.2.2.2.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "以身心分离相激发厌离",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、以身心分离相激发厌离",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "败于阎罗战场时，离依怙援奔悬崖，生机光泽根尽失，一切医药无济事，肢体动则感疲乏，呼吸无力喘息声，亲友虽围心哀伤，难挽死主铁钩牵，彼气息如马尾尖，死主敌以利斧劈，远离美貌露呲牙，业感牵入暗轮回。",
+               "src": {
+                "table": "表2",
+                "page": 4
+               },
+               "stanzas": [
+                "败于阎罗战场时，离依怙援奔悬崖，生机光泽根尽失，一切医药无济事，",
+                "肢体动则感疲乏，呼吸无力喘息声，亲友虽围心哀伤，难挽死主铁钩牵，",
+                "彼气息如马尾尖，死主敌以利斧劈，远离美貌露呲牙，业感牵入暗轮回。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表2"
+             ],
+             "id": "k1.2.2.2.2.3"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表2"
+           ],
+           "id": "k1.2.2.2.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "表0-1",
+          "page": 1
+         },
+         "seenIn": [
+          "表0-1",
+          "表2"
+         ],
+         "id": "k1.2.2.2"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 3,
+         "name": "业因果",
+         "divisions": 3,
+         "chapter": "第三品 业因果",
+         "refs": [
+          "表3"
+         ],
+         "note": null,
+         "raw": "丙三、业因果分三【第三品业因果】（表3）",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "略说业果",
+           "divisions": 7,
+           "chapter": null,
+           "refs": [
+            "表3-1"
+           ],
+           "note": null,
+           "raw": "丁一、略说业果分七（表3-1）",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "业果不虚",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、业果不虚分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "真实说明",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、真实说明",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "如是趣入后世众，所得果位高低别，行善习恶唯近取，是世俗谛无欺诳。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "【第三品业因果】如是趣入后世众，所得果位高低别，行善习恶唯近取，是世俗谛无欺诳。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.1.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "以喻义说明",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、以喻义说明",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "犹如各类种子力，农夫耕作可明现，他生串习所熏染，多种业行造众生。高空飞翔金翅鸟，虽暂不见身影现，然与其身无离合，因缘聚合定现前。非福事如马口火，能干善趣汪洋浪，毁遍知船之喻义，百业方广经中说。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "犹如各类种子力，农夫耕作可明现，他生串习所熏染，多种业行造众生。",
+                  "高空飞翔金翅鸟，虽暂不见身影现，然与其身无离合，因缘聚合定现前。",
+                  "非福事如马口火，能干善趣汪洋浪，毁遍知船之喻义，百业方广经中说。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.1.2"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "业果力大",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、业果力大",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "逼迫难忍恶趣处，十善坚军纵勇武，未及扎下战阵营，为汝所转毁誓言。有舍戒律舍寿命，有舍苦行舍法财，有舍知惭舍有愧，为罪堕落者极多。",
+               "src": {
+                "table": "表3-1",
+                "page": 4
+               },
+               "stanzas": [
+                "逼迫难忍恶趣处，十善坚军纵勇武，未及扎下战阵营，为汝所转毁誓言。",
+                "有舍戒律舍寿命，有舍苦行舍法财，有舍知惭舍有愧，为罪堕落者极多。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "自作自受",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、自作自受",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "若为供养处亲眷，或为护国显威权，解开罪恶狂象缚，异熟果报无可摊。",
+               "src": {
+                "table": "表3-1",
+                "page": 4
+               },
+               "stanzas": [
+                "若为供养处亲眷，或为护国显威权，解开罪恶狂象缚，异熟果报无可摊。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.3"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "世间之法",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、世间之法分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "世间八法",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、世间八法",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "贪图利养唯求乐，迷恋称誉闻赞骄，相反四法则悲伤，凡愚为此世法欺。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "贪图利养唯求乐，迷恋称誉闻赞骄，相反四法则悲伤，凡愚为此世法欺。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.4.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "世间十三法",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、世间十三法",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "依种貌权等骄傲，藏于懈怠懒鬼后，引发非理增上慢，成嗔苦行之罗刹，坚固悭贪心之力，为其所控谄诳藤，蒙蔽他人护自身，彼大损害入自心。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "依种貌权等骄傲，藏于懈怠懒鬼后，引发非理增上慢，成嗔苦行之罗刹，",
+                  "坚固悭贪心之力，为其所控谄诳藤，蒙蔽他人护自身，彼大损害入自心。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.4.2"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.4"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 5,
+             "name": "业果增量",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊五、业果增量",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "轮回白黑业果二，小种亦生大果相，犹如名为我乳王，以七豆成转轮王，犹如阿湿波多树，种如芥子果熟时，一枝亦增由旬量，善恶增长喻不及。",
+               "src": {
+                "table": "表3-1",
+                "page": 4
+               },
+               "stanzas": [
+                "轮回白黑业果二，小种亦生大果相，犹如名为我乳王，以七豆成转轮王，",
+                "犹如阿湿波多树，种如芥子果熟时，一枝亦增由旬量，善恶增长喻不及。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.5"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 6,
+             "name": "业力强弱",
+             "divisions": 3,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊六、业力强弱分三",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "真实说明",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、真实说明",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "无有作者非自性，白黑染色熏动机，令业及果具大力，无前后行力微弱。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "无有作者非自性，白黑染色熏动机，令业及果具大力，无前后行力微弱。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.6.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "比喻说明",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、比喻说明",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "根若为药芽亦药，根若为毒何须说，唯随善恶意差别，不随善恶像大小。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "根若为药芽亦药，根若为毒何须说，唯随善恶意差别，不随善恶像大小。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.6.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "五根本因",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、五根本因",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "由常贪执无对治，功德恩德境所生，五种善恶之轻重，佛说近取因是心。",
+                 "src": {
+                  "table": "表3-1",
+                  "page": 4
+                 },
+                 "stanzas": [
+                  "由常贪执无对治，功德恩德境所生，五种善恶之轻重，佛说近取因是心。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-1",
+                "page": 1
+               },
+               "seenIn": [
+                "表0-1",
+                "表3-1"
+               ],
+               "id": "k1.2.2.3.1.6.3"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.6"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 7,
+             "name": "业果现基",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊七、业果现基",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "所依无记阿赖耶，彼起意识五根识，周遍无明大魔擒，三惑流转上下趣。",
+               "src": {
+                "table": "表3-1",
+                "page": 4
+               },
+               "stanzas": [
+                "所依无记阿赖耶，彼起意识五根识，周遍无明大魔擒，三惑流转上下趣。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-1",
+              "page": 1
+             },
+             "seenIn": [
+              "表0-1",
+              "表3-1"
+             ],
+             "id": "k1.2.2.3.1.7"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-1",
+            "page": 1
+           },
+           "seenIn": [
+            "表0-1",
+            "表3-1"
+           ],
+           "id": "k1.2.2.3.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "广说业果",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [
+            "表3-2"
+           ],
+           "note": null,
+           "raw": "丁二、广说业果分二（表3-2）",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "极重业果",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、极重业果",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "犹如炽热燃烧火，对治唯水别无他，欺惑舍弃三宝尊，其罪之大无可比。",
+               "src": {
+                "table": "表3-2",
+                "page": 5
+               },
+               "stanzas": [
+                "犹如炽热燃烧火，对治唯水别无他，欺惑舍弃三宝尊，其罪之大无可比。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-2",
+              "page": 2
+             },
+             "seenIn": [
+              "表0-2",
+              "表3-2"
+             ],
+             "id": "k1.2.2.3.2.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "共同业果",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、共同业果分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "总说",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、总说",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "此外众生诸分别，本性相连心心所，数量无边难以测，所依能依身语意，应断因果摄为十。",
+                 "src": {
+                  "table": "表3-2",
+                  "page": 5
+                 },
+                 "stanzas": [
+                  "此外众生诸分别，本性相连心心所，数量无边难以测，所依能依身语意，",
+                  "应断因果摄为十。"
+                 ]
+                }
+               ],
+               "src": {
+                "table": "表0-2",
+                "page": 2
+               },
+               "seenIn": [
+                "表0-2",
+                "表3-2"
+               ],
+               "id": "k1.2.2.3.2.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "别说",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、别说分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "所断因果",
+                 "divisions": 2,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、所断因果分二",
+                 "children": [
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 1,
+                   "name": "真实宣说",
+                   "divisions": 2,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛一、真实宣说分二",
+                   "children": [
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 1,
+                     "name": "所断之因",
+                     "divisions": 3,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬一、所断之因分三",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "身三恶业",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、身三恶业",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "杀生邪淫不予取，身三首先为杀生，不迷故意断他命，同品殴打等损恼；不与取知窃他财，同品谄诳而取受；邪淫付酬触相合，同品非处行淫法。",
+                         "src": {
+                          "table": "表3-2",
+                          "page": 5
+                         },
+                         "stanzas": [
+                          "杀生邪淫不予取，身三首先为杀生，不迷故意断他命，同品殴打等损恼；",
+                          "不与取知窃他财，同品谄诳而取受；邪淫付酬触相合，同品非处行淫法。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表3-2"
+                       ],
+                       "id": "k1.2.2.3.2.2.2.1.1.1.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "语四恶业",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、语四恶业",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "语四妄语迷惑他，同品改想欺他心；两舌离间破和睦，同品复过制仇恨；绮语戏言生贪嗔，同品军匪无关语；粗语刺伤他人心，同品成他不悦缘。",
+                         "src": {
+                          "table": "表3-2",
+                          "page": 5
+                         },
+                         "stanzas": [
+                          "语四妄语迷惑他，同品改想欺他心；两舌离间破和睦，同品复过制仇恨；",
+                          "绮语戏言生贪嗔，同品军匪无关语；粗语刺伤他人心，同品成他不悦缘。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表3-2"
+                       ],
+                       "id": "k1.2.2.3.2.2.2.1.1.1.2"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 3,
+                       "name": "意三恶业",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸三、意三恶业",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "意三首先为贪心，贪图他财据己有，同品欲享他人物；害心嗔他欲加害，同品盼他离乐益；邪见常断无因果，同品增无损减有。",
+                         "src": {
+                          "table": "表3-2",
+                          "page": 5
+                         },
+                         "stanzas": [
+                          "意三首先为贪心，贪图他财据己有，同品欲享他人物；害心嗔他欲加害，",
+                          "同品盼他离乐益；邪见常断无因果，同品增无损减有。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表3-2"
+                       ],
+                       "id": "k1.2.2.3.2.2.2.1.1.1.3"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表3-2"
+                     ],
+                     "id": "k1.2.2.3.2.2.2.1.1.1"
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 2,
+                     "name": "所断之果",
+                     "divisions": 2,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬二、所断之果分二",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "总说",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、总说",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "一切各熟四果报，异熟等流增士用。",
+                         "src": {
+                          "table": "表3-2",
+                          "page": 5
+                         },
+                         "stanzas": [
+                          "一切各熟四果报，异熟等流增士用。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表3-2"
+                       ],
+                       "id": "k1.2.2.3.2.2.2.1.1.2.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "别说",
+                       "divisions": 4,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、别说分四",
+                       "children": [
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 1,
+                         "name": "异熟果",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子一、异熟果",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "异熟果报具五法，三动机微感旁生，中引饿鬼大地狱。",
+                           "src": {
+                            "table": "表3-2",
+                            "page": 5
+                           },
+                           "stanzas": [
+                            "异熟果报具五法，三动机微感旁生，中引饿鬼大地狱。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表3-2"
+                         ],
+                         "id": "k1.2.2.3.2.2.2.1.1.2.2.1"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 2,
+                         "name": "等流果",
+                         "divisions": 2,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子二、等流果分二",
+                         "children": [
+                          {
+                           "level": "丑",
+                           "depth": 12,
+                           "num": 1,
+                           "name": "同行等流果",
+                           "divisions": null,
+                           "chapter": null,
+                           "refs": [],
+                           "note": null,
+                           "raw": "丑一、同行等流果",
+                           "children": [],
+                           "verses": [
+                            {
+                             "kind": "verse",
+                             "text": "等流果报分二种，同行等流习性同。",
+                             "src": {
+                              "table": "表3-2",
+                              "page": 5
+                             },
+                             "stanzas": [
+                              "等流果报分二种，同行等流习性同。"
+                             ]
+                            }
+                           ],
+                           "src": {
+                            "table": "表0-2",
+                            "page": 2
+                           },
+                           "seenIn": [
+                            "表0-2",
+                            "表3-2"
+                           ],
+                           "id": "k1.2.2.3.2.2.2.1.1.2.2.2.1"
+                          },
+                          {
+                           "level": "丑",
+                           "depth": 12,
+                           "num": 2,
+                           "name": "感受等流果",
+                           "divisions": null,
+                           "chapter": null,
+                           "refs": [],
+                           "note": null,
+                           "raw": "丑二、感受等流果",
+                           "children": [],
+                           "verses": [
+                            {
+                             "kind": "verse",
+                             "text": "感受等流纵善趣，十恶依次各二果：命短亦有多疾病；资具泛少与敌享；夫妻不美常结怨；多遭诽谤受他欺；眷仆恶劣难和睦；语无份量人不信；常闻刺耳语成争；不知满足欲所煎；招集损害离利益；持恶见为谄诳扰。",
+                             "src": {
+                              "table": "表3-2",
+                              "page": 5
+                             },
+                             "stanzas": [
+                              "感受等流纵善趣，十恶依次各二果：命短亦有多疾病；资具泛少与敌享；",
+                              "夫妻不美常结怨；多遭诽谤受他欺；眷仆恶劣难和睦；语无份量人不信；",
+                              "常闻刺耳语成争；不知满足欲所煎；招集损害离利益；持恶见为谄诳扰。"
+                             ]
+                            }
+                           ],
+                           "src": {
+                            "table": "表0-2",
+                            "page": 2
+                           },
+                           "seenIn": [
+                            "表0-2",
+                            "表3-2"
+                           ],
+                           "id": "k1.2.2.3.2.2.2.1.1.2.2.2.2"
+                          }
+                         ],
+                         "verses": [],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表3-2"
+                         ],
+                         "id": "k1.2.2.3.2.2.2.1.1.2.2.2"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 3,
+                         "name": "增上果",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子三、增上果",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "增上果报现外境：杀生罪业重担压，住地贫瘠药花少，饮食乏力难消化，性命堪忧之方所；不与取致苗易毁，虽有果树结劣果，严霜冰雹常摧残，饥荒之苦痛于心；邪淫生于屎尿泥，恶臭熏天令窒息，肮脏狭隘不悦境，无主之藤任意缠；妄语财动土不服，遭他欺惑常惊恐；两舌住于深沟壑，高低不平难行处；恶语生处多沙石，荆棘丛生多枯木，果实劣恶极粗糙，盐碱尘土满地秽，时时感受不悦意；绮语农耕劳无获，气候无常节气乱；贪心果反谷飞秕，时节恶劣常遭灾；害心遭遇恶暴君，盗贼野人蛇猛兽，庄稼果实味苦辛，生于多灾多难处；邪见无有诸珍宝，资财贫乏药树稀，花果皆无好功效，生处无依无靠山。",
+                           "src": {
+                            "table": "表3-2",
+                            "page": 5
+                           },
+                           "stanzas": [
+                            "增上果报现外境：杀生罪业重担压，住地贫瘠药花少，饮食乏力难消化，",
+                            "性命堪忧之方所；不与取致苗易毁，虽有果树结劣果，严霜冰雹常摧残，",
+                            "饥荒之苦痛于心；邪淫生于屎尿泥，恶臭熏天令窒息，肮脏狭隘不悦境，",
+                            "无主之藤任意缠；妄语财动土不服，遭他欺惑常惊恐；两舌住于深沟壑，",
+                            "高低不平难行处；恶语生处多沙石，荆棘丛生多枯木，果实劣恶极粗糙，",
+                            "盐碱尘土满地秽，时时感受不悦意；绮语农耕劳无获，气候无常节气乱；",
+                            "贪心果反谷飞秕，时节恶劣常遭灾；害心遭遇恶暴君，盗贼野人蛇猛兽，",
+                            "庄稼果实味苦辛，生于多灾多难处；邪见无有诸珍宝，资财贫乏药树稀，",
+                            "花果皆无好功效，生处无依无靠山。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表3-2"
+                         ],
+                         "id": "k1.2.2.3.2.2.2.1.1.2.2.3"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 4,
+                         "name": "士用果",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子四、士用果",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "士用果报随造业，辗转增长苦无边。",
+                           "src": {
+                            "table": "表3-2",
+                            "page": 5
+                           },
+                           "stanzas": [
+                            "士用果报随造业，辗转增长苦无边。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表3-2"
+                         ],
+                         "id": "k1.2.2.3.2.2.2.1.1.2.2.4"
+                        }
+                       ],
+                       "verses": [],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表3-2"
+                       ],
+                       "id": "k1.2.2.3.2.2.2.1.1.2.2"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表3-2"
+                     ],
+                     "id": "k1.2.2.3.2.2.2.1.1.2"
+                    }
+                   ],
+                   "verses": [],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表3-2"
+                   ],
+                   "id": "k1.2.2.3.2.2.2.1.1"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 2,
+                   "name": "摄义",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛二、摄义",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "犹如黑暗更暗处，轮回牢狱极难思，近取蕴上之痛苦，难以忍受由罪生。",
+                     "src": {
+                      "table": "表3-2",
+                      "page": 5
+                     },
+                     "stanzas": [
+                      "犹如黑暗更暗处，轮回牢狱极难思，近取蕴上之痛苦，难以忍受由罪生。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表3-2"
+                   ],
+                   "id": "k1.2.2.3.2.2.2.1.2"
+                  }
+                 ],
+                 "verses": [],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表3-2"
+                 ],
+                 "id": "k1.2.2.3.2.2.2.1"
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "所取因果",
+                 "divisions": 3,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、所取因果分三",
+                 "children": [
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 1,
+                   "name": "承上起下",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛一、承上起下",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "是故不净依他起，十善业道引善趣，与十不善相反者，真实当依十善业。",
+                     "src": {
+                      "table": "表3-2",
+                      "page": 5
+                     },
+                     "stanzas": [
+                      "是故不净依他起，十善业道引善趣，与十不善相反者，真实当依十善业。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表3-2"
+                   ],
+                   "id": "k1.2.2.3.2.2.2.2.1"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 2,
+                   "name": "随福德分",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛二、随福德分",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "十随福分引善趣，十不善业引恶趣，白黑因果作取舍，乃是小士道修法。",
+                     "src": {
+                      "table": "表3-2",
+                      "page": 5
+                     },
+                     "stanzas": [
+                      "十随福分引善趣，十不善业引恶趣，白黑因果作取舍，乃是小士道修法。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表3-2"
+                   ],
+                   "id": "k1.2.2.3.2.2.2.2.2"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 3,
+                   "name": "随解脱分",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛三、随解脱分",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "顺解脱无漏胜因，十善禅无色六度，皆由资粮加行见，修与无学五道摄。",
+                     "src": {
+                      "table": "表3-2",
+                      "page": 5
+                     },
+                     "stanzas": [
+                      "顺解脱无漏胜因，十善禅无色六度，皆由资粮加行见，修与无学五道摄。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表3-2"
+                   ],
+                   "id": "k1.2.2.3.2.2.2.2.3"
+                  }
+                 ],
+                 "verses": [],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表3-2"
+                 ],
+                 "id": "k1.2.2.3.2.2.2.2"
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "表0-2",
+                "page": 2
+               },
+               "seenIn": [
+                "表0-2",
+                "表3-2"
+               ],
+               "id": "k1.2.2.3.2.2.2"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-2",
+              "page": 2
+             },
+             "seenIn": [
+              "表0-2",
+              "表3-2"
+             ],
+             "id": "k1.2.2.3.2.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-2",
+            "page": 2
+           },
+           "seenIn": [
+            "表0-2",
+            "表3-2"
+           ],
+           "id": "k1.2.2.3.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "以清净因果结尾",
+           "divisions": null,
+           "chapter": null,
+           "refs": [
+            "表3-2"
+           ],
+           "note": null,
+           "raw": "丁三、以清净因果结尾（表3-2）",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "道位有缘福德资，无缘智慧资双运，净除二障现二身，即净因果深缘起。",
+             "src": {
+              "table": "表3-2",
+              "page": 5
+             },
+             "stanzas": [
+              "道位有缘福德资，无缘智慧资双运，净除二障现二身，即净因果深缘起。"
+             ]
+            }
+           ],
+           "src": {
+            "table": "表0-2",
+            "page": 2
+           },
+           "seenIn": [
+            "表0-2",
+            "表3-2"
+           ],
+           "id": "k1.2.2.3.3"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "表0-1",
+          "page": 1
+         },
+         "seenIn": [
+          "表0-1",
+          "表0-2",
+          "表3-1",
+          "表3-2"
+         ],
+         "id": "k1.2.2.3"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 4,
+         "name": "轮回痛苦",
+         "divisions": 2,
+         "chapter": "第四品 轮回痛苦",
+         "refs": [
+          "表4"
+         ],
+         "note": null,
+         "raw": "丙四、轮回痛苦分二【第四品轮回痛苦】（表4）",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "结合四而说",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、结合四而说分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "略说",
+             "divisions": null,
+             "chapter": null,
+             "refs": [
+              "表4-1"
+             ],
+             "note": null,
+             "raw": "戊一、略说（表4-1）",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "依增上生妙船众，暂离恶趣摩羯舌，未登解脱之陆地，故依四圣谛商主。",
+               "src": {
+                "table": "表4-1",
+                "page": 6
+               },
+               "stanzas": [
+                "【第四品轮回痛苦】依增上生妙船众，暂离恶趣摩羯舌，未登解脱之陆地，故依四圣谛商主。"
+               ]
+              }
+             ],
+             "src": {
+              "table": "表0-2",
+              "page": 2
+             },
+             "seenIn": [
+              "表0-2",
+              "表4-1"
+             ],
+             "id": "k1.2.2.4.1.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "广说",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、广说分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "广说苦谛",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、广说苦谛分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "总说轮回痛苦",
+                 "divisions": 4,
+                 "chapter": null,
+                 "refs": [
+                  "表4-1"
+                 ],
+                 "note": null,
+                 "raw": "庚一、总说轮回痛苦分四（表4-1）",
+                 "children": [
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 1,
+                   "name": "三苦周遍",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛一、三苦周遍",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "其中当知痛苦者，流转六道上下处，苦苦变苦与行苦，未被苦缚绝无有。",
+                     "src": {
+                      "table": "表4-1",
+                      "page": 6
+                     },
+                     "stanzas": [
+                      "其中当知痛苦者，流转六道上下处，苦苦变苦与行苦，未被苦缚绝无有。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.1.1"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 2,
+                   "name": "苦根苦缘",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛二、苦根苦缘",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "招致灾祸头高昂，恶毒欲魔与境毒，互斗交织牢狱中，无解脱时增忧苦。求安乐勤钻营者，被愚痴之力所压，依于苦因苦果刃，亲将己身臵险境。犹如飞蛾扑灯火，为声香味触所诱，野兽蜂鱼与大象，与五欲境紧相连。世间猛火极炽烈，野兽暴行极凶残，暴君刑罚极迅速，不及连绵苦逼众。",
+                     "src": {
+                      "table": "表4-1",
+                      "page": 6
+                     },
+                     "stanzas": [
+                      "招致灾祸头高昂，恶毒欲魔与境毒，互斗交织牢狱中，无解脱时增忧苦。",
+                      "求安乐勤钻营者，被愚痴之力所压，依于苦因苦果刃，亲将己身臵险境。",
+                      "犹如飞蛾扑灯火，为声香味触所诱，野兽蜂鱼与大象，与五欲境紧相连。",
+                      "世间猛火极炽烈，野兽暴行极凶残，暴君刑罚极迅速，不及连绵苦逼众。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.1.2"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 3,
+                   "name": "以利害而苦",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛三、以利害而苦",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "于我远近亲或怨，难以尽测众有情，偏执敌友中立方，给予利害超想象。",
+                     "src": {
+                      "table": "表4-1",
+                      "page": 6
+                     },
+                     "stanzas": [
+                      "于我远近亲或怨，难以尽测众有情，偏执敌友中立方，给予利害超想象。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.1.3"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 4,
+                   "name": "辗转受苦",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛四、辗转受苦",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "微如尘埃孤身我，命依躯壳为贪欲，一切所断头肢体，若积高过须弥山，地狱所饮沸铜汁，饿鬼所食脓血秽，因诸痛苦所流泪，多过无边江河水。",
+                     "src": {
+                      "table": "表4-1",
+                      "page": 6
+                     },
+                     "stanzas": [
+                      "微如尘埃孤身我，命依躯壳为贪欲，一切所断头肢体，若积高过须弥山，",
+                      "地狱所饮沸铜汁，饿鬼所食脓血秽，因诸痛苦所流泪，多过无边江河水。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.1.4"
+                  }
+                 ],
+                 "verses": [],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表4-1"
+                 ],
+                 "id": "k1.2.2.4.1.2.1.1"
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "别说六道痛苦",
+                 "divisions": 6,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、别说六道痛苦分六",
+                 "children": [
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 1,
+                   "name": "地狱之苦",
+                   "divisions": 4,
+                   "chapter": null,
+                   "refs": [
+                    "表4-1"
+                   ],
+                   "note": null,
+                   "raw": "辛一、地狱之苦分四（表4-1）",
+                   "children": [
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 1,
+                     "name": "热地狱之苦",
+                     "divisions": null,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬一、热地狱之苦",
+                     "children": [],
+                     "verses": [
+                      {
+                       "kind": "verse",
+                       "text": "尤以地狱苦无量，复活互杀后又生，黑绳锯割粘不断，众合兽头山夹捣，号叫沸铁汁烹煮，大号铁屋烈焰焚，烧热炽戟穿透身，极热三尖短矛刺，贯穿身躯铁片缠，沸腾铁汁无间狱，与火无二铁室燃。",
+                       "src": {
+                        "table": "表4-1",
+                        "page": 6
+                       },
+                       "stanzas": [
+                        "尤以地狱苦无量，复活互杀后又生，黑绳锯割粘不断，众合兽头山夹捣，",
+                        "号叫沸铁汁烹煮，大号铁屋烈焰焚，烧热炽戟穿透身，极热三尖短矛刺，",
+                        "贯穿身躯铁片缠，沸腾铁汁无间狱，与火无二铁室燃。"
+                       ]
+                      }
+                     ],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.1.1"
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 2,
+                     "name": "近边地狱之苦",
+                     "divisions": 2,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬二、近边地狱之苦分二",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "总说近边地狱",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、总说近边地狱",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "妄求暂息剧苦痛，近边门开煻煨坑，尸粪泥与剑叶林，无滩河胜阎罗口。",
+                         "src": {
+                          "table": "表4-1",
+                          "page": 6
+                         },
+                         "stanzas": [
+                          "妄求暂息剧苦痛，近边门开煻煨坑，尸粪泥与剑叶林，无滩河胜阎罗口。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-1"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.1.2.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "别说铁柱山",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、别说铁柱山",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "忆起旧爱誓言奔，利刺穿身极惨痛，炽燃粗暴铁女子，抱已鸦鹫啄其眼。",
+                         "src": {
+                          "table": "表4-1",
+                          "page": 6
+                         },
+                         "stanzas": [
+                          "忆起旧爱誓言奔，利刺穿身极惨痛，炽燃粗暴铁女子，抱已鸦鹫啄其眼。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-1"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.1.2.2"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.1.2"
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 3,
+                     "name": "寒地狱之苦",
+                     "divisions": 2,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬三、寒地狱之苦分二",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "总说共同痛苦",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、总说共同痛苦",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "暴风雪为颤索缚，无法行动仍存活，寒风利刃刺透骨，冷触紧牙所逼迫。",
+                         "src": {
+                          "table": "表4-1",
+                          "page": 6
+                         },
+                         "stanzas": [
+                          "暴风雪为颤索缚，无法行动仍存活，寒风利刃刺透骨，冷触紧牙所逼迫。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-1"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.1.3.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "别说各自痛苦",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、别说各自痛苦",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "具疱疱裂阿啾啾，矐矐婆及紧牙狱，皮裂六瓣如青莲，如红莲花大红莲，八瓣十六无数伤，利喙含生刺穿食。",
+                         "src": {
+                          "table": "表4-1",
+                          "page": 6
+                         },
+                         "stanzas": [
+                          "具疱疱裂阿啾啾，矐矐婆及紧牙狱，皮裂六瓣如青莲，如红莲花大红莲，",
+                          "八瓣十六无数伤，利喙含生刺穿食。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-1"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.1.3.2"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.1.3"
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 4,
+                     "name": "孤独地狱之苦",
+                     "divisions": null,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬四、孤独地狱之苦",
+                     "children": [],
+                     "verses": [
+                      {
+                       "kind": "verse",
+                       "text": "困于断木无门处，门柱炉灶绳索等，业化种种自色相，近取之苦无穷尽。",
+                       "src": {
+                        "table": "表4-1",
+                        "page": 6
+                       },
+                       "stanzas": [
+                        "困于断木无门处，门柱炉灶绳索等，业化种种自色相，近取之苦无穷尽。"
+                       ]
+                      }
+                     ],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.1.4"
+                    }
+                   ],
+                   "verses": [],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.1"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 2,
+                   "name": "饿鬼之苦",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [
+                    "表4-1"
+                   ],
+                   "note": null,
+                   "raw": "辛二、饿鬼之苦（表4-1）",
+                   "children": [],
+                   "verses": [],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.2",
+                   "noVerse": true
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 3,
+                   "name": "旁生之苦",
+                   "divisions": 2,
+                   "chapter": null,
+                   "refs": [
+                    "表4-1"
+                   ],
+                   "note": null,
+                   "raw": "辛三、旁生之苦分二（表4-1）",
+                   "children": [
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 1,
+                     "name": "总说",
+                     "divisions": null,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬一、总说",
+                     "children": [],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.3.1",
+                     "noVerse": true
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 2,
+                     "name": "别说",
+                     "divisions": null,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬二、别说",
+                     "children": [],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-1"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.3.2",
+                     "noVerse": true
+                    }
+                   ],
+                   "verses": [],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.3"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 4,
+                   "name": "天人之苦",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [
+                    "表4-1"
+                   ],
+                   "note": null,
+                   "raw": "辛四、天人之苦（表4-1）",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "无色等持无记业，耗尽复行后世中，色界禅定旧业尽，堕入下界受变苦。梵天帝释转轮王，犹如云间之日轮，白法异熟穷尽后，如灯燃尽酥油坏。柔软触感踩有弹，天龙以及紧那罗，冠饰光映红莲足，帝释遭燃铁戟刺。触摸天女柔酥胸，依止藤蔓欢喜林，珠网严饰美宫殿，离彼倒栽堕煻煨。衣座花鬘皆已旧，汗水洗面之天女，注视亲友而哭泣，此等死苦人间无。运行持双山顶上，如伞普照日与月，此后堕入黑暗狱，大盲暗之时节至。",
+                     "src": {
+                      "table": "表4-1",
+                      "page": 6
+                     },
+                     "stanzas": [
+                      "无色等持无记业，耗尽复行后世中，色界禅定旧业尽，堕入下界受变苦。",
+                      "梵天帝释转轮王，犹如云间之日轮，白法异熟穷尽后，如灯燃尽酥油坏。",
+                      "柔软触感踩有弹，天龙以及紧那罗，冠饰光映红莲足，帝释遭燃铁戟刺。",
+                      "触摸天女柔酥胸，依止藤蔓欢喜林，珠网严饰美宫殿，离彼倒栽堕煻煨。",
+                      "衣座花鬘皆已旧，汗水洗面之天女，注视亲友而哭泣，此等死苦人间无。",
+                      "运行持双山顶上，如伞普照日与月，此后堕入黑暗狱，大盲暗之时节至。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-1"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.4"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 5,
+                   "name": "阿修罗之苦",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [
+                    "表4-2"
+                   ],
+                   "note": null,
+                   "raw": "辛五、阿修罗之苦（表4-2）",
+                   "children": [],
+                   "verses": [
+                    {
+                     "kind": "verse",
+                     "text": "嫉妒天德生嗔恚，如斧割裂自心房，凶猛战场斗争时，断头截肢恼非天。",
+                     "src": {
+                      "table": "表4-2",
+                      "page": 7
+                     },
+                     "stanzas": [
+                      "嫉妒天德生嗔恚，如斧割裂自心房，凶猛战场斗争时，断头截肢恼非天。"
+                     ]
+                    }
+                   ],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-2"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.5"
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 6,
+                   "name": "人类之苦",
+                   "divisions": 2,
+                   "chapter": null,
+                   "refs": [
+                    "表4-2"
+                   ],
+                   "note": null,
+                   "raw": "辛六、人类之苦分二（表4-2）",
+                   "children": [
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 1,
+                     "name": "三大根本苦",
+                     "divisions": 3,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬一、三大根本苦分三",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "苦苦",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、苦苦",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "生命动摇如水泡，人类忧恼极烦乱，前苦牵引后苦来，如麻风又添恶疮。",
+                         "src": {
+                          "table": "表4-2",
+                          "page": 7
+                         },
+                         "stanzas": [
+                          "生命动摇如水泡，人类忧恼极烦乱，前苦牵引后苦来，如麻风又添恶疮。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-2"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.6.1.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "变苦",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、变苦",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "圆满善趣功德园，贪图妙味误食毒，所生疮痍身难忍，如魔术得此变苦。",
+                         "src": {
+                          "table": "表4-2",
+                          "page": 7
+                         },
+                         "stanzas": [
+                          "圆满善趣功德园，贪图妙味误食毒，所生疮痍身难忍，如魔术得此变苦。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-2"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.6.1.2"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 3,
+                       "name": "行苦",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸三、行苦",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "希求双足不沾地，纵具疲惫乘象肩，象心为嬉戏所狂，恐坠深渊即行苦。",
+                         "src": {
+                          "table": "表4-2",
+                          "page": 7
+                         },
+                         "stanzas": [
+                          "希求双足不沾地，纵具疲惫乘象肩，象心为嬉戏所狂，恐坠深渊即行苦。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-2"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.6.1.3"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-2"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.6.1"
+                    },
+                    {
+                     "level": "壬",
+                     "depth": 9,
+                     "num": 2,
+                     "name": "八支分苦",
+                     "divisions": 2,
+                     "chapter": null,
+                     "refs": [],
+                     "note": null,
+                     "raw": "壬二、八支分苦分二",
+                     "children": [
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 1,
+                       "name": "略说",
+                       "divisions": null,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸一、略说",
+                       "children": [],
+                       "verses": [
+                        {
+                         "kind": "verse",
+                         "text": "漂泊三苦旷野中，生老病死之感受，不希求之怨憎会，合意爱人非处转，欲求境界不来临，近取蕴上苦行聚，八种苦难具强力，人类众生恒折磨。",
+                         "src": {
+                          "table": "表4-2",
+                          "page": 7
+                         },
+                         "stanzas": [
+                          "漂泊三苦旷野中，生老病死之感受，不希求之怨憎会，合意爱人非处转，",
+                          "欲求境界不来临，近取蕴上苦行聚，八种苦难具强力，人类众生恒折磨。"
+                         ]
+                        }
+                       ],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-2"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.6.2.1"
+                      },
+                      {
+                       "level": "癸",
+                       "depth": 10,
+                       "num": 2,
+                       "name": "广说",
+                       "divisions": 8,
+                       "chapter": null,
+                       "refs": [],
+                       "note": null,
+                       "raw": "癸二、广说分八",
+                       "children": [
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 1,
+                         "name": "生苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子一、生苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "不净污浊极臭秽，周围狭窄漆黑处，胎内如无门铁室，无明识依精血中。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "不净污浊极臭秽，周围狭窄漆黑处，胎内如无门铁室，无明识依精血中。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.1"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 2,
+                         "name": "老苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子二、老苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "老朽惩罚摧青春，身衰意苦重担临，行动力衰依手杖，来回难行关节变，诸根衰退失受用，欲境功德愚钝衰，如同日光被云遮，迷离徘徊卧榻上。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "老朽惩罚摧青春，身衰意苦重担临，行动力衰依手杖，来回难行关节变，",
+                            "诸根衰退失受用，欲境功德愚钝衰，如同日光被云遮，迷离徘徊卧榻上。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.2"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 3,
+                         "name": "病苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子三、病苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "原本平衡聚汇池，以病痛受搅浑浊，五蕴近取以此疲，忧惧远离生存稳。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "原本平衡聚汇池，以病痛受搅浑浊，五蕴近取以此疲，忧惧远离生存稳。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.3"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 4,
+                         "name": "死苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子四、死苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "此三有中命之价，无有际限死苦逼，为彼所毁之士夫，失亲离财无立锥。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "此三有中命之价，无有际限死苦逼，为彼所毁之士夫，失亲离财无立锥。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.4"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 5,
+                         "name": "怨憎会苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子五、怨憎会苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "与不悦意境相遇，苦使逼迫并轻凌，如毁安乐休息台，不得喘息更受困。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "与不悦意境相遇，苦使逼迫并轻凌，如毁安乐休息台，不得喘息更受困。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.5"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 6,
+                         "name": "爱别离苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子六、爱别离苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "爱别离新出现时，悲愁使身如苦行，诺桑为寻香女缚，险途危伏路漫漫。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "爱别离新出现时，悲愁使身如苦行，诺桑为寻香女缚，险途危伏路漫漫。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.6"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 7,
+                         "name": "求不得苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子七、求不得苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "贫困匮乏之众生，希忧饥渴事不成，身语唯受他役使，苦楚如地游饿鬼。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "贫困匮乏之众生，希忧饥渴事不成，身语唯受他役使，苦楚如地游饿鬼。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.7"
+                        },
+                        {
+                         "level": "子",
+                         "depth": 11,
+                         "num": 8,
+                         "name": "近取五蕴苦",
+                         "divisions": null,
+                         "chapter": null,
+                         "refs": [],
+                         "note": null,
+                         "raw": "子八、近取五蕴苦",
+                         "children": [],
+                         "verses": [
+                          {
+                           "kind": "verse",
+                           "text": "色蕴依托受知性，想蕴令其延续行，行蕴造后续种子，识蕴领受苦近取。",
+                           "src": {
+                            "table": "表4-2",
+                            "page": 7
+                           },
+                           "stanzas": [
+                            "色蕴依托受知性，想蕴令其延续行，行蕴造后续种子，识蕴领受苦近取。"
+                           ]
+                          }
+                         ],
+                         "src": {
+                          "table": "表0-2",
+                          "page": 2
+                         },
+                         "seenIn": [
+                          "表0-2",
+                          "表4-2"
+                         ],
+                         "id": "k1.2.2.4.1.2.1.2.6.2.2.8"
+                        }
+                       ],
+                       "verses": [],
+                       "src": {
+                        "table": "表0-2",
+                        "page": 2
+                       },
+                       "seenIn": [
+                        "表0-2",
+                        "表4-2"
+                       ],
+                       "id": "k1.2.2.4.1.2.1.2.6.2.2"
+                      }
+                     ],
+                     "verses": [],
+                     "src": {
+                      "table": "表0-2",
+                      "page": 2
+                     },
+                     "seenIn": [
+                      "表0-2",
+                      "表4-2"
+                     ],
+                     "id": "k1.2.2.4.1.2.1.2.6.2"
+                    }
+                   ],
+                   "verses": [],
+                   "src": {
+                    "table": "表0-2",
+                    "page": 2
+                   },
+                   "seenIn": [
+                    "表0-2",
+                    "表4-2"
+                   ],
+                   "id": "k1.2.2.4.1.2.1.2.6"
+                  }
+                 ],
+                 "verses": [],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表4-1",
+                  "表4-2"
+                 ],
+                 "id": "k1.2.2.4.1.2.1.2"
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "表0-2",
+                "page": 2
+               },
+               "seenIn": [
+                "表0-2",
+                "表4-1",
+                "表4-2"
+               ],
+               "id": "k1.2.2.4.1.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "宣说其余三谛",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [
+                "表4-2"
+               ],
+               "note": null,
+               "raw": "己二、宣说其余三谛分三（表4-2）",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "宣说集谛",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、宣说集谛",
+                 "children": [],
+                 "verses": [
+                  {
+                   "kind": "verse",
+                   "text": "此等五蕴乃诸苦，一切来源诸依器，了知因果主宰已，集谛业惑当断除。",
+                   "src": {
+                    "table": "表4-2",
+                    "page": 7
+                   },
+                   "stanzas": [
+                    "此等五蕴乃诸苦，一切来源诸依器，了知因果主宰已，集谛业惑当断除。"
+                   ]
+                  }
+                 ],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表4-2"
+                 ],
+                 "id": "k1.2.2.4.1.2.2.1"
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "宣说道谛",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、宣说道谛",
+                 "children": [],
+                 "verses": [
+                  {
+                   "kind": "verse",
+                   "text": "断已登入中士道，乘坐四谛之马车，证悟灭谛涅槃界，趋往殊胜解脱处。",
+                   "src": {
+                    "table": "表4-2",
+                    "page": 7
+                   },
+                   "stanzas": [
+                    "断已登入中士道，乘坐四谛之马车，证悟灭谛涅槃界，趋往殊胜解脱处。"
+                   ]
+                  }
+                 ],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表4-2"
+                 ],
+                 "id": "k1.2.2.4.1.2.2.2"
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "宣说灭谛",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、宣说灭谛",
+                 "children": [],
+                 "verses": [
+                  {
+                   "kind": "verse",
+                   "text": "诸法根本为无明，从彼生行后生识，名色从识而产生，依于名色生六处，六处生触触生受，由受生爱爱生取，取生有支有生生，若有生则求不得，忧恼疾病老死等，大苦蕴聚全成就。若灭生则一切灭，缘起因果甚深理，乃实语佛所说藏。",
+                   "src": {
+                    "table": "表4-2",
+                    "page": 7
+                   },
+                   "stanzas": [
+                    "诸法根本为无明，从彼生行后生识，名色从识而产生，依于名色生六处，",
+                    "六处生触触生受，由受生爱爱生取，取生有支有生生，若有生则求不得，",
+                    "忧恼疾病老死等，大苦蕴聚全成就。若灭生则一切灭，缘起因果甚深理，",
+                    "乃实语佛所说藏。"
+                   ]
+                  }
+                 ],
+                 "src": {
+                  "table": "表0-2",
+                  "page": 2
+                 },
+                 "seenIn": [
+                  "表0-2",
+                  "表4-2"
+                 ],
+                 "id": "k1.2.2.4.1.2.2.3"
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "表0-2",
+                "page": 2
+               },
+               "seenIn": [
+                "表0-2",
+                "表4-2"
+               ],
+               "id": "k1.2.2.4.1.2.2"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "表0-2",
+              "page": 2
+             },
+             "seenIn": [
+              "表0-2",
+              "表4-1",
+              "表4-2"
+             ],
+             "id": "k1.2.2.4.1.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "表0-2",
+            "page": 2
+           },
+           "seenIn": [
+            "表0-2",
+            "表4-1",
+            "表4-2"
+           ],
+           "id": "k1.2.2.4.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "本品摄义",
+           "divisions": null,
+           "chapter": null,
+           "refs": [
+            "表4-2"
+           ],
+           "note": null,
+           "raw": "丁二、本品摄义（表4-2）",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "超越三有高下业，以及黑白因果法，证悟寂灭微妙法，皆由无生法性生。",
+             "src": {
+              "table": "表4-2",
+              "page": 7
+             },
+             "stanzas": [
+              "超越三有高下业，以及黑白因果法，证悟寂灭微妙法，皆由无生法性生。"
+             ]
+            }
+           ],
+           "src": {
+            "table": "表0-2",
+            "page": 2
+           },
+           "seenIn": [
+            "表0-2",
+            "表4-2"
+           ],
+           "id": "k1.2.2.4.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "表0-2",
+          "page": 2
+         },
+         "seenIn": [
+          "表0-2",
+          "表4-1",
+          "表4-2"
+         ],
+         "id": "k1.2.2.4"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "表0-1",
+        "page": 1
+       },
+       "seenIn": [
+        "表0-1",
+        "表0-2",
+        "表1",
+        "表2",
+        "表3-1",
+        "表3-2",
+        "表4-1",
+        "表4-2"
+       ],
+       "id": "k1.2.2"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "表0-1",
+      "page": 1
+     },
+     "seenIn": [
+      "表0-1",
+      "表0-2",
+      "表1",
+      "表2",
+      "表3-1",
+      "表3-2",
+      "表4-1",
+      "表4-2"
+     ],
+     "id": "k1.2"
+    }
+   ],
+   "verses": [
+    {
+     "kind": "note",
+     "text": "功德藏自释——二谛车智悲光尊者•造论索达吉堪布•翻译",
+     "src": {
+      "table": "表1",
+      "page": 3
+     },
+     "pos": "before"
+    },
+    {
+     "kind": "note",
+     "text": "顶礼文殊童子与无垢称菩萨！",
+     "src": {
+      "table": "表1",
+      "page": 3
+     },
+     "pos": "before"
+    },
+    {
+     "kind": "verse",
+     "text": "非一不住多，无碍解之意，三转灭道谛，抉择二谛语。无嗔摧轮回，见而无厌身，诸佛所宣说，三宝乃上师。此依能诠说，十二支教法，福德道涅槃，三种之法相，悟入所诠义，正法之法脉，共称三乘道，白伞护众生。修习增上戒，正定得正行，依彼之慧学，摧惑敌漏尽，圣者心具足，智解三学性，具择法胜慧，菩萨众前礼。",
+     "src": {
+      "table": "表1",
+      "page": 3
+     },
+     "stanzas": [
+      "非一不住多，无碍解之意，三转灭道谛，抉择二谛语。",
+      "无嗔摧轮回，见而无厌身，诸佛所宣说，三宝乃上师。",
+      "此依能诠说，十二支教法，福德道涅槃，三种之法相，",
+      "悟入所诠义，正法之法脉，共称三乘道，白伞护众生。",
+      "修习增上戒，正定得正行，依彼之慧学，摧惑敌漏尽，",
+      "圣者心具足，智解三学性，具择法胜慧，菩萨众前礼。"
+     ],
+     "pos": "before"
+    }
+   ],
+   "src": {
+    "table": "表0-1",
+    "page": 1
+   },
+   "seenIn": [
+    "表0-1",
+    "表0-2",
+    "表1",
+    "表2",
+    "表3-1",
+    "表3-2",
+    "表4-1",
+    "表4-2"
+   ],
+   "id": "k1"
+  }
+ ]
+}
