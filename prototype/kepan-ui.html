@@ -351,7 +351,9 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .lo .lt2{flex:1}.lo.bad{opacity:.55;animation:shake .35s;border-color:color-mix(in srgb,#c0392b 50%,var(--line));border-left-color:#c0392b}.lo em{font-style:normal;font-size:12px;color:#c0392b;font-family:var(--sans)}
 .ltree{display:grid;gap:3px}.lr{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:14px;padding:3px 0 3px 8px;border-left:3px solid var(--lc)}.lr.auto{opacity:.55}.lnext{padding-left:8px;border-left:3px dashed color-mix(in srgb,var(--ink) 20%,transparent)}
 .sres{font-family:var(--serif);font-size:14px;text-align:center;padding:2px 0}.sres.ok{color:#a4781f;font-weight:700}.sres.no{color:var(--muted)}
-.why{background:color-mix(in srgb,var(--gold) 8%,var(--panel));border:1px solid color-mix(in srgb,var(--gold) 30%,var(--line));border-radius:10px;padding:8px 12px;font-family:var(--serif);font-size:13.5px}.why summary{cursor:pointer;color:var(--ink)}.why p{margin:6px 0 2px}.why small{color:var(--muted);font-size:11.5px}
+.why{background:color-mix(in srgb,var(--gold) 8%,var(--panel));border:1px solid color-mix(in srgb,var(--gold) 30%,var(--line));border-radius:10px;padding:8px 12px;font-family:var(--serif);font-size:13.5px}.why summary{cursor:pointer;color:var(--ink)}.why p{margin:6px 0 2px}
+.why .whyb{padding:8px 2px 0;max-height:46vh;overflow:auto}
+.why .whyb p{margin:0 0 .7em}.why small{color:var(--muted);font-size:11.5px}
 .eh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--serif);font-size:17px;padding:10px 12px;border-radius:12px;background:var(--panel);border:1.5px solid var(--lc)}.eh>span:last-child{width:100%;font-size:13px;color:var(--muted)}.eh em{font-style:normal;color:var(--lc);font-weight:700;font-size:16px}.eh small{display:block;font-size:11.5px}
 .eslots{display:grid;gap:6px}.es{display:flex;align-items:center;gap:8px;min-height:38px;padding:4px 10px 4px 6px;border-radius:10px;border:1.5px dashed color-mix(in srgb,var(--ink) 18%,transparent);font-family:var(--serif);font-size:15px}
 .es.fill{border-style:solid;border-color:color-mix(in srgb,var(--lc) 60%,transparent);background:color-mix(in srgb,var(--lc) 7%,var(--bg));animation:fin .25s}.es.next{border-color:var(--k0);box-shadow:0 0 0 3px color-mix(in srgb,var(--k0) 14%,transparent)}
@@ -533,6 +535,16 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .impv{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .impv .hsp{writing-mode:vertical-rl;background:var(--k0);color:var(--kt0);font-family:var(--serif);font-weight:700;padding:10px 6px;border-radius:4px;letter-spacing:.12em;font-size:14px;min-height:64px;text-align:center;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--gold,#c9a24a) 70%,transparent)}
 .impv b{font-family:var(--serif);font-size:16px}
+.sk0{font-family:var(--serif);font-size:13px;line-height:1.35;color:var(--k0);font-weight:700}
+.welc{position:relative;background:color-mix(in srgb,var(--gold,#c9a24a) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--gold,#c9a24a) 40%,var(--line));border-radius:14px;padding:12px 12px 8px;display:grid;gap:6px}
+.welc>b{font-family:var(--serif);font-size:15.5px;padding:0 2px 2px}
+.welx{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:13px;cursor:pointer;padding:4px 6px}
+.wels{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:var(--panel);border-radius:10px;padding:9px 10px;cursor:pointer;color:var(--ink);font-family:inherit}
+.wels i{width:22px;height:22px;border-radius:50%;background:var(--k0);color:var(--kt0);display:grid;place-items:center;font-style:normal;font-size:12px;flex:none}
+.wels.dn i{background:none;border:1.5px solid var(--k0);color:var(--k0)}
+.wels span{flex:1;display:grid;font-size:14.5px;font-family:var(--serif)}
+.wels small{font-size:12px;color:var(--muted);font-family:var(--sans)}
+.wels em{font-style:normal;color:var(--muted);font-size:18px}
 /* settings */
 .app.settings .sbody{flex:1;overflow:auto;padding:10px 14px 30px;display:flex;flex-direction:column;gap:6px}
 .app.settings .sbody>.sin{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
@@ -1201,7 +1213,7 @@ function streakLamps(){const wk=HIST.slice(-7);const C=todayCount();const todayO
   return `<span class="sl ${on?"on":"off"} ${i===6?"td":""}">${pillLampAt(on?0:10,z)}<em>${lab}</em></span>`}).join('<i class="sksp"></i>');
  const head=M==="text"||M==="both"?`<small class="skm">${mon}</small>`:"";
  const tag=M==="date"?`<span class="skmt"><b>${days[0].getMonth()+1}</b>月</span>`:"";
- return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}<span class="sk1">已连续点灯</span><span class="sk2n"><b>${SR.streak}</b> 天</span></span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
+ return `<div class="skbar sk2 bg-${ST.skbg} lay-${ST.sklay} m-${M}" style="--lzb:${z}px;--lgb:${ST.skgap}px;--stf:${ST.sktf}px;--snf:${ST.sknf}px"><span class="skt">${head}${SR.streak?`<span class="sk1">已连续点灯</span><span class="sk2n"><b>${SR.streak}</b> 天</span>`:`<span class="sk1">还没点灯</span><span class="sk0">今天点<br>第一盏</span>`}</span>${tag}<span class="skl2">${lamps}</span>${ex}</div>`}
 function wStudy(w){if(w.real){const C=todayCount();if(ST.lstate!=="auto"){const t=ST.lstate;return {rev:t==="go"?6:0,nw:t==="fresh"||t==="go"?1:0,last:t==="go"?1:0,state:t}}return {rev:C.rev,nw:C.nw,last:SR.last,state:paceState(C)}}return FSTUDY[w.id]||null}
 const agoT=d=>d===0?"今天复习过":d===1?"昨天复习过":`${d} 天没复习了`;
 const tempOf=d=>d<=1?0:d<=3?1:d<=7?2:3;
@@ -1235,6 +1247,9 @@ function grade(t,ok){if(t.daily){SR.daily={done:true,ok,used:5-SS.t.chances};ret
 function startSession(opt){SS={q:opt&&opt.daily?[opt.daily]:buildQueue(),i:0,res:[],daily:!!(opt&&opt.daily),from:ST.screen==="study"?"home":ST.screen};SS.t=initTask(SS.q[0]);ST.screen="study";ST.tocOpen=false;render();bindPanel()}
 function exitSession(){const f=SS&&SS.from||"home";SS=null;ST.screen=f;render();bindPanel()}
 function chipsPath(A){return `<div class="spath">${A.map(x=>`<span style="--lc:var(--k${x.depth})"><b>${x.code}</b>${esc(x.title)}</span>`).join("<i>›</i>")}</div>`}
+function whyBody(t,T){const G=shyG(bkKey(t.B),T.leaf.id);
+ if(!G||!G.some(g=>g.t.length))return `<p>科判名本身就是这几颂的概括：「${esc(t.n.title)}」说的正是上面这段颂词的内容。</p><small>这一科还没有挂上释义。</small>`;
+ return `<div class="shyb whyb" style="--sf:${ST.shyf}px">${G.map(g=>shyBody(g,G.length>1)).join("")}<p class="shysrc">——${esc((WORKS[0].shiyi)||"释义")}</p></div>`}
 function locHTML(t,T){const P=T.path,chosen=P.slice(0,T.lay),cur=T.done?null:P[T.lay];const base=P[0].lvl;
  const ob=c=>{const w=T.bad[c.id];return `<button class="lo ${w?"bad":""}" data-lo="${c.id}" ${w?"disabled":""} style="--lc:var(--k${c.depth})">${badge(c)}<span class="lt2">${esc(c.title)}</span>${w?`<em>${w}</em>`:""}</button>`};
  const opts=cur?`<div class="lopts">${cur.p.c.map(ob).join("")}</div>`:"";
@@ -1242,7 +1257,7 @@ function locHTML(t,T){const P=T.path,chosen=P.slice(0,T.lay),cur=T.done?null:P[T
  if(ST.locsty==="tree")mid=`<div class="ltree">${chosen.map((x,i)=>`<div class="lr ${i<T.auto?"auto":""}" style="--lc:var(--k${x.depth});margin-left:${(x.lvl-base)*10}px">${badge(x)}<span>${esc(x.title)}</span></div>`).join("")}${cur?`<div class="lnext" style="margin-left:${(cur.lvl-base)*10}px">${opts}</div>`:""}</div>`;
  else mid=`<div class="lpath">${chosen.map((x,i)=>`<span class="${i<T.auto?"auto":""}" style="--lc:var(--k${x.depth})"><b>${x.code}</b>${esc(x.title)}</span>`).join("<i>›</i>")}${cur?`${chosen.length?"<i>›</i>":""}<span class="lqm">？</span>`:""}</div>${opts}`;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.daily?(T.fail?"5 次机会用完了，答案在上面":`用了 ${5-T.chances} 次机会就找到了`):T.wrong?`中途选错过 ${T.wrong} 次，这题按答错记`:"一次选对"}</div>
-  ${t.daily?"":`<details class="why"><summary>为什么归在「${esc(t.n.title)}」？先自己想一想</summary><p>科判名本身就是这几颂的概括：「${esc(t.n.title)}」说的正是上面这段颂词的内容。</p><small>更详细的一句话解释要从释论里整理，来源还没定。</small></details>`}`:"";
+  ${t.daily?"":`<details class="why"><summary>为什么归在「${esc(t.n.title)}」？先自己想一想</summary>${whyBody(t,T)}</details>`}`:"";
  return `<div class="lq"><div class="lql">${T.done?"":"这一颂在哪一科？"}${t.daily?"":`<span>${T.done?"":`从${P[T.auto].code[0]}开始，一层一层选`}</span>`}</div>${verseHTML(T.leaf.v)}</div>${mid}${res}`}
 function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const head=`${R?"":chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth||0})">${R?"":badge(n)}<b>${esc(R?B.title:n.title)}</b><span>分 <em>${n.c.length}</em> 支，依次是？${t.isNew?"<small>第一次学：只有正确的卡片</small>":T.dis.size?`<small>混了 ${T.dis.size} 张别处的卡片</small>`:""}</span></div>`;
@@ -1360,10 +1375,13 @@ function renderHome(){const W=wide();
  else if(ST.hsort==="fixed"&&rec.length){body=`<div class="hgroup">最近在读</div><div class="hrecent">${rec.map(o=>`<button class="hrc" data-wopen="${o.w.id}"><b>${esc(o.w.title)}</b><span>${esc(o.l.txt)}</span>${progHTML(wProg(o.w),o.w)}</button>`).join("")}</div><div class="hgroup">全部 ${WORKS.length} 部</div><div class="hlist g-${ST.hcard}">${list.map(card).join("")}</div>`}
  else body=`<div class="hlist g-${ST.hcard}">${list.map(card).join("")}</div>`;
  const TAB=ST.lentry==="tab";
+ if(!R)body=welcomeHTML()+body;
  if(!R){if(ST.lentry==="top")body=todayHTML()+body;else if(ST.lentry==="book")body=todayHTML("strip")+body;else if(TAB&&ST.htab==="today")body=todayHTML("page")}
  const C0=todayCount();
  dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn" data-import aria-label="导入一部论">＋</button><button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
   <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
+ {const q=(s,f)=>{const e=dev.querySelector(s);if(e)e.onclick=f};q("[data-welx]",()=>{WELX=true;rer()});q("[data-welpace]",()=>{PACESH=true;PRESTART=false;rer()});
+  q("[data-wellearn]",()=>{const l=dev.querySelector('.hw[data-w="rxl"] [data-learn]');if(l)l.click()});q("[data-welread]",()=>{const o=dev.querySelector('.hwm[data-wopen="rxl"]');if(o)o.click()})}
  {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
@@ -1454,6 +1472,13 @@ function renderImport(){if(!IMP)impReset();const I=IMP;const hasE=!!I.epub;
  q("[data-impdone]",()=>{const ex=WORKS.find(w=>w.title===I.short.trim());let msg;if(ex){ex.long=I.long.trim();msg="已更新《"+ex.title+"》";}else{const id="imp"+Date.now();WORKS.splice(1,0,{id,title:I.short.trim(),long:I.long.trim(),full:I.long.trim(),roles:IMPD.meta.roles,chaps:CHAPS,ed:IMPD.meta.ed,date:"刚刚导入",shiyi:I.epub?"已挂讲记":null,fake:{prog:0}});DL[id]="ok";msg="《"+I.short.trim()+"》已加入书架"}
   IMP=null;ST.screen="home";render();bindPanel();const el=dev.querySelector(".htoast");if(el){el.textContent=msg;el.hidden=false;setTimeout(()=>el.hidden=true,2000)}});
 }
+let FIRST=false,WELX=false;
+function welcomeHTML(){if(!FIRST||WELX)return "";const c=courseLeaf();const started=Object.keys(SR.it).length>0;
+ return `<div class="welc"><button class="welx" data-welx aria-label="收起">✕</button><b>从这里开始</b>
+  <button class="wels ${c?"dn":""}" data-welpace><i>${c?"✓":"1"}</i><span>告诉我课讲到哪了<small>${c?esc(c.code+" "+c.title):"新学的颂词不会超过课程进度"}</small></span><em>›</em></button>
+  <button class="wels ${started?"dn":""}" data-wellearn><i>${started?"✓":"2"}</i><span>背第一颂<small>每天学完当天的，就点亮一盏灯</small></span><em>›</em></button>
+  <button class="wels" data-welread><i>3</i><span>或者先读一读<small>点颂词可以看释义</small></span><em>›</em></button></div>`}
+function firstRun(){FIRST=true;SR.it={};SR.streak=0;SR.last=0;SR.wkNew=0;SR.daily=null;HIST.fill(0);delete RECENT.rxl;LAST={bk:"p1",id:null};COURSE=null;Object.keys(DL).forEach(k=>delete DL[k]);Object.keys(FSTUDY).forEach(k=>delete FSTUDY[k]);WORKS.forEach(w=>{if(!w.real)w.fake={prog:0}});ST.lstate="auto";SHY=null;IMP=null;MENU=null;ST.screen="home";ST.tocOpen=false}
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
 function renderSettings(){const dk=isDarkNow();
@@ -1563,7 +1588,7 @@ function panelHTML(){const W=wide();const ind=W?ST.indW:ST.indP;
  const G=(k,label,opts)=>`<div class="og"><b>${label}</b>${Object.entries(opts).map(([v,t])=>`<button data-o="${k}" data-v="${v}" aria-pressed="${String(ST[k])===v}">${t}</button>`).join("")}</div>`;
  const R=(id,label,min,max,step,val,unit)=>`<div class="og"><b>${label}</b><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" aria-label="${label}"><output id="${id}o">${val}${unit}</output></div>`;
  return `<h2>调整</h2>
- <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
+ <div class="grp"><h3>演示</h3><div class="og"><button id="srseed">重置成示例进度</button><button id="srfirst">第一次打开的样子</button></div><p class="note">书卡上的复习按钮：</p><div class="ppv" id="ppv">${[0,1,3,6,10].map(d=>pillHTML({rev:5,nw:1,last:d})).join("")}</div></div>
  <div class="grp"><h3>导图</h3><p class="note">导图在手机和宽屏上都是横排标题、从左到右（已确认）；◎ 聚焦倍数 手机 0.9×、宽屏 0.75×。</p></div>
  <div class="grp"><h3>思维导图</h3>
   <p class="note">平板和电脑：导图右下角多一个 ⛶，点了铺满整个界面，再点 ⤡ 退回侧栏。点路径卡片 → 顶部正中切到「导图」。单指拖动画布，双指或滚轮缩放；点有分支的科判展开 / 收起（右侧 +N 是收起的子科数），点最末一科直接跳到颂词。选中某一科后底部会出现「跳到…」。右下角：放大、缩小、看全图、回到当前位置。一打开只展开当前所在的那一条路径，当前段落用金框标出。</p></div>
@@ -1598,7 +1623,8 @@ function bindPanel(){panel.innerHTML=panelHTML();summary();
  R("sklz",v=>{ST.sklz=v;render()}," px");R("sktf",v=>{ST.sktf=v;render()}," px");R("skgap",v=>{ST.skgap=v;render()}," px");R("sknf",v=>{ST.sknf=v;render()}," px");
  R("rtw",v=>{ST.rtw=v;render()},"°");R("rlight",v=>{ST.rlight=v;render()},"%");R("rfib",v=>{ST.rfib=v;render()},"%");R("rshadow",v=>{ST.rshadow=v;applyPB()}," px");
  R("ew",v=>{ST.ew=v;render()}," px");R("eplz",v=>{ST.plz=v;render()}," px");R("efs",v=>{ST.efs=v;render()}," px");R("er",v=>{ST.er=v;render()}," px");
- const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
+ const sf=panel.querySelector("#srfirst");if(sf)sf.onclick=()=>{firstRun();render();bindPanel()};
+ const sd=panel.querySelector("#srseed");if(sd)sd.onclick=()=>{FIRST=false;if(!SR.streak)SR.streak=12;seedSR();if(ST.screen==="study")ST.screen="home";render();bindPanel()};
  const ot=panel.querySelector("#opentoc");if(ot)ot.onclick=()=>{ST.tocOpen=!ST.tocOpen;render();bindPanel()};
 }
 function setDev(d){curDev=d;const [w,h,wd]=DEV[d];dev.style.setProperty("--dw",w+"px");dev.style.setProperty("--dh",h+"px");dev.classList.toggle("wide",wd);
