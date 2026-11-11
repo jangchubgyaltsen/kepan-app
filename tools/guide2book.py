@@ -352,7 +352,7 @@ def convert(epub_path, book_id, skip_verses=()):
     whole = {r.id for r in part_kids if re.match(r"^第.观修法$", r.name or "")}
     skip = {n["id"] for n in nodes if n["name"] in skip_verses}
     for rid, its in rows.items():
-        stanzas, run, run_items = [], [], []
+        stanzas, pys, run, run_items = [], [], [], []
 
         def flush():
             nonlocal run, run_items
@@ -370,6 +370,7 @@ def convert(epub_path, book_id, skip_verses=()):
                     it["s"] = len(stanzas) + max(i for i, s0 in enumerate(starts) if s0 <= pos)
                     pos += len(t)
                 stanzas.extend(sts)
+                pys.extend([None] * len(sts))
             else:
                 # 开显解脱道的四个观修法各是七句一偈，整段算一颂；其余四句一颂
                 size = len(run) if rid in whole else 4
@@ -378,6 +379,7 @@ def convert(epub_path, book_id, skip_verses=()):
                     for it in run_items[i:i + size]:
                         it["s"] = len(stanzas)
                     stanzas.append("，".join(x[1] for x in chunk) + "。")
+                    pys.append([it.get("py") or "" for it in run_items[i:i + size]])  # 背的时候看着音译背汉义
             run, run_items = [], []
         for it in its:
             if it["type"] == "verse":
@@ -396,8 +398,10 @@ def convert(epub_path, book_id, skip_verses=()):
                 flush()
         flush()
         if stanzas and rid in leaf_by_id:
-            leaf_by_id[rid]["verses"] = [{"kind": "verse", "text": "".join(stanzas), "stanzas": stanzas,
-                                          "src": {"table": "epub", "page": 0}}]
+            cell = {"kind": "verse", "text": "".join(stanzas), "stanzas": stanzas, "src": {"table": "epub", "page": 0}}
+            if any(pys):
+                cell["py"] = pys
+            leaf_by_id[rid]["verses"] = [cell]
             total += len(stanzas)
         elif stanzas:
             for it in its:

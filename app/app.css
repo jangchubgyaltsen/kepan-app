@@ -701,3 +701,6 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .prose .ptb table{border-collapse:collapse;font-size:.86em;line-height:1.6;width:100%}
 .prose .ptb th,.prose .ptb td{border:1px solid var(--line);padding:.35em .5em;vertical-align:middle;text-align:center}
 .prose .ptb th{background:color-mix(in srgb,var(--k0) 8%,transparent);font-weight:700}
+/* 仪轨偈句：看着音译背汉义 */
+.verse.vpy .ln{margin-bottom:.15em}
+.verse.vpy .vpyl{display:block;font-size:.72em;line-height:1.5;color:var(--muted);letter-spacing:0}

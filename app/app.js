@@ -2,9 +2,11 @@
 const NUM=["","一","二","三","四","五","六","七","八","九","十"];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
-function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+// vp：仪轨偈句每一颂的音译（每句一行）。有音译时一句一行、音译在上，遮的只是汉义
+function verseMaskHTML(stanzas,r,vp){let ci=0;return `<div class="verse vm">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
  const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
- for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
+ if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x)}</span>`));
+ else for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
 const SHIYI={};
@@ -45,12 +47,12 @@ const STEMS="甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥"
 const CNUM=n=>{if(n==null)return "";if(n<=10)return NUM[n];if(n<20)return "十"+NUM[n-10];const t=Math.floor(n/10),u=n%10;return NUM[t]+"十"+(u?NUM[u]:"")};
 const BOOKS={};let BK=null;
 // 科判树里的颂词：只要 kind=verse 的诗句；note（如「第九品释终」）单独存
-function vsOf(raw,after){const v=[],no=[];(raw.verses||[]).forEach(x=>{if(!!after!==(x.pos==="after"))return;if(x.kind==="verse")v.push(...(x.stanzas&&x.stanzas.length?x.stanzas:[x.text]));else if(x.text)no.push(x.text)});return [v,no]}
+function vsOf(raw,after){const v=[],no=[],vp=[];(raw.verses||[]).forEach(x=>{if(!!after!==(x.pos==="after"))return;if(x.kind==="verse"){const st=x.stanzas&&x.stanzas.length?x.stanzas:[x.text];v.push(...st);st.forEach((_,i)=>vp.push(x.py&&x.py[i]||null))}else if(x.text)no.push(x.text)});return [v,no,vp]}
 function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({},tree.meta||{},info.meta||{});
  const short=meta.shortName||(meta.title||id).split(/\s+/)[0];
  const R={id:"_root",code:"",title:short,v:[],c:[],depth:0,bk:id};const all=[R],seq=[],by={_root:R},front=[],tails=[];
- const mk=(raw,p,lvl)=>{const lv=raw.level;const leaf=!(raw.children&&raw.children.length);const [v,no]=vsOf(raw,false);
-  const n={id:raw.id,code:lv?lv+CNUM(raw.num):"",title:raw.name||raw.raw||"",v:leaf?v:[],notes:no,c:[],depth:Math.max(0,STEMS.indexOf(lv)),bk:id,p,lvl,ch:raw.chapter||null,ne:!!raw.noexp};
+ const mk=(raw,p,lvl)=>{const lv=raw.level;const leaf=!(raw.children&&raw.children.length);const [v,no,vp]=vsOf(raw,false);
+  const n={id:raw.id,code:lv?lv+CNUM(raw.num):"",title:raw.name||raw.raw||"",v:leaf?v:[],notes:no,c:[],depth:Math.max(0,STEMS.indexOf(lv)),bk:id,p,lvl,ch:raw.chapter||null,ne:!!raw.noexp,vp:leaf&&vp.some(x=>x)?vp:null};
   by[n.id]=n;all.push(n);
   if(!leaf){n.c=raw.children.map(k=>mk(k,n,lvl+1));
    const [tv,tn]=vsOf(raw,true);const iv=leaf?[]:v;// 有子科判又在本科下直接写的颂词：放在子科判之后单独一行
@@ -686,8 +688,8 @@ function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`点错过 ${T.wrong} 次，这题按答错记`:"顺序全对"}</div>`:"";
  return head+mid+cards+res}
 function maskHTML(t,T){const n=t.n;const r=T.r;
- const v=r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
- return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>下面的颂词，背出来</span></div>
+ const v=n.vp?verseMaskHTML(n.v,T.done?0:r,n.vp).replace('class="verse vm"',`class="verse vm vpy ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`):r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
+ return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${n.vp?"看着音译，背出汉义":"下面的颂词，背出来"}</span></div>
   <div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
   <div class="mdots">${RND.map((x,i)=>`<i class="${T.done||i<r?"on":i===r?"cur":""}" title="${x}"></i>`).join("")}<span>${T.done?"背完了":`第 ${r+1} 轮 · ${RND[r]}${r>0&&!T.peek?"　心里背完，点颂词核对":""}`}</span></div>
   ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.isNew?"四轮都过了":T.wrong?"中途模糊过，按答错记":"首字提示下记得"}</div>`:""}`}
