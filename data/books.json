@@ -216,18 +216,18 @@
   },
   "stats": {
    "nodes": 270,
-   "verseCells": 56,
-   "stanzas": 133
+   "verseCells": 55,
+   "stanzas": 119
   },
   "checks": 0,
   "corrections": 0,
   "data": "qxyd.json",
   "shiyi": "qxyd.shiyi.json",
   "shiyiStats": {
-   "rows": 203,
-   "chars": 208352,
+   "rows": 204,
+   "chars": 207899,
    "footnotes": 272,
-   "stanzas": 133
+   "stanzas": 119
   }
  },
  {

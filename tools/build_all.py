@@ -46,7 +46,7 @@ def build(book_dir):
     pages = info.pop("pages", None)  # 只转换这些页，如 "1-7"（跳过只列了后面品名的空表）
     guide = None
     if info.get("kind") == "guide":  # 引导文类：散文为主，科判和要背的偈颂、仪轨都从 epub 里取，释义就是全文
-        tree, guide = guide2book.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid)
+        tree, guide = guide2book.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid, info.pop("skipVerses", ()))
     elif pdfs:
         tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None, pages)
     else:  # 科判只有扫描件时：从讲记 epub 的科判标题和颂词搭科判树

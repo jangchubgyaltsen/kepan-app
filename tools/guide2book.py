@@ -50,7 +50,7 @@ def read_paras(path):
             manifest[e.get("id")] = unquote(e.get("href"))
         elif tag == "itemref":
             spine.append(e.get("idref"))
-    paras = []
+    paras, tables = [], []
     for sid in spine:
         href = manifest.get(sid)
         if not href:
@@ -60,6 +60,7 @@ def read_paras(path):
         except KeyError:
             continue
         body = s[s.find("<body"):] if "<body" in s else s
+        tables += [read_table(t) for t in re.findall(r"<table\b.*?</table>", body, re.S)]
         for m in e2.PARA_RE.finditer(body):
             cm = e2.CLASS_RE.search(m.group(2))
             cls = cm.group(1).split()[0] if cm else m.group(1)
@@ -71,7 +72,25 @@ def read_paras(path):
             text = re.sub(r" *\t[ \t]*", "\t", text).strip()
             if text:
                 paras.append({"cls": cls, "text": text})
-    return paras
+    return paras, tables
+
+
+def read_table(src):
+    """表格 → [[{t: [各行文字], rs?, cs?}]]，保留合并单元格。"""
+    rows = []
+    for tr in re.findall(r"<tr\b.*?</tr>", src, re.S):
+        cells = []
+        for m in re.finditer(r"<td\b([^>]*?)(?:/>|>(.*?)</td>)", tr, re.S):
+            attrs, inner = m.group(1), m.group(2) or ""
+            lines = [html.unescape(re.sub(r"<[^>]+>", "", x)).strip() for x in re.findall(r"<p\b[^>]*>(.*?)</p>", inner, re.S)]
+            c = {"t": [x for x in lines if x]}
+            for k, a in (("rs", "rowspan"), ("cs", "colspan")):
+                ma = re.search(rf'{a}="(\d+)"', attrs)
+                if ma and int(ma.group(1)) > 1:
+                    c[k] = int(ma.group(1))
+            cells.append(c)
+        rows.append(cells)
+    return rows
 
 
 def has_cjk(t):
@@ -98,8 +117,10 @@ class Row:
         self.id, self.name, self.items = rid, name, []
 
 
-def convert(epub_path, book_id):
-    paras = read_paras(epub_path)
+def convert(epub_path, book_id, skip_verses=()):
+    """skip_verses：这些科（按科名）里的仪轨只显示、不背，如三十七堆曼茶罗的供品清单。"""
+    paras, tables = read_paras(epub_path)
+    table_title = None
     e2.classify(paras)
     tree = epub2kepan.convert(epub_path, book_id)
     main = tree["tree"][0]
@@ -148,6 +169,11 @@ def convert(epub_path, book_id):
             m = re.match(r"^(\d+)\s*([\s\S]*)$", t)
             if m:
                 footnotes[int(m.group(1))] = m.group(2)
+            continue
+        if c.startswith("其他_表格"):
+            continue
+        if c == "正文_【译作】二级标题" and tables and mode == "tail":
+            table_title = t
             continue
         if c.startswith("科判_") or c.startswith("目录_") or c.startswith("扉页_") or c.startswith("其他_题注") \
                 or "相关阅读" in c or c.startswith("ParaOverride"):
@@ -231,15 +257,21 @@ def convert(epub_path, book_id):
         if "仪轨" in c:
             lang = "bo" if "藏文" in c else "py" if "音译" in c else "zh"
             r = last_ritual
+            if lang == "zh" and r is not None and r.pop("_tab", False):
+                # 「耶南巴达巴⇥王亲色戒萨耶」后面另有汉文行：制表符只是音译里的停顿，不是音译和汉义的分隔
+                r["py"] = r["py"] + " " + r.pop("zh")
             if lang == "bo" or r is None or r.get(lang) or (lang == "py" and r.get("zh")):
                 r = {"type": "ritual"}
                 dst.append(r)
             if lang == "py" and "\t" in t:
                 r["py"], r["zh"] = [x.strip() for x in t.split("\t", 1)]
+                r["_tab"] = True
             else:
                 r[lang] = t.replace("\t", " ")
             last_ritual = r
             continue
+        if last_ritual is not None:
+            last_ritual.pop("_tab", None)
         last_ritual = None
         if ty == "chapter":
             name = SUP_RE.sub("", t)
@@ -253,6 +285,11 @@ def convert(epub_path, book_id):
             dst.append({"type": "small", "text": t})
         else:
             dst.append({"type": "text", "text": t.replace("\t", " ")})
+
+    if tables:  # 书末的附表（如吐蕃王朝世系表）单独成一行，排在结文后面
+        r = Row(f"z{len(tails) + 1}", table_title or "附表")
+        r.items = [{"type": "table", "rows": tb} for tb in tables]
+        tails.append(r)
 
     # ------------------------------------------------------------ 念诵仪轨：小段成为子科判
     for i, r in enumerate(part_kids, 1):
@@ -289,6 +326,10 @@ def convert(epub_path, book_id):
     for r in tails:
         rows[r.id] = r.items
 
+    for its in rows.values():
+        for it in its:
+            it.pop("_tab", None)
+
     # ------------------------------------------------------------ 脚注放回注号所在的行
     note_row = {}
     for rid, its in rows.items():
@@ -308,6 +349,8 @@ def convert(epub_path, book_id):
     leaf_by_id = {n["id"]: n for n in nodes if not n["children"]}
     leaf_by_id.update({c["id"]: c for c in part["children"]})
     total = 0
+    whole = {r.id for r in part_kids if re.match(r"^第.观修法$", r.name or "")}
+    skip = {n["id"] for n in nodes if n["name"] in skip_verses}
     for rid, its in rows.items():
         stanzas, run, run_items = [], [], []
 
@@ -328,9 +371,11 @@ def convert(epub_path, book_id):
                     pos += len(t)
                 stanzas.extend(sts)
             else:
-                for i in range(0, len(run), 4):
-                    chunk = run[i:i + 4]
-                    for it in run_items[i:i + 4]:
+                # 开显解脱道的四个观修法各是七句一偈，整段算一颂；其余四句一颂
+                size = len(run) if rid in whole else 4
+                for i in range(0, len(run), size):
+                    chunk = run[i:i + size]
+                    for it in run_items[i:i + size]:
                         it["s"] = len(stanzas)
                     stanzas.append("，".join(x[1] for x in chunk) + "。")
             run, run_items = [], []
@@ -340,7 +385,7 @@ def convert(epub_path, book_id):
                     flush()
                 run.append(("g", it["text"]))
                 run_items.append(it)
-            elif it["type"] == "ritual" and not it.get("head") and verse_zh(it.get("zh")):
+            elif it["type"] == "ritual" and rid not in skip and not it.get("head") and verse_zh(it.get("zh")):
                 if run and run[0][0] != "r":
                     flush()
                 run.append(("r", verse_zh(it["zh"])))

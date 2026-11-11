@@ -17,6 +17,7 @@ function proseHTML(n){const sec=PROSE[n.bk]&&PROSE[n.bk][n.id];if(!sec)return PR
   if(it.type==="ritual"){const g=[];while(i<its.length&&its[i].type==="ritual")g.push(its[i++]);
    o.push(`<div class="pr${g.some(x=>x.py||x.zh)?"":" pbo"}">${g.map(x=>`<div class="prl${x.head?" prh":""}${x.zh&&x.s!=null?" prv":""}">${x.bo?`<span class="rbo">${esc(x.bo)}</span>`:""}${x.py?`<span class="rpy">${sup(x.py)}</span>`:""}${x.zh?`<span class="rzh">${sup(x.zh)}</span>`:""}</div>`).join("")}</div>`);continue}
   i++;if(it.type==="footnote"){fn.push(it);continue}
+  if(it.type==="table"){o.push(`<div class="ptb"><table>${(it.rows||[]).map((r,ri)=>`<tr>${r.map(c=>`<${ri?"td":"th"}${c.rs?` rowspan="${c.rs}"`:""}${c.cs?` colspan="${c.cs}"`:""}>${(c.t||[]).map(esc).join("<br>")}</${ri?"td":"th"}>`).join("")}</tr>`).join("")}</table></div>`);continue}
   o.push(it.type==="title"?`<p class="pti">${sup(it.text)}</p>`:it.type==="small"?`<p class="psm">${sup(it.text)}</p>`:`<p>${sup(it.text)}</p>`)}
  if(fn.length)o.push(`<div class="pfn">${fn.map(x=>`<p><b>${x.n}</b>${esc(x.text)}</p>`).join("")}</div>`);
  return `<div class="prose">${o.join("")}</div>`}

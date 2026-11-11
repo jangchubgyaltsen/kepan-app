@@ -697,3 +697,7 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .prose .pfn p{text-indent:0;margin:.25em 0}
 .prose .pfn b{margin-right:.4em;color:var(--fg,inherit)}
 .app:not(.bo-on) .prose .pbo{display:none}
+.prose .ptb{margin:.8em 0;overflow-x:auto}
+.prose .ptb table{border-collapse:collapse;font-size:.86em;line-height:1.6;width:100%}
+.prose .ptb th,.prose .ptb td{border:1px solid var(--line);padding:.35em .5em;vertical-align:middle;text-align:center}
+.prose .ptb th{background:color-mix(in srgb,var(--k0) 8%,transparent);font-weight:700}
