@@ -1,0 +1,5967 @@
+{
+ "id": "qxyd",
+ "meta": {
+  "title": "大圆满前行引导文",
+  "credits": "华智仁波切 造论  索达吉堪布 翻译（科判取自引导文）",
+  "roles": [
+   {
+    "name": "华智仁波切",
+    "role": "造论"
+   },
+   {
+    "name": "索达吉堪布",
+    "role": "翻译"
+   }
+  ],
+  "kind": "guide",
+  "name": "大圆满前行引导文",
+  "shortName": "前行"
+ },
+ "source": {
+  "file": "译作001 大圆满前行引导文.epub",
+  "from": "epub"
+ },
+ "tables": [],
+ "stats": {
+  "nodes": 270,
+  "verseCells": 56,
+  "stanzas": 133
+ },
+ "warnings": [],
+ "checks": [],
+ "corrections": [],
+ "tree": [
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "序",
+   "divisions": null,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "序",
+   "children": [],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "id": "q1"
+  },
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "译序",
+   "divisions": null,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "译序",
+   "children": [],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "id": "q2"
+  },
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "华智仁波切传",
+   "divisions": null,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "华智仁波切传",
+   "children": [],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "id": "q3"
+  },
+  {
+   "level": null,
+   "depth": 1,
+   "num": null,
+   "name": "前行念诵仪轨·开显解脱道",
+   "divisions": 22,
+   "chapter": "念诵仪轨",
+   "refs": [],
+   "note": null,
+   "raw": "前行念诵仪轨·开显解脱道",
+   "children": [
+    {
+     "level": null,
+     "depth": 2,
+     "num": 1,
+     "name": "第一观修法",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第一观修法",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "暇满难得如昙花，得有大义胜摩尼，获得如是唯此次，未行大义永久计。无义虚度我等众，请集三宝师悲视，加持暇满具实义。",
+       "stanzas": [
+        "暇满难得如昙花，得有大义胜摩尼，获得如是唯此次，未行大义永久计。",
+        "无义虚度我等众，请集三宝师悲视，加持暇满具实义。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.1"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 2,
+     "name": "第二观修法",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第二观修法",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "诸法无常如闪电，思维器情皆坏法，定死死期无定准，以常执心欺自己。处放逸中我等众，请集三宝师悲视，加持忆念死无常。",
+       "stanzas": [
+        "诸法无常如闪电，思维器情皆坏法，定死死期无定准，以常执心欺自己。",
+        "处放逸中我等众，请集三宝师悲视，加持忆念死无常。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.2"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 3,
+     "name": "第三观修法",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第三观修法",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "黑白业果永不虚，无欺因果此道中，显现轮回涅槃法，自作必定成熟自。未能取舍我等众，请集三宝师悲视，加持断恶而行善。",
+       "stanzas": [
+        "黑白业果永不虚，无欺因果此道中，显现轮回涅槃法，自作必定成熟自。",
+        "未能取舍我等众，请集三宝师悲视，加持断恶而行善。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.3"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 4,
+     "name": "第四观修法",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第四观修法",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "具多难忍之痛苦，现乐变化欺惑心，有漏诸蕴痛苦因，三界轮回如火坑。不知贪此我等众，请集三宝师悲视，加持生起出离心。",
+       "stanzas": [
+        "具多难忍之痛苦，现乐变化欺惑心，有漏诸蕴痛苦因，三界轮回如火坑。",
+        "不知贪此我等众，请集三宝师悲视，加持生起出离心。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.4"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 5,
+     "name": "不共前行之皈依",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "不共前行之皈依",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "前观五枝如意树，中央莲师金刚持，传承师尊空行绕，前枝导师三时佛。右近佛子大乘圣，后枝佛典经函卷，左枝八胜声缘僧，周边智慧护法众。明观十方三时中，诸皈境如芝麻荚，前观我及母亲等，普天众生敬顶礼。从今直至菩提果，以最诚信而皈依，遍满虚空尽边际，上师本尊空行众。佛陀正法圣僧前，我与六道敬皈依。",
+       "stanzas": [
+        "前观五枝如意树，中央莲师金刚持，传承师尊空行绕，前枝导师三时佛。",
+        "右近佛子大乘圣，后枝佛典经函卷，左枝八胜声缘僧，周边智慧护法众。",
+        "明观十方三时中，诸皈境如芝麻荚，前观我及母亲等，普天众生敬顶礼。",
+        "从今直至菩提果，以最诚信而皈依，遍满虚空尽边际，上师本尊空行众。",
+        "佛陀正法圣僧前，我与六道敬皈依。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.5"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 6,
+     "name": "于如是皈依境前发心",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "于如是皈依境前发心",
+     "children": [],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.6"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 7,
+     "name": "正行发心",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "正行发心",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "如三时佛及佛子，发起殊胜菩提心，我亦为度普天众，发起无上菩提心。",
+       "stanzas": [
+        "如三时佛及佛子，发起殊胜菩提心，我亦为度普天众，发起无上菩提心。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.7"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 8,
+     "name": "第8段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第8段",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "我与无边众，本是正等觉，了知如是性，发大菩提心。",
+       "stanzas": [
+        "我与无边众，本是正等觉，了知如是性，发大菩提心。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.8"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 9,
+     "name": "于曼茶盘中安置供堆",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "于曼茶盘中安置供堆",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "法界等性法身刹，自现五部报身刹，遍空化身刹庄严，普贤大乐供云献。",
+       "stanzas": [
+        "法界等性法身刹，自现五部报身刹，遍空化身刹庄严，普贤大乐供云献。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.9"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 10,
+     "name": "念修金刚萨埵",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "念修金刚萨埵",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "自顶莲月之垫上，月色金刚萨埵尊，执持铃杵拥慢母，金刚跏趺报身装。心月上吽百字绕，降甘露流净罪障。",
+       "stanzas": [
+        "自顶莲月之垫上，月色金刚萨埵尊，执持铃杵拥慢母，金刚跏趺报身装。",
+        "心月上吽百字绕，降甘露流净罪障。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.10"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 11,
+     "name": "第11段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第11段",
+     "children": [],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.11"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 12,
+     "name": "结座",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "结座",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "违越失誓言，祈愿师怙救，主尊金刚持，大悲本性尊。众主我皈依。",
+       "stanzas": [
+        "违越失誓言，祈愿师怙救，主尊金刚持，大悲本性尊。",
+        "众主我皈依。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.12"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 13,
+     "name": "最后回向",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "最后回向",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "愿我速以此善根，成就金刚萨埵尊，芸芸众生无一余，悉皆安置彼果位。祈愿我与诸有情，失坏誓言皆清净，从今乃至菩提果，三昧耶戒悉清净。",
+       "stanzas": [
+        "愿我速以此善根，成就金刚萨埵尊，芸芸众生无一余，悉皆安置彼果位。",
+        "祈愿我与诸有情，失坏誓言皆清净，从今乃至菩提果，三昧耶戒悉清净。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.13"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 14,
+     "name": "上师瑜伽",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "上师瑜伽",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "浩瀚自现净土中，自观金刚瑜伽母，顶千瓣莲日月上，皈处总集莲师尊。白红文持杵颅瓶，报身装拥措嘉母，身圆自生续坛城，上师空行及护法。安住如开芝麻荚，妙拂洲中智慧尊，如雨降临融修依。邬金刹土西北隅，莲花蕊茎之座上，稀有殊胜成就者，世称名号莲花生。空行眷属众围绕，我随汝尊而修持，为赐加持祈降临，革日班玛斯德吽。",
+       "stanzas": [
+        "浩瀚自现净土中，自观金刚瑜伽母，顶千瓣莲日月上，皈处总集莲师尊。",
+        "白红文持杵颅瓶，报身装拥措嘉母，身圆自生续坛城，上师空行及护法。",
+        "安住如开芝麻荚，妙拂洲中智慧尊，如雨降临融修依。",
+        "邬金刹土西北隅，莲花蕊茎之座上，稀有殊胜成就者，世称名号莲花生。",
+        "空行眷属众围绕，我随汝尊而修持，为赐加持祈降临，革日班玛斯德吽。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.14"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 15,
+     "name": "第15段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第15段",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "微尘数身敬顶礼，现有基现普贤供，忏悔诸世积堕罪，随喜轮涅诸善聚。金刚身住尽有界，请转深广妙法轮，善资回向为成佛。",
+       "stanzas": [
+        "微尘数身敬顶礼，现有基现普贤供，忏悔诸世积堕罪，随喜轮涅诸善聚。",
+        "金刚身住尽有界，请转深广妙法轮，善资回向为成佛。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.15"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 16,
+     "name": "祈祷",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "祈祷",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "西方邬金自在宫，善逝身语意化身，为利众生降赡洲，持明空行众围绕。祈祷莲师之尊众，祈祷邬金莲花生，祈赐灌顶加持吾。",
+       "stanzas": [
+        "西方邬金自在宫，善逝身语意化身，为利众生降赡洲，持明空行众围绕。",
+        "祈祷莲师之尊众，祈祷邬金莲花生，祈赐灌顶加持吾。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.16"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 17,
+     "name": "第17段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第17段",
+     "children": [],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.17"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 18,
+     "name": "第18段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第18段",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "红黑三角自在宫，踩踏男女恶魔上，怀王班玛黑日嘎，莲花部众怒尊绕。祈祷马头明王众，祈祷邬金莲花生，祈赐灌顶加持吾。",
+       "stanzas": [
+        "红黑三角自在宫，踩踏男女恶魔上，怀王班玛黑日嘎，莲花部众怒尊绕。",
+        "祈祷马头明王众，祈祷邬金莲花生，祈赐灌顶加持吾。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.18"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 19,
+     "name": "第19段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第19段",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "蓝黑诶成威猛宫，踩踏阎罗水牛上，妙吉祥尊大威德，怒傲阎卒眷围绕。祈祷大威德尊众，祈祷邬金莲花生，祈赐灌顶加持吾。",
+       "stanzas": [
+        "蓝黑诶成威猛宫，踩踏阎罗水牛上，妙吉祥尊大威德，怒傲阎卒眷围绕。",
+        "祈祷大威德尊众，祈祷邬金莲花生，祈赐灌顶加持吾。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.19"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 20,
+     "name": "结座受四灌顶",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "结座受四灌顶",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "上师三处三字中，放白红蓝三光芒，融自三处作加持，复师及眷化为光。经梵穴融心明点，师意自心成无别，安住心性本法身，净四障获四灌智。纯熟四道现四身，尽得灌顶及加持。",
+       "stanzas": [
+        "上师三处三字中，放白红蓝三光芒，融自三处作加持，复师及眷化为光。",
+        "经梵穴融心明点，师意自心成无别，安住心性本法身，净四障获四灌智。",
+        "纯熟四道现四身，尽得灌顶及加持。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.20"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 21,
+     "name": "第21段",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "第21段",
+     "children": [],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.21"
+    },
+    {
+     "level": null,
+     "depth": 2,
+     "num": 22,
+     "name": "最后发愿",
+     "divisions": null,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "最后发愿",
+     "children": [],
+     "verses": [
+      {
+       "kind": "verse",
+       "text": "生生世世不离师，恒时享用胜法乐，圆满地道功德已，唯愿速得金刚持。",
+       "stanzas": [
+        "生生世世不离师，恒时享用胜法乐，圆满地道功德已，唯愿速得金刚持。"
+       ],
+       "src": {
+        "table": "epub",
+        "page": 0
+       }
+      }
+     ],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "r.22"
+    }
+   ],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "part": true,
+   "noexp": true,
+   "id": "r"
+  },
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "大圆满龙钦宁提前行引导文",
+   "divisions": 2,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "全文分二：甲一、闻法方式；甲二、所讲之法。",
+   "children": [
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 1,
+     "name": "闻法方式",
+     "divisions": 2,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲一（闻法方式）分二",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "发心",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一（发心）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "广大意乐菩提心之发心",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一、广大意乐菩提心之发心",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "如来密意持明表示传，补特伽罗人中成善缘，循胜士迹究竟二利者，三大传承上师前敬礼。法性界中证法身密意，光明界中见报身刹土，所化者前现化身利众，遍知法王尊者前敬礼。明智照见一切所知性，大悲光明现于所化界，开显深道顶乘教法者，持明无畏洲师前敬礼。观音自在显现上师相，说法结缘令入解脱道，随机调化事业无边者，大恩根本上师前敬礼。圆满教法遍知传承论，窍诀精要即生成佛法，正道前行内外共不共，教言分支捷径往生法。显而易懂义深极稀有，无等上师无谬之口传，依照自心定解此宣说，愿师本尊加持我相续。",
+           "stanzas": [
+            "如来密意持明表示传，补特伽罗人中成善缘，循胜士迹究竟二利者，三大传承上师前敬礼。",
+            "法性界中证法身密意，光明界中见报身刹土，所化者前现化身利众，遍知法王尊者前敬礼。",
+            "明智照见一切所知性，大悲光明现于所化界，开显深道顶乘教法者，持明无畏洲师前敬礼。",
+            "观音自在显现上师相，说法结缘令入解脱道，随机调化事业无边者，大恩根本上师前敬礼。",
+            "圆满教法遍知传承论，窍诀精要即生成佛法，正道前行内外共不共，教言分支捷径往生法。",
+            "显而易懂义深极稀有，无等上师无谬之口传，依照自心定解此宣说，愿师本尊加持我相续。"
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           }
+          }
+         ],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.1.1.1",
+         "noVerse": true
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "广大方便秘密真言之发心",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二、广大方便秘密真言之发心",
+         "children": [],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.1.1.2",
+         "noVerse": true
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "epub",
+        "page": 0
+       },
+       "id": "k1.1.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "行为",
+       "divisions": 2,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二（行为）分二",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "所断之行为",
+         "divisions": 3,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一（所断之行为）分三",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "法器之三过",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一（法器之三过）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "耳不注如覆器之过",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、耳不注如覆器之过",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.1.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "意不持如漏器之过",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、意不持如漏器之过",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.1.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "杂烦恼如毒器之过",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、杂烦恼如毒器之过",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.1.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.1.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "六垢",
+           "divisions": 6,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（六垢）分六",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "傲慢",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、傲慢",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "无正信",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、无正信",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "不求法",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、不求法",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.3",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "外散",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、外散",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.4",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 5,
+             "name": "内收",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊五、内收",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.5",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 6,
+             "name": "疲厌",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊六、疲厌",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.2.6",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.1.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "五不持",
+           "divisions": 5,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三（五不持）分五",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "持文不持义",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、持文不持义",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.3.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "持义不持文",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、持义不持文",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.3.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "未领会而持",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、未领会而持",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.3.3",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "上下错谬而持",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、上下错谬而持",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.3.4",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 5,
+             "name": "颠倒而持",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊五、颠倒而持",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.1.2.1.3.5",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.1.3"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.1.2.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "应取之行为",
+         "divisions": 3,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二（应取之行为）分三",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "依止四想",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、依止四想",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.2.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "具足六度",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、具足六度",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.2.2",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "依止其他威仪",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、依止其他威仪",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.1.2.2.3",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.1.2.2"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "epub",
+        "page": 0
+       },
+       "id": "k1.1.2"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "k1.1"
+    },
+    {
+     "level": "甲",
+     "depth": 1,
+     "num": 2,
+     "name": "所讲之法",
+     "divisions": 3,
+     "chapter": null,
+     "refs": [],
+     "note": null,
+     "raw": "甲二（所讲之法）分三",
+     "children": [
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 1,
+       "name": "共同外前行",
+       "divisions": 6,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙一（共同外前行）分六",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "暇满难得",
+         "divisions": 4,
+         "chapter": "暇满难得",
+         "refs": [],
+         "note": null,
+         "raw": "丙一（暇满难得）分四",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "思维本性闲暇",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、思维本性闲暇",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.1.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "思维特法圆满",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（思维特法圆满）分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "五种自圆满",
+             "divisions": 5,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一（五种自圆满）分五",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "所依圆满",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、所依圆满",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.1.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "环境圆满",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、环境圆满",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.1.2",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "根德圆满",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、根德圆满",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.1.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "意乐圆满",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、意乐圆满",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.1.4",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 5,
+               "name": "信心圆满",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己五、信心圆满",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.1.5",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.1.2.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "五种他圆满",
+             "divisions": 5,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二（五种他圆满）分五",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "如来出世",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、如来出世",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.2.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "佛已说法",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、佛已说法",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.2.2",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "佛法住世",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、佛法住世",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.2.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "自入圣教",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、自入圣教",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.2.4",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 5,
+               "name": "师已摄受",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己五、师已摄受",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.1.2.2.5",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.1.2.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.1.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "思维难得之喻",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、思维难得之喻",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.1.3",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "思维数目差别",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四、思维数目差别",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "虽得闲暇而乏真实法，虽入佛门而耽非法行，我与如我愚痴诸有情，获得暇满实义祈加持。",
+             "stanzas": [
+              "虽得闲暇而乏真实法，虽入佛门而耽非法行，我与如我愚痴诸有情，获得暇满实义祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.1.4",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "寿命无常",
+         "divisions": 7,
+         "chapter": "寿命无常",
+         "refs": [],
+         "note": null,
+         "raw": "丙二（寿命无常）分七",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "思维外器世界而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、思维外器世界而修无常",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "现见三有无常幻化相，舍弃今世琐事如唾涎，苦行修习追随先辈迹，无等上师足下我敬礼。",
+             "stanzas": [
+              "现见三有无常幻化相，舍弃今世琐事如唾涎，苦行修习追随先辈迹，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "思维内情众生而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、思维内情众生而修无常",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.2",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "思维殊胜正士而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、思维殊胜正士而修无常",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.3",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "思维世间尊主而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四、思维世间尊主而修无常",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.4",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 5,
+           "name": "思维各种喻义而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁五、思维各种喻义而修无常",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.5",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 6,
+           "name": "思维死缘无定而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁六、思维死缘无定而修无常",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.6",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 7,
+           "name": "思维猛厉希求而修无常",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁七、思维猛厉希求而修无常",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "无常现前反而执常有，老年到来反而以为幼，我与如我邪念诸有情，相续生起无常祈加持。",
+             "stanzas": [
+              "无常现前反而执常有，老年到来反而以为幼，我与如我邪念诸有情，相续生起无常祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.2.7",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.2"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 3,
+         "name": "轮回过患",
+         "divisions": 2,
+         "chapter": "轮回过患",
+         "refs": [],
+         "note": null,
+         "raw": "丙三（轮回过患）分二",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "总的思维轮回痛苦",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、总的思维轮回痛苦",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "了达轮回诸事无实义，唯以大悲利益诸有情，不贪有寂依教行大乘，无等上师足下我敬礼。",
+             "stanzas": [
+              "了达轮回诸事无实义，唯以大悲利益诸有情，不贪有寂依教行大乘，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.3.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "分别思维六道各自痛苦",
+           "divisions": 6,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（分别思维六道各自痛苦）分六",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "地狱之苦",
+             "divisions": 4,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一（地狱之苦）分四",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "八热地狱",
+               "divisions": 8,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一（八热地狱）分八",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "复活地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、复活地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "黑绳地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、黑绳地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "众合地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、众合地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.3",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 4,
+                 "name": "号叫地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚四、号叫地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.4",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 5,
+                 "name": "大号叫地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚五、大号叫地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.5",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 6,
+                 "name": "烧热地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚六、烧热地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.6",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 7,
+                 "name": "极热地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚七、极热地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.7",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 8,
+                 "name": "无间地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚八、无间地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.1.8",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.1.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "近边地狱",
+               "divisions": 5,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（近边地狱）分五",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "煻煨坑地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、煻煨坑地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "尸粪泥地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、尸粪泥地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.2.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "利刃原地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、利刃原地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.2.3",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 4,
+                 "name": "剑叶林地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚四、剑叶林地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.2.4",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 5,
+                 "name": "铁柱山地狱",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚五、铁柱山地狱",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.1.2.5",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.1.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "八寒地狱",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、八寒地狱",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.1.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "孤独地狱",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、孤独地狱",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.1.4",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "饿鬼之苦",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二（饿鬼之苦）分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "隐住饿鬼",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一（隐住饿鬼）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "外障饿鬼",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、外障饿鬼",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.2.1.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "内障饿鬼",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、内障饿鬼",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.2.1.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "特障饿鬼",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、特障饿鬼",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.2.1.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "空游饿鬼",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、空游饿鬼",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.2.2",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "旁生之苦",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三（旁生之苦）分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "海居旁生",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、海居旁生",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.3.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "散居旁生",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、散居旁生",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.3.2",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.3"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "人类之苦",
+             "divisions": 2,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四（人类之苦）分二",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "三大根本苦",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一（三大根本苦）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "变苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、变苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.1.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "苦苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、苦苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.1.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "行苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、行苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.1.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.4.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "八支分苦",
+               "divisions": 8,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（八支分苦）分八",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "生苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、生苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "老苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、老苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "病苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、病苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.3",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 4,
+                 "name": "死苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚四、死苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.4",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 5,
+                 "name": "怨憎会苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚五、怨憎会苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.5",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 6,
+                 "name": "爱别离苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚六、爱别离苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.6",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 7,
+                 "name": "求不得苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚七、求不得苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.7",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 8,
+                 "name": "不欲临苦",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚八、不欲临苦",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.3.2.4.2.8",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.3.2.4.2"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.4"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 5,
+             "name": "非天之苦",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊五、非天之苦",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.5",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 6,
+             "name": "天人之苦",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊六、天人之苦",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "虽见轮回痛苦仍贪执，虽畏恶趣险地仍作恶，我与如我邪道众有情，看破放下今世祈加持。",
+               "stanzas": [
+                "虽见轮回痛苦仍贪执，虽畏恶趣险地仍作恶，我与如我邪道众有情，看破放下今世祈加持。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.3.2.6",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.3.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.3"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 4,
+         "name": "因果不虚",
+         "divisions": 3,
+         "chapter": "因果不虚",
+         "refs": [],
+         "note": null,
+         "raw": "丙四（因果不虚）分三",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "所断之不善业",
+           "divisions": 4,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一（所断之不善业）分四",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "身恶业",
+             "divisions": 3,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一（身恶业）分三",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "杀生",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、杀生",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "取舍善恶因果依教行，行为依照九乘次第上，真知灼见于何皆不贪，无等上师足下我敬礼。",
+                 "stanzas": [
+                  "取舍善恶因果依教行，行为依照九乘次第上，真知灼见于何皆不贪，无等上师足下我敬礼。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.1.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "不与取",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（不与取）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "权威不与取",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、权威不与取",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.1.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "盗窃不与取",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、盗窃不与取",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.1.2.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "欺诳不与取",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、欺诳不与取",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.1.2.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.1.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "邪淫",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、邪淫",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.1.3",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.4.1.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "语恶业",
+             "divisions": 4,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二（语恶业）分四",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "妄语",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一（妄语）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "一般妄语",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、一般妄语",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.2.1.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "大妄语",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、大妄语",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.2.1.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "上人法妄语",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、上人法妄语",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.2.1.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "离间语",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（离间语）分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "公开离间语",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、公开离间语",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.2.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "暗中离间语",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、暗中离间语",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.2.2.2",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.2.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "恶语",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、恶语",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.2.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "绮语",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、绮语",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.2.4",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.4.1.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "意恶业",
+             "divisions": 3,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三（意恶业）分三",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "贪心",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、贪心",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.3.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "害心",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、害心",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.3.2",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "邪见",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三（邪见）分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "无有因果之见",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、无有因果之见",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.3.3.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "常断见",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、常断见",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.3.3.2",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.3.3"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.4.1.3"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "十不善业之果",
+             "divisions": 4,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四（十不善业之果）分四",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "异熟果",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、异熟果",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.4.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "等流果",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（等流果）分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "同行等流果",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、同行等流果",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.4.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "感受等流果",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、感受等流果",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.1.4.1.4.2.2",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.4.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "增上果",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、增上果",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.4.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "士用果",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、士用果",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.1.4.1.4.4",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.4.1.4"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.4.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "应行之善业",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、应行之善业",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.4.2",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "一切为业之自性",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、一切为业之自性",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "虽知因果差别然信弱，虽闻众多正法然未修，我与如我恶行众有情，自心与法相应祈加持。",
+             "stanzas": [
+              "虽知因果差别然信弱，虽闻众多正法然未修，我与如我恶行众有情，自心与法相应祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.4.3",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.4"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 5,
+         "name": "解脱利益",
+         "divisions": 2,
+         "chapter": "解脱利益",
+         "refs": [],
+         "note": null,
+         "raw": "丙五（解脱利益）分二",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "解脱之定义",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、解脱之定义",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "多成就者智者所摄受，依照上师言教而修行，解脱胜道无误示于众，无等上师足下我敬礼。",
+             "stanzas": [
+              "多成就者智者所摄受，依照上师言教而修行，解脱胜道无误示于众，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.5.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "解脱之分类",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（解脱之分类）分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "能获解脱果位之因",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、能获解脱果位之因",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.5.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "三菩提之果",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、三菩提之果",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.5.2.2",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.5.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.5"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 6,
+         "name": "依止上师",
+         "divisions": 2,
+         "chapter": "依止上师",
+         "refs": [],
+         "note": null,
+         "raw": "丙六（依止上师）分二",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "依师之必要",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、依师之必要",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.6.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "依师之次第",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（依师之次第）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "观察上师",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、观察上师",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.6.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "依止上师",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、依止上师",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.6.2.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "修学上师之意行",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、修学上师之意行",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "虽遇圣士仍为劣行诱，虽获胜道仍漂非道中，我与如我恶性诸有情，正法调伏自续祈加持。",
+               "stanzas": [
+                "虽遇圣士仍为劣行诱，虽获胜道仍漂非道中，我与如我恶性诸有情，正法调伏自续祈加持。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.1.6.2.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.1.6.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.1.6"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "epub",
+        "page": 0
+       },
+       "id": "k1.2.1"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 2,
+       "name": "不共内加行",
+       "divisions": 5,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙二（不共内加行）分五",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "诸圣道之基石——皈依",
+         "divisions": 5,
+         "chapter": "皈依",
+         "refs": [],
+         "note": null,
+         "raw": "丙一（诸圣道之基石——皈依）分五",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "皈依之基础",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、皈依之基础",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "以外皈依顶戴三宝尊，以内皈依成就三根本，以密皈依现前三身者，无等上师足下我敬礼。",
+             "stanzas": [
+              "以外皈依顶戴三宝尊，以内皈依成就三根本，以密皈依现前三身者，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.1.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "皈依之分类",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、皈依之分类",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.1.2",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "皈依之方法",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、皈依之方法",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "真实三宝善逝三根本，风脉明点自性菩提心，本体自性大悲坛城中，直至菩提果间永皈依。我速以此善，成就三宝尊，愿将无余众，安置于佛地。",
+             "stanzas": [
+              "真实三宝善逝三根本，风脉明点自性菩提心，本体自性大悲坛城中，直至菩提果间永皈依。",
+              "我速以此善，成就三宝尊，愿将无余众，安置于佛地。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.1.3",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "皈依之学处",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四（皈依之学处）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "三种所断",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、三种所断",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.1.4.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "三种所修",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、三种所修",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.1.4.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "三种同分",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、三种同分",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.1.4.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.1.4"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 5,
+           "name": "皈依之功德",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁五、皈依之功德",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "虽已皈依然而诚信弱，虽受三学然仍舍持戒，我与如我无心诸有情，不退坚固信心祈加持。",
+             "stanzas": [
+              "虽已皈依然而诚信弱，虽受三学然仍舍持戒，我与如我无心诸有情，不退坚固信心祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.1.5",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.2.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "趣入最胜大乘——发殊胜菩提心",
+         "divisions": 3,
+         "chapter": "发殊胜菩提心",
+         "refs": [],
+         "note": null,
+         "raw": "丙二（趣入最胜大乘——发殊胜菩提心）分三",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "修四无量心",
+           "divisions": 4,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一（修四无量心）分四",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "修舍无量心",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、修舍无量心",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "以大智慧现前胜涅槃，以大悲心住于轮回中，以巧方便证轮涅无二，无等上师足下我敬礼。",
+               "stanzas": [
+                "以大智慧现前胜涅槃，以大悲心住于轮回中，以巧方便证轮涅无二，无等上师足下我敬礼。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.1.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "修慈无量心",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、修慈无量心",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.1.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "修悲无量心",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、修悲无量心",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.1.3",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "修喜无量心",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、修喜无量心",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.1.4",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.2.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "发殊胜菩提心",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（发殊胜菩提心）分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "发心之分类",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、发心之分类",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "正式发心",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、正式发心",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "种种显现水月幻化纹，相续漂泊轮回众有情，为于自证光明界休息，以四无量境界而发心。",
+               "stanzas": [
+                "种种显现水月幻化纹，相续漂泊轮回众有情，为于自证光明界休息，以四无量境界而发心。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.2.2",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.2.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "愿行菩提心学处",
+           "divisions": 2,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三（愿行菩提心学处）分二",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "愿菩提心学处",
+             "divisions": 3,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一（愿菩提心学处）分三",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "修自他平等菩提心",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、修自他平等菩提心",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.1.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "修自他相换菩提心",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、修自他相换菩提心",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.1.2",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "修自轻他重菩提心",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、修自轻他重菩提心",
+               "children": [],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.1.3",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.3.1"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "行菩提心学处",
+             "divisions": 6,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二（行菩提心学处）分六",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "布施",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一（布施）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "财施",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、财施",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.1.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "法施",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、法施",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.1.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "无畏施",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、无畏施",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.1.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.1"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "持戒",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二（持戒）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "严禁恶行戒",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、严禁恶行戒",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.2.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "摄集善法戒",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、摄集善法戒",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.2.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "饶益有情戒",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、饶益有情戒",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.2.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.2"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "安忍",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三（安忍）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "忍辱他人邪行之安忍",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、忍辱他人邪行之安忍",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.3.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "忍耐求法苦行之安忍",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、忍耐求法苦行之安忍",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.3.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "不畏甚深法义之安忍",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、不畏甚深法义之安忍",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.3.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.3"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "精进",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四（精进）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "擐甲精进",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、擐甲精进",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.4.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "加行精进",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、加行精进",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.4.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "不满精进",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、不满精进",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.4.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.4"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 5,
+               "name": "静虑",
+               "divisions": 2,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己五（静虑）分二",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "静虑之必要",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、静虑之必要",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.5.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "真实静虑",
+                 "divisions": 3,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二（真实静虑）分三",
+                 "children": [
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 1,
+                   "name": "凡夫行静虑",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛一、凡夫行静虑",
+                   "children": [],
+                   "verses": [],
+                   "src": {
+                    "table": "epub",
+                    "page": 0
+                   },
+                   "id": "k1.2.2.2.3.2.5.2.1",
+                   "noVerse": true
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 2,
+                   "name": "义分别静虑",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛二、义分别静虑",
+                   "children": [],
+                   "verses": [],
+                   "src": {
+                    "table": "epub",
+                    "page": 0
+                   },
+                   "id": "k1.2.2.2.3.2.5.2.2",
+                   "noVerse": true
+                  },
+                  {
+                   "level": "辛",
+                   "depth": 8,
+                   "num": 3,
+                   "name": "缘真如静虑",
+                   "divisions": null,
+                   "chapter": null,
+                   "refs": [],
+                   "note": null,
+                   "raw": "辛三、缘真如静虑",
+                   "children": [],
+                   "verses": [],
+                   "src": {
+                    "table": "epub",
+                    "page": 0
+                   },
+                   "id": "k1.2.2.2.3.2.5.2.3",
+                   "noVerse": true
+                  }
+                 ],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.5.2"
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.5"
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 6,
+               "name": "智慧",
+               "divisions": 3,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己六（智慧）分三",
+               "children": [
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 1,
+                 "name": "闻慧",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚一、闻慧",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.6.1",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 2,
+                 "name": "思慧",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚二、思慧",
+                 "children": [],
+                 "verses": [],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.6.2",
+                 "noVerse": true
+                },
+                {
+                 "level": "庚",
+                 "depth": 7,
+                 "num": 3,
+                 "name": "修慧",
+                 "divisions": null,
+                 "chapter": null,
+                 "refs": [],
+                 "note": null,
+                 "raw": "庚三、修慧",
+                 "children": [],
+                 "verses": [
+                  {
+                   "kind": "verse",
+                   "text": "虽发胜心然却未生起，虽学六度然却具私欲，我与如我愚痴众有情，修成胜菩提心祈加持。",
+                   "stanzas": [
+                    "虽发胜心然却未生起，虽学六度然却具私欲，我与如我愚痴众有情，修成胜菩提心祈加持。"
+                   ],
+                   "src": {
+                    "table": "epub",
+                    "page": 0
+                   }
+                  }
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 },
+                 "id": "k1.2.2.2.3.2.6.3",
+                 "noVerse": true
+                }
+               ],
+               "verses": [],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.2.3.2.6"
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.2.3.2"
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.2.3"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.2.2"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 3,
+         "name": "清净违缘罪障——念修金刚萨埵",
+         "divisions": 5,
+         "chapter": "念修金刚萨埵",
+         "refs": [],
+         "note": null,
+         "raw": "丙三（清净违缘罪障——念修金刚萨埵）分五",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "忏悔之理",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、忏悔之理",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "离二障垢然示净除障，究竟胜道然现修学相，超有寂边然显三有中，无等上师足下我敬礼。",
+             "stanzas": [
+              "离二障垢然示净除障，究竟胜道然现修学相，超有寂边然显三有中，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.3.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "四种对治力",
+           "divisions": 4,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（四种对治力）分四",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "所依对治力",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、所依对治力",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.3.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "厌患对治力",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、厌患对治力",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.3.2.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "返回对治力",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、返回对治力",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.3.2.3",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "现行对治力",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、现行对治力",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.3.2.4",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.3.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "真实念修金刚萨埵",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、真实念修金刚萨埵",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "于我庸俗头顶上，白莲月垫之中央，吽成金刚萨埵师，皎洁受用圆满身。双运慢母持铃杵，祈净罪障皈依您，以猛悔心发露忏，后遇命难亦戒犯。于您心间明月上，吽字周围咒绕旋，诵咒打动相续故，父母双运交界处。菩提甘露如云涌，降下白如冰片汁，我与三界众有情，业及烦恼痛苦因。病魔罪障煞气垢，无余清净祈加持。",
+             "stanzas": [
+              "于我庸俗头顶上，白莲月垫之中央，吽成金刚萨埵师，皎洁受用圆满身。",
+              "双运慢母持铃杵，祈净罪障皈依您，以猛悔心发露忏，后遇命难亦戒犯。",
+              "于您心间明月上，吽字周围咒绕旋，诵咒打动相续故，父母双运交界处。",
+              "菩提甘露如云涌，降下白如冰片汁，我与三界众有情，业及烦恼痛苦因。",
+              "病魔罪障煞气垢，无余清净祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.3.3",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "念修百字明",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四、念修百字明",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "于三昧耶有失犯，上师怙主予救护，亦即主尊金刚持，具足大悲体性者。众生主尊我皈依。我今速以此善根，成就金刚萨埵尊，令诸众生无一余，悉皆安置于此地。",
+             "stanzas": [
+              "于三昧耶有失犯，上师怙主予救护，亦即主尊金刚持，具足大悲体性者。",
+              "众生主尊我皈依。",
+              "我今速以此善根，成就金刚萨埵尊，令诸众生无一余，悉皆安置于此地。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.3.4",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 5,
+           "name": "忏悔之功德",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁五、忏悔之功德",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "闻益窍诀然却耽词句，稍许实修然为散乱欺，我与如我迷相众有情，愿得生圆精华祈加持。",
+             "stanzas": [
+              "闻益窍诀然却耽词句，稍许实修然为散乱欺，我与如我迷相众有情，愿得生圆精华祈加持。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.3.5",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.2.3"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 4,
+         "name": "积累资粮",
+         "divisions": 2,
+         "chapter": "积累资粮",
+         "refs": [],
+         "note": null,
+         "raw": "丙四（积累资粮）分二",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "供曼茶罗",
+           "divisions": 6,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一（供曼茶罗）分六",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "供曼茶之必要",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、供曼茶之必要",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "虽知世俗然积二资粮，虽证胜义无修然入定，虽已现前双运仍精进，无等上师足下我敬礼。",
+               "stanzas": [
+                "虽知世俗然积二资粮，虽证胜义无修然入定，虽已现前双运仍精进，无等上师足下我敬礼。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "所修曼茶罗",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、所修曼茶罗",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "供三十七堆曼茶罗",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、供三十七堆曼茶罗",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "王亲色戒萨耶。外铁围山环绕，中央须弥山王，霍匝哦郎。相扎莫年。鄂呀荡鄂呀烟。行洲及胜道行洲，恶音洲及恶音对洲，画萨戒向。玛谋波漏斗。诺吾仁波切。轮波仁波切。达求仁波切。得亲波哦巴。",
+               "stanzas": [
+                "王亲色戒萨耶。",
+                "外铁围山环绕，中央须弥山王，霍匝哦郎。",
+                "相扎莫年。",
+                "鄂呀荡鄂呀烟。",
+                "行洲及胜道行洲，恶音洲及恶音对洲，画萨戒向。",
+                "玛谋波漏斗。",
+                "诺吾仁波切。",
+                "轮波仁波切。",
+                "达求仁波切。",
+                "得亲波哦巴。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.3",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 4,
+             "name": "三身曼茶罗",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊四、三身曼茶罗",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "充满人天七宝等财富，以及我身受用悉供养，愿获转法轮王之国政，报身佛处大乐密严刹。具五决定五部供堆者，无量欲妙供云悉供养，愿获圆满报身之果位，现有清净童子瓶佛身。大悲不灭法性游舞饰，明点持身净刹悉供养，愿获殊胜法身之果位。涂香鲜花遍大地，须弥四洲日月饰，观想佛刹作供养，愿诸众生行佛刹。",
+               "stanzas": [
+                "充满人天七宝等财富，以及我身受用悉供养，愿获转法轮王之国政，报身佛处大乐密严刹。",
+                "具五决定五部供堆者，无量欲妙供云悉供养，愿获圆满报身之果位，现有清净童子瓶佛身。",
+                "大悲不灭法性游舞饰，明点持身净刹悉供养，愿获殊胜法身之果位。",
+                "涂香鲜花遍大地，须弥四洲日月饰，观想佛刹作供养，愿诸众生行佛刹。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.4",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 5,
+             "name": "供品洁净",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊五、供品洁净",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.5",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 6,
+             "name": "积资之理",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊六、积资之理",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.1.6",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.4.1"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "古萨里",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（古萨里）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "古萨里之义",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、古萨里之义",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "施身修法",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、施身修法",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "舍弃爱身执著毁天魔，心识由梵穴出于空中，成忿怒母摧毁死主魔，右持弯刀摧毁烦恼魔。斩断托巴摧毁色蕴魔，左手以事业印持托巴，置于三身人头之灶上，彼中尸身充满三千界。短啊杭字所融成甘露，以嗡啊吽咒力净增转。上供满足对境贵客意，圆满资粮获胜共悉地，下施令众欢喜清宿债，尤令作害魔种悉饱足。息灭病魔障碍消法界，摧毁一切恶缘及我执，一切能供所供及供境，本性无改大圆满中啊。",
+               "stanzas": [
+                "舍弃爱身执著毁天魔，心识由梵穴出于空中，成忿怒母摧毁死主魔，右持弯刀摧毁烦恼魔。",
+                "斩断托巴摧毁色蕴魔，左手以事业印持托巴，置于三身人头之灶上，彼中尸身充满三千界。",
+                "短啊杭字所融成甘露，以嗡啊吽咒力净增转。",
+                "上供满足对境贵客意，圆满资粮获胜共悉地，下施令众欢喜清宿债，尤令作害魔种悉饱足。",
+                "息灭病魔障碍消法界，摧毁一切恶缘及我执，一切能供所供及供境，本性无改大圆满中啊。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.2.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "断法之含义",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、断法之含义",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "虽具无我见然我执重，虽断二执然仍起希忧，我与如我我见众有情，愿证无我实相祈加持。",
+               "stanzas": [
+                "虽具无我见然我执重，虽断二执然仍起希忧，我与如我我见众有情，愿证无我实相祈加持。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.4.2.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.4.2"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.2.4"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 5,
+         "name": "自相续生起证悟智慧之究竟方便——上师瑜伽",
+         "divisions": 3,
+         "chapter": "上师瑜伽",
+         "refs": [],
+         "note": null,
+         "raw": "丙五（自相续生起证悟智慧之究竟方便——上师瑜伽）分三",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "上师瑜伽之重要性",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、上师瑜伽之重要性",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "首先依止胜师如教行，中间百般苦行而实修，最后密意无二得师传，无等上师足下我敬礼。",
+             "stanzas": [
+              "首先依止胜师如教行，中间百般苦行而实修，最后密意无二得师传，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.5.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "上师瑜伽实修法",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二（上师瑜伽实修法）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "明观福田",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、明观福田",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "自现自成清净无边刹，庄严铜色吉祥山中央，自身观为金刚瑜伽母，一面二臂红亮持刀盖。双足舞式三目视虚空，头顶十万瓣莲日月上，总集皈处根本上师尊，无别海生金刚幻化身。白里透红亮泽童子相，身着大氅内法咒士衣，一面二臂国王游舞式，右手金刚左持托巴瓶。头戴具瓣莲花鹿耳帽，左腋之下殊胜空乐母，以隐式持三尖卡张嘎，住于彩虹明点光蕴中。外旋绚烂五光庄严界，化现君臣二十五尊者，印藏成就持明诸圣众，一切空行护法如云聚。住于明空大平等性中。莲茎花蕊之座上，稀有殊胜成就者，世称名号莲花生，空行眷属众围绕。我随汝尊而修持，为赐加持祈降临，格日巴玛思德吽。",
+               "stanzas": [
+                "自现自成清净无边刹，庄严铜色吉祥山中央，自身观为金刚瑜伽母，一面二臂红亮持刀盖。",
+                "双足舞式三目视虚空，头顶十万瓣莲日月上，总集皈处根本上师尊，无别海生金刚幻化身。",
+                "白里透红亮泽童子相，身着大氅内法咒士衣，一面二臂国王游舞式，右手金刚左持托巴瓶。",
+                "头戴具瓣莲花鹿耳帽，左腋之下殊胜空乐母，以隐式持三尖卡张嘎，住于彩虹明点光蕴中。",
+                "外旋绚烂五光庄严界，化现君臣二十五尊者，印藏成就持明诸圣众，一切空行护法如云聚。",
+                "住于明空大平等性中。",
+                "莲茎花蕊之座上，稀有殊胜成就者，世称名号莲花生，空行眷属众围绕。",
+                "我随汝尊而修持，为赐加持祈降临，格日巴玛思德吽。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.2.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "七支供",
+             "divisions": 7,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二（七支供）分七",
+             "children": [
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 1,
+               "name": "顶礼支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己一、顶礼支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "我身化为尽刹尘，无边无数而顶礼。",
+                 "stanzas": [
+                  "我身化为尽刹尘，无边无数而顶礼。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.1",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 2,
+               "name": "供养支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己二、供养支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "陈设供品意幻定，供印奉献现有物。",
+                 "stanzas": [
+                  "陈设供品意幻定，供印奉献现有物。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.2",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 3,
+               "name": "忏悔支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己三、忏悔支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "一切三门不善业，光明法身中忏悔。",
+                 "stanzas": [
+                  "一切三门不善业，光明法身中忏悔。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.3",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 4,
+               "name": "随喜支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己四、随喜支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "随喜二谛所摄集，一切善业之资粮。",
+                 "stanzas": [
+                  "随喜二谛所摄集，一切善业之资粮。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.4",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 5,
+               "name": "请转法轮支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己五、请转法轮支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "祈请常转三乘法。",
+                 "stanzas": [
+                  "祈请常转三乘法。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.5",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 6,
+               "name": "祈请不入涅槃支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己六、祈请不入涅槃支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "乃至轮回未空前，祈请住世不涅槃。",
+                 "stanzas": [
+                  "乃至轮回未空前，祈请住世不涅槃。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.6",
+               "noVerse": true
+              },
+              {
+               "level": "己",
+               "depth": 6,
+               "num": 7,
+               "name": "回向支",
+               "divisions": null,
+               "chapter": null,
+               "refs": [],
+               "note": null,
+               "raw": "己七、回向支",
+               "children": [],
+               "verses": [
+                {
+                 "kind": "verse",
+                 "text": "三世所积诸善根，回向广大菩提因。",
+                 "stanzas": [
+                  "三世所积诸善根，回向广大菩提因。"
+                 ],
+                 "src": {
+                  "table": "epub",
+                  "page": 0
+                 }
+                }
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               },
+               "id": "k1.2.2.5.2.2.7",
+               "noVerse": true
+              }
+             ],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.2.2"
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "专心祈祷",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、专心祈祷",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "至尊莲花生大士，您乃一切诸佛陀，大悲加持总集尊，有情唯一之怙主。自身受用识心胸，毫无迟疑供养您，自此未获菩提间，善恶苦乐贵贱等。至尊莲师悉皆知。我无其余指望处，如今恶世浊时众，沉溺难忍苦沼中，愿救此苦大师尊。赐四灌顶加持尊，赐予证悟大悲尊，净除二障具力尊。一旦命终寿尽时，自现妙拂吉祥刹，双运化身刹土中，身成金刚瑜伽母。晶莹剔透光团中，明观至尊莲花生，无二无别正等觉，空乐双运之神变。广大智慧游舞中，三界有情无一余，最胜引导胜商主，衷心挚诚而祈祷。至尊莲师赐安慰，并非口头之言词，祈赐智慧之加持，一切心愿自然成。我今速以此善根，成就怙主上师尊，令诸众生无一余，悉皆安置于此地。",
+               "stanzas": [
+                "至尊莲花生大士，您乃一切诸佛陀，大悲加持总集尊，有情唯一之怙主。",
+                "自身受用识心胸，毫无迟疑供养您，自此未获菩提间，善恶苦乐贵贱等。",
+                "至尊莲师悉皆知。",
+                "我无其余指望处，如今恶世浊时众，沉溺难忍苦沼中，愿救此苦大师尊。",
+                "赐四灌顶加持尊，赐予证悟大悲尊，净除二障具力尊。",
+                "一旦命终寿尽时，自现妙拂吉祥刹，双运化身刹土中，身成金刚瑜伽母。",
+                "晶莹剔透光团中，明观至尊莲花生，无二无别正等觉，空乐双运之神变。",
+                "广大智慧游舞中，三界有情无一余，最胜引导胜商主，衷心挚诚而祈祷。",
+                "至尊莲师赐安慰，并非口头之言词，祈赐智慧之加持，一切心愿自然成。",
+                "我今速以此善根，成就怙主上师尊，令诸众生无一余，悉皆安置于此地。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.2.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.5.2"
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "传承上师简历",
+           "divisions": 3,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三（传承上师简历）分三",
+           "children": [
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 1,
+             "name": "如来密意传",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊一、如来密意传",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.3.1",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 2,
+             "name": "持明表示传",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊二、持明表示传",
+             "children": [],
+             "verses": [],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.3.2",
+             "noVerse": true
+            },
+            {
+             "level": "戊",
+             "depth": 5,
+             "num": 3,
+             "name": "补特伽罗耳传",
+             "divisions": null,
+             "chapter": null,
+             "refs": [],
+             "note": null,
+             "raw": "戊三、补特伽罗耳传",
+             "children": [],
+             "verses": [
+              {
+               "kind": "verse",
+               "text": "虽视大恩上师为真佛，却因性情刚强违师教。虽知三界众生为父母，却因蛮横粗暴出恶语，我与如我恶业众有情，此生及诸生生世世中，愿以寂静调柔之言行，依止上师道友祈加持。",
+               "stanzas": [
+                "虽视大恩上师为真佛，却因性情刚强违师教。虽知三界众生为父母，却因蛮横粗暴出恶语，",
+                "我与如我恶业众有情，此生及诸生生世世中，愿以寂静调柔之言行，依止上师道友祈加持。"
+               ],
+               "src": {
+                "table": "epub",
+                "page": 0
+               }
+              }
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             },
+             "id": "k1.2.2.5.3.3",
+             "noVerse": true
+            }
+           ],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.2.5.3"
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.2.5"
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "epub",
+        "page": 0
+       },
+       "id": "k1.2.2"
+      },
+      {
+       "level": "乙",
+       "depth": 2,
+       "num": 3,
+       "name": "修持正行支分捷径——往生法",
+       "divisions": 3,
+       "chapter": null,
+       "refs": [],
+       "note": null,
+       "raw": "乙三（修持正行支分捷径——往生法）分三",
+       "children": [
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 1,
+         "name": "往生分类",
+         "divisions": 5,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙一（往生分类）分五",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "利根者见解印持法身之往生",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、利根者见解印持法身之往生",
+           "children": [],
+           "verses": [
+            {
+             "kind": "verse",
+             "text": "尤为悲悯愚昧之众生，尤为摄受罪孽深重者，尤以善巧法调难化众，无等上师足下我敬礼。",
+             "stanzas": [
+              "尤为悲悯愚昧之众生，尤为摄受罪孽深重者，尤以善巧法调难化众，无等上师足下我敬礼。"
+             ],
+             "src": {
+              "table": "epub",
+              "page": 0
+             }
+            }
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.1.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "中根者生圆双运报身之往生",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、中根者生圆双运报身之往生",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.1.2",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 3,
+           "name": "下根者无量大悲化身之往生",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁三、下根者无量大悲化身之往生",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.1.3",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 4,
+           "name": "平凡者具三想之往生",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁四、平凡者具三想之往生",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.1.4",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 5,
+           "name": "以大悲铁钩超度亡灵之往生",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁五、以大悲铁钩超度亡灵之往生",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.1.5",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.3.1"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 2,
+         "name": "往生修法",
+         "divisions": 2,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙二（往生修法）分二",
+         "children": [
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 1,
+           "name": "修炼",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁一、修炼",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.2.1",
+           "noVerse": true
+          },
+          {
+           "level": "丁",
+           "depth": 4,
+           "num": 2,
+           "name": "运用",
+           "divisions": null,
+           "chapter": null,
+           "refs": [],
+           "note": null,
+           "raw": "丁二、运用",
+           "children": [],
+           "verses": [],
+           "src": {
+            "table": "epub",
+            "page": 0
+           },
+           "id": "k1.2.3.2.2",
+           "noVerse": true
+          }
+         ],
+         "verses": [],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.3.2"
+        },
+        {
+         "level": "丙",
+         "depth": 3,
+         "num": 3,
+         "name": "往生仪轨",
+         "divisions": null,
+         "chapter": null,
+         "refs": [],
+         "note": null,
+         "raw": "丙三、往生仪轨",
+         "children": [],
+         "verses": [
+          {
+           "kind": "verse",
+           "text": "自现任运清净无边刹，圆满庄严西方极乐土，自身观为金刚瑜伽母，一面二臂红亮持刀盖。双足舞式三目视虚空，体内中央之中脉，粗细犹如竹箭许，具有空净光之管。上端开于梵净穴，下端关闭于脐下，心间阻断之节上，淡绿风团明点中。明观自心红舍字，头顶一肘之上方，明观佛陀无量光，具足相好圆满身。境为自现了义密严刹，百倍信心彩虹萦绕中，皈处总集根本之上师，身非庸俗而为清澈身。吉祥无量光佛本体住，当以强烈敬信心祈祷，现前往生圣道祈加持，趋入密严刹土祈加持。愿获法身法界之佛地。顶礼佛陀无量光，祈祷邬金莲花生，大恩根本师悲摄，根本传承师引道。加持修成往生法，依此捷径趋空刹，吾等从此命终时，加持速生极乐刹。极其稀有怙主无量光，大悲观音大力金刚手，我等专心致志而祈祷，修成往生深道祈加持。我等一旦出现死亡时，加持神识往生极乐刹。自尚未度超度诸亡灵，自不实修巧言如撑伞，我与如我狡诈种姓者，愿能精进修行祈加持。",
+           "stanzas": [
+            "自现任运清净无边刹，圆满庄严西方极乐土，自身观为金刚瑜伽母，一面二臂红亮持刀盖。",
+            "双足舞式三目视虚空，体内中央之中脉，粗细犹如竹箭许，具有空净光之管。",
+            "上端开于梵净穴，下端关闭于脐下，心间阻断之节上，淡绿风团明点中。",
+            "明观自心红舍字，头顶一肘之上方，明观佛陀无量光，具足相好圆满身。",
+            "境为自现了义密严刹，百倍信心彩虹萦绕中，皈处总集根本之上师，身非庸俗而为清澈身。",
+            "吉祥无量光佛本体住，当以强烈敬信心祈祷，现前往生圣道祈加持，趋入密严刹土祈加持。",
+            "愿获法身法界之佛地。",
+            "顶礼佛陀无量光，祈祷邬金莲花生，大恩根本师悲摄，根本传承师引道。",
+            "加持修成往生法，依此捷径趋空刹，吾等从此命终时，加持速生极乐刹。",
+            "极其稀有怙主无量光，大悲观音大力金刚手，我等专心致志而祈祷，修成往生深道祈加持。",
+            "我等一旦出现死亡时，加持神识往生极乐刹。",
+            "自尚未度超度诸亡灵，自不实修巧言如撑伞，我与如我狡诈种姓者，愿能精进修行祈加持。"
+           ],
+           "src": {
+            "table": "epub",
+            "page": 0
+           }
+          }
+         ],
+         "src": {
+          "table": "epub",
+          "page": 0
+         },
+         "id": "k1.2.3.3",
+         "noVerse": true
+        }
+       ],
+       "verses": [],
+       "src": {
+        "table": "epub",
+        "page": 0
+       },
+       "id": "k1.2.3"
+      }
+     ],
+     "verses": [],
+     "src": {
+      "table": "epub",
+      "page": 0
+     },
+     "id": "k1.2"
+    }
+   ],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "id": "k1"
+  },
+  {
+   "level": null,
+   "depth": 0,
+   "num": null,
+   "name": "结文",
+   "divisions": null,
+   "chapter": null,
+   "refs": [],
+   "note": null,
+   "raw": "结文",
+   "children": [],
+   "verses": [],
+   "src": {
+    "table": "epub",
+    "page": 0
+   },
+   "id": "z1"
+  }
+ ],
+ "notes": []
+}

@@ -22,6 +22,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import epub2kepan  # noqa: E402
+import guide2book  # noqa: E402
 import epub2shiyi  # noqa: E402
 import pdf2kepan  # noqa: E402
 
@@ -43,7 +44,10 @@ def build(book_dir):
     extra = book_dir / "book.json"
     info = json.loads(extra.read_text(encoding="utf-8")) if extra.exists() else {}
     pages = info.pop("pages", None)  # 只转换这些页，如 "1-7"（跳过只列了后面品名的空表）
-    if pdfs:
+    guide = None
+    if info.get("kind") == "guide":  # 引导文类：散文为主，科判和要背的偈颂、仪轨都从 epub 里取，释义就是全文
+        tree, guide = guide2book.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid)
+    elif pdfs:
         tree = pdf2kepan.convert(str(pdfs[0]), bid, str(fixes) if fixes.exists() else None, pages)
     else:  # 科判只有扫描件时：从讲记 epub 的科判标题和颂词搭科判树
         tree = epub2kepan.convert(str(sorted(book_dir.glob("*.epub"))[0]), bid, str(fixes) if fixes.exists() else None)
@@ -58,6 +62,11 @@ def build(book_dir):
     for c in tree["checks"]:
         print("  ✗", c)
 
+    if guide:
+        dump(DATA / f"{bid}.shiyi.json", guide)
+        entry.update(shiyi=f"{bid}.shiyi.json", shiyiStats=guide["stats"])
+        print(f"  全文：{guide['stats']['rows']} 行，{guide['stats']['chars']} 字，可背 {guide['stats']['stanzas']} 颂")
+        return entry
     epubs = sorted(book_dir.glob("*.epub")) or sorted(book_dir.glob("*.txt"))  # 讲记：epub，或从 PDF 导出的 txt
     if epubs:
         sh = epub2shiyi.convert(str(epubs[0]), tree)
