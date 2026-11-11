@@ -221,6 +221,8 @@ function ropeTwist(cu,cl,W,H){cu=ropeCols(cu);cl=ropeCols(cl);const id="rt"+Math
  // 上半用上一段的股，下半用下一段的股，在束腰处交接；束腰处缠一圈金线
  const band=`<g>${[-1,0,1].map(j=>`<ellipse cx="8" cy="${(mid+j*1.5).toFixed(2)}" rx="${(8*sc(mid)+.4).toFixed(2)}" ry=".95" fill="#c9a24a" stroke="#6e5214" stroke-width=".3"/>`).join("")}</g>`;
  return `<svg width="${W}" height="${H}" viewBox="0 0 16 ${HU.toFixed(2)}" aria-hidden="true" style="overflow:visible"><defs>${RBLUR.replace('id="rb"',`id="rb"`)}${ropeShade(id+"s")}<clipPath id="${id}u"><rect width="16" height="${mid.toFixed(2)}"/></clipPath><clipPath id="${id}l"><rect y="${mid.toFixed(2)}" width="16" height="${mid.toFixed(2)}"/></clipPath><clipPath id="${id}c"><path d="${hg}"/></clipPath></defs><g clip-path="url(#${id}c)"><rect width="16" height="${HU}" fill="${MIX(cu[0],"#000000",.6)}"/><g clip-path="url(#${id}u)">${ropeStrands(cu,0,mid,xf)}</g><g clip-path="url(#${id}l)">${ropeStrands(cl,mid,HU,xf)}</g><rect width="16" height="${HU}" fill="url(#${id}s)"/>${band}</g></svg>`}
+// 编绳纹理按颜色和绳子设置记下来，再次打开、换书回来都不用重新生成
+const TEXC=new Map();function cordTexC(cols,style){const k=[cols.join(),style,ST.rlight,ST.rfib,ST.rtw].join("|");let r=TEXC.get(k);if(r===undefined){r=cordTex(cols,style);if(TEXC.size>400)TEXC.clear();TEXC.set(k,r)}return r}
 function cordTex(cols,style){if(style==="sreal")return ropeTex(cols);if(cols.length<2)cols=[cols[0],MIX(cols[0],"#ffffff",.38)];
  if(style==="ssolid")return cols[cols.length-1];
  if(style==="sbraid")return `repeating-linear-gradient(150deg,${cols.map((c,i)=>`${c} ${i*4}px ${(i+1)*4}px`).join(",")})`;
@@ -1069,7 +1071,6 @@ function renderReader(){
  const compA=n=>anc(n).filter(x=>comp(x.lvl));
  if(nComp>0){const segs=[];BK.seq.forEach(n=>{const A=compA(n);const key=A.map(x=>x.id).join();const last=segs[segs.length-1];if(last&&last.key===key)last.rows.push(n);else segs.push({key,A,rows:[n]})});
   const TH=Math.round(ST.cw*(ST.twist==="helix"?3.2:2.6)),CUT=Math.round(TH*.36);
-  const texC={};
   segs.forEach((s,i)=>{if(!s.A.length)return;const ra=s.rows[0],rb=s.rows[s.rows.length-1];const a={offsetTop:oT(ra)},b={offsetTop:oT(rb),offsetHeight:geo[rb.id][1]};const d=document.createElement("div");d.className="cord "+ST.cord;
    const first=!(segs[i-1]&&segs[i-1].A.length),last=!(segs[i+1]&&segs[i+1].A.length),tw=ST.twist!=="gap";
    let t0=a.offsetTop+4,t1=b.offsetTop+b.offsetHeight-4;if(tw){if(!first)t0=a.offsetTop+CUT;if(!last)t1=b.offsetTop+b.offsetHeight-CUT}
@@ -1082,7 +1083,7 @@ function renderReader(){
     const sv=tasselSVG(cols,ST.cw,ST);g.style.cssText=`top:${t1-1}px;left:${3+ST.cw/2-sv.cx}px`;g.innerHTML=sv.svg;frag.appendChild(g)}
    d.style.height=(t1-t0)+"px";
    if(tw&&!last){const nx=segs[i+1],y=b.offsetTop+b.offsetHeight;const t=document.createElement("div");t.className="twist "+ST.cord;t.style.cssText=`top:${y-TH/2}px;height:${TH}px`;
-    t.innerHTML=twistSVG(s.A.map(x=>KH[x.depth]),nx.A.map(x=>KH[x.depth]),ST.cw,TH,ST.twist);t.title="换段："+nx.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(t)}const tk=s.A.map(x=>x.depth).join();d.style.setProperty("--tex",texC[tk]||(texC[tk]=cordTex(s.A.map(x=>KH[x.depth]),ST.cord)));
+    t.innerHTML=twistSVG(s.A.map(x=>KH[x.depth]),nx.A.map(x=>KH[x.depth]),ST.cw,TH,ST.twist);t.title="换段："+nx.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(t)}d.style.setProperty("--tex",cordTexC(s.A.map(x=>KH[x.depth]),ST.cord));
    d.title=s.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(d)})}
  rw.appendChild(frag);
  let cur=BK.seq[0];
@@ -1225,10 +1226,34 @@ async function boot(){layout();dev.innerHTML=`<div class="app home"><div class="
  BK=(Object.values(SR.recent).sort((a,b)=>b.t-a.t)[0]&&Object.keys(SR.recent).sort((a,b)=>SR.recent[b].t-SR.recent[a].t).map(id=>BOOKS[id]).find(Boolean))||Object.values(BOOKS)[0]||null;
  LOADED=true;ST.screen="home";render();
  if(!Object.keys(BOOKS).length)toastNow("书目没有读到，请联网后重新打开");
- loadBuiltinShiyi(blist);
+ loadBuiltinShiyi(blist);warmReader(BK);
  if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(e=>console.warn("离线缓存没有装上",e));
  if(ST.srem&&pushOK()&&Notification.permission==="granted")pushSub().catch(()=>{})}
 boot();
+
+// ===== 阅读页预热 =====
+// 第一次打开大部头时，排版整本颂词（字形计算）和生成编绳图案最费时；再开一次就快很多。
+// 所以在书架上空闲时，把最近读的那本书分成小块先算一遍，每块只占几十毫秒，不影响操作；
+// 开屏还在、离开书架或换了书就停下。
+function warmReader(B){if(!B||warmReader.done[B.id])return;warmReader.done[B.id]=true;
+ const idle=f=>window.requestIdleCallback?requestIdleCallback(f,{timeout:800}):setTimeout(f,60);
+ const steps=[];
+ const nComp=Math.max(0,B.maxA-4);
+ // 编绳和绞结是 blob 网址的 SVG 图：先载入解码一次，打开阅读页时就不用逐张解析
+ const seen=new Set(),pre=h=>{const m=typeof h==="string"&&h.match(/blob:[^"')\s]+/);if(!m||seen.has(m[0]))return;seen.add(m[0]);const im=new Image();im.src=m[0];warmReader.imgs.push(im);if(im.decode)im.decode().catch(()=>{})};
+ if(nComp>0&&ST.cord){const segs=[];B.seq.forEach(n=>{const A=anc(n).filter(x=>x.lvl<=nComp);const k=A.map(x=>x.id).join();const l=segs[segs.length-1];if(!l||l.k!==k)segs.push({k,A})});
+  const TH=Math.round(ST.cw*(ST.twist==="helix"?3.2:2.6));
+  for(let i=0;i<segs.length;i+=8)steps.push(()=>segs.slice(i,i+8).forEach((s,j)=>{if(!s.A.length)return;const c=s.A.map(x=>KH[x.depth]);pre(cordTexC(c,ST.cord));const nx=segs[i+j+1];if(ST.twist!=="gap"&&nx&&nx.A.length)pre(twistSVG(c,nx.A.map(x=>KH[x.depth]),ST.cw,TH,ST.twist))}))}
+ let box=null;
+ for(let i=0;i<B.seq.length;i+=12)steps.push(()=>{if(!box||!box.isConnected){box=document.createElement("div");box.setAttribute("aria-hidden","true");box.style.cssText=`position:absolute;left:-99999px;top:0;width:${Math.max(200,dev.clientWidth-60)}px;visibility:hidden;pointer-events:none`;dev.appendChild(box)}
+  box.innerHTML=B.seq.slice(i,i+12).map(n=>`<div class="row"><div class="lt">${badge(n)}<span class="ltt">${esc(n.title)}</span></div>${n.v.length?verseHTML(n.v,null,""):""}</div>`).join("");box.offsetHeight});
+ steps.push(()=>{if(box)box.remove()});
+ let k=0;const tick=()=>{if(k>=steps.length)return;
+  if(!LOADED||BK!==B||ST.screen!=="home"){if(box)box.remove();warmReader.done[B.id]=false;return}
+  if(dev.querySelector(".splash")){setTimeout(tick,600);return}
+  const t=performance.now();while(k<steps.length&&performance.now()-t<30)steps[k++]();idle(tick)};
+ setTimeout(tick,1200)}
+warmReader.done={};warmReader.imgs=[];
 
 // 科判下的附注。经名的梵、藏、汉语在 PDF 里是分行写的，转出来连成了一串：按「梵语：」「藏语：」「汉语：」重新分行，用正文颜色
 const NAMEL=/(?=(?:梵语|藏语|汉语|印度语|梵文|藏文)[：:])/;
