@@ -652,6 +652,7 @@ function initTask(t){if(!t)return null;const n=t.n;
  if(t.k==="exp"){let dis=[];if(!t.isNew){const pool=t.B.all.filter(x=>x.lvl===n.lvl+1&&x.p!==n);const i0=t.B.all.indexOf(n);pool.sort((a,b)=>Math.abs(t.B.all.indexOf(a)-i0)-Math.abs(t.B.all.indexOf(b)-i0));dis=pool.slice(0,n.c.length>2?2:1).map(x=>x.id)}
   return {kind:"exp",order:shuffle([...n.c.map(x=>x.id),...dis],n.c.length*13+dis.length),dis:new Set(dis),placed:[],wrong:0,shake:null,done:false}}
  if(t.k==="pair")return pairTask(t);
+ if(t.n.vp)return {kind:"mask",lines:shuffle(pyLines(t.n),Date.now()%9973+1).slice(0,8),li:0,rs:t.isNew?[0,2,3]:[3],ri:0,peek:false,wrong:false,done:false};
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
 // 仪轨偈句「对照」题：一句一题、打乱顺序，单数题看汉义选音译，双数题看音译选汉义；每题 4 个选项，一次最多 8 题
 const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
@@ -701,20 +702,26 @@ function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`点错过 ${T.wrong} 次，这题按答错记`:"顺序全对"}</div>`:"";
  return head+mid+cards+res}
 function maskHTML(t,T){const n=t.n;const r=T.r;
- // 仪轨偈句：一句一题、打乱顺序（同一题里顺序不变）
- if(n.vp&&!T.ord){const L=[];n.v.forEach((s,si)=>{(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>L.push([n.vp[si]&&n.vp[si][j]||"",z]))});T.ord=shuffle(L,Date.now()%9973+1)}
- const v=n.vp?verseMaskHTML([T.ord.map(x=>x[1]).join("，")],T.done?0:r,[T.ord.map(x=>x[0])]).replace('class="verse vm"',`class="verse vm vpy ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`):r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
- return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${n.vp?"看着音译，背出汉义（句子已打乱）":"下面的颂词，背出来"}</span></div>
+ if(T.lines)return maskLineHTML(t,T);
+ const v=r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
+ return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>下面的颂词，背出来</span></div>
   <div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
   <div class="mdots">${RND.map((x,i)=>`<i class="${T.done||i<r?"on":i===r?"cur":""}" title="${x}"></i>`).join("")}<span>${T.done?"背完了":`第 ${r+1} 轮 · ${RND[r]}${r>0&&!T.peek?"　心里背完，点颂词核对":""}`}</span></div>
   ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.isNew?"四轮都过了":T.wrong?"中途模糊过，按答错记":"首字提示下记得"}</div>`:""}`}
+// 仪轨偈句的遮字：一屏一句、打乱顺序，看着音译背汉义。新学每句过三步（通读 → 遮三分之二 → 只留首字），复习每句只留首字
+function maskLineHTML(t,T){const n=t.n;const [py,zh]=T.lines[Math.min(T.li,T.lines.length-1)];const r=T.done?0:T.rs[T.ri];
+ const v=verseMaskHTML([zh],r,[[py]]).replace('class="verse vm"',`class="verse vm vpy one ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`);
+ return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>看着音译，背出汉义<small>第 ${Math.min(T.li+1,T.lines.length)} / ${T.lines.length} 句</small></span></div>
+  ${T.done?`<div class="pqlist">${T.lines.map(x=>`<div><span>${esc(x[1])}</span><small>${esc(x[0])}</small></div>`).join("")}</div>`:`<div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
+  <div class="mdots">${T.rs.map((x,i)=>`<i class="${i<T.ri?"on":i===T.ri?"cur":""}" title="${RND[x]}"></i>`).join("")}<span>${RND[r]}${r>0&&!T.peek?"　心里背完，点汉义核对":""}</span></div>`}
+  ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?"中途模糊过，按答错记":"都记得"}</div>`:""}`}
 function fbHTML(t){const last=SS.res[SS.res.length-1];if(!last||t.daily)return "";const n=t.n;
  const msg=last.again?(last.ok?"这次记住了，明天再来":"还不牢，明天再练"):!last.ok?`还不牢，过一会儿再出现`:last.first?`${SK[t.k]}这一段亮了${nstate(n).gold?"，整个节点变金":""}`:`下次大约 ${last.days} 天后再来`;
  return `<div class="sfb">${ST.sfb==="ring"&&ST.ring!=="none"?ringHTML(n,"big",last.first?t.k:null):""}<div><b>${esc(n.p?n.code+" "+n.title:t.B.title)}</b><span>${msg}</span></div></div>`}
 function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp"?expHTML(t,T):k==="pair"?pairHTML(t,T):maskHTML(t,T);
  const last=SS.i===SS.q.length-1;
  const foot=T.done?`${fbHTML(t)}<div class="sacts">${ST.sview==="sheet"&&!t.daily?`<button data-jump>在原文里看看</button>`:""}<button class="pri" data-next>${t.daily?"回书架":last?"完成":"下一题"}</button></div>`
-  :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.r===3?"记得 · 完成":"记得"}</button></div>`:"";
+  :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.lines?(T.li===T.lines.length-1&&T.ri===T.rs.length-1?"记得 · 完成":T.ri===T.rs.length-1?"记得 · 下一句":"记得"):T.r===3?"记得 · 完成":"记得"}</button></div>`:"";
  return `<div class="tk tk-${k}"><div class="tkh"><span class="tkind ${t.isNew?"new":""} ${t.daily?"dly":""}">${t.daily?"每日一颂":(t.isNew?"新学":"复习")+" · "+SK[t.k]}</span><span class="tkb">${esc(shortT(t.B))}</span></div>${body}<div class="tkf">${foot}</div></div>`}
 function moreBtn(){const q=extraQueue(SS.B);return q.length?`<button class="smore" data-smore><b>继续学习</b><small>再学一支：${esc(q[0].n.code||"")} ${esc(q[0].n.title)}</small></button>`:""}
 function doneHTML(){const R=SS.res;const rv=R.filter(x=>!x.t.isNew&&!x.again),nw=[...new Set(R.filter(x=>x.t.isNew).map(x=>x.t.n))];const seen=[];R.forEach(x=>{if(!seen.includes(x.t.n))seen.push(x.t.n)});
@@ -752,7 +759,10 @@ function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  if(T.kind==="pair")root.querySelectorAll("[data-pq]").forEach(b=>b.onclick=()=>{const q=T.qs[T.i];const j=+b.dataset.pq;T.shake=null;
   if(q.opts[j]===q.ans){T.i++;if(T.i>=T.qs.length){T.done=true;grade(t,!T.wrong)}rer()}
   else{T.wrong++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake","no")}});
- if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=`第 ${T.r+1} 轮 · ${RND[T.r]}`};
+ if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=T.lines?RND[T.rs[T.ri]]:`第 ${T.r+1} 轮 · ${RND[T.r]}`};
+  if(T.lines){root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;
+   if(b.dataset.mj==="ok"){T.ri++;if(T.ri>=T.rs.length){T.ri=0;T.li++;if(T.li>=T.lines.length){T.done=true;grade(t,!T.wrong)}}}
+   else{if(!t.isNew)T.wrong=true;T.ri=Math.max(0,T.ri-1)}rer()});return}
   root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;if(b.dataset.mj==="ok"){if(T.r>=3){T.done=true;grade(t,!T.wrong)}else T.r++}else{if(!t.isNew){T.wrong=true;if(T.r===3)T.r=2}}rer()})}}
 // ---- 首页「今日」
 const dailyToday=()=>SR.daily&&SR.daily.date===dkey()?SR.daily:null;

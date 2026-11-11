@@ -714,3 +714,5 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .pqlist{display:grid;gap:8px;margin:14px 0;font-family:var(--serif)}
 .pqlist div{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--line)}
 .pqlist small{color:var(--muted);font-size:.9em}
+.verse.vpy.one{font-size:calc(var(--vf,16px)*1.4);text-align:center;max-width:none;padding:14px 0}
+.verse.vpy.one .vpyl{font-size:.8em;margin-bottom:.3em}
