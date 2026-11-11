@@ -121,7 +121,11 @@ const MND={card:"描边卡片",fill:"实色块",tint:"浅色底",pill:"胶囊"},
 const HOME={shelf:"A 书架：品目列表",beads:"B 念珠：每品一串",outline:"C 全论目录"},BPOS={center:"标题栏正中",card:"路径卡片右侧（目录竖条上方）"},MK={box:"方块",line:"下划线",fade:"淡字"},LITV={both:"色带变灰 + 点亮发光",gray:"只变灰 / 恢复颜色",gold:"只加金边"};
 const WORKS=[];
 const HCARD={row:"列表行",card:"大卡片",spine:"经书书脊",grid:"封面网格（两列）"},HPROG={bar:"细进度条",beads:"念珠",ring:"圆环百分比",none:"不显示"},HEXP={arrow:"右侧小箭头展开品",chips:"品名标签一直露出（横滑）",none:"不展开"},HSEARCH={box:"顶部常驻搜索框",icon:"标题栏放大镜（点开全屏搜索）"},HABOUT={icon:"卡片上的 ⓘ",menu:"卡片上的 ⋯ 菜单"},HSORT={recent:"最近读的排最前",fixed:"原顺序，最近读的另起一排"},HLAST={line:"一行文字",chip:"「继续」按钮"};
-let HEXPD=null,HQ="",ABOUT=null,MENU=null,DELC=null;
+let HEXPD=null,HQ="",ABOUT=null,MENU=null,DELC=null,HTOP=0;
+// 书卡 ⋯ 菜单：放在按钮下方，下方放不下就翻到上方；上下都放不下时把书架滚到能看全
+function placeMenu(hb){const m=hb&&hb.querySelector(".hmenu");const bt=m&&m.parentNode.querySelector("[data-menu]");if(!bt)return;const g=4,h=m.offsetHeight,br=hb.getBoundingClientRect(),r=bt.getBoundingClientRect();
+ const pad=8,sb=hb.querySelector(".hsearch"),top=Math.max(br.top,sb?sb.getBoundingClientRect().bottom:0)+pad,below=br.bottom-pad-r.bottom-g,above=r.top-g-top;const up=h>below&&h<=above;m.classList.toggle("up",up);m.style.top=(up?bt.offsetTop-g-h:bt.offsetTop+bt.offsetHeight+g)+"px";
+ if(!up&&h>below){const mr=m.getBoundingClientRect();hb.scrollTop+=Math.max(0,Math.min(mr.bottom-(br.bottom-pad),mr.top-top))}}
 function delHTML(){const B=BOOKS[DELC];return `<div class="cpov cfov" data-delno><div class="cfd" role="alertdialog" aria-label="确认删除"><b>从书架删除《${esc(B?B.title:"")}》？</b><p>这部书的科判、释义和背诵记录都会从这台设备上删掉。以后可以重新导入。</p><div class="cfb"><button data-delno>取消</button><button class="danger" data-delyes>删除</button></div></div></div>`}
 const bfsBranches=B=>{const q=[B.root],out=[];while(q.length){const n=q.shift();if(n.c.length){out.push(n);q.push(...n.c)}}return out};
 const shuffle=(a0,seed)=>{let a=a0.slice();let x=seed||7;for(let i=a.length-1;i>0;i--){x=(x*9301+49297)%233280;const j=Math.floor(x/233280*(i+1));[a[i],a[j]]=[a[j],a[i]]}if(a.length>1&&a.every((v,i)=>v===a0[i]))a.push(a.shift());return a};
@@ -756,7 +760,7 @@ function aboutHTML(w){return `<div class="hsheet-bg" data-close></div><div class
  ${w.shiyi?`<dt>释义</dt><dd>${esc(w.shiyi)}</dd>`:""}<dt>版本</dt><dd>${esc([w.ed,w.date].filter(Boolean).join(" · ")||"—")}</dd><dt>规模</dt><dd>${w.chaps.length?w.chaps.length+" 品 · ":""}${w.vs} 颂</dd></dl>
  ${errataHTML(w)}<p class="anote">此科判仅供学习，禁止商用、篡改。</p>
  <div class="aacts"><button data-fb>报告错误</button><button class="pri" data-close>好</button></div></div>`}
-function renderHome(){const W=wide();
+function renderHome(){const W=wide();{const ob=dev.querySelector(".app.home .hbody2");if(ob)HTOP=ob.scrollTop}
  const ord=WORKS.map((w,i)=>({w,i,l:wLast(w)}));const rec=ord.filter(o=>o.l).sort((a,b)=>b.l.t-a.l.t);
  const list=ST.hsort==="recent"?[...rec,...ord.filter(o=>!o.l)]:ord;
  const card=({w,l})=>{const f=wProg(w);const ex=ST.hexp==="arrow"&&HEXPD===w.id;
@@ -783,6 +787,9 @@ function renderHome(){const W=wide();
  const C0=todayCount();
  dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span><span class="tbs">${ST.hsearch==="icon"?`<button class="tocbtn" data-sopen aria-label="搜索">⌕</button>`:""}<button class="tocbtn dedb ${(()=>{const T=todayRec();return T.n>0&&!T.dedi?"hot":""})()}" data-dedi>回向</button><button class="tocbtn" data-import aria-label="导入一部论">＋</button><button class="tocbtn" data-settings aria-label="设置">⚙</button></span></div></div>
   <div class="hbody2">${(ST.hsearch==="box"||HQ||ST.sOpen)&&!(TAB&&ST.htab==="today")?sbox:""}${body}</div>${TAB?`<div class="htabs"><button data-htab="shelf" aria-pressed="${ST.htab!=="today"}">书架</button><button data-htab="today" aria-pressed="${ST.htab==="today"}">今日${C0.tot?`<em>${C0.tot}</em>`:""}</button></div>`:""}${ABOUT&&WORKS.find(w=>w.id===ABOUT)?aboutHTML(WORKS.find(w=>w.id===ABOUT)):""}${DELC?delHTML():""}${lmAskHTML()}${paceSheetHTML()}${coursePickHTML()}${resetHTML()}<div class="htoast" hidden></div></div>`;
+ {const hb=dev.querySelector(".hbody2");if(hb){hb.scrollTop=HTOP;hb.addEventListener("scroll",()=>{HTOP=hb.scrollTop},{passive:true});placeMenu(hb)}
+  // 菜单开着时，点别处只关菜单，不打开书
+  if(MENU)dev.querySelector(".app.home").addEventListener("click",e=>{if(e.target.closest(".hmenu,[data-menu]"))return;e.stopPropagation();e.preventDefault();MENU=null;rer()},true)}
   {const ib=dev.querySelector("[data-import]");if(ib)ib.onclick=()=>{if(!IMP||IMP.step!==3&&IMP.step!==4)impReset();ST.screen="import";MENU=null;render();bindPanel()}}
  {const sb=dev.querySelector("[data-settings]");if(sb)sb.onclick=()=>{ST.screen="settings";MENU=null;render();bindPanel()}}
  const toast=t=>{const el=dev.querySelector(".htoast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,1600)};
@@ -799,7 +806,7 @@ function renderHome(){const W=wide();
  dev.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>{ABOUT=null;rer()});
  const fb=dev.querySelector("[data-fb]");if(fb)fb.onclick=()=>toast("会打开整理者留的反馈方式");
  const so=dev.querySelector("[data-sopen]");if(so)so.onclick=()=>{ST.sOpen=!ST.sOpen;rer();const i=dev.querySelector(".hsearch input");if(i)i.focus()};
- const inp=dev.querySelector(".hsearch input");if(inp)inp.oninput=()=>{HQ=inp.value;rer()};
+ const inp=dev.querySelector(".hsearch input");if(inp)inp.oninput=()=>{HQ=inp.value;HTOP=0;const hb=dev.querySelector(".hbody2");if(hb)hb.scrollTop=0;rer()};
  dev.querySelectorAll("[data-more]").forEach(b=>b.onclick=e=>{e.stopPropagation();const B=BOOKS[b.dataset.more];if(B){BK=B;startExtra(extraQueue(B))}});
  dev.querySelectorAll("[data-grev]").forEach(b=>b.onclick=e=>{e.stopPropagation();const B=BOOKS[b.dataset.grev];if(B){BK=B;startExtra(freeQueue(B),{free:true})}});
  dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const B=BOOKS[b.dataset.learn]||BK;if(!B)return;BK=B;if(!SR.paceAsked){PACESH=B.id;PRESTART=true;MENU=null;rer();return}startSession({B})});
