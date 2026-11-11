@@ -61,12 +61,13 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
  chaps.forEach(c=>{c.first=c.leaves[0]||fl(c.node);c.vs=c.leaves.reduce((a,n)=>a+n.v.length,0)});
  const chOf={};chaps.forEach(c=>c.leaves.forEach(n=>chOf[n.id]=c));
  const sy=shiyi&&shiyi.sections?shiyiOf(shiyi):null;if(sy)SHIYI[id]=sy;else delete SHIYI[id];
- const ep=shiyi&&shiyi.source&&shiyi.source.epub&&shiyi.source.epub.title||"";const syName=ep?ep.replace(/^译作\s*\d+\s*/,"").replace(/[-_ ]?epub$/i,"").trim():"";
+ const syName=syNameOf(shiyi);
  const B={id,root:R,title:short,all,seq,seqI,by,maxA:Math.max(1,...seq.map(n=>n.lvl))-1,meta,chaps,chOf,syName,builtin:!!info.builtin,info,tree};
  B.bfs=(()=>{const q=[R],o=[];while(q.length){const n=q.shift();o.push(n);q.push(...n.c)}return o})();
  const W={id,title:short,long:meta.name||meta.rootTitle||short,full:meta.name||meta.title||short,roles:(meta.roles||[]).map(r=>[r.name,r.role]),compiler:meta.compiler||"",proof:meta.proofreaders||[],
   shiyi:info.shiyiName||(syName?"《"+syName+"》":null),ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin,errata:tree.corrections||[],notes:tree.notes||[]};
  return {B,W}}
+function syNameOf(shiyi){const ep=shiyi&&shiyi.source&&shiyi.source.epub&&shiyi.source.epub.title||"";return ep?ep.replace(/^译作\s*\d+\s*/,"").replace(/[-_ ]?epub$/i,"").trim():""}
 function fmtDate(d){d=String(d||"");const m=d.match(/^(\d{4})(\d{2})(\d{2})$/);return m?`${m[1]}-${m[2]}-${m[3]}`:d}
 // 释义：{节点 id: [[类型, 文字, 第几颂]]}，类型 v 颂词 / p 释文 / n 脚注 / g 附偈
 function shiyiOf(s){const o={};Object.entries(s.sections||{}).forEach(([id,sec])=>{let last=0;const a=[];
@@ -1194,19 +1195,30 @@ addEventListener("resize",()=>{clearTimeout(layout._t);layout._t=setTimeout(()=>
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(LOADED){if(ST.screen==="reader"&&CUR)ST.anchor=CUR.id;render()}})}catch(e){}
 // 手机的返回键：先回到书架，而不是直接退出
 addEventListener("popstate",()=>{if(HPUSH){HPUSH=false;return}if(!LOADED)return;if(ST.screen==="study"){exitSession();return}if(ST.screen!=="home"){ST.screen="home";ST.tocOpen=false;SHY=null;render()}});
+// 内置的书：科判同时下载，下完就能显示书架；释义（体积大，书架用不到）随后在后台取，取到再挂上
+// books.json 里的 v 是文件内容的版本号（发布时生成），离线缓存按它判断要不要重新下载
+const dataURL=(f,v)=>"data/"+f+(v?"?v="+v:"");
 async function loadBuiltin(){const r=await fetch("data/books.json");if(!r.ok)throw new Error("书目读取失败");const list=await r.json();
- for(const b of list){try{const [t,s]=await Promise.all([fetch("data/"+b.data).then(r=>r.json()),b.shiyi?fetch("data/"+b.shiyi).then(r=>r.ok?r.json():null).catch(()=>null):null]);
-  const info={id:b.id,builtin:true,meta:{name:b.meta&&b.meta.name,shortName:b.meta&&b.meta.shortName}};BUILTIN[b.id]={info,tree:t,shiyi:s};installBook(info,t,s)}catch(e){console.warn("内置书读取失败",b.id,e)}}}
+ const trees=await Promise.all(list.map(b=>fetch(dataURL(b.data,b.v&&b.v.data)).then(r=>r.ok?r.json():null).catch(e=>{console.warn("内置书读取失败",b.id,e);return null})));
+ list.forEach((b,i)=>{const t=trees[i];if(!t)return;try{const info={id:b.id,builtin:true,meta:{name:b.meta&&b.meta.name,shortName:b.meta&&b.meta.shortName}};BUILTIN[b.id]={info,tree:t,shiyi:null};installBook(info,t,null)}catch(e){console.warn("内置书读取失败",b.id,e)}});
+ return list}
+function loadBuiltinShiyi(list){return Promise.all((list||[]).filter(b=>b.shiyi&&BUILTIN[b.id]).map(b=>fetch(dataURL(b.shiyi,b.v&&b.v.shiyi)).then(r=>r.ok?r.json():null).then(s=>{if(s)attachShiyi(b.id,s)}).catch(e=>console.warn("释义读取失败",b.id,e))))}
+function attachShiyi(id,s){const b=BUILTIN[id];if(!b)return;b.shiyi=s;const B=BOOKS[id];if(!B||!B.builtin)return;// 已被用户导入的同名书替换时不动
+ const sy=s&&s.sections?shiyiOf(s):null;if(!sy)return;SHIYI[id]=sy;B.syName=syNameOf(s);
+ const W=WORKS.find(w=>w.id===id);if(W&&!W.shiyi&&B.syName)W.shiyi="《"+B.syName+"》";
+ // 阅读页已经打开这本书：给有释义的颂词补上可点的标记，不整页重画
+ if(LOADED&&BK&&BK.id===id&&ST.screen==="reader")dev.querySelectorAll("#rw .row").forEach(r=>{if(sy[r.dataset.id]){const v=r.querySelector(".verse");if(v)v.classList.add("tap")}})}
 async function loadImported(){const keys=(await IDB.keys().catch(()=>[]))||[];
  for(const k of keys){if(typeof k!=="string"||!k.startsWith("book:"))continue;try{const b=await idbGet(k);if(!b)continue;const s=b.info.hasShiyi?await idbGet("shiyi:"+b.info.id):null;installBook(b.info,b.tree,s)}catch(e){console.warn("导入的书读取失败",k,e)}}}
 async function boot(){layout();dev.innerHTML=`<div class="app home"><div class="appbar"><div class="ttl"><span>科判</span></div></div></div>`;showSplash();
  try{const st=await idbGet("state");if(st){Object.assign(SR,st.SR||{});stLoad(st.ST||{})}}catch(e){}
  lmFix();
- try{await loadBuiltin()}catch(e){console.warn(e)}
+ let blist=null;try{blist=await loadBuiltin()}catch(e){console.warn(e)}
  await loadImported();
  BK=(Object.values(SR.recent).sort((a,b)=>b.t-a.t)[0]&&Object.keys(SR.recent).sort((a,b)=>SR.recent[b].t-SR.recent[a].t).map(id=>BOOKS[id]).find(Boolean))||Object.values(BOOKS)[0]||null;
  LOADED=true;ST.screen="home";render();
  if(!Object.keys(BOOKS).length)toastNow("书目没有读到，请联网后重新打开");
+ loadBuiltinShiyi(blist);
  if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(e=>console.warn("离线缓存没有装上",e));
  if(ST.srem&&pushOK()&&Notification.permission==="granted")pushSub().catch(()=>{})}
 boot();

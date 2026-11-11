@@ -3,21 +3,32 @@ const VERSION = "__VERSION__";
 const SHELL = "kepan-shell-" + VERSION;
 const CONVERT = "kepan-convert-__CONVHASH__";
 const FONTS = "kepan-fonts";
+// 书的数据单独一个缓存，网址带内容版本号（data/rxl.json?v=…）。发新版时只下载改过的文件，没改过的留着
+const DATA = "kepan-data";
 const PRECACHE = __PRECACHE__;
+const DATAFILES = __DATAFILES__;
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(SHELL).then((c) => c.addAll(PRECACHE)).then(() => self.skipWaiting()));
+  e.waitUntil((async () => {
+    await (await caches.open(SHELL)).addAll(PRECACHE);
+    const dc = await caches.open(DATA);
+    await Promise.all(DATAFILES.map(async (u) => { if (!(await dc.match(u))) await dc.add(u); }));
+    await self.skipWaiting();
+  })());
 });
 self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
-    for (const k of await caches.keys()) if (k.startsWith("kepan-") && ![SHELL, CONVERT, FONTS].includes(k)) await caches.delete(k);
+    for (const k of await caches.keys()) if (k.startsWith("kepan-") && ![SHELL, CONVERT, FONTS, DATA].includes(k)) await caches.delete(k);
+    const keep = new Set(DATAFILES.map((u) => new URL(u, self.registration.scope).href));
+    const dc = await caches.open(DATA);
+    for (const r of await dc.keys()) if (!keep.has(r.url)) await dc.delete(r);
     await self.clients.claim();
   })());
 });
 
-async function cacheFirst(name, req) {
+async function cacheFirst(name, req, exact) {
   const c = await caches.open(name);
-  const hit = await c.match(req, { ignoreSearch: true });
+  const hit = await c.match(req, { ignoreSearch: !exact });
   if (hit) return hit;
   const res = await fetch(req);
   if (res && (res.ok || res.type === "opaque")) c.put(req, res.clone());
@@ -33,6 +44,7 @@ self.addEventListener("fetch", (e) => {
       return;
     }
     if (url.pathname.includes("/convert/")) { e.respondWith(cacheFirst(CONVERT, req)); return; }
+    if (url.pathname.includes("/data/") && url.searchParams.has("v")) { e.respondWith(cacheFirst(DATA, req, true)); return; }
     e.respondWith(caches.open(SHELL).then((c) => c.match(req, { ignoreSearch: true })).then((r) => r || fetch(req)));
     return;
   }
