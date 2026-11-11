@@ -673,3 +673,46 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 /* 窄屏（320 宽）：阅读页标题栏的「弹出 / 展开」不折成两行 */
 @media (max-width:359px){.shysw button{padding:0 7px}.tch{display:none}}
 .lmd{position:relative;padding-top:26px}.lmx{position:absolute;right:6px;top:6px;width:32px;height:32px;border:0;background:none;color:var(--muted);font-size:15px;cursor:pointer;border-radius:50%}
+/* 引导文类：阅读页直接排正文；仪轨三行对照（藏文默认收起，工具栏「藏文」打开） */
+.prose{font-family:var(--serif);font-size:var(--vf,16px);line-height:1.9;max-width:34em;margin-top:4px}
+.prose p{margin:.35em 0;text-indent:2em;text-align:justify}
+.prose sup{font-size:.62em;color:var(--muted);margin:0 1px}
+.prose .pti{text-indent:0;text-align:center;font-weight:700;letter-spacing:.2em;margin:.8em 0 .5em}
+.prose .psm{text-indent:0;font-size:.86em;color:var(--muted)}
+.prose .p0{text-indent:0;color:var(--muted);font-size:.9em}
+.prose .pv{margin:.7em 0;padding:.4em 0 .4em 1em;border-left:3px solid color-mix(in srgb,var(--k0) 45%,transparent);letter-spacing:.04em}
+.prose .pv span{display:block}
+.prose .pr{margin:.7em 0;padding:.45em .8em;border-radius:10px;background:color-mix(in srgb,var(--k0) 6%,transparent)}
+.prose .prl{padding:.15em 0}
+.prose .prl+.prl{border-top:1px dashed color-mix(in srgb,var(--line) 80%,transparent)}
+.prose .prl span{display:block}
+.prose .rbo{display:none!important;font-family:"Noto Serif Tibetan","Himalaya","Microsoft Himalaya",serif;font-size:1.05em;line-height:1.7}
+.app.bo-on .prose .rbo{display:block!important}
+.prose .rpy{font-size:.82em;color:var(--muted);line-height:1.6}
+.prose .rzh{letter-spacing:.06em}
+.prose .prv .rzh{font-weight:600}
+.prose .prh .rbo{font-size:.95em;color:var(--muted)}
+.app:not(.bo-on) .prose .prh{display:none}
+.prose .pfn{margin:.8em 0 .2em;padding-top:.4em;border-top:1px solid var(--line);font-size:.8em;line-height:1.7;color:var(--muted)}
+.prose .pfn p{text-indent:0;margin:.25em 0}
+.prose .pfn b{margin-right:.4em;color:var(--fg,inherit)}
+.app:not(.bo-on) .prose .pbo{display:none}
+.prose .ptb{margin:.8em 0;overflow-x:auto}
+.prose .ptb table{border-collapse:collapse;font-size:.86em;line-height:1.6;width:100%}
+.prose .ptb th,.prose .ptb td{border:1px solid var(--line);padding:.35em .5em;vertical-align:middle;text-align:center}
+.prose .ptb th{background:color-mix(in srgb,var(--k0) 8%,transparent);font-weight:700}
+/* 仪轨偈句：看着音译背汉义 */
+.verse.vpy .ln{margin-bottom:.15em}
+.verse.vpy .ln{margin-bottom:.5em}
+.verse.vpy .vpyl{display:block;font-size:1em;line-height:1.5;color:var(--muted);letter-spacing:.02em}
+/* 对照题：看汉义选音译 / 看音译选汉义 */
+.pq{margin:18px 0 14px;padding:18px 16px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-family:var(--serif);font-size:calc(var(--vf,16px)*1.35);line-height:1.6;text-align:center;letter-spacing:.06em}
+.pq.py{color:var(--fg,inherit);letter-spacing:.02em}
+.pqo{display:grid;gap:10px}
+.pqo .ec{width:100%;text-align:left;font-family:var(--serif);font-size:calc(var(--vf,16px)*1.1);padding:12px 14px}
+.pqo .ec.no{opacity:.45}
+.pqlist{display:grid;gap:8px;margin:14px 0;font-family:var(--serif)}
+.pqlist div{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--line)}
+.pqlist small{color:var(--muted);font-size:.9em}
+.verse.vpy.one{font-size:calc(var(--vf,16px)*1.4);text-align:center;max-width:none;padding:14px 0}
+.verse.vpy.one .vpyl{font-size:.8em;margin-bottom:.3em}

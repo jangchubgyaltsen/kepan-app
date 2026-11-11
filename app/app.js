@@ -2,12 +2,27 @@
 const NUM=["","一","二","三","四","五","六","七","八","九","十"];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
-function verseMaskHTML(stanzas,r){let ci=0;return `<div class="verse vm">${stanzas.map(s=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+// vp：仪轨偈句每一颂的音译（每句一行）。有音译时一句一行、音译在上，遮的只是汉义
+function verseMaskHTML(stanzas,r,vp){let ci=0;return `<div class="verse vm">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
  const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
- for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
+ if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x.replace(/[，。！？：?!]+$/,""))}</span>`));
+ else for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
 const SHIYI={};
+// 引导文类的书（科判树 meta.kind = "guide"）：每一行要显示的全文，{行 id: {items}}，阅读页直接排出来
+const PROSE={};
+function proseHTML(n){const sec=PROSE[n.bk]&&PROSE[n.bk][n.id];if(!sec)return PROSE[n.bk]?"":`<p class="p0">正文载入中…</p>`;
+ const its=sec.items||[],o=[],fn=[];let i=0;const sup=t=>esc(t).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/g,m=>`<sup>${[...m].map(c=>"⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(c)).join("")}</sup>`);
+ while(i<its.length){const it=its[i];
+  if(it.type==="verse"){const g=[];while(i<its.length&&its[i].type==="verse")g.push(its[i++]);o.push(`<div class="pv">${g.map(x=>`<span>${sup(x.text)}</span>`).join("")}</div>`);continue}
+  if(it.type==="ritual"){const g=[];while(i<its.length&&its[i].type==="ritual")g.push(its[i++]);
+   o.push(`<div class="pr${g.some(x=>x.py||x.zh)?"":" pbo"}">${g.map(x=>`<div class="prl${x.head?" prh":""}${x.zh&&x.s!=null?" prv":""}">${x.bo?`<span class="rbo">${esc(x.bo)}</span>`:""}${x.py?`<span class="rpy">${sup(x.py)}</span>`:""}${x.zh?`<span class="rzh">${sup(x.zh)}</span>`:""}</div>`).join("")}</div>`);continue}
+  i++;if(it.type==="footnote"){fn.push(it);continue}
+  if(it.type==="table"){o.push(`<div class="ptb"><table>${(it.rows||[]).map((r,ri)=>`<tr>${r.map(c=>`<${ri?"td":"th"}${c.rs?` rowspan="${c.rs}"`:""}${c.cs?` colspan="${c.cs}"`:""}>${(c.t||[]).map(esc).join("<br>")}</${ri?"td":"th"}>`).join("")}</tr>`).join("")}</table></div>`);continue}
+  o.push(it.type==="title"?`<p class="pti">${sup(it.text)}</p>`:it.type==="small"?`<p class="psm">${sup(it.text)}</p>`:`<p>${sup(it.text)}</p>`)}
+ if(fn.length)o.push(`<div class="pfn">${fn.map(x=>`<p><b>${x.n}</b>${esc(x.text)}</p>`).join("")}</div>`);
+ return `<div class="prose">${o.join("")}</div>`}
 let SHY=null;
 function shyG(bk,id){const it=SHIYI[bk]&&SHIYI[bk][id];if(!it)return null;const G=[];let c=null;
  it.forEach(x=>{if(x[0]==="v"){if(!c||c.t.length){c={vs:[],l:[],t:[]};G.push(c)}if(!c.vs.includes(x[2]))c.vs.push(x[2]);c.l.push(x[1])}else{if(!c){c={vs:[],l:[],t:[]};G.push(c)}c.t.push(x)}});return G}
@@ -32,12 +47,12 @@ const STEMS="甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥"
 const CNUM=n=>{if(n==null)return "";if(n<=10)return NUM[n];if(n<20)return "十"+NUM[n-10];const t=Math.floor(n/10),u=n%10;return NUM[t]+"十"+(u?NUM[u]:"")};
 const BOOKS={};let BK=null;
 // 科判树里的颂词：只要 kind=verse 的诗句；note（如「第九品释终」）单独存
-function vsOf(raw,after){const v=[],no=[];(raw.verses||[]).forEach(x=>{if(!!after!==(x.pos==="after"))return;if(x.kind==="verse")v.push(...(x.stanzas&&x.stanzas.length?x.stanzas:[x.text]));else if(x.text)no.push(x.text)});return [v,no]}
+function vsOf(raw,after){const v=[],no=[],vp=[];(raw.verses||[]).forEach(x=>{if(!!after!==(x.pos==="after"))return;if(x.kind==="verse"){const st=x.stanzas&&x.stanzas.length?x.stanzas:[x.text];v.push(...st);st.forEach((_,i)=>vp.push(x.py&&x.py[i]||null))}else if(x.text)no.push(x.text)});return [v,no,vp]}
 function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({},tree.meta||{},info.meta||{});
  const short=meta.shortName||(meta.title||id).split(/\s+/)[0];
  const R={id:"_root",code:"",title:short,v:[],c:[],depth:0,bk:id};const all=[R],seq=[],by={_root:R},front=[],tails=[];
- const mk=(raw,p,lvl)=>{const lv=raw.level;const leaf=!(raw.children&&raw.children.length);const [v,no]=vsOf(raw,false);
-  const n={id:raw.id,code:lv?lv+CNUM(raw.num):"",title:raw.name||raw.raw||"",v:leaf?v:[],notes:no,c:[],depth:Math.max(0,STEMS.indexOf(lv)),bk:id,p,lvl,ch:raw.chapter||null};
+ const mk=(raw,p,lvl)=>{const lv=raw.level;const leaf=!(raw.children&&raw.children.length);const [v,no,vp]=vsOf(raw,false);
+  const n={id:raw.id,code:lv?lv+CNUM(raw.num):"",title:raw.name||raw.raw||"",v:leaf?v:[],notes:no,c:[],depth:Math.max(0,STEMS.indexOf(lv)),bk:id,p,lvl,ch:raw.chapter||null,ne:!!raw.noexp,vp:leaf&&vp.some(x=>x)?vp:null};
   by[n.id]=n;all.push(n);
   if(!leaf){n.c=raw.children.map(k=>mk(k,n,lvl+1));
    const [tv,tn]=vsOf(raw,true);const iv=leaf?[]:v;// 有子科判又在本科下直接写的颂词：放在子科判之后单独一行
@@ -45,7 +60,8 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
   return n};
  let seen=false;// 正文之后没有层级的段落（如「科判之结文」）放在书末，之前的（如顶礼）放在书首
  (tree.tree||[]).forEach(raw=>{
-  if(!raw.level&&raw.children&&raw.children.length){seen=true;// 论名那一层：当作整本书的根
+  if(raw.part){seen=true;R.c.push(mk(raw,R,1))}// 引导文书前的念诵仪轨：自成一部分，排在正文前面
+  else if(!raw.level&&raw.children&&raw.children.length){seen=true;// 论名那一层：当作整本书的根
    meta.rootTitle=raw.name;raw.children.forEach(k=>R.c.push(mk(k,R,1)));const [tv,tn]=vsOf(raw,true);const [iv]=vsOf(raw,false);
    if(tv.length||iv.length||tn.length)tails.push({id:raw.id+"~",code:"",title:"",v:[...iv,...tv],notes:tn,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
   else if(!raw.level){const [v,no]=vsOf(raw,false);(seen?tails:front).push({id:raw.id,code:"",title:raw.name||"",v,notes:no,c:[],depth:0,bk:id,p:R,lvl:1,x:true})}
@@ -60,9 +76,11 @@ function buildBook(info,tree,shiyi){const id=info.id;const meta=Object.assign({}
  if(chaps.length){chaps[0].leaves.unshift(...front,...pre);chaps[chaps.length-1].leaves.push(...tails)}
  chaps.forEach(c=>{c.first=c.leaves[0]||fl(c.node);c.vs=c.leaves.reduce((a,n)=>a+n.v.length,0)});
  const chOf={};chaps.forEach(c=>c.leaves.forEach(n=>chOf[n.id]=c));
- const sy=shiyi&&shiyi.sections?shiyiOf(shiyi):null;if(sy)SHIYI[id]=sy;else delete SHIYI[id];
+ const prose=(meta.kind||"")==="guide";if(prose){if(shiyi&&shiyi.sections)PROSE[id]=shiyi.sections}
+ const sy=!prose&&shiyi&&shiyi.sections?shiyiOf(shiyi):null;if(sy)SHIYI[id]=sy;else delete SHIYI[id];
  const syName=syNameOf(shiyi);
- const B={id,root:R,title:short,all,seq,seqI,by,maxA:Math.max(1,...seq.map(n=>n.lvl))-1,meta,chaps,chOf,syName,builtin:!!info.builtin,info,tree};
+ if(prose&&R.c.some(n=>n.ne))R.ne=true;// 有念诵仪轨这一部分时，书的第一层不出「展开」题（「全文分二」不含仪轨）
+ const B={id,prose,root:R,title:short,all,seq,seqI,by,maxA:Math.max(1,...seq.map(n=>n.lvl))-1,meta,chaps,chOf,syName,builtin:!!info.builtin,info,tree};
  B.bfs=(()=>{const q=[R],o=[];while(q.length){const n=q.shift();o.push(n);q.push(...n.c)}return o})();
  const W={id,title:short,long:meta.name||meta.rootTitle||short,full:meta.name||meta.title||short,roles:(meta.roles||[]).map(r=>[r.name,r.role]),compiler:meta.compiler||"",proof:meta.proofreaders||[],
   shiyi:info.shiyiName||(syName?"《"+syName+"》":null),ed:meta.edition||"",date:fmtDate(meta.date),chaps:chaps.map(c=>c.name),real:true,vs:seq.reduce((a,n)=>a+n.v.length,0),builtin:!!info.builtin,errata:tree.corrections||[],notes:tree.notes||[]};
@@ -332,11 +350,11 @@ const bindToc=(el,fn)=>{mmBind(el,fn);el.querySelectorAll("[data-j]").forEach(b=
 function centerCur(box){if(box.querySelector(".mmw"))return;const c=box.querySelector('[aria-current="true"]');if(!c)return;const br=box.getBoundingClientRect(),cr=c.getBoundingClientRect();box.scrollTop+=cr.top-br.top-box.clientHeight/2+cr.height/2;box.scrollLeft+=cr.left-br.left-box.clientWidth/2+cr.width/2}
 
 // ===== 学习（按《背诵方式定稿》：读→认→展→背→混） =====
-const SK={loc:"定位",exp:"展开",mask:"遮字"};
+const SK={loc:"定位",exp:"展开",mask:"遮字",pair:"对照"};
 const LENTRY={top:"A 书架顶部「今日」卡",book:"B 放在书的卡片上",tab:"C 底部两个标签：书架 / 今日"},SVIEW={full:"全屏练习页",card:"卡片（一题一张）",sheet:"阅读页 + 底部抽屉"},SPROG={bar:"细进度条",beads:"念珠（每题一颗）",num:"只显示 3 / 7"},SFB={ring:"节点圆环亮一段",quiet:"只一行文字"},LOCSTY={list:"路径 + 选项按钮",tree:"像目录一样逐级长出来"},EXPSTY={slot:"编号空槽",tree:"挂到树上"},RING={seg:"分段圆环",half:"宝珠（扇形填满）",petal:"莲瓣",lamp:"酥油灯",beads:"念珠",gem:"摩尼宝（菱形）",none:"不显示"},RGOLD={glow:"金色光晕",rays:"放光芒",none:"不加"},RFADE={dim:"金色变淡",gray:"整体变灰",ember:"变成暗铜色",char:"灰黑 + 一点金光"},LHINT={text:"文字（昨天复习过 / 4 天没复习了）",color:"按钮颜色由暖变冷",dot:"小红点 + 天数",spine:"书脊慢慢褪色",arc:"小圆弧倒计时（7 天走完）",lamp:"酥油灯火苗变小"},LHTXT={off:"不加文字",on:"同时加文字"},MKB={solid:"实心块",outline:"空心框",tian:"田字格",dot:"中间一点",paper:"纸签",gold:"金箔",ink:"墨块"},RENTRY={btn:"标题栏「练习」按钮",fab:"右下角浮动「今日 N」",none:"不放（只从首页进）"};
 const hasV=n=>n.v.length>0||leavesOf(n).length>0;
 // 子科判后面单独的那几颂（x）只读不练
-const stepsOf=n=>{if(n._S)return n._S;const S=[];if(!n.x){if(n.p&&n.p.c.length>1&&hasV(n))S.push("loc");if(n.c.length>1)S.push("exp");if(!n.c.length&&n.v.length)S.push("mask")}return n._S=S};
+const stepsOf=n=>{if(n._S)return n._S;const S=[];if(!n.x){if(n.p&&n.p.c.length>1&&hasV(n))S.push("loc");if(n.c.length>1&&!n.ne)S.push("exp");if(!n.c.length&&n.v.length)S.push("mask");if(!n.c.length&&n.vp)S.push("pair")}return n._S=S};
 const unlocked=n=>!n.p||(n.p.c.length>1?!!itm(n.p,"exp"):unlocked(n.p));
 const nstate=n=>{const S=stepsOf(n),L=S.filter(k=>itm(n,k));return {S,L,gold:L.length===S.length,fade:S.some(k=>{const t=itm(n,k);return t&&t.due<0}),unl:unlocked(n)}};
 const bfsAll=B=>B.bfs;
@@ -367,7 +385,7 @@ function chapVs(c){let l=0;c.leaves.forEach(n=>{if(n.v.length&&stepsOf(n).includ
 function bookFrac(B){let t=0,l=0;bfsAll(B).forEach(n=>{const s=nstate(n);t+=s.S.length;l+=s.L.length});return t?l/t:0}
 function dueList(B){const o=[];bfsAll(B).forEach(n=>stepsOf(n).forEach(k=>{const t=itm(n,k);if(t&&t.due<=0)o.push({n,k,B,isNew:false})}));return o}
 // 同一次里选好的上层节点算作「将要学」，它下面的分支也就解锁了，一天学 2 支以上时不会卡在第一层
-function newNodes(B,max){const o=[],pick=new Set();const ul=n=>!n.p||(n.p.c.length>1?(!!itm(n.p,"exp")||pick.has(n.p)):ul(n.p));
+function newNodes(B,max){const o=[],pick=new Set();const ul=n=>!n.p||(n.p.c.length>1&&!n.p.ne?(!!itm(n.p,"exp")||pick.has(n.p)):ul(n.p));
  for(const n of bfsAll(B)){if(o.length>=max)break;if(ul(n)&&nstate(n).L.length<stepsOf(n).length&&paceOK(n)){o.push(n);pick.add(n)}}return o}
 function newNode(B){return newNodes(B,1)[0]}
 function todayRec(){const k=dkey();if(!SR.today||SR.today.date!==k)SR.today={date:k,n:0,dedi:false,nodes:{}};return SR.today}
@@ -611,7 +629,7 @@ function freeQueue(B){const L=[];bfsAll(B).forEach(n=>stepsOf(n).forEach(k=>{if(
 function goldSide(st,id){const due=st.rev||0;const lamp=pillLamp(0);
  return `<button class="hside gold hg-seal ${due?"":"gidle"}" ${due?`data-learn="${id}"`:`data-grev="${id}"`} aria-label="${due?"整本圆满，复习 "+due+" 条":"整本圆满，再复习几条"}">${lamp}<b>圆满</b><small class="gchip">${due?"复习 "+due+" ›":"再复习 ›"}</small></button>`}
 // 继续学习：再学一支，不受每天新学数量限制
-function extraQueue(B){const bs=B?[B,...Object.values(BOOKS).filter(x=>x!==B)]:Object.values(BOOKS);for(const X of (B?[B]:bs)){const n=newNode(X)||newNodeAny(X);if(n){const miss=stepsOf(n).filter(k=>!itm(n,k));return ["exp","mask","loc"].filter(k=>miss.includes(k)).map(k=>({n,k,B:X,isNew:true}))}}return []}
+function extraQueue(B){const bs=B?[B,...Object.values(BOOKS).filter(x=>x!==B)]:Object.values(BOOKS);for(const X of (B?[B]:bs)){const n=newNode(X)||newNodeAny(X);if(n){const miss=stepsOf(n).filter(k=>!itm(n,k));return ["exp","mask","pair","loc"].filter(k=>miss.includes(k)).map(k=>({n,k,B:X,isNew:true}))}}return []}
 function startExtra(q,o){if(!q.length)return;SS={B:q[0].B,q,i:0,res:[],daily:false,from:"home",extra:true,...(o||{})};SS.t=initTask(q[0]);ST.screen="study";ST.tocOpen=false;MENU=null;render();bindPanel()}
 function sideHTML(st,id){const d=st.last,tot=st.rev+st.nw;
  if(id&&BOOKS[id]&&bookAllDone(BOOKS[id]))return goldSide(st,id);
@@ -624,7 +642,7 @@ function ringTitle(n,s){if(!s.unl)return "还没解锁";return s.S.map(k=>SK[k==
 let SS=null;
 // 先排复习（打乱，就是第 5 步「混」），再排新学
 function buildQueue(B){const rev=dueList(B);const q=shuffle(rev,rev.length*7+3+new Date().getDate());
- if(rev.length<=20&&!quotaFull())newNodes(B,newLeft(B)).forEach(n=>{const miss=stepsOf(n).filter(k=>!itm(n,k));["exp","mask","loc"].filter(k=>miss.includes(k)).forEach(k=>q.push({n,k,B,isNew:true}))});
+ if(rev.length<=20&&!quotaFull())newNodes(B,newLeft(B)).forEach(n=>{const miss=stepsOf(n).filter(k=>!itm(n,k));["exp","mask","pair","loc"].filter(k=>miss.includes(k)).forEach(k=>q.push({n,k,B,isNew:true}))});
  return q}
 // 每日一颂：只从自己学过的颂里出，一天一题
 function pickDaily(){const L=[];Object.values(BOOKS).forEach(B=>B.seq.forEach(n=>{if(n.v.length&&!n.x&&itm(n,"loc"))L.push({n,B})}));if(!L.length)return null;const d=new Date();const x=L[(d.getFullYear()*372+d.getMonth()*31+d.getDate())*7%L.length];return {n:x.n,B:x.B,k:"loc",isNew:false,daily:true}}
@@ -633,7 +651,21 @@ function initTask(t){if(!t)return null;const n=t.n;
   return {kind:"loc",leaf,path,lay,auto:lay,bad:{},wrong:0,done:false,chances:t.daily?5:null}}
  if(t.k==="exp"){let dis=[];if(!t.isNew){const pool=t.B.all.filter(x=>x.lvl===n.lvl+1&&x.p!==n);const i0=t.B.all.indexOf(n);pool.sort((a,b)=>Math.abs(t.B.all.indexOf(a)-i0)-Math.abs(t.B.all.indexOf(b)-i0));dis=pool.slice(0,n.c.length>2?2:1).map(x=>x.id)}
   return {kind:"exp",order:shuffle([...n.c.map(x=>x.id),...dis],n.c.length*13+dis.length),dis:new Set(dis),placed:[],wrong:0,shake:null,done:false}}
+ if(t.k==="pair")return pairTask(t);
+ if(t.n.vp)return {kind:"mask",lines:shuffle(pyLines(t.n),Date.now()%9973+1).slice(0,8),li:0,rs:t.isNew?[0,2,3]:[3],ri:0,peek:false,wrong:false,done:false};
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
+// 仪轨偈句「对照」题：一句一题、打乱顺序，单数题看汉义选音译，双数题看音译选汉义；每题 4 个选项，一次最多 8 题
+const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
+function pairTask(t){const seed=Date.now()%9973+1;const L=shuffle(pyLines(t.n),seed).slice(0,8);
+ let pool=pyLines(t.n);if(pool.length<4)t.B.all.forEach(x=>{if(x!==t.n)pool=pool.concat(pyLines(x))});
+ const qs=L.map((ln,i)=>{const dir=i%2?"py":"zh";const k=dir==="zh"?0:1;// 看汉义（ln[1]）选音译（ln[0]）；看音译选汉义
+  const others=[...new Set(pool.map(x=>x[k]).filter(x=>x!==ln[k]))];const opts=shuffle([ln[k],...shuffle(others,seed+i*7).slice(0,3)],seed+i*13);
+  return {show:dir==="zh"?ln[1]:ln[0],ask:dir==="zh"?"py":"zh",ans:ln[k],opts}});
+ return {kind:"pair",qs,i:0,wrong:0,shake:null,done:false}}
+function pairHTML(t,T){const n=t.n;const q=T.qs[Math.min(T.i,T.qs.length-1)];
+ const head=`${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${T.done?"":q.ask==="py"?"看汉义，选出音译":"看音译，选出汉义"}<small>第 ${Math.min(T.i+1,T.qs.length)} / ${T.qs.length} 句</small></span></div>`;
+ if(T.done)return head+`<div class="pqlist">${T.qs.map(x=>`<div><span>${esc(x.ask==="py"?x.show:x.ans)}</span><small>${esc(x.ask==="py"?x.ans:x.show)}</small></div>`).join("")}</div><div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`选错过 ${T.wrong} 次，这题按答错记`:"全部选对"}</div>`;
+ return head+`<div class="pq ${q.ask==="py"?"zh":"py"}">${esc(q.show)}</div><div class="pqo">${q.opts.map((o,j)=>`<button class="ec ${q.ask} ${T.shake===j?"shake":""}" data-pq="${j}">${esc(o)}</button>`).join("")}</div>`}
 function dayMark(B){const T=todayRec();T.n++;SR.last[B.id]=Date.now();const h=SR.hist[T.date]||(SR.hist[T.date]={n:0});h.n=T.n}
 // 回向：当天第一次结束学习时弹一次
 // 回向不再自动弹出，改成首页顶栏的「回向」按钮；当天点了灯还没回向时按钮带金色提示
@@ -660,7 +692,7 @@ function locHTML(t,T){const P=T.path,chosen=P.slice(0,T.lay),cur=T.done?null:P[T
  else mid=`<div class="lpath">${chosen.map((x,i)=>`<span class="${i<T.auto?"auto":""}" style="--lc:var(--k${x.depth})"><b>${x.code}</b>${esc(x.title)}</span>`).join("<i>›</i>")}${cur?`${chosen.length?"<i>›</i>":""}<span class="lqm">？</span>`:""}</div>${opts}`;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.daily?(T.fail?"5 次机会用完了，答案在上面":`用了 ${5-T.chances} 次机会就找到了`):T.wrong?`中途选错过 ${T.wrong} 次，这题按答错记`:"一次选对"}</div>
   ${t.daily?"":`<details class="why"><summary>为什么归在「${esc(t.n.title)}」？先自己想一想</summary>${whyBody(t,T)}</details>`}`:"";
- return `<div class="lq"><div class="lql">${T.done?"":"这一颂在哪一科？"}${t.daily?"":`<span>${T.done?"":`从${P[T.auto].code[0]}开始，一层一层选`}</span>`}</div>${verseHTML(T.leaf.v)}</div>${mid}${res}`}
+ return `<div class="lq"><div class="lql">${T.done?"":"这一颂在哪一科？"}${t.daily?"":`<span>${T.done?"":`${P[T.auto].code?`从${P[T.auto].code[0]}开始，`:""}一层一层选`}</span>`}</div>${verseHTML(T.leaf.v)}</div>${mid}${res}`}
 function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const head=`${R?"":chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth||0})">${R?"":badge(n)}<b>${esc(R?B.title:n.title)}</b><span>分 <em>${n.c.length}</em> 支，依次是？${t.isNew?"<small>第一次学：只有正确的卡片</small>":T.dis.size?`<small>混了 ${T.dis.size} 张别处的卡片</small>`:""}</span></div>`;
  let mid;
@@ -670,18 +702,26 @@ function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`点错过 ${T.wrong} 次，这题按答错记`:"顺序全对"}</div>`:"";
  return head+mid+cards+res}
 function maskHTML(t,T){const n=t.n;const r=T.r;
+ if(T.lines)return maskLineHTML(t,T);
  const v=r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
  return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>下面的颂词，背出来</span></div>
   <div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
   <div class="mdots">${RND.map((x,i)=>`<i class="${T.done||i<r?"on":i===r?"cur":""}" title="${x}"></i>`).join("")}<span>${T.done?"背完了":`第 ${r+1} 轮 · ${RND[r]}${r>0&&!T.peek?"　心里背完，点颂词核对":""}`}</span></div>
   ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.isNew?"四轮都过了":T.wrong?"中途模糊过，按答错记":"首字提示下记得"}</div>`:""}`}
+// 仪轨偈句的遮字：一屏一句、打乱顺序，看着音译背汉义。新学每句过三步（通读 → 遮三分之二 → 只留首字），复习每句只留首字
+function maskLineHTML(t,T){const n=t.n;const [py,zh]=T.lines[Math.min(T.li,T.lines.length-1)];const r=T.done?0:T.rs[T.ri];
+ const v=verseMaskHTML([zh],r,[[py]]).replace('class="verse vm"',`class="verse vm vpy one ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`);
+ return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>看着音译，背出汉义<small>第 ${Math.min(T.li+1,T.lines.length)} / ${T.lines.length} 句</small></span></div>
+  ${T.done?`<div class="pqlist">${T.lines.map(x=>`<div><span>${esc(x[1])}</span><small>${esc(x[0])}</small></div>`).join("")}</div>`:`<div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
+  <div class="mdots">${T.rs.map((x,i)=>`<i class="${i<T.ri?"on":i===T.ri?"cur":""}" title="${RND[x]}"></i>`).join("")}<span>${RND[r]}${r>0&&!T.peek?"　心里背完，点汉义核对":""}</span></div>`}
+  ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?"中途模糊过，按答错记":"都记得"}</div>`:""}`}
 function fbHTML(t){const last=SS.res[SS.res.length-1];if(!last||t.daily)return "";const n=t.n;
  const msg=last.again?(last.ok?"这次记住了，明天再来":"还不牢，明天再练"):!last.ok?`还不牢，过一会儿再出现`:last.first?`${SK[t.k]}这一段亮了${nstate(n).gold?"，整个节点变金":""}`:`下次大约 ${last.days} 天后再来`;
  return `<div class="sfb">${ST.sfb==="ring"&&ST.ring!=="none"?ringHTML(n,"big",last.first?t.k:null):""}<div><b>${esc(n.p?n.code+" "+n.title:t.B.title)}</b><span>${msg}</span></div></div>`}
-function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp"?expHTML(t,T):maskHTML(t,T);
+function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp"?expHTML(t,T):k==="pair"?pairHTML(t,T):maskHTML(t,T);
  const last=SS.i===SS.q.length-1;
  const foot=T.done?`${fbHTML(t)}<div class="sacts">${ST.sview==="sheet"&&!t.daily?`<button data-jump>在原文里看看</button>`:""}<button class="pri" data-next>${t.daily?"回书架":last?"完成":"下一题"}</button></div>`
-  :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.r===3?"记得 · 完成":"记得"}</button></div>`:"";
+  :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.lines?(T.li===T.lines.length-1&&T.ri===T.rs.length-1?"记得 · 完成":T.ri===T.rs.length-1?"记得 · 下一句":"记得"):T.r===3?"记得 · 完成":"记得"}</button></div>`:"";
  return `<div class="tk tk-${k}"><div class="tkh"><span class="tkind ${t.isNew?"new":""} ${t.daily?"dly":""}">${t.daily?"每日一颂":(t.isNew?"新学":"复习")+" · "+SK[t.k]}</span><span class="tkb">${esc(shortT(t.B))}</span></div>${body}<div class="tkf">${foot}</div></div>`}
 function moreBtn(){const q=extraQueue(SS.B);return q.length?`<button class="smore" data-smore><b>继续学习</b><small>再学一支：${esc(q[0].n.code||"")} ${esc(q[0].n.title)}</small></button>`:""}
 function doneHTML(){const R=SS.res;const rv=R.filter(x=>!x.t.isNew&&!x.again),nw=[...new Set(R.filter(x=>x.t.isNew).map(x=>x.t.n))];const seen=[];R.forEach(x=>{if(!seen.includes(x.t.n))seen.push(x.t.n)});
@@ -716,7 +756,13 @@ function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  if(T.kind==="exp")root.querySelectorAll("[data-ec]").forEach(b=>b.onclick=()=>{const want=t.n.c[T.placed.length].id;T.shake=null;
   if(b.dataset.ec===want){T.placed.push(want);if(T.placed.length===t.n.c.length){T.done=true;grade(t,!T.wrong)}rer()}
   else{T.wrong++;T.shake=b.dataset.ec;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}});
- if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=`第 ${T.r+1} 轮 · ${RND[T.r]}`};
+ if(T.kind==="pair")root.querySelectorAll("[data-pq]").forEach(b=>b.onclick=()=>{const q=T.qs[T.i];const j=+b.dataset.pq;T.shake=null;
+  if(q.opts[j]===q.ans){T.i++;if(T.i>=T.qs.length){T.done=true;grade(t,!T.wrong)}rer()}
+  else{T.wrong++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake","no")}});
+ if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=T.lines?RND[T.rs[T.ri]]:`第 ${T.r+1} 轮 · ${RND[T.r]}`};
+  if(T.lines){root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;
+   if(b.dataset.mj==="ok"){T.ri++;if(T.ri>=T.rs.length){T.ri=0;T.li++;if(T.li>=T.lines.length){T.done=true;grade(t,!T.wrong)}}}
+   else{if(!t.isNew)T.wrong=true;T.ri=Math.max(0,T.ri-1)}rer()});return}
   root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;if(b.dataset.mj==="ok"){if(T.r>=3){T.done=true;grade(t,!T.wrong)}else T.r++}else{if(!t.isNew){T.wrong=true;if(T.r===3)T.r=2}}rer()})}}
 // ---- 首页「今日」
 const dailyToday=()=>SR.daily&&SR.daily.date===dkey()?SR.daily:null;
@@ -1055,9 +1101,9 @@ function render(){const keep=[...dev.children].filter(e=>e.classList&&(e.classLi
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
- const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
+ const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${BK.prose?proseHTML(n):n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${BK.prose?"":noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"&&lmOn(BK)?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
- dev.innerHTML=`<div class="app pg-${ST.rprog} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span><button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
+ dev.innerHTML=`<div class="app pg-${ST.rprog} ${BK.prose?"prose"+(ST.bo?" bo-on":""):""} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}${BK.prose?`<span class="shysw" role="group" aria-label="仪轨显示"><button data-botg aria-pressed="${!!ST.bo}">藏文</button></span>`:`<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span>`}<button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot&&lmOn(BK)?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
  const app=dev.querySelector(".app"),rs=dev.querySelector("#rs"),rw=dev.querySelector("#rw"),outer=dev.querySelector("#outer"),dock=dev.querySelector("#dock");
  // 先一次量好每一行的位置，再画色带和编绳（边量边插会反复重排，整本书时很慢）
@@ -1111,6 +1157,7 @@ function renderReader(){
   pp.querySelector("input").onchange=e=>set(+e.target.value);pp.querySelector("input").oninput=e=>{pp.querySelector(".aav").textContent=e.target.value+"px"};
   pp.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>set(ST.vf+ +b.dataset.d))};
  dev.querySelector("[data-aa]").onclick=aaOpen;
+ {const b=dev.querySelector("[data-botg]");if(b)b.onclick=()=>{ST.bo=!ST.bo;save();const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y}}
  dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
  {const ta=dev.querySelector("[data-tabout]");if(ta)ta.onclick=()=>{const bg=document.createElement("div");bg.innerHTML=aboutHTML(WORKS.find(w=>w.id===BK.id));while(bg.firstChild)app.appendChild(bg.firstChild);app.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>{app.querySelectorAll(".hsheet,.hsheet-bg").forEach(z=>z.remove())})}}
  dev.querySelector("[data-home]").onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};ST.screen="home";ST.tocOpen=false;SHY=null;render()};
@@ -1146,7 +1193,7 @@ const IDB=(()=>{let p=null;const open=()=>p||(p=new Promise((ok,bad)=>{const r=i
  const tx=(mode,fn)=>open().then(db=>new Promise((ok,bad)=>{const t=db.transaction("kv",mode);const st=t.objectStore("kv");const r=fn(st);t.oncomplete=()=>ok(r&&r.result);t.onerror=()=>bad(t.error)}));
  return {get:k=>tx("readonly",s=>s.get(k)),set:(k,v)=>tx("readwrite",s=>s.put(v,k)),del:k=>tx("readwrite",s=>s.delete(k)),keys:()=>tx("readonly",s=>s.getAllKeys())}})();
 const idbGet=k=>IDB.get(k).catch(()=>undefined),idbSet=(k,v)=>IDB.set(k,v),idbDel=k=>IDB.del(k).catch(()=>{});
-const STKEEP=["bg","pal","vf","shyf","shyv","shym","ret","srem","remT","npd","pace","qpw","view"];
+const STKEEP=["bo","bg","pal","vf","shyf","shyv","shym","ret","srem","remT","npd","pace","qpw","view"];
 function stSaved(){const o={};STKEEP.forEach(k=>o[k]=ST[k]);return o}
 function stLoad(o){STKEEP.forEach(k=>{if(o[k]!==undefined)ST[k]=o[k]})}
 let saveT=0,LOADED=false;
@@ -1213,6 +1260,7 @@ async function loadBuiltin(){const r=await fetch("data/books.json");if(!r.ok)thr
  return list}
 function loadBuiltinShiyi(list){return Promise.all((list||[]).filter(b=>b.shiyi&&BUILTIN[b.id]).map(b=>fetch(dataURL(b.shiyi,b.v&&b.v.shiyi)).then(r=>r.ok?r.json():null).then(s=>{if(s)attachShiyi(b.id,s)}).catch(e=>console.warn("释义读取失败",b.id,e))))}
 function attachShiyi(id,s){const b=BUILTIN[id];if(!b)return;b.shiyi=s;const B=BOOKS[id];if(!B||!B.builtin)return;// 已被用户导入的同名书替换时不动
+ if(B.prose){if(!s||!s.sections)return;PROSE[id]=s.sections;if(LOADED&&BK&&BK.id===id&&ST.screen==="reader"){const r=dev.querySelector("#rs"),y=r?r.scrollTop:0;render();bindPanel();const r2=dev.querySelector("#rs");if(r2)r2.scrollTop=y}return}
  const sy=s&&s.sections?shiyiOf(s):null;if(!sy)return;SHIYI[id]=sy;B.syName=syNameOf(s);
  const W=WORKS.find(w=>w.id===id);if(W&&!W.shiyi&&B.syName)W.shiyi="《"+B.syName+"》";
  // 阅读页已经打开这本书：给有释义的颂词补上可点的标记，不整页重画

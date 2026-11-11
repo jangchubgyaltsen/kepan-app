@@ -196,6 +196,41 @@
   }
  },
  {
+  "id": "qxyd",
+  "meta": {
+   "title": "大圆满前行引导文",
+   "credits": "华智仁波切 造论  索达吉堪布 翻译（科判取自引导文）",
+   "roles": [
+    {
+     "name": "华智仁波切",
+     "role": "造论"
+    },
+    {
+     "name": "索达吉堪布",
+     "role": "翻译"
+    }
+   ],
+   "kind": "guide",
+   "name": "大圆满前行引导文",
+   "shortName": "前行"
+  },
+  "stats": {
+   "nodes": 270,
+   "verseCells": 55,
+   "stanzas": 119
+  },
+  "checks": 0,
+  "corrections": 0,
+  "data": "qxyd.json",
+  "shiyi": "qxyd.shiyi.json",
+  "shiyiStats": {
+   "rows": 204,
+   "chars": 207899,
+   "footnotes": 272,
+   "stanzas": 119
+  }
+ },
+ {
   "id": "qys",
   "meta": {
    "title": "亲友书释 白莲鬘 讲记 偈颂 科判",
