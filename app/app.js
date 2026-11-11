@@ -350,11 +350,11 @@ const bindToc=(el,fn)=>{mmBind(el,fn);el.querySelectorAll("[data-j]").forEach(b=
 function centerCur(box){if(box.querySelector(".mmw"))return;const c=box.querySelector('[aria-current="true"]');if(!c)return;const br=box.getBoundingClientRect(),cr=c.getBoundingClientRect();box.scrollTop+=cr.top-br.top-box.clientHeight/2+cr.height/2;box.scrollLeft+=cr.left-br.left-box.clientWidth/2+cr.width/2}
 
 // ===== 学习（按《背诵方式定稿》：读→认→展→背→混） =====
-const SK={loc:"定位",exp:"展开",mask:"遮字"};
+const SK={loc:"定位",exp:"展开",mask:"遮字",pair:"对照"};
 const LENTRY={top:"A 书架顶部「今日」卡",book:"B 放在书的卡片上",tab:"C 底部两个标签：书架 / 今日"},SVIEW={full:"全屏练习页",card:"卡片（一题一张）",sheet:"阅读页 + 底部抽屉"},SPROG={bar:"细进度条",beads:"念珠（每题一颗）",num:"只显示 3 / 7"},SFB={ring:"节点圆环亮一段",quiet:"只一行文字"},LOCSTY={list:"路径 + 选项按钮",tree:"像目录一样逐级长出来"},EXPSTY={slot:"编号空槽",tree:"挂到树上"},RING={seg:"分段圆环",half:"宝珠（扇形填满）",petal:"莲瓣",lamp:"酥油灯",beads:"念珠",gem:"摩尼宝（菱形）",none:"不显示"},RGOLD={glow:"金色光晕",rays:"放光芒",none:"不加"},RFADE={dim:"金色变淡",gray:"整体变灰",ember:"变成暗铜色",char:"灰黑 + 一点金光"},LHINT={text:"文字（昨天复习过 / 4 天没复习了）",color:"按钮颜色由暖变冷",dot:"小红点 + 天数",spine:"书脊慢慢褪色",arc:"小圆弧倒计时（7 天走完）",lamp:"酥油灯火苗变小"},LHTXT={off:"不加文字",on:"同时加文字"},MKB={solid:"实心块",outline:"空心框",tian:"田字格",dot:"中间一点",paper:"纸签",gold:"金箔",ink:"墨块"},RENTRY={btn:"标题栏「练习」按钮",fab:"右下角浮动「今日 N」",none:"不放（只从首页进）"};
 const hasV=n=>n.v.length>0||leavesOf(n).length>0;
 // 子科判后面单独的那几颂（x）只读不练
-const stepsOf=n=>{if(n._S)return n._S;const S=[];if(!n.x){if(n.p&&n.p.c.length>1&&hasV(n))S.push("loc");if(n.c.length>1&&!n.ne)S.push("exp");if(!n.c.length&&n.v.length)S.push("mask")}return n._S=S};
+const stepsOf=n=>{if(n._S)return n._S;const S=[];if(!n.x){if(n.p&&n.p.c.length>1&&hasV(n))S.push("loc");if(n.c.length>1&&!n.ne)S.push("exp");if(!n.c.length&&n.v.length)S.push("mask");if(!n.c.length&&n.vp)S.push("pair")}return n._S=S};
 const unlocked=n=>!n.p||(n.p.c.length>1?!!itm(n.p,"exp"):unlocked(n.p));
 const nstate=n=>{const S=stepsOf(n),L=S.filter(k=>itm(n,k));return {S,L,gold:L.length===S.length,fade:S.some(k=>{const t=itm(n,k);return t&&t.due<0}),unl:unlocked(n)}};
 const bfsAll=B=>B.bfs;
@@ -629,7 +629,7 @@ function freeQueue(B){const L=[];bfsAll(B).forEach(n=>stepsOf(n).forEach(k=>{if(
 function goldSide(st,id){const due=st.rev||0;const lamp=pillLamp(0);
  return `<button class="hside gold hg-seal ${due?"":"gidle"}" ${due?`data-learn="${id}"`:`data-grev="${id}"`} aria-label="${due?"整本圆满，复习 "+due+" 条":"整本圆满，再复习几条"}">${lamp}<b>圆满</b><small class="gchip">${due?"复习 "+due+" ›":"再复习 ›"}</small></button>`}
 // 继续学习：再学一支，不受每天新学数量限制
-function extraQueue(B){const bs=B?[B,...Object.values(BOOKS).filter(x=>x!==B)]:Object.values(BOOKS);for(const X of (B?[B]:bs)){const n=newNode(X)||newNodeAny(X);if(n){const miss=stepsOf(n).filter(k=>!itm(n,k));return ["exp","mask","loc"].filter(k=>miss.includes(k)).map(k=>({n,k,B:X,isNew:true}))}}return []}
+function extraQueue(B){const bs=B?[B,...Object.values(BOOKS).filter(x=>x!==B)]:Object.values(BOOKS);for(const X of (B?[B]:bs)){const n=newNode(X)||newNodeAny(X);if(n){const miss=stepsOf(n).filter(k=>!itm(n,k));return ["exp","mask","pair","loc"].filter(k=>miss.includes(k)).map(k=>({n,k,B:X,isNew:true}))}}return []}
 function startExtra(q,o){if(!q.length)return;SS={B:q[0].B,q,i:0,res:[],daily:false,from:"home",extra:true,...(o||{})};SS.t=initTask(q[0]);ST.screen="study";ST.tocOpen=false;MENU=null;render();bindPanel()}
 function sideHTML(st,id){const d=st.last,tot=st.rev+st.nw;
  if(id&&BOOKS[id]&&bookAllDone(BOOKS[id]))return goldSide(st,id);
@@ -642,7 +642,7 @@ function ringTitle(n,s){if(!s.unl)return "还没解锁";return s.S.map(k=>SK[k==
 let SS=null;
 // 先排复习（打乱，就是第 5 步「混」），再排新学
 function buildQueue(B){const rev=dueList(B);const q=shuffle(rev,rev.length*7+3+new Date().getDate());
- if(rev.length<=20&&!quotaFull())newNodes(B,newLeft(B)).forEach(n=>{const miss=stepsOf(n).filter(k=>!itm(n,k));["exp","mask","loc"].filter(k=>miss.includes(k)).forEach(k=>q.push({n,k,B,isNew:true}))});
+ if(rev.length<=20&&!quotaFull())newNodes(B,newLeft(B)).forEach(n=>{const miss=stepsOf(n).filter(k=>!itm(n,k));["exp","mask","pair","loc"].filter(k=>miss.includes(k)).forEach(k=>q.push({n,k,B,isNew:true}))});
  return q}
 // 每日一颂：只从自己学过的颂里出，一天一题
 function pickDaily(){const L=[];Object.values(BOOKS).forEach(B=>B.seq.forEach(n=>{if(n.v.length&&!n.x&&itm(n,"loc"))L.push({n,B})}));if(!L.length)return null;const d=new Date();const x=L[(d.getFullYear()*372+d.getMonth()*31+d.getDate())*7%L.length];return {n:x.n,B:x.B,k:"loc",isNew:false,daily:true}}
@@ -651,7 +651,20 @@ function initTask(t){if(!t)return null;const n=t.n;
   return {kind:"loc",leaf,path,lay,auto:lay,bad:{},wrong:0,done:false,chances:t.daily?5:null}}
  if(t.k==="exp"){let dis=[];if(!t.isNew){const pool=t.B.all.filter(x=>x.lvl===n.lvl+1&&x.p!==n);const i0=t.B.all.indexOf(n);pool.sort((a,b)=>Math.abs(t.B.all.indexOf(a)-i0)-Math.abs(t.B.all.indexOf(b)-i0));dis=pool.slice(0,n.c.length>2?2:1).map(x=>x.id)}
   return {kind:"exp",order:shuffle([...n.c.map(x=>x.id),...dis],n.c.length*13+dis.length),dis:new Set(dis),placed:[],wrong:0,shake:null,done:false}}
+ if(t.k==="pair")return pairTask(t);
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
+// 仪轨偈句「对照」题：一句一题、打乱顺序，单数题看汉义选音译，双数题看音译选汉义；每题 4 个选项，一次最多 8 题
+const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
+function pairTask(t){const seed=Date.now()%9973+1;const L=shuffle(pyLines(t.n),seed).slice(0,8);
+ let pool=pyLines(t.n);if(pool.length<4)t.B.all.forEach(x=>{if(x!==t.n)pool=pool.concat(pyLines(x))});
+ const qs=L.map((ln,i)=>{const dir=i%2?"py":"zh";const k=dir==="zh"?0:1;// 看汉义（ln[1]）选音译（ln[0]）；看音译选汉义
+  const others=[...new Set(pool.map(x=>x[k]).filter(x=>x!==ln[k]))];const opts=shuffle([ln[k],...shuffle(others,seed+i*7).slice(0,3)],seed+i*13);
+  return {show:dir==="zh"?ln[1]:ln[0],ask:dir==="zh"?"py":"zh",ans:ln[k],opts}});
+ return {kind:"pair",qs,i:0,wrong:0,shake:null,done:false}}
+function pairHTML(t,T){const n=t.n;const q=T.qs[Math.min(T.i,T.qs.length-1)];
+ const head=`${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${T.done?"":q.ask==="py"?"看汉义，选出音译":"看音译，选出汉义"}<small>第 ${Math.min(T.i+1,T.qs.length)} / ${T.qs.length} 句</small></span></div>`;
+ if(T.done)return head+`<div class="pqlist">${T.qs.map(x=>`<div><span>${esc(x.ask==="py"?x.show:x.ans)}</span><small>${esc(x.ask==="py"?x.ans:x.show)}</small></div>`).join("")}</div><div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`选错过 ${T.wrong} 次，这题按答错记`:"全部选对"}</div>`;
+ return head+`<div class="pq ${q.ask==="py"?"zh":"py"}">${esc(q.show)}</div><div class="pqo">${q.opts.map((o,j)=>`<button class="ec ${q.ask} ${T.shake===j?"shake":""}" data-pq="${j}">${esc(o)}</button>`).join("")}</div>`}
 function dayMark(B){const T=todayRec();T.n++;SR.last[B.id]=Date.now();const h=SR.hist[T.date]||(SR.hist[T.date]={n:0});h.n=T.n}
 // 回向：当天第一次结束学习时弹一次
 // 回向不再自动弹出，改成首页顶栏的「回向」按钮；当天点了灯还没回向时按钮带金色提示
@@ -698,7 +711,7 @@ function maskHTML(t,T){const n=t.n;const r=T.r;
 function fbHTML(t){const last=SS.res[SS.res.length-1];if(!last||t.daily)return "";const n=t.n;
  const msg=last.again?(last.ok?"这次记住了，明天再来":"还不牢，明天再练"):!last.ok?`还不牢，过一会儿再出现`:last.first?`${SK[t.k]}这一段亮了${nstate(n).gold?"，整个节点变金":""}`:`下次大约 ${last.days} 天后再来`;
  return `<div class="sfb">${ST.sfb==="ring"&&ST.ring!=="none"?ringHTML(n,"big",last.first?t.k:null):""}<div><b>${esc(n.p?n.code+" "+n.title:t.B.title)}</b><span>${msg}</span></div></div>`}
-function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp"?expHTML(t,T):maskHTML(t,T);
+function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp"?expHTML(t,T):k==="pair"?pairHTML(t,T):maskHTML(t,T);
  const last=SS.i===SS.q.length-1;
  const foot=T.done?`${fbHTML(t)}<div class="sacts">${ST.sview==="sheet"&&!t.daily?`<button data-jump>在原文里看看</button>`:""}<button class="pri" data-next>${t.daily?"回书架":last?"完成":"下一题"}</button></div>`
   :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.r===3?"记得 · 完成":"记得"}</button></div>`:"";
@@ -736,6 +749,9 @@ function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  if(T.kind==="exp")root.querySelectorAll("[data-ec]").forEach(b=>b.onclick=()=>{const want=t.n.c[T.placed.length].id;T.shake=null;
   if(b.dataset.ec===want){T.placed.push(want);if(T.placed.length===t.n.c.length){T.done=true;grade(t,!T.wrong)}rer()}
   else{T.wrong++;T.shake=b.dataset.ec;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}});
+ if(T.kind==="pair")root.querySelectorAll("[data-pq]").forEach(b=>b.onclick=()=>{const q=T.qs[T.i];const j=+b.dataset.pq;T.shake=null;
+  if(q.opts[j]===q.ans){T.i++;if(T.i>=T.qs.length){T.done=true;grade(t,!T.wrong)}rer()}
+  else{T.wrong++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake","no")}});
  if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=`第 ${T.r+1} 轮 · ${RND[T.r]}`};
   root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;if(b.dataset.mj==="ok"){if(T.r>=3){T.done=true;grade(t,!T.wrong)}else T.r++}else{if(!t.isNew){T.wrong=true;if(T.r===3)T.r=2}}rer()})}}
 // ---- 首页「今日」
