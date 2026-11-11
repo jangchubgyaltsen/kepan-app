@@ -346,7 +346,7 @@ const SR={it:{},hist:{},today:null,daily:null,wk:{id:"",n:0},recent:{},course:{}
 // 学习模式：每部科判单独开关。undefined=还没问过，第一次打开时弹窗问
 function lmFix(){if(!SR.lm)SR.lm={};Object.keys(SR.it||{}).forEach(k=>{const b=k.slice(0,k.indexOf(":"));if(b&&SR.lm[b]===undefined)SR.lm[b]="on"})}
 const lmOn=B=>!!B&&SR.lm[B.id]==="on";let LMASK=null;
-function lmAskHTML(){const B=LMASK&&BOOKS[LMASK.key];if(!B)return "";return `<div class="cpov cfov"><div class="cfd lmd" role="dialog" aria-label="学习模式"><b>要开启《${esc(B.title)}》的学习模式吗？</b><p>开启后，书卡上会出现学习按钮，按你选的节奏安排背诵和复习。不开启就只是阅读。</p><p class="lmn">以后可以在书卡 ⋯ 的「学习节奏」里更改。</p><div class="cfb"><button data-lmset="off">只阅读</button><button class="lmy" data-lmset="on">开启</button></div></div></div>`}
+function lmAskHTML(){const B=LMASK&&BOOKS[LMASK.key];if(!B)return "";return `<div class="cpov cfov" data-lmx><div class="cfd lmd" role="dialog" aria-label="学习模式"><button class="lmx" data-lmx aria-label="关闭">✕</button><b>要开启《${esc(B.title)}》的学习模式吗？</b><p>开启后，书卡上会出现学习按钮，按你选的节奏安排背诵和复习。不开启就只是阅读。</p><p class="lmn">以后可以在书卡 ⋯ 的「学习节奏」里更改。</p><div class="cfb"><button data-lmset="off">只阅读</button><button class="lmy" data-lmset="on">开启</button></div></div></div>`}
 const DAY=864e5;
 const sod=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
 const dkey=t=>{const d=new Date(t==null?Date.now():t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
@@ -823,6 +823,7 @@ function renderHome(){const W=wide();{const ob=dev.querySelector(".app.home .hbo
  dev.querySelectorAll("[data-bdel]").forEach(b=>b.onclick=e=>{e.stopPropagation();MENU=null;DELC=b.dataset.bdel;rer()});
  dev.querySelectorAll("[data-delno]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-delno]"))return;e.stopPropagation();DELC=null;rer()});
  dev.querySelectorAll("[data-delyes]").forEach(b=>b.onclick=async e=>{e.stopPropagation();const id=DELC;DELC=null;await removeBook(id);rer();toast("已从书架删除")});
+ dev.querySelectorAll("[data-lmx]").forEach(b=>b.onclick=e=>{if(e.target!==b)return;e.stopPropagation();LMASK=null;rer()});
  dev.querySelectorAll("[data-lmset]").forEach(b=>b.onclick=e=>{e.stopPropagation();const a=LMASK;LMASK=null;if(!a)return;SR.lm[a.key]=b.dataset.lmset;save();go(a.key,a.at)});
  dev.querySelectorAll("[data-lmsw]").forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.lmsw;SR.lm[k]=SR.lm[k]==="on"?"off":"on";save();rer()});
  dev.querySelectorAll("[data-rsno]").forEach(b=>b.onclick=e=>{if(e.target!==b&&!e.target.closest("button[data-rsno]"))return;e.stopPropagation();RESETC=false;rer()});

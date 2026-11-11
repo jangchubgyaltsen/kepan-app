@@ -672,3 +672,4 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 
 /* 窄屏（320 宽）：阅读页标题栏的「弹出 / 展开」不折成两行 */
 @media (max-width:359px){.shysw button{padding:0 7px}.tch{display:none}}
+.lmd{position:relative;padding-top:26px}.lmx{position:absolute;right:6px;top:6px;width:32px;height:32px;border:0;background:none;color:var(--muted);font-size:15px;cursor:pointer;border-radius:50%}
