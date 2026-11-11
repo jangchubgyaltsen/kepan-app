@@ -22,6 +22,10 @@ CONV = ROOT / "web" / "convert"
 OUT = ROOT / "site"
 
 
+def compact(obj):
+    return json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+
+
 def main():
     with_convert = "--no-convert" not in sys.argv
     if OUT.exists():
@@ -29,17 +33,26 @@ def main():
     shutil.copytree(APP, OUT)
     (OUT / ".nojekyll").write_text("")
 
-    # 内置的书：data/books.json 里列的科判和释义
+    # 内置的书：data/books.json 里列的科判和释义。
+    # 去掉缩进压紧写出（体积约减半，手机上解析也快）；每个文件按内容算版本号写进 books.json，
+    # app 用 data/<文件>?v=<版本> 读取，离线缓存按这个网址判断，发新版时没改过的书不用重新下载。
     (OUT / "data").mkdir()
     books = json.loads((DATA / "books.json").read_text(encoding="utf-8"))
-    shutil.copy(DATA / "books.json", OUT / "data" / "books.json")
-    data_files = ["data/books.json"]
+    data_files = []
     for b in books:
+        b["v"] = {}
         for k in ("data", "shiyi"):
             f = b.get(k)
-            if f and (DATA / f).exists():
-                shutil.copy(DATA / f, OUT / "data" / f)
-                data_files.append("data/" + f)
+            if not f:
+                continue
+            if not (DATA / f).exists():
+                b.pop(k)
+                continue
+            raw = compact(json.loads((DATA / f).read_text(encoding="utf-8")))
+            (OUT / "data" / f).write_bytes(raw)
+            b["v"][k] = hashlib.sha256(raw).hexdigest()[:10]
+            data_files.append(f"data/{f}?v={b['v'][k]}")
+    (OUT / "data" / "books.json").write_bytes(compact(books))
 
     conv_hash = "none"
     if with_convert:
@@ -62,7 +75,7 @@ def main():
 
     shell = ["index.html", "app.js", "app.css", "pwa.css", "config.js", "manifest.webmanifest", "vendor/ts-fsrs.umd.js"]
     shell += sorted("icons/" + p.name for p in (OUT / "icons").glob("*.png"))
-    pre = shell + data_files
+    pre = shell + ["data/books.json"]
     h = hashlib.sha256(conv_hash.encode())
     for f in pre:
         h.update(f.encode())
@@ -70,7 +83,8 @@ def main():
     version = h.hexdigest()[:10]
     sw = (OUT / "sw.js").read_text(encoding="utf-8")
     sw = (sw.replace("__VERSION__", version).replace("__CONVHASH__", conv_hash)
-            .replace("__PRECACHE__", json.dumps(["./"] + pre, ensure_ascii=False)))
+            .replace("__PRECACHE__", json.dumps(["./"] + pre, ensure_ascii=False))
+            .replace("__DATAFILES__", json.dumps(data_files, ensure_ascii=False)))
     (OUT / "sw.js").write_text(sw, encoding="utf-8")
     app = (OUT / "app.js").read_text(encoding="utf-8").replace('const APPVER="1.0";', f'const APPVER="1.0 · {version[:7]}";')
     (OUT / "app.js").write_text(app, encoding="utf-8")
