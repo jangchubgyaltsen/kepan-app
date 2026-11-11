@@ -5,7 +5,7 @@ function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
 // vp：仪轨偈句每一颂的音译（每句一行）。有音译时一句一行、音译在上，遮的只是汉义
 function verseMaskHTML(stanzas,r,vp){let ci=0;return `<div class="verse vm">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
  const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
- if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x)}</span>`));
+ if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x.replace(/[，。！？：?!]+$/,""))}</span>`));
  else for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
@@ -688,8 +688,10 @@ function expHTML(t,T){const n=t.n,B=t.B,R=!n.p;
  const res=T.done?`<div class="sres ${T.wrong?"no":"ok"}">${T.wrong?`点错过 ${T.wrong} 次，这题按答错记`:"顺序全对"}</div>`:"";
  return head+mid+cards+res}
 function maskHTML(t,T){const n=t.n;const r=T.r;
- const v=n.vp?verseMaskHTML(n.v,T.done?0:r,n.vp).replace('class="verse vm"',`class="verse vm vpy ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`):r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
- return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${n.vp?"看着音译，背出汉义":"下面的颂词，背出来"}</span></div>
+ // 仪轨偈句：一句一题、打乱顺序（同一题里顺序不变）
+ if(n.vp&&!T.ord){const L=[];n.v.forEach((s,si)=>{(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>L.push([n.vp[si]&&n.vp[si][j]||"",z]))});T.ord=shuffle(L,Date.now()%9973+1)}
+ const v=n.vp?verseMaskHTML([T.ord.map(x=>x[1]).join("，")],T.done?0:r,[T.ord.map(x=>x[0])]).replace('class="verse vm"',`class="verse vm vpy ${T.peek?"peek":""}" ${r>0&&!T.done?"data-peek":""}`):r===0||T.done?verseHTML(n.v):verseMaskHTML(n.v,r).replace('class="verse vm"',`class="verse vm ${T.peek?"peek":""}" data-peek`);
+ return `${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b><span>${n.vp?"看着音译，背出汉义（句子已打乱）":"下面的颂词，背出来"}</span></div>
   <div class="mv mb-${ST.mkb}" style="--mko:${ST.mko}%;--mkr:${ST.mkr}px;--mkg:${ST.mkg}px">${v}</div>
   <div class="mdots">${RND.map((x,i)=>`<i class="${T.done||i<r?"on":i===r?"cur":""}" title="${x}"></i>`).join("")}<span>${T.done?"背完了":`第 ${r+1} 轮 · ${RND[r]}${r>0&&!T.peek?"　心里背完，点颂词核对":""}`}</span></div>
   ${T.done?`<div class="sres ${T.wrong?"no":"ok"}">${t.isNew?"四轮都过了":T.wrong?"中途模糊过，按答错记":"首字提示下记得"}</div>`:""}`}

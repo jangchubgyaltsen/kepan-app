@@ -703,4 +703,5 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .prose .ptb th{background:color-mix(in srgb,var(--k0) 8%,transparent);font-weight:700}
 /* 仪轨偈句：看着音译背汉义 */
 .verse.vpy .ln{margin-bottom:.15em}
-.verse.vpy .vpyl{display:block;font-size:.72em;line-height:1.5;color:var(--muted);letter-spacing:0}
+.verse.vpy .ln{margin-bottom:.5em}
+.verse.vpy .vpyl{display:block;font-size:1em;line-height:1.5;color:var(--muted);letter-spacing:.02em}
