@@ -108,7 +108,9 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .op .k.u{text-decoration:underline;text-decoration-color:var(--lc);text-decoration-thickness:2px;text-underline-offset:4px}
 .op .a{color:var(--ink);margin:0 var(--gap,.3em)}
 .op .a.b{font-weight:900}
-.op .it{white-space:nowrap}
+/* 每一级科判尽量整段放在一行；比一行还长的才在段内换行，不把页面撑宽 */
+.op .it{display:inline-block;max-width:100%}
+.op .it .k{white-space:nowrap}
 .dock{flex:none;order:2;width:var(--dockw,38%);border-left:1px solid var(--line);background:var(--panel);overflow:auto}
 .toc{padding:6px 0 40px;font-size:var(--tocf,16px)}
 .toc .h{font-size:.72em;color:var(--muted);padding:8px 14px 4px}
