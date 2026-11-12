@@ -777,7 +777,9 @@ function todayHTML(kind){const C=todayCount();const d=dailyToday();const BB=Obje
 
 function pathHTML(A){if(!A.length)return esc(BK.title);
  const kc="k"+(ST.stem.includes("b")?" b":"")+(ST.stem.includes("u")?" u":"");
- return A.map(x=>`<span class="it"><span class="${kc}" style="--lc:var(--k${x.depth})">${x.code}</span>${esc(x.title)}</span>`).join(`<span class="a${ST.sepb?" b":""}">${esc(ST.sep)}</span>`)}
+ const sep=`<span class="a${ST.sepb?" b":""}">${esc(ST.sep)}</span>`;
+  // 分隔符放进下一级的段里，长科判换行时不会单独剩一个「›」挂在行尾
+  return A.map((x,i)=>`<span class="it">${i?sep:""}<span class="${kc}" style="--lc:var(--k${x.depth})">${x.code}</span>${esc(x.title)}</span>`).join("")}
 
 function wProg(w){const B=BOOKS[w.id];return B?bookFrac(B):0}
 // 上次读到哪：每部书记一个（阅读页滚动时更新）
