@@ -27,8 +27,8 @@ let SHY=null;
 function shyG(bk,id){const it=SHIYI[bk]&&SHIYI[bk][id];if(!it)return null;const G=[];let c=null;
  it.forEach(x=>{if(x[0]==="v"){if(!c||c.t.length){c={vs:[],l:[],t:[]};G.push(c)}if(!c.vs.includes(x[2]))c.vs.push(x[2]);c.l.push(x[1])}else{if(!c){c={vs:[],l:[],t:[]};G.push(c)}c.t.push(x)}});return G}
 function shyList(){const bk=bkKey(BK);const L=[];BK.seq.forEach(n=>{const G=shyG(bk,n.id);if(G)G.forEach((g,gi)=>L.push({n,gi}))});return L}
-function shyBody(g,withV){const ps=g.t.filter(x=>x[0]!=="n"),ns=g.t.filter(x=>x[0]==="n");
- return `${withV?`<div class="shyv">${g.l.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}${ps.length?ps.map(x=>`<p${x[0]==="g"?' class="shyg"':""}>${esc(x[1])}</p>`).join(""):`<p class="shy0">讲记里这几句和下一段合在一起解释。</p>`}${ns.length?`<div class="shyn">${ns.map(x=>{const m=x[1].match(/^(\d+)\s*([\s\S]*)$/);return `<p><b>注${m?m[1]:""}</b>${esc(m?m[2]:x[1])}</p>`}).join("")}</div>`:""}`}
+function shyBody(g,withV,stz){const ps=g.t.filter(x=>x[0]!=="n"),ns=g.t.filter(x=>x[0]==="n");
+ return `${withV?`<div class="shyv">${stz&&stz.length?verseHTML(stz):g.l.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}${ps.length?ps.map(x=>`<p${x[0]==="g"?' class="shyg"':""}>${esc(x[1])}</p>`).join(""):`<p class="shy0">讲记里这几句和下一段合在一起解释。</p>`}${ns.length?`<div class="shyn">${ns.map(x=>{const m=x[1].match(/^(\d+)\s*([\s\S]*)$/);return `<p><b>注${m?m[1]:""}</b>${esc(m?m[2]:x[1])}</p>`}).join("")}</div>`:""}`}
 function shyNav(){const L=shyList();const i=L.findIndex(x=>x.n.id===SHY.id&&x.gi===SHY.gi);return `<div class="shyf"><button data-shyn="-1" ${i<=0?"disabled":""}>‹ 上一段</button><span>${i+1} / ${L.length}</span><button data-shyn="1" ${i>=L.length-1?"disabled":""}>下一段 ›</button></div>`}
 function shyIns(n){if(ST.shym!=="inline"||!SHY||SHY.id!==n.id||SHY.bk!==bkKey(BK))return null;const g=shyG(SHY.bk,n.id)[SHY.gi];if(!g)return null;
  const last=g.vs[g.vs.length-1];return {[last]:`<div class="shyin" style="--sf:${ST.shyf}px"><div class="shyh"><span class="shyl">${esc((BK.syName||"").split(/[·•]/).pop())} · 释义</span><button data-shyx aria-label="收起">收起 ⌃</button></div><div class="shyb">${shyBody(g,false)}</div></div>`}}
@@ -36,7 +36,7 @@ function shyMark(rw){rw.querySelectorAll(".stz.on").forEach(x=>x.classList.remov
  const row=rw.querySelector(`.row[data-id="${SHY.id}"]`);const G=shyG(SHY.bk,SHY.id);if(!row||!G||!G[SHY.gi])return;const v=row.querySelector(".verse");v&&v.classList.add("shyon");G[SHY.gi].vs.forEach(si=>{const e=row.querySelector(`.stz[data-si="${si}"]`);e&&e.classList.add("on")})}
 function shySheet(app){const old=app.querySelector(".shy");const keep=old&&SHY&&ST.shym!=="inline"&&SHY.bk===bkKey(BK);if(old&&!keep)old.remove();if(!keep)app.classList.remove("shy-open");if(!SHY||ST.shym==="inline"||SHY.bk!==bkKey(BK))return;
  const n=BK.by[SHY.id],g=shyG(SHY.bk,SHY.id)[SHY.gi];const W=wide();const el=keep?old:document.createElement("div");if(!keep)el.className="shy "+(W?"side":"sheet");el.style.setProperty("--sf",ST.shyf+"px");
- el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on")}${BK.syName?`<p class="shysrc">——《${esc(BK.syName)}》</p>`:""}</div>${shyNav()}`;
+ el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on",g.vs.map(i=>n.v[i]).filter(Boolean))}${BK.syName?`<p class="shysrc">——《${esc(BK.syName)}》</p>`:""}</div>${shyNav()}`;
  if(keep){el.querySelector(".shyb").scrollTop=0;return el}(W?app.querySelector(".body"):app).appendChild(el);if(!W)app.classList.add("shy-open");return el}
 
 function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
@@ -127,7 +127,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",shyv:"on",shyf:15,ret:90,npd:1,srem:false,remT:"20:30",tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",foc:"bg",foca:8,focy:45,shyv:"on",shyf:15,ret:90,npd:1,srem:false,remT:"20:30",tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -264,7 +264,7 @@ function applyColors(){const b=BG[ST.bg];const P=["--bg","--panel","--ink","--mu
  else{const c=b.c;[c[0],c[1],c[2],c[3],c[4],c[1],MIX(c[0],c[2],.08)].forEach((v,i)=>dev.style.setProperty(P[i],v));dev.style.colorScheme=b.dark?"dark":"light";dk=!!b.dark}
  const p=PAL[ST.pal]||PAL.thangka;const ds=BK?BK.all.filter(n=>n.p).map(n=>n.depth):[0,9];const mn=Math.min(...ds),mx=Math.max(...ds);
  for(let d=0;d<22;d++){let c=p.f(Math.max(0,d-mn),mx-mn,d);if(dk)c=MIX(c,"#ffffff",.32);KH[d]=c;dev.style.setProperty(`--k${d}`,c);dev.style.setProperty(`--kt${d}`,LUM(c)>.42?"#1b1b1b":"#ffffff")}
- dev.style.setProperty("--gap",ST.gap+"em");dev.style.setProperty("--tocf",ST.tocf+"px");dev.style.setProperty("--toclh",ST.toclh+"px");dev.style.setProperty("--rlo",ST.rlo+"%");[["--tw",ST.tw+"px"],["--fsh",ST.fsh],["--fop",ST.fop+"%"],["--fbl",ST.fbl+"px"],["--pf",ST.pf+"px"],["--vf",ST.vf+"px"],["--rsh",ST.rshadow+"px"]].forEach(([k,v])=>dev.style.setProperty(k,v));dev.style.setProperty("--dockw",ST.dockw+"%");dev.style.setProperty("--cw",ST.cw+"px");
+ dev.style.setProperty("--gap",ST.gap+"em");dev.style.setProperty("--tocf",ST.tocf+"px");dev.style.setProperty("--toclh",ST.toclh+"px");dev.style.setProperty("--rlo",ST.rlo+"%");[["--tw",ST.tw+"px"],["--fsh",ST.fsh],["--fop",ST.fop+"%"],["--fbl",ST.fbl+"px"],["--pf",ST.pf+"px"],["--fca",ST.foca+"%"],["--fcb",Math.min(100,ST.foca*4)+"%"],["--vf",ST.vf+"px"],["--rsh",ST.rshadow+"px"]].forEach(([k,v])=>dev.style.setProperty(k,v));dev.style.setProperty("--dockw",ST.dockw+"%");dev.style.setProperty("--cw",ST.cw+"px");
  {const m=document.querySelector('meta[name="theme-color"]');if(m){const v=getComputedStyle(dev).getPropertyValue("--panel").trim();if(v)m.content=v}}document.documentElement.style.colorScheme=dk?"dark":"light";document.body.style.background=getComputedStyle(dev).getPropertyValue("--bg")}
 
 function toggleHTML(){const L=(v,ic,t)=>`${ST.tgi!=="text"?ic:""}${ST.tgi!=="icon"?`<span>${t}</span>`:""}`;const m=ST.view==="map";
@@ -1049,20 +1049,26 @@ function splashLive(){const o=dev.querySelector(".splash");showSplash();const e=
 function isDarkNow(){const b=BG[ST.bg];return b.c?!!b.dark:matchMedia("(prefers-color-scheme: dark)").matches}
 let SDL={};
 function retNote(v){return v==90?"默认值。到复习那天，大约 10 条里能记得 9 条。":v<90?`复习次数比默认少，到复习那天大约 10 条里会忘 ${((100-v)/10).toFixed(1).replace(".0","")} 条。`:`忘得更少，但每天要复习的条数会明显变多。`}
+const FOCSTY={bg:"淡底色",box:"细边框",bar:"左边竖线",glow:"柔光卡片",off:"不标出"};
 function renderSettings(){const dk=isDarkNow();
  const bgs=Object.entries(BG).map(([k,b])=>`<button class="sbg" data-sbg="${k}" aria-pressed="${ST.bg===k}" style="${b.c?`background:${b.c[0]};color:${b.c[2]};border-color:${b.c[4]}`:""}"><i>${b.c?"文":"◐"}</i><b>${b.name}</b></button>`).join("");
  const pals=Object.entries(PAL).map(([k,p])=>`<button class="spal" data-spal="${k}" aria-pressed="${ST.pal===k}"><span class="strip">${strip(p,10,dk)}</span><b>${p.name}</b><em>✓</em></button>`).join("");
  const pv=[["甲一","入行论"],["乙二","所入之自性"],["丙二","入者之意乐"],["丁一","发心之功德"]].map(([c,t],i)=>`<span style="padding-left:${i*14}px"><span class="badge" style="background:var(--k${i});color:var(--kt${i})">${c}</span>${t}</span>`).join("");
  const RM=remInfo();
  const rng=(id,min,max,v,unit)=>`<div class="srng"><small>A</small><input type="range" id="${id}" min="${min}" max="${max}" step="${id==="s-shyf"?.5:1}" value="${v}"><big>A</big><output>${v}${unit}</output></div>`;
- dev.innerHTML=`<div class="app settings"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-shome aria-label="返回">‹</button><span>设置</span></span><span></span></div></div><div class="sbody"><div class="sin">
+ dev.innerHTML=`<div class="app settings fc-${ST.foc}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-shome aria-label="返回">‹</button><span>设置</span></span><span></span></div></div><div class="sbody"><div class="sin">
   <div class="sh">外观</div>
   <div class="sc"><div class="sr col"><b>背景</b><div class="sbgs">${bgs}</div></div>
    <div class="sr col"><b>科判层级颜色</b><div class="sprev">${pv}</div><div class="spals">${pals}</div></div></div>
   <div class="sh">阅读</div>
   <div class="sc"><div class="sr col"><b>颂词字号</b>${rng("s-vf",14,26,ST.vf,"px")}<div class="sdemo" style="font-size:${ST.vf}px">暇满人身极难得，既得能办人生利，</div></div>
    <div class="sr col"><b>释义字号</b>${rng("s-shyf",13,20,ST.shyf,"px")}<div class="sdemo" style="font-size:${ST.shyf}px;text-indent:2em">这般暇满的士夫具有成办增上生与决定胜的能力。</div></div>
-   <div class="sr"><b>释义弹窗里重复颂词</b><button class="stog" data-stog="shyv" aria-pressed="${ST.shyv==="on"}" aria-label="释义弹窗里重复颂词"></button></div></div>
+   <div class="sr"><b>释义弹窗里重复颂词</b><button class="stog" data-stog="shyv" aria-pressed="${ST.shyv==="on"}" aria-label="释义弹窗里重复颂词"></button></div>
+   <div class="sr col"><b>当前颂词</b><span class="sv">读到的那一颂淡淡标出来，顶上的科判和目录跟着它走</span>
+    <div class="schips" role="group" aria-label="当前颂词的样式">${Object.entries(FOCSTY).map(([k,t])=>`<button data-sfoc="${k}" aria-pressed="${ST.foc===k}">${t}</button>`).join("")}</div>
+    ${ST.foc==="off"?"":`<div class="srng"><small style="font-size:12px">淡</small><input type="range" id="s-foca" min="3" max="20" step="1" value="${ST.foca}" aria-label="浓淡"><small style="font-size:12px">浓</small><output>${ST.foca}</output></div>`}
+    <div class="srng"><small style="font-size:12px">偏上</small><input type="range" id="s-focy" min="25" max="60" step="1" value="${ST.focy}" aria-label="焦点位置"><small style="font-size:12px">偏下</small><output>${ST.focy}%</output></div>
+    <div class="sdemo sfoc">${verseHTML(["暇满人身极难得，既得能办人生利，倘若今生不精进，后世怎得此圆满？","犹如乌云暗夜中，刹那闪电极明亮，如是因佛威德力，世人暂萌修福意。"]).replace('<span class="stz" data-si="1">','<span class="stz foc" data-si="1">')}</div></div></div>
   <div class="sh">复习</div>
   <div class="sc"><div class="sr col"><b>目标记住率</b><div class="srng"><small style="font-size:12px">少复习</small><input type="range" id="s-ret" min="80" max="95" step="1" value="${ST.ret}"><small style="font-size:12px">记得牢</small><output>${ST.ret}%</output></div><div class="sdemo" style="font-family:var(--sans);font-size:12.5px;line-height:1.7;color:var(--muted)" id="s-retd">${retNote(ST.ret)}</div></div></div>
   <div class="sh">提醒</div>
@@ -1084,6 +1090,8 @@ function renderSettings(){const dk=isDarkNow();
  dev.querySelectorAll("[data-spal]").forEach(b=>b.onclick=()=>{ST.pal=b.dataset.spal;re();bindPanel()});
  dev.querySelectorAll("[data-stog]").forEach(b=>b.onclick=()=>{const k=b.dataset.stog;if(k==="shyv")ST.shyv=ST.shyv==="on"?"off":"on";else if(k==="sklamp")ST.sklamp=ST.sklamp===false;else ST[k]=!ST[k];re()});
  {const i=dev.querySelector("#s-ret");if(i){i.oninput=()=>{i.parentNode.querySelector("output").textContent=i.value+"%";dev.querySelector("#s-retd").textContent=retNote(+i.value)};i.onchange=()=>{ST.ret=+i.value;save()}}}
+ dev.querySelectorAll("[data-sfoc]").forEach(b=>b.onclick=()=>{ST.foc=b.dataset.sfoc;re()});
+ [["#s-foca","foca",""],["#s-focy","focy","%"]].forEach(([q,k,u])=>{const i=dev.querySelector(q);if(!i)return;i.oninput=()=>{i.parentNode.querySelector("output").textContent=i.value+u;ST[k]=+i.value;applyColors()};i.onchange=()=>{ST[k]=+i.value;save()}});
  dev.querySelectorAll("[data-npd]").forEach(b=>b.onclick=()=>{ST.npd=Math.max(1,Math.min(5,+ST.npd+ +b.dataset.npd));re()});
  {const b=dev.querySelector("[data-rem]");if(b)b.onclick=async()=>{await remToggle(!ST.srem);if(ST.screen==="settings")re()}}
  {const t=dev.querySelector("[data-remt]");if(t)t.onchange=async()=>{if(!/^\d\d:\d\d$/.test(t.value))return;ST.remT=t.value;save();await remSync();if(ST.screen==="settings")re()}}
@@ -1100,14 +1108,19 @@ function render(){const keep=[...dev.children].filter(e=>e.classList&&(e.classLi
  keep.forEach(e=>{if(!e.isConnected)dev.appendChild(e)});
  if(ST.screen!=="home"&&!(history.state&&history.state.s)){try{history.pushState({s:1},"")}catch(e){}}else if(ST.screen==="home"&&history.state&&history.state.s){HPUSH=true;try{history.back()}catch(e){}}
  save()}
+// 当前颂词：平时是屏幕上「焦点线」（默认在屏幕 45% 高处）压着的那一颂；点颂词、从目录跳转、打开书时改为指定的那一颂，
+// 用户一滑动就回到焦点线。顶上的科判路径和目录都跟着当前颂词走
+let FOCM=null,focHold=0;
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
  const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${BK.prose?proseHTML(n):n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${BK.prose?"":noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"&&lmOn(BK)?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
- dev.innerHTML=`<div class="app pg-${ST.rprog} ${BK.prose?"prose"+(ST.bo?" bo-on":""):""} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-tabout role="button" title="关于">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}${BK.prose?`<span class="shysw" role="group" aria-label="仪轨显示"><button data-botg aria-pressed="${!!ST.bo}">藏文</button></span>`:`<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span>`}<button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
+ dev.innerHTML=`<div class="app fc-${ST.foc} pg-${ST.rprog} ${BK.prose?"prose"+(ST.bo?" bo-on":""):""} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-home role="button" title="回到书架">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}${BK.prose?`<span class="shysw" role="group" aria-label="仪轨显示"><button data-botg aria-pressed="${!!ST.bo}">藏文</button></span>`:`<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span>`}<button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot&&lmOn(BK)?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
  const app=dev.querySelector(".app"),rs=dev.querySelector("#rs"),rw=dev.querySelector("#rw"),outer=dev.querySelector("#outer"),dock=dev.querySelector("#dock");
+ // 路径卡片看得见的高度（占位高度是固定的，路径长时卡片会更高）
+ const cardH=()=>{const o=dev.querySelector("#outer"),b=o&&o.querySelector(".pbx");return Math.max(o?o.offsetHeight:0,b?b.offsetHeight+2:0)};
  // 先一次量好每一行的位置，再画色带和编绳（边量边插会反复重排，整本书时很慢）
  const ROWS={};rw.querySelectorAll(".row").forEach(e=>ROWS[e.dataset.id]=e);const rowOf=n=>ROWS[n.id];
  const TOP=BK.seq.map(n=>ROWS[n.id].offsetTop);const HGT=BK.seq.map(n=>ROWS[n.id].offsetHeight);const geo={};BK.seq.forEach((n,i)=>geo[n.id]=[TOP[i],HGT[i]]);
@@ -1136,17 +1149,26 @@ function renderReader(){
    d.title=s.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(d)})}
  rw.appendChild(frag);
  let cur=BK.seq[0];
- const jump=n=>{rs.scrollTop=oT(n.c.length?fl(n):n)-2;upd()};
+ const focSet=(id,si)=>{FOCM={bk:BK.id,id,si};focHold=Date.now()+450};
+ const jump=n=>{const t=n.c.length?fl(n):n;focSet(t.id,null);rs.scrollTop=oT(t)-2;upd()};
+ const rowAt=y=>{let lo=0,hi=TOP.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(TOP[m]<=y)lo=m;else hi=m-1}return BK.seq[lo]};
+ let focEl=null;
+ const focPick=()=>{let n=null,z=null;
+  if(FOCM&&FOCM.bk===BK.id&&ROWS[FOCM.id]){n=BK.seq.find(x=>x.id===FOCM.id);const r=ROWS[FOCM.id];z=FOCM.si!=null?r.querySelector(`.verse .stz[data-si="${FOCM.si}"]`):r.querySelector(".verse .stz")}
+  if(!n){const ly=rs.clientHeight*ST.focy/100;n=rowAt(rs.scrollTop+ly);const L=rs.getBoundingClientRect().top+ly;let bd=1e9;
+   ROWS[n.id].querySelectorAll(".verse .stz").forEach(s=>{const r=s.getBoundingClientRect();const d=L<r.top?r.top-L:L>r.bottom?L-r.bottom:0;if(d<bd){bd=d;z=s}})}
+  if(focEl!==z){if(focEl)focEl.classList.remove("foc");focEl=z;if(z)z.classList.add("foc")}
+  return n};
  const drawDock=()=>{dock.innerHTML=tocHTML(cur);bindToc(dock,jump);if(ST.view==="map"){centerCur(dock);return}const e=dock.querySelector('[aria-current="true"]');if(e){const r=e.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}};
  let lastC=null,recT=0;const tch=dev.querySelector(".tch");
- const upd=()=>{const y=rs.scrollTop+4;let lo=0,hi=TOP.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(TOP[m]<=y)lo=m;else hi=m-1}const c=BK.seq[lo];cur=c;CUR=c;
+ const upd=()=>{const c=focPick();cur=c;CUR=c;
   if(c!==lastC){lastC=c;const ch=BK.chOf[c.id];if(tch)tch.textContent=ch?"· "+ch.name:"";clearTimeout(recT);recT=setTimeout(()=>{SR.recent[BK.id]={id:c.id,t:Date.now()};save()},800)}
-  {const A=compA(c);outer.style.setProperty("--pc",A.length?`var(--k${A[A.length-1].depth})`:"var(--muted)");const dd=A.length?A[A.length-1].depth:0;outer.style.setProperty("--pkt",`var(--kt${dd})`);outer.innerHTML=`<span class="pbx"><span class="pth">${pathHTML(A)}</span>${W?"":`<span class="ttab t-${ST.tcol} s-${ST.tsty}" aria-label="打开目录"><span class="tx">${ST.ttxt}</span>${ST.tarr==="none"?"":`<span class="ta a-${ST.tarr} m-${ST.tani}">${{chev:CHEV,tri:TRI,arrow:ARW,right:RGT,dbl:DBL}[ST.tarr]}</span>`}</span>`}</span>`}const oh=outer.offsetHeight;rw.querySelectorAll(".rl span").forEach(s=>s.style.top=oh+"px");
+  {const A=compA(c);outer.style.setProperty("--pc",A.length?`var(--k${A[A.length-1].depth})`:"var(--muted)");const dd=A.length?A[A.length-1].depth:0;outer.style.setProperty("--pkt",`var(--kt${dd})`);outer.innerHTML=`<span class="pbx"><span class="pth">${pathHTML(A)}</span>${W?"":`<span class="ttab t-${ST.tcol} s-${ST.tsty}" aria-label="打开目录"><span class="tx">${ST.ttxt}</span>${ST.tarr==="none"?"":`<span class="ta a-${ST.tarr} m-${ST.tani}">${{chev:CHEV,tri:TRI,arrow:ARW,right:RGT,dbl:DBL}[ST.tarr]}</span>`}</span>`}</span>`}const oh=cardH();rw.querySelectorAll(".rl span").forEach(s=>s.style.top=oh+"px");
   if(dock){const nb=dock.querySelector(`[data-j="${c.id}"]`);if(!nb||nb.getAttribute("aria-current")!=="true"){
    // 目录已经画好时只挪当前标记，不整个重画
    if(nb&&ST.view!=="map"){const onp=new Set(anc(c).map(x=>x.id));dock.querySelectorAll('[data-j][aria-current="true"]').forEach(x=>x.setAttribute("aria-current","false"));dock.querySelectorAll(".on-path").forEach(x=>x.classList.remove("on-path"));onp.forEach(id=>{const e=dock.querySelector(`[data-j="${id}"]`);if(e)e.classList.add("on-path")});nb.setAttribute("aria-current","true");const r=nb.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}
    else drawDock()}}};
- rs.onscroll=upd;
+ rs.onscroll=()=>{if(FOCM&&Date.now()>focHold)FOCM=null;upd()};
  const open=()=>{ST.tocOpen=true;const ov=document.createElement("div");ov.className="tocov";ov.innerHTML=`<div class="mh"><span></span>${toggleHTML()}<span class="mhr"><button class="tocbtn" data-x>关闭</button></span></div><div class="tl">${tocHTML(cur)}</div>`;app.appendChild(ov);
   const tl=ov.querySelector(".tl");centerCur(tl);
   const close=()=>{ST.tocOpen=false;ov.remove();const b=document.getElementById("opentoc");if(b)b.textContent="打开目录看效果"};
@@ -1161,26 +1183,25 @@ function renderReader(){
  dev.querySelector("[data-aa]").onclick=aaOpen;
  {const b=dev.querySelector("[data-botg]");if(b)b.onclick=()=>{ST.bo=!ST.bo;save();const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y}}
  dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
- {const ta=dev.querySelector("[data-tabout]");if(ta)ta.onclick=()=>{const bg=document.createElement("div");bg.innerHTML=aboutHTML(WORKS.find(w=>w.id===BK.id));while(bg.firstChild)app.appendChild(bg.firstChild);app.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>{app.querySelectorAll(".hsheet,.hsheet-bg").forEach(z=>z.remove())})}}
- dev.querySelector("[data-home]").onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};ST.screen="home";ST.tocOpen=false;SHY=null;render()};
+  dev.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};ST.screen="home";ST.tocOpen=false;SHY=null;render()});
  dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};if(!SR.paceAsked){PACESH=BK.id;PRESTART=true;ST.screen="home";ST.tocOpen=false;render();return}startSession({B:BK})});
  dev.querySelectorAll("[data-lt]").forEach(b=>b.onclick=e=>{if(!e.target.closest(".badge,.ltt"))return;e.stopPropagation();ltSheet(BK.by[b.dataset.lt],dev.querySelector(".app"))});
  dev.querySelectorAll("[data-cmv]").forEach(b=>b.onclick=e=>{e.stopPropagation();moveCourse(+b.dataset.cmv)});
  {const bk=bkKey(BK);
-  const toTop=(id,si)=>{const row=rowOf(BK.by[id]);const t=(si!=null&&row.querySelector(`.stz[data-si="${si}"]`))||row;const r=t.getBoundingClientRect(),rr=rs.getBoundingClientRect();rs.scrollTop+=r.top-rr.top-outer.offsetHeight-12};
+  const toTop=(id,si)=>{const row=rowOf(BK.by[id]);const t=(si!=null&&row.querySelector(`.stz[data-si="${si}"]`))||row;const r=t.getBoundingClientRect(),rr=rs.getBoundingClientRect();rs.scrollTop+=r.top-rr.top-cardH()-12};
   const pinOf=(id,si)=>{const t=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`);return t?{id,si,top:t.getBoundingClientRect().top-rs.getBoundingClientRect().top}:null};
-  const show=(id,gi,how)=>{const G=shyG(bk,id);SHY={bk,id,gi};const si=G[gi].vs[0];
-   if(ST.shym==="inline"){if(how==="tap")ST.pin=pinOf(id,si);else{ST.anchor=id;ST.anchorKeep=null}render();bindPanel();if(how!=="tap"){const r2=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`),s2=dev.querySelector("#rs"),o2=dev.querySelector("#outer");if(r2)s2.scrollTop+=r2.getBoundingClientRect().top-s2.getBoundingClientRect().top-o2.offsetHeight-12}return}
+  const show=(id,gi,how)=>{const G=shyG(bk,id);SHY={bk,id,gi};const si=G[gi].vs[0];if(how!=="tap")focSet(id,si);
+   if(ST.shym==="inline"){if(how==="tap")ST.pin=pinOf(id,si);else{ST.anchor=id;ST.anchorKeep=null}render();bindPanel();if(how!=="tap"){const r2=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`),s2=dev.querySelector("#rs");if(r2)s2.scrollTop+=r2.getBoundingClientRect().top-s2.getBoundingClientRect().top-cardH()-12}return}
    shyMark(rw);shySheet(app);bindShy();if(how!=="tap")toTop(id,si)};
   const close=()=>{const o=SHY;SHY=null;if(ST.shym==="inline"){if(o){const G=shyG(o.bk,o.id);ST.pin=pinOf(o.id,G&&G[o.gi]?G[o.gi].vs[0]:0)}render();bindPanel();return}shyMark(rw);shySheet(app)};
   const bindShy=()=>{dev.querySelectorAll("[data-shyx]").forEach(b=>b.onclick=e=>{e.stopPropagation();close()});
    dev.querySelectorAll("[data-shyn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const L=shyList();const i=L.findIndex(x=>x.n.id===SHY.id&&x.gi===SHY.gi);const t=L[i+ +b.dataset.shyn];if(t)show(t.n.id,t.gi,"nav")})};
   rw.addEventListener("click",e=>{if(e.target.closest(".shyin,.cline,button,a,.badge,.ltt"))return;const row=e.target.closest(".row");if(!row||!row.querySelector(".verse.tap"))return;let s=e.target.closest(".verse.tap .stz");
    if(!s){let bd=1e9;row.querySelectorAll(".verse.tap .stz").forEach(z=>{if(z.closest(".shyin"))return;const r=z.getBoundingClientRect();const d=e.clientY<r.top?r.top-e.clientY:e.clientY>r.bottom?e.clientY-r.bottom:0;if(d<bd){bd=d;s=z}})}if(!s)return;const G=shyG(bk,row.dataset.id);if(!G)return;const gi=G.findIndex(g=>g.vs.includes(+s.dataset.si));if(gi<0)return;
-   if(SHY&&SHY.bk===bk&&SHY.id===row.dataset.id&&SHY.gi===gi){close();return}show(row.dataset.id,gi,"tap")});
+   focSet(row.dataset.id,+s.dataset.si);upd();if(SHY&&SHY.bk===bk&&SHY.id===row.dataset.id&&SHY.gi===gi){close();return}show(row.dataset.id,gi,"tap")});
   if(SHY&&SHY.bk!==bk)SHY=null;shyMark(rw);shySheet(app);bindShy()}
  if(ST.pin){const P=ST.pin;ST.pin=null;ST.anchor=null;const t=dev.querySelector(`.row[data-id="${P.id}"] .stz[data-si="${P.si}"]`);if(t)rs.scrollTop+=t.getBoundingClientRect().top-rs.getBoundingClientRect().top-P.top}
- else if(ST.anchor){const n=BK.seq.find(x=>x.id===ST.anchor);ST.anchor=null;if(n)rs.scrollTop=oT(n)-(ST.anchorKeep!=null?ST.anchorKeep-outer.offsetHeight:2);ST.anchorKeep=null}else if(ST.openAt){const n=BK.by[ST.openAt];ST.openAt=null;if(n)rs.scrollTop=oT(geo[n.id]?n:fl(n))-2}
+ else if(ST.anchor){const n=BK.seq.find(x=>x.id===ST.anchor);ST.anchor=null;if(n){focSet(n.id,null);}if(n)rs.scrollTop=oT(n)-(ST.anchorKeep!=null?ST.anchorKeep-outer.offsetHeight:2);ST.anchorKeep=null}else if(ST.openAt){const n=BK.by[ST.openAt];ST.openAt=null;if(n){const t=geo[n.id]?n:fl(n);focSet(t.id,null);rs.scrollTop=oT(t)-2}}
  upd();if(ST.aaOpen){ST.aaOpen=false;aaOpen()}
  if(W)refreshToc=sw=>{const y=dock.scrollTop;dock.innerHTML=tocHTML(cur);bindToc(dock,jump);if(sw)centerCur(dock);else dock.scrollTop=y};
  else{refreshToc=null;if(ST.tocOpen)open()}
@@ -1195,7 +1216,7 @@ const IDB=(()=>{let p=null;const open=()=>p||(p=new Promise((ok,bad)=>{const r=i
  const tx=(mode,fn)=>open().then(db=>new Promise((ok,bad)=>{const t=db.transaction("kv",mode);const st=t.objectStore("kv");const r=fn(st);t.oncomplete=()=>ok(r&&r.result);t.onerror=()=>bad(t.error)}));
  return {get:k=>tx("readonly",s=>s.get(k)),set:(k,v)=>tx("readwrite",s=>s.put(v,k)),del:k=>tx("readwrite",s=>s.delete(k)),keys:()=>tx("readonly",s=>s.getAllKeys())}})();
 const idbGet=k=>IDB.get(k).catch(()=>undefined),idbSet=(k,v)=>IDB.set(k,v),idbDel=k=>IDB.del(k).catch(()=>{});
-const STKEEP=["bo","bg","pal","vf","shyf","shyv","shym","ret","srem","remT","npd","pace","qpw","view"];
+const STKEEP=["foc","foca","focy","bo","bg","pal","vf","shyf","shyv","shym","ret","srem","remT","npd","pace","qpw","view"];
 function stSaved(){const o={};STKEEP.forEach(k=>o[k]=ST[k]);return o}
 function stLoad(o){STKEEP.forEach(k=>{if(o[k]!==undefined)ST[k]=o[k]})}
 let saveT=0,LOADED=false;
