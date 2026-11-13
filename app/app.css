@@ -91,6 +91,10 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .op .pbx{display:flex!important;align-items:stretch;padding-right:0!important}
 .op .pth{flex:1;min-width:0}
 .op .pbx{min-height:calc(var(--pf,14px)*3.5 + 13px);box-sizing:border-box}
+/* 路径卡片浮在颂词上面：占位高度固定为两行，路径换成三行以上时卡片往下盖住一点，下面的颂词不跟着移动
+   （iPhone Safari 不会自动补偿滚动位置，占位一变高整页就往下跳） */
+.op{height:calc(var(--pf,14px)*3.5 + 15px);box-sizing:border-box}
+.op .pbx{position:absolute;top:0;left:0;right:8px}
 .ttab{flex:none;width:var(--tw,28px);margin:-6px 0 -6px 8px;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;letter-spacing:.25em;font-family:var(--serif);font-weight:700;font-size:13px;border-radius:0 0 8px 0;--tc:var(--pc);--tt:var(--pkt)}
 .ttab.t-k0{--tc:var(--k0);--tt:var(--kt0)}.ttab.t-ink{--tc:var(--ink);--tt:var(--bg)}.ttab.t-zhe{--tc:#9a3b26;--tt:#fff}.ttab.t-jin{--tc:#b0832a;--tt:#fff}
 .ttab .tx{writing-mode:vertical-rl}
@@ -447,7 +451,8 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .shyb p.shy0{text-indent:0;color:var(--muted);font-size:13px}
 .shyb .shysrc{text-indent:0;text-align:right;color:var(--muted);font-size:12px}
 .shyv{font-family:var(--serif);font-size:calc(var(--sf,15px) + 1px);line-height:1.9;border-left:3px solid var(--k0);padding:2px 0 2px 12px;margin:0 0 12px;color:var(--ink)}
-.shyv span{display:block}
+.shyv>span{display:block}
+.shyv .verse{line-height:inherit}
 .shyn{border-top:1px dashed var(--line);margin-top:6px;padding-top:6px}
 .shyn p{text-indent:0;font-size:12.5px;color:var(--muted);line-height:1.7}
 .shyn b{color:var(--k0);margin-right:6px;font-weight:600}
@@ -718,3 +723,18 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .pqlist small{color:var(--muted);font-size:.9em}
 .verse.vpy.one{font-size:calc(var(--vf,16px)*1.4);text-align:center;max-width:none;padding:14px 0}
 .verse.vpy.one .vpyl{font-size:.8em;margin-bottom:.3em}
+
+/* 手机上：双击不放大；按钮长按不选中文字、不弹系统菜单（颂词和释义正文仍可长按复制） */
+html{touch-action:manipulation}
+button,[role="button"],label.sdl,.badge,.ttab{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+
+/* 当前颂词：淡淡标出（样式和浓淡在 设置 → 阅读 → 当前颂词 里调） */
+.verse .stz{transition:background-color .25s,box-shadow .25s}
+.fc-bg .verse .stz.foc:not(.on){background:color-mix(in srgb,var(--k0) var(--fca,8%),transparent)}
+.fc-box .verse .stz.foc:not(.on){box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--k0) var(--fcb,32%),transparent)}
+.fc-bar .verse .stz.foc:not(.on){box-shadow:inset 2px 0 0 color-mix(in srgb,var(--k0) var(--fcb,32%),transparent)}
+.fc-glow .verse .stz.foc:not(.on){background:color-mix(in srgb,var(--k0) calc(var(--fca,8%) * .6),var(--panel));box-shadow:0 0 0 1px color-mix(in srgb,var(--k0) calc(var(--fcb,32%) * .7),transparent),0 2px 12px color-mix(in srgb,var(--k0) var(--fcb,32%),transparent)}
+.schips{display:flex;flex-wrap:wrap;gap:6px}
+.schips button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px;font-family:var(--sans);cursor:pointer}
+.schips button[aria-pressed="true"]{border-color:var(--k0);background:color-mix(in srgb,var(--k0) 12%,var(--panel));color:var(--k0);font-weight:700}
+.sdemo.sfoc .verse{font-size:16px}
