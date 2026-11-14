@@ -37,8 +37,10 @@ D = '[0-9０-９]+'
 LABEL_RE = re.compile(
     rf'^(?:(?P<f>[{STEMS}])(?P<fn>{N}|初)[、，]?|(?P<x>[{STEMS}])[、，]|(?P<u>[上中下])[ \u3000]+(?=\S)|第(?P<h>{N})(?P<hk>[品章课卷节目篇])\s*|第(?P<w>{N})、|(?P<a>{N})、|(?P<y>{N})者、|(?P<s>{N})[ \u3000]+(?=\S)|[（(](?P<b>{N})[）)]|(?P<c>{D})[、.．]|[（(](?P<d>{D})[）)]|(?P<g>{D})[）)]|(?P<e>[①-⑳]))')
 TYPES = {'y': '一者、', 'w': '第一、', 'x': '甲、', 'u': '上中下', 's': '一␣', 'a': '一、', 'b': '（一）', 'c': '1、', 'd': '（1）', 'e': '①', 'g': '1）'}
-DIV_RE = re.compile(rf'(?:大)?分(?:为)?({N})(?:品|科|大科|篇|章|节|段)?(?:\s*\d+\s*颂)?$')
-REF_RE = re.compile(r'[（(]表\s*([0-9a-zA-Z]+(?:-\d+)?)(?:[～~\-](\d+))?((?:[、，,]\s*\d+(?:-\d+)?)*)\s*[）)]')
+DIV_RE = re.compile(rf'(?:大)?分(?:为)?({N})(?:品|科|大科|篇|章|节|段)?(?:\s*\d+\s*颂)?'
+                    # 分几之后还跟品名或注：「分八 第一如来藏品」「分三缘起品」「分三果续（自相续果）」
+                    rf'(?:\s*(?:第{N})?\s*[^\s、，。；（(]{{0,6}}?[品续](?:\s*[（(][^）)]{{1,10}}[）)])?)?$')
+REF_RE = re.compile(r'[（(]表\s*([0-9a-zA-Z]+(?:-\d+)?)(?:\s*[～~\-]\s*(?:\d+-)?(\d+))?((?:[、，,]\s*\d+(?:-\d+)?)*)\s*[）)]')
 NUMSTART = rf'[{STEMS}](?:{N}|初)、?|[{STEMS}]、|第{N}[品章节目篇]|{N}、|[（(]{N}[）)]|{D}[、）)]|[（(]{D}[）)]|[①-⑳]'
 
 
@@ -188,7 +190,23 @@ class Node:
         return self.raw
 
 
-TITLE_RE = re.compile(r'^(表?)\s*([0-9a-zA-Z]+(?:-\d+)?)\s*[：:]\s*[（(]\s*(\d*)\s*表\s*[）)]')
+TITLE_RE = re.compile(r'^(表?)\s*([0-9a-zA-Z]+(?:-\d+)?)\s*[：:]\s*(?:[（(]\s*总?\s*(\d*)\s*表\s*[）)])?')
+# 「表1-1：戊一、……（总6表）」：张数写在标题末尾
+TITLE_TAIL_RE = re.compile(r'[（(]\s*总?\s*(\d*)\s*表\s*[）)]\s*$')
+
+
+def match_title(t):
+    m = TITLE_RE.match(t)
+    if not m:
+        return None
+    if m.group(3) is not None:
+        return dict(text=t, prefix=m.group(1), id=m.group(2), count=m.group(3))
+    mt = TITLE_TAIL_RE.search(t)
+    if mt:
+        return dict(text=t, prefix=m.group(1), id=m.group(2), count=mt.group(1))
+    if m.group(1) and len(t) > m.end():   # 「表5：丁三、……」只有一张表，可以不写张数
+        return dict(text=t, prefix=m.group(1), id=m.group(2), count=None)
+    return None
 
 
 def table_titles(doc, issues=None):
@@ -198,9 +216,9 @@ def table_titles(doc, issues=None):
     for el in body.iterchildren():
         if el.tag == qn('w:p'):
             t = wtext(el).strip()
-            m = TITLE_RE.match(t)
+            m = match_title(t)
             if m:
-                last = dict(text=t, prefix=m.group(1), id=m.group(2), count=m.group(3))
+                last = m
             elif t:
                 pass
         elif el.tag == qn('w:tbl'):
@@ -216,7 +234,7 @@ def table_titles(doc, issues=None):
                 continue
             if not t['prefix']:
                 issues.append(dict(level='高', kind='表格标题', where=t['text'][:20], msg=f'标题「{t["text"][:16]}」开头少了「表」字'))
-            if not t['count']:
+            if t['count'] == '':
                 issues.append(dict(level='高', kind='表格标题', where=t['text'][:20], msg=f'标题「{t["text"][:16]}」的「（N表）」里漏了数字'))
         groups = {}
         for t in out:
@@ -258,7 +276,20 @@ def build_kepan(path, issues):
             lab_cells = [c for c in cells if c['c0'] < text_col[0]]
             txt_cells = [c for c in cells if text_col[0] <= c['c0'] < text_col[1]]
             txt_cells += [c for c in lab_cells if c['text'].startswith('【') and not is_label(c['text'])]
-            lab_cells = [c for c in lab_cells if c not in txt_cells]
+            # 颂词栏里横排的短科判（如「乙四、取名必要」）仍是科判
+            moved = [c for c in txt_cells if c['text'] and len(c['text']) < 40 and is_label(c['text'])
+                     and not re.search(r'[，。；]', c['text'])]
+            txt_cells = [c for c in txt_cells if c not in moved]
+            lab_cells = [c for c in lab_cells if c not in txt_cells] + moved
+            # 科判格右边、同一行再没有科判的非科判格：是颂词（颂词格往左伸进了科判栏）
+            labs0 = [c for c in lab_cells if is_label(c['text'], strict=False)]
+            for c in list(lab_cells):
+                if c in labs0 or not c['text']:
+                    continue
+                left = any(x['r0'] <= c['r0'] <= x['r1'] and x['c1'] <= c['c0'] for x in labs0)
+                right = any(x['r0'] <= c['r0'] <= x['r1'] and x['c0'] >= c['c1'] for x in labs0)
+                if left and not right:
+                    lab_cells.remove(c); txt_cells.append(c)
         else:
             txt_cells = [c for c in cells if c['c1'] == width and c['text'] and not is_label(c['text'])]
             # 最右栏里「1.……」这种带解释的条目：有一条算正文，同栏同类的都算正文
@@ -279,8 +310,10 @@ def build_kepan(path, issues):
                                    msg=f'标题「{tt["text"][:30]}」写第{mt.group(1)}品，表里的科判却是' + '、'.join(f'第{x}品' for x in sorted(pins))))
         for c in lab_cells:
             s = strip_marks(c['text'])
+            if c['c0'] == 0 and c['c1'] == width:
+                continue   # 横贯整张表的一行：表前说明、「……终」之类
             if s and c not in labels and not any(s.startswith(w) for w in HEADER_WORDS) and not REF_RE.fullmatch(s):
-                issues.append(dict(level='低' if re.fullmatch(r'[（(].*', s) or len(REF_RE.sub('', s).strip()) <= 6 else '中', kind='版面', where=tname, msg=f'科判栏里有一格不像科判（没有编号）：{s[:24]}'))
+                issues.append(dict(level='低' if re.fullmatch(r'[（(].*', s) or len(re.sub(r'[（(][^）)]*[）)]', '', REF_RE.sub('', s)).strip()) <= 6 else '中', kind='版面', where=tname, msg=f'科判栏里有一格不像科判（没有编号）：{s[:24]}'))
         for c in labels:
             parts = split_chain(c['text'])
             chain = [Node(parse_label(p), tname, c['tc']) for p in parts]
@@ -350,7 +383,7 @@ def find_same(root, node, tname=''):
     for n, _ in walk(root):
         if n is not root and n.key() == node.key() and n.parent is not None:
             b = name_core(n.name)
-            if a and b and (a == b or a.startswith(b) or b.startswith(a)):
+            if a and b and (a == b or a.startswith(b) or b.startswith(a) or paren_eq(a, b)):
                 cands.append(n)
     if not cands:
         return None
@@ -362,7 +395,7 @@ def find_same(root, node, tname=''):
 def merge(parent, node, issues):
     for ex in parent.children:
         if ex.key() == node.key():
-            if ex.name != node.name:
+            if ex.name != node.name and not paren_eq(ex.name, node.name):
                 a, b = sorted([ex.name, node.name], key=len)
                 if b.startswith(a):
                     issues.append(dict(level='低', kind='前后一致', where=f'{ex.where[0]} / {node.where[0]}',
@@ -609,6 +642,25 @@ def name_core(s):
     s = re.sub(r'[（(][^）)]*[）)]$', '', s).strip()
     s = s.split('——')[0].strip() if '——' in s and not s.startswith('第') else s
     return s
+
+
+def is_subseq(a, b):
+    it = iter(b)
+    return all(ch in it for ch in a)
+
+
+def paren_eq(a, b):
+    """总表里用括号注出异译：「觉性(悟)本体(之)菩提义」与「觉性本体之菩提义」算同一个"""
+    a, b = re.sub(r'\s', '', a), re.sub(r'\s', '', b)
+    if a == b:
+        return True
+    for x, y in ((a, b), (b, a)):
+        if re.search(r'[（(]', x):
+            x1 = re.sub(r'[（(][^）)]*[）)]', '', x)
+            x2 = re.sub(r'[（()）]', '', x)
+            if x1 and is_subseq(x1, y) and is_subseq(y, x2):
+                return True
+    return False
 
 
 def sim(a, b):

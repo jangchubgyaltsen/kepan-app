@@ -1,8 +1,8 @@
 """科判校对 —— 给师父用的小窗口。
 选科判 Word（必选）、讲记（可选）、繁体版科判（可选），点「开始校对」，
-在科判旁边另存一份「…校对MMDDHHMM.docx」，问题都写在 Word 批注里，原稿不动。
+另存一份「…校对MMDDHHMM.docx」到结果文件夹（默认桌面\科判校对结果），问题都写在 Word 批注里，原稿不动。
 """
-import os, re, sys, threading, traceback
+import os, re, sys, json, threading, traceback
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
@@ -35,13 +35,50 @@ def guess_partners(kpath):
     return jj, ft
 
 
+def desktop_dir():
+    """桌面路径（桌面被移到 OneDrive 等处也能找到）"""
+    if sys.platform.startswith('win'):
+        try:
+            import ctypes
+            buf = ctypes.create_unicode_buffer(260)
+            if ctypes.windll.shell32.SHGetFolderPathW(None, 0x10, None, 0, buf) == 0 and buf.value:
+                return buf.value
+        except Exception:
+            pass
+    for d in (os.path.join(os.path.expanduser('~'), 'Desktop'), os.path.join(os.path.expanduser('~'), '桌面')):
+        if os.path.isdir(d):
+            return d
+    return os.path.expanduser('~')
+
+
+DEFAULT_OUT = os.path.join(desktop_dir(), '科判校对结果')
+CONF = os.path.join(os.environ.get('APPDATA') or os.path.expanduser('~'), 'kepan-jiaodui.json')
+
+
+def load_conf():
+    try:
+        with open(CONF, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_conf(c):
+    try:
+        with open(CONF, 'w', encoding='utf-8') as f:
+            json.dump(c, f, ensure_ascii=False)
+    except Exception:
+        pass
+
+
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title(f'科判校对（{VERSION}）')
-        self.geometry('760x520')
+        self.geometry('760x560')
         self.out = None
-        self.vars = {k: tk.StringVar() for k in ('kp', 'jj', 'ft')}
+        self.vars = {k: tk.StringVar() for k in ('kp', 'jj', 'ft', 'out')}
+        self.vars['out'].set(load_conf().get('out_dir') or DEFAULT_OUT)
         frm = ttk.Frame(self, padding=12)
         frm.pack(fill='both', expand=True)
         rows = [('kp', '科判 Word（必选）', [('Word 文件', '*.docx')]),
@@ -51,19 +88,24 @@ class App(tk.Tk):
             ttk.Label(frm, text=label).grid(row=r, column=0, sticky='w', pady=4)
             ttk.Entry(frm, textvariable=self.vars[key], width=60).grid(row=r, column=1, sticky='we', padx=6)
             ttk.Button(frm, text='选择…', command=lambda k=key, t=types: self.pick(k, t)).grid(row=r, column=2)
+        ttk.Label(frm, text='结果存到').grid(row=3, column=0, sticky='w', pady=4)
+        ttk.Entry(frm, textvariable=self.vars['out'], width=60).grid(row=3, column=1, sticky='we', padx=6)
+        ttk.Button(frm, text='更改…', command=self.pick_out).grid(row=3, column=2)
         frm.columnconfigure(1, weight=1)
         bar = ttk.Frame(frm)
-        bar.grid(row=3, column=0, columnspan=3, sticky='we', pady=(10, 6))
+        bar.grid(row=4, column=0, columnspan=3, sticky='we', pady=(10, 6))
         self.go = ttk.Button(bar, text='开始校对', command=self.start)
         self.go.pack(side='left')
         self.open_btn = ttk.Button(bar, text='打开校对结果', command=self.open_out, state='disabled')
         self.open_btn.pack(side='left', padx=8)
+        ttk.Button(bar, text='打开结果文件夹', command=self.open_dir).pack(side='left')
         self.log = tk.Text(frm, height=18, wrap='char')
-        self.log.grid(row=4, column=0, columnspan=3, sticky='nsew')
-        frm.rowconfigure(4, weight=1)
+        self.log.grid(row=5, column=0, columnspan=3, sticky='nsew')
+        frm.rowconfigure(5, weight=1)
         self.say('说明：程序只按规则比对，不用 AI。结果另存一份新的 Word，问题写在批注里，原稿不会改动。\n'
                  '批注分三种：「请确认」多半是真错；「请看一下」要人判断；「仅供参考」可以不理。\n'
-                 '只关讲记本身的问题，不标在科判上，列在文档开头那条总批注的最后。\n')
+                 '只关讲记本身的问题，不标在科判上，列在文档开头那条总批注的最后。\n'
+                 '校对结果统一存到「结果存到」那个文件夹（默认是桌面上的「科判校对结果」，没有会自动建），可点「更改…」换地方，下次打开会记住。\n')
 
     def pick(self, key, types):
         p = filedialog.askopenfilename(filetypes=types + [('所有文件', '*.*')])
@@ -78,6 +120,24 @@ class App(tk.Tk):
             if ft and not self.vars['ft'].get():
                 self.vars['ft'].set(ft)
                 self.say(f'自动找到繁体版：{os.path.basename(ft)}（不需要可以清空）')
+
+    def pick_out(self):
+        p = filedialog.askdirectory(initialdir=self.vars['out'].get() or DEFAULT_OUT)
+        if p:
+            self.vars['out'].set(p)
+            c = load_conf(); c['out_dir'] = p; save_conf(c)
+
+    def open_dir(self):
+        d = self.vars['out'].get().strip() or DEFAULT_OUT
+        os.makedirs(d, exist_ok=True)
+        self._open(d)
+
+    def _open(self, path):
+        if sys.platform.startswith('win'):
+            os.startfile(path)
+        else:
+            import subprocess
+            subprocess.Popen(['xdg-open' if sys.platform.startswith('linux') else 'open', path])
 
     def say(self, text):
         self.log.insert('end', text + '\n')
@@ -97,12 +157,17 @@ class App(tk.Tk):
         self.go.config(state='disabled')
         self.open_btn.config(state='disabled')
         self.say('\n开始：' + os.path.basename(kp))
-        threading.Thread(target=self.work, args=(kp, jj, ft), daemon=True).start()
+        od = self.vars['out'].get().strip() or DEFAULT_OUT
+        threading.Thread(target=self.work, args=(kp, jj, ft, od), daemon=True).start()
 
-    def work(self, kp, jj, ft):
+    def work(self, kp, jj, ft, od):
         try:
             from annotate import annotate
-            out, r, fj = annotate(kp, jj, ft, log=lambda t: self.after(0, self.say, t))
+            try:
+                os.makedirs(od, exist_ok=True)
+            except OSError:
+                od = None   # 文件夹建不了（如 U 盘拔了），就存回科判旁边
+            out, r, fj = annotate(kp, jj, ft, log=lambda t: self.after(0, self.say, t), out_dir=od)
             self.out = out
             hi = sum(1 for i in r['main'] if i['level'] == '高')
             mid = sum(1 for i in r['main'] if i['level'] == '中')
@@ -130,11 +195,7 @@ class App(tk.Tk):
 
     def open_out(self):
         if self.out and os.path.isfile(self.out):
-            if sys.platform.startswith('win'):
-                os.startfile(self.out)
-            else:
-                import subprocess
-                subprocess.Popen(['xdg-open' if sys.platform.startswith('linux') else 'open', self.out])
+            self._open(self.out)
 
 
 def selftest():
@@ -154,7 +215,8 @@ def demo(kp, jj, outdir):
     """演示：自动填好文件、截图、开始校对、完成后再截图，然后退出（打包时生成使用图示用）"""
     from PIL import ImageGrab
     app = App()
-    app.geometry('760x520+40+40')
+    app.geometry('760x560+40+40')
+    app.vars['out'].set(outdir)
     app.vars['kp'].set(kp)
     jj2, ft = guess_partners(kp)
     app.vars['jj'].set(jj or jj2 or '')

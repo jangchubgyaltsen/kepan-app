@@ -123,7 +123,7 @@ def comment_text(i):
     return f"【{LEVEL_WORD[i['level']]}·{i['kind']}】{i['where']}：{i['msg']}"
 
 
-def annotate(kpath, jpath=None, ftpath=None, out=None, log=print):
+def annotate(kpath, jpath=None, ftpath=None, out=None, log=print, out_dir=None):
     log('读取科判……')
     r = run_check(kpath, jpath)
     doc = r['doc']
@@ -177,6 +177,9 @@ def annotate(kpath, jpath=None, ftpath=None, out=None, log=print):
     doc.add_comment(runs, text='\n'.join(lines), author=AUTHOR, initials='校')
     if not out:
         base, ext = os.path.splitext(kpath)
+        if out_dir:
+            os.makedirs(out_dir, exist_ok=True)
+            base = os.path.join(out_dir, os.path.basename(base))
         out = f'{base} 校对{datetime.datetime.now():%m%d%H%M}.docx'
     doc.save(out)
     log(f'完成：{placed + 1} 条批注，已另存为 {os.path.basename(out)}')
