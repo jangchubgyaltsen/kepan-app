@@ -98,4 +98,4 @@ for p in parts:
     out.paste(p, (0, y)); y += p.height
     ImageDraw.Draw(out).line((30, y + 10, W - 30, y + 10), fill=(220, 220, 220), width=2); y += 20
 out.save(OUT)
-print(OUT, out.size)
+print(out.size)

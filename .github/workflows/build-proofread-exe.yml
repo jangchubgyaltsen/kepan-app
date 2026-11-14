@@ -58,6 +58,7 @@ jobs:
           Get-ChildItem shots
           Copy-Item 'demo\示例论 科判 1稿1 校对*.docx' shots\ -ErrorAction SilentlyContinue
           Copy-Item '..\..\docs\proofread-screenshots\3-word批注.png' shots\
+          $env:PYTHONIOENCODING = "utf-8"
           python make_guide.py shots shots\使用图示.png
           Copy-Item shots\使用图示.png dist\
           Copy-Item 更新说明.txt dist\
