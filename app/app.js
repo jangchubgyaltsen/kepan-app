@@ -271,7 +271,9 @@ function toggleHTML(){const L=(v,ic,t)=>`${ST.tgi!=="text"?ic:""}${ST.tgi!=="ico
  const cls=`vtg g-${ST.tgs} c-${ST.tgc}`;
  if(ST.tgs==="one")return `<button class="${cls}" data-view="${m?"toc":"map"}" aria-label="切换到${m?"目录":"思维导图"}">${m?L("toc",IC_TOC,"目录"):L("map",IC_MAP,"导图")}</button>`;
  return `<div class="${cls}" role="tablist" style="width:${ST.tgs==="tab"?"auto":ST.tgw+"px"}"><button role="tab" data-view="toc" aria-selected="${!m}">${L("toc",IC_TOC,"目录")}</button><button role="tab" data-view="map" aria-selected="${m}">${L("map",IC_MAP,"导图")}</button>${ST.tgs==="sw"?`<i class="knob" style="transform:translateX(${m?"100%":"0"})"></i>`:""}</div>`}
-let CUR=null;const MS={bk:null,col:new Set(),tx:0,ty:0,k:1,init:false,sel:null,moved:0};
+let CUR=null;const MS={bk:null,col:new Set(),tx:0,ty:0,k:1,init:false,sel:null,moved:0,pend:false,aim:null,anim:false};
+// 下次画导图时把它对准某一科（展开它的上级），用在打开目录、切到导图、点颂词看释义时
+function mmAim(n,anim){if(!n||!BK)return;anc(n).forEach(a=>MS.col.delete(a.id));MS.pend=true;MS.aim=n;MS.anim=!!anim}
 function mmReset(cur){MS.bk=BK;MS.col=new Set();const on=new Set(cur?[...anc(cur),cur]:[]);BK.all.forEach(n=>{if(n.c.length&&n.p&&!on.has(n))MS.col.add(n.id)});MS.init=false;MS.sel=null}
 const mmV=()=>!wide()&&ST.mvt==="v",mmVL=()=>!wide()&&ST.mvt==="vl";
 function mmLayoutV(){const f=ST.mfs/13,Wn=Math.round(ST.mfs*2.3),GY=+ST.mgy+6,GX=Math.max(18,+ST.mgx),R=BK.root;const nodes=[];let x0=0;
@@ -311,7 +313,9 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
  const nodeEl=n=>{let x=n;while(x&&!c.querySelector(`.nd[data-id="${x.id}"]`))x=x.p;return x?c.querySelector(`.nd[data-id="${x.id}"]`):null};
  const here=()=>here2(mm);
  const fit=()=>{const r=mm.getBoundingClientRect(),W=c.offsetWidth,H=c.offsetHeight;MS.k=Math.min(1.1,Math.max(.2,Math.min((r.width-24)/W,(r.height-24)/H)));MS.tx=12;MS.ty=Math.max(12,(r.height-H*MS.k)/2);ap()};
- if(!MS.init){MS.init=true;MS.k=mm.getBoundingClientRect().width<500?.85:1;requestAnimationFrame(()=>here2(mm,true))}
+ if(!MS.init){MS.init=true;MS.k=mm.getBoundingClientRect().width<500?.85:1;MS.pend=true}
+ // 同一帧里导图可能被重画几次，只对还在页面上的那一张定位
+ if(MS.pend)requestAnimationFrame(()=>{if(!MS.pend||!mm.isConnected)return;const t=MS.aim,an=MS.anim;MS.pend=false;MS.aim=null;MS.anim=false;here2(mm,!an,t)});
  ap();
  const zoomAt=(f,cx,cy)=>{const nk=Math.min(2.5,Math.max(.2,MS.k*f));MS.tx=cx-(cx-MS.tx)*nk/MS.k;MS.ty=cy-(cy-MS.ty)*nk/MS.k;MS.k=nk;ap()};
  const pts=new Map();let last=null,pinch=null;
@@ -335,7 +339,7 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
   rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)here2(m2)})};
  mm.querySelector("[data-here]").onclick=()=>{if(CUR){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)m2.querySelector("[data-here]").click()})}};
  mm.querySelector("[data-here]").onclick=(()=>{let busy=false;return()=>{if(busy){busy=false;here();return}if(CUR&&anc(CUR).some(a=>MS.col.has(a.id))){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();const b2=el.querySelector(".mmw [data-here]");if(b2){requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");const e2=nodeEl(CUR);here2(m2)})}}else here()}})();
- function here2(m2,still){const r=m2.getBoundingClientRect();const c2=m2.querySelector(".mmc");let x=CUR;let e=null;while(x&&!(e=c2.querySelector(`.nd[data-id="${x.id}"]`)))x=x.p;if(!e)return;
+ function here2(m2,still,tgt){const r=m2.getBoundingClientRect();const c2=m2.querySelector(".mmc");let x=tgt||CUR;let e=null;while(x&&!(e=c2.querySelector(`.nd[data-id="${x.id}"]`)))x=x.p;if(!e)return;
   const FK=wide()?+ST.fkW:+ST.fkP;MS.k=FK;const ex=parseFloat(e.style.left)+e.offsetWidth/2,ey=parseFloat(e.style.top)+e.offsetHeight/2;
   MS.tx=r.width*.5-ex*MS.k;MS.ty=r.height*.42-ey*MS.k;
   if(!still){c2.style.transition="transform .35s ease";setTimeout(()=>{c2.style.transition=""},400)}
@@ -346,7 +350,7 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
 function tocHTML(cur){if(ST.view==="map")return (wide()?`<div class="dh">${toggleHTML()}</div>`:"")+mapHTML(cur);const ind=wide()?ST.indW:ST.indP;const onp=new Set(cur?anc(cur):[]);
  return `<div class="toc">${wide()?`<div class="dh">${toggleHTML()}</div>`:""}<div class="h">${esc(BK.title)} · 科判目录</div>`+BK.all.filter(n=>n.p).map(n=>`<button class="${n.c.length?"br":""} ${onp.has(n)?"on-path":""}" data-j="${n.id}" aria-current="${n===cur}" style="--lc:var(--k${n.depth})">${anc(n).map(x=>`<span class="gd" style="--lc:var(--k${x.depth});width:${ind}px"></span>`).join("")}${badge(n)}<span>${esc(n.title)}</span>${ringHTML(n)}</button>`).join("")+`</div>`}
 const bindToc=(el,fn)=>{mmBind(el,fn);el.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>fn(BK.by[b.dataset.j]));
- el.querySelectorAll("[data-view]").forEach(b=>b.onclick=e=>{e.stopPropagation();const v=b.dataset.view;if(v===ST.view)return;ST.view=v;if(v==="toc"&&ST.mfull){ST.mfull=false;const ap_=dev.querySelector(".app");if(ap_)ap_.classList.remove("mfull")}dev.querySelectorAll(".mh .vtg").forEach(t=>t.outerHTML=toggleHTML());const mh=dev.querySelector(".tocov .mh");if(mh)bindToc(mh,fn);if(refreshToc)refreshToc(true)})};
+ el.querySelectorAll("[data-view]").forEach(b=>b.onclick=e=>{e.stopPropagation();const v=b.dataset.view;if(v===ST.view)return;ST.view=v;if(v==="map")mmAim(CUR);if(v==="toc"&&ST.mfull){ST.mfull=false;const ap_=dev.querySelector(".app");if(ap_)ap_.classList.remove("mfull")}dev.querySelectorAll(".mh .vtg").forEach(t=>t.outerHTML=toggleHTML());const mh=dev.querySelector(".tocov .mh");if(mh)bindToc(mh,fn);if(refreshToc)refreshToc(true)})};
 function centerCur(box){if(box.querySelector(".mmw"))return;const c=box.querySelector('[aria-current="true"]');if(!c)return;const br=box.getBoundingClientRect(),cr=c.getBoundingClientRect();box.scrollTop+=cr.top-br.top-box.clientHeight/2+cr.height/2;box.scrollLeft+=cr.left-br.left-box.clientWidth/2+cr.width/2}
 
 // ===== 学习（按《背诵方式定稿》：读→认→展→背→混） =====
@@ -1160,6 +1164,8 @@ function renderReader(){
   if(focEl!==z){if(focEl)focEl.classList.remove("foc");focEl=z;if(z)z.classList.add("foc")}
   return n};
  const drawDock=()=>{dock.innerHTML=tocHTML(cur);bindToc(dock,jump);if(ST.view==="map"){centerCur(dock);return}const e=dock.querySelector('[aria-current="true"]');if(e){const r=e.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}};
+ // 宽屏常驻导图：看释义时让导图跟到这一颂（全屏导图时不动）
+ const dockAim=n=>{if(dock&&ST.view==="map"&&!ST.mfull)mmAim(n,true)};
  let lastC=null,recT=0;const tch=dev.querySelector(".tch");
  const upd=()=>{const c=focPick();cur=c;CUR=c;
   if(c!==lastC){lastC=c;const ch=BK.chOf[c.id];if(tch)tch.textContent=ch?"· "+ch.name:"";clearTimeout(recT);recT=setTimeout(()=>{SR.recent[BK.id]={id:c.id,t:Date.now()};save()},800)}
@@ -1169,7 +1175,7 @@ function renderReader(){
    if(nb&&ST.view!=="map"){const onp=new Set(anc(c).map(x=>x.id));dock.querySelectorAll('[data-j][aria-current="true"]').forEach(x=>x.setAttribute("aria-current","false"));dock.querySelectorAll(".on-path").forEach(x=>x.classList.remove("on-path"));onp.forEach(id=>{const e=dock.querySelector(`[data-j="${id}"]`);if(e)e.classList.add("on-path")});nb.setAttribute("aria-current","true");const r=nb.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}
    else drawDock()}}};
  rs.onscroll=()=>{if(FOCM&&Date.now()>focHold)FOCM=null;upd()};
- const open=()=>{ST.tocOpen=true;const ov=document.createElement("div");ov.className="tocov";ov.innerHTML=`<div class="mh"><span></span>${toggleHTML()}<span class="mhr"><button class="tocbtn" data-x>关闭</button></span></div><div class="tl">${tocHTML(cur)}</div>`;app.appendChild(ov);
+ const open=()=>{ST.tocOpen=true;if(ST.view==="map")mmAim(cur);const ov=document.createElement("div");ov.className="tocov";ov.innerHTML=`<div class="mh"><span></span>${toggleHTML()}<span class="mhr"><button class="tocbtn" data-x>关闭</button></span></div><div class="tl">${tocHTML(cur)}</div>`;app.appendChild(ov);
   const tl=ov.querySelector(".tl");centerCur(tl);
   const close=()=>{ST.tocOpen=false;ov.remove();const b=document.getElementById("opentoc");if(b)b.textContent="打开目录看效果"};
   ov.querySelector("[data-x]").onclick=close;bindToc(ov,n=>{close();jump(n)});
@@ -1182,7 +1188,7 @@ function renderReader(){
   pp.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>set(ST.vf+ +b.dataset.d))};
  dev.querySelector("[data-aa]").onclick=aaOpen;
  {const b=dev.querySelector("[data-botg]");if(b)b.onclick=()=>{ST.bo=!ST.bo;save();const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y}}
- dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
+ dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;dockAim(cur);const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
   dev.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};ST.screen="home";ST.tocOpen=false;SHY=null;render()});
  dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};if(!SR.paceAsked){PACESH=BK.id;PRESTART=true;ST.screen="home";ST.tocOpen=false;render();return}startSession({B:BK})});
  dev.querySelectorAll("[data-lt]").forEach(b=>b.onclick=e=>{if(!e.target.closest(".badge,.ltt"))return;e.stopPropagation();ltSheet(BK.by[b.dataset.lt],dev.querySelector(".app"))});
@@ -1190,9 +1196,9 @@ function renderReader(){
  {const bk=bkKey(BK);
   const toTop=(id,si)=>{const row=rowOf(BK.by[id]);const t=(si!=null&&row.querySelector(`.stz[data-si="${si}"]`))||row;const r=t.getBoundingClientRect(),rr=rs.getBoundingClientRect();rs.scrollTop+=r.top-rr.top-cardH()-12};
   const pinOf=(id,si)=>{const t=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`);return t?{id,si,top:t.getBoundingClientRect().top-rs.getBoundingClientRect().top}:null};
-  const show=(id,gi,how)=>{const G=shyG(bk,id);SHY={bk,id,gi};const si=G[gi].vs[0];if(how!=="tap")focSet(id,si);
+  const show=(id,gi,how)=>{const G=shyG(bk,id);SHY={bk,id,gi};dockAim(BK.by[id]);const si=G[gi].vs[0];if(how!=="tap")focSet(id,si);
    if(ST.shym==="inline"){if(how==="tap")ST.pin=pinOf(id,si);else{ST.anchor=id;ST.anchorKeep=null}render();bindPanel();if(how!=="tap"){const r2=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`),s2=dev.querySelector("#rs");if(r2)s2.scrollTop+=r2.getBoundingClientRect().top-s2.getBoundingClientRect().top-cardH()-12}return}
-   shyMark(rw);shySheet(app);bindShy();if(how!=="tap")toTop(id,si)};
+   shyMark(rw);shySheet(app);bindShy();if(how!=="tap")toTop(id,si);if(MS.pend&&dock)drawDock()};
   const close=()=>{const o=SHY;SHY=null;if(ST.shym==="inline"){if(o){const G=shyG(o.bk,o.id);ST.pin=pinOf(o.id,G&&G[o.gi]?G[o.gi].vs[0]:0)}render();bindPanel();return}shyMark(rw);shySheet(app)};
   const bindShy=()=>{dev.querySelectorAll("[data-shyx]").forEach(b=>b.onclick=e=>{e.stopPropagation();close()});
    dev.querySelectorAll("[data-shyn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const L=shyList();const i=L.findIndex(x=>x.n.id===SHY.id&&x.gi===SHY.gi);const t=L[i+ +b.dataset.shyn];if(t)show(t.n.id,t.gi,"nav")})};
