@@ -255,6 +255,10 @@ function cordTex(cols,style){if(style==="sreal")return ropeTex(cols);if(cols.len
  return `url("${svgBlob(s)}")`}
 
 const dev=document.getElementById("device");
+// 整页重画时，开屏和回向这两层留在原处不动：拿下来再放回去，它们的动画会从头再播一遍（开屏会播两次）
+{const d=Object.getOwnPropertyDescriptor(Element.prototype,"innerHTML");Object.defineProperty(dev,"innerHTML",{configurable:true,get(){return d.get.call(this)},
+ set(h){const keep=[...this.children].filter(e=>e.classList.contains("splash")||e.classList.contains("dedi"));if(!keep.length){d.set.call(this,h);return}
+  [...this.childNodes].forEach(n=>{if(!keep.includes(n))this.removeChild(n)});this.insertAdjacentHTML("afterbegin",h)}})}
 const wide=()=>dev.clientWidth>700;
 const badge=n=>!n.code?"":`<span class="badge" style="background:var(--k${n.depth});color:var(--kt${n.depth})">${n.code}</span>`;
 let refreshToc=null;

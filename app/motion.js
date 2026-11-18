@@ -87,12 +87,14 @@ function mapFlip(el,run,pivot){const c0=el.querySelector(".mmc");if(!on()||!c0||
  Promise.resolve().then(()=>{const c=el.querySelector(".mmc");if(c&&c!==c0)go(c)});
  function go(c){const ox=(tx0-MS.tx)/MS.k,oy=(ty0-MS.ty)/MS.k,sk=k0/MS.k;const pv=old.get(pivot)||null;const nn=new Map();c.querySelectorAll(".nd").forEach(e=>nn.set(key(e),e));
   const pn=nn.get(pivot);const pvNew=pn?pos(pn):null;const t=T()*1.15,ez=EIN();
-  nn.forEach((e,k)=>{const [x,y]=pos(e);const o=old.get(k);if(o){const dx=o.p[0]*sk+ox-x,dy=o.p[1]*sk+oy-y;if(Math.abs(dx)+Math.abs(dy)>.5)e.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:t,easing:ez})}
+  // 只动看得见的节点：大部头的导图有几百上千个节点，全动手机会卡
+  const mw=c.parentNode.getBoundingClientRect(),M=80;const vis=(x,y)=>{const sx=MS.tx+x*MS.k,sy=MS.ty+y*MS.k;return sx>-M-200*MS.k&&sx<mw.width+M&&sy>-M&&sy<mw.height+M};let n=0;
+  nn.forEach((e,k)=>{const [x,y]=pos(e);const o=old.get(k);const ov=o?vis(o.p[0]*sk+ox,o.p[1]*sk+oy):pv&&vis(pv.p[0]*sk+ox,pv.p[1]*sk+oy);if(!vis(x,y)&&!ov||++n>120)return;if(o){const dx=o.p[0]*sk+ox-x,dy=o.p[1]*sk+oy-y;if(Math.abs(dx)+Math.abs(dy)>.5)e.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:t,easing:ez})}
    else if(pv){const dx=pv.p[0]*sk+ox-x,dy=pv.p[1]*sk+oy-y;e.animate([{transform:`translate(${dx}px,${dy}px) scale(.6)`,opacity:0},{transform:"none",opacity:1}],{duration:t,easing:ez})}
    else e.animate([{opacity:0},{opacity:1}],{duration:t})});
-  if(pvNew)old.forEach((o,k)=>{if(nn.has(k))return;const g=o.e;g.classList.add("mo-ghost");g.style.left=o.p[0]*sk+ox+"px";g.style.top=o.p[1]*sk+oy+"px";g.style.pointerEvents="none";c.appendChild(g);
+  if(pvNew)old.forEach((o,k)=>{if(nn.has(k)||!vis(o.p[0]*sk+ox,o.p[1]*sk+oy)||++n>160)return;const g=o.e;g.classList.add("mo-ghost");g.style.left=o.p[0]*sk+ox+"px";g.style.top=o.p[1]*sk+oy+"px";g.style.pointerEvents="none";c.appendChild(g);
    const dx=pvNew[0]-(o.p[0]*sk+ox),dy=pvNew[1]-(o.p[1]*sk+oy);g.animate([{transform:"none",opacity:1},{transform:`translate(${dx}px,${dy}px) scale(.6)`,opacity:0}],{duration:t*.8,easing:EOUT,fill:"forwards"}).onfinish=()=>g.remove()});
-  const sv=c.querySelector("svg");if(sv)sv.animate([{opacity:0},{opacity:0,offset:.45},{opacity:1}],{duration:t,easing:"ease-out"})}}
+  const sv=c.querySelector("svg");if(sv&&n)sv.animate([{opacity:.15},{opacity:1}],{duration:t*.9,easing:"ease-out"})}}
 
 // ===== 设置里的「动画」一栏 =====
 const _rs=renderSettings;
