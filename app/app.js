@@ -127,7 +127,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,mvt:"h",pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,vgy:11,vgx:22,vls:6,vpd:6,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",foc:"bg",foca:8,focy:45,shyv:"on",shyf:15,ret:90,npd:1,srem:false,remT:"20:30",tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",foc:"bg",foca:8,focy:45,shyv:"on",shyf:15,ret:90,npd:1,srem:false,remT:"20:30",tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -275,22 +275,9 @@ let CUR=null;const MS={bk:null,col:new Set(),tx:0,ty:0,k:1,init:false,sel:null,m
 // 下次画导图时把它对准某一科（展开它的上级），用在打开目录、切到导图、点颂词看释义时
 function mmAim(n,anim){if(!n||!BK)return;anc(n).forEach(a=>MS.col.delete(a.id));MS.pend=true;MS.aim=n;MS.anim=!!anim}
 function mmReset(cur){MS.bk=BK;MS.col=new Set();const on=new Set(cur?[...anc(cur),cur]:[]);BK.all.forEach(n=>{if(n.c.length&&n.p&&!on.has(n))MS.col.add(n.id)});MS.init=false;MS.sel=null}
-const mmV=()=>!wide()&&ST.mvt==="v",mmVL=()=>!wide()&&ST.mvt==="vl";
-function mmLayoutV(){const f=ST.mfs/13,Wn=Math.round(ST.mfs*2.3),GY=+ST.mgy+6,GX=Math.max(18,+ST.mgx),R=BK.root;const nodes=[];let x0=0;
- const h=n=>Math.min(320,(n.title.length*ST.mfs*1.16+54*f+(n.c.length?26:0)+(ST.ring==="none"?0:+ST.rsz+6)));
- const rw=Math.min(260,BK.title.length*15*f+30),rh=36;
- (function lay(n,y){const R_=n===R,ww=R_?rw:Wn,hh=R_?rh:h(n);const kids=MS.col.has(n.id)?[]:n.c;const me={n,y,w:ww,h:hh};nodes.push(me);
-  if(!kids.length){me.x=x0;x0+=ww+GY}else{const ks=kids.map(k=>lay(k,y+hh+GX));me.kids=ks;me.x=(ks[0].x+ks[0].w/2+ks[ks.length-1].x+ks[ks.length-1].w/2)/2-ww/2}
-  return me})(R,0);const mn=Math.min(...nodes.map(m=>m.x));if(mn<0)nodes.forEach(m=>m.x-=mn);return nodes}
-function mmLayoutVL(){const f=ST.mfs/13,Wn=Math.round(ST.mfs*2.3),GY=+ST.vgy,GX=+ST.vgx,R=BK.root;const nodes=[];let y0=0;
- const h=n=>Math.min(360,(n.title.length*ST.mfs*(1.1+ST.vls/100)+48*f+2*ST.vpd+(n.c.length?26:0)+(ST.ring==="none"?0:+ST.rsz+6)));
- const rw=Math.min(260,BK.title.length*15*f+30);
- (function lay(n,x){const R_=n===R,ww=R_?rw:Wn,hh=R_?36:h(n);const kids=MS.col.has(n.id)?[]:n.c;const me={n,x,w:ww,h:hh};nodes.push(me);
-  if(!kids.length){me.y=y0;y0+=hh+GY}else{const ks=kids.map(k=>lay(k,x+ww+GX));me.kids=ks;me.y=(ks[0].y+ks[0].h/2+ks[ks.length-1].y+ks[ks.length-1].h/2)/2-hh/2}
-  return me})(R,0);const mn=Math.min(...nodes.map(m=>m.y));if(mn<0)nodes.forEach(m=>m.y-=mn);return nodes}
 // 导图里颂词的分行：每颂两句一行，颂与颂之间用 null 隔开
 function mmVLines(v){const L=[];v.forEach((s,i)=>{if(i)L.push(null);const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];for(let j=0;j<ph.length;j+=2)L.push(ph.slice(j,j+2).join(""))});return L}
-function mmLayout(){if(mmV())return mmLayoutV();if(mmVL())return mmLayoutVL();const f=ST.mfs/13,H=Math.round(ST.mfs*2.3),GY=+ST.mgy,GX=+ST.mgx,R=BK.root;const nodes=[];let y0=0;
+function mmLayout(){const f=ST.mfs/13,H=Math.round(ST.mfs*2.3),GY=+ST.mgy,GX=+ST.mgx,R=BK.root;const nodes=[];let y0=0;
  const w=n=>n===R?Math.min(260,BK.title.length*15*f+30):Math.min(360,(n.title.length*13.5+50+(n.c.length?26:0)+(ST.ring==="none"?0:+ST.rsz+5))*f);
  // 颂词框：挂在最末一科右边；有子科判又直接带颂词的（n.tl），挂在子科判之后。前行（引导文）不显示
  const vb=src=>{const L=mmVLines(src.v),fs=ST.mfs*.93,mx=Math.max(...L.filter(Boolean).map(l=>l.length));const cw=Math.min(mx,30);
@@ -303,10 +290,7 @@ function mmLayout(){if(mmV())return mmLayoutV();if(mmVL())return mmLayoutVL();co
   return me})(R,0);return nodes}
 function mapHTML(cur){if(MS.bk!==BK)mmReset(cur);const nodes=mmLayout();const on=new Set(cur?[...anc(cur),cur]:[]);
  const W=Math.max(...nodes.map(m=>m.x+m.w))+20,H=Math.max(...nodes.map(m=>m.y+m.h))+20;let paths="";
- const V=mmV();nodes.forEach(m=>(m.kids||[]).forEach(k=>{if(V){const x1=m.x+m.w/2,y1=m.y+m.h,x2=k.x+k.w/2,y2=k.y,my=(y1+y2)/2;const o=on.has(k.n);
-   const col=ST.mlc==="gray"?"var(--muted)":ST.mlc==="parent"&&m.n!==BK.root?`var(--k${m.n.depth})`:`var(--k${k.n.depth})`;const lw=+ST.mlw;const g=Math.min(10,(y2-y1)/2);
-   const d=ST.mln==="elbow"?`M${x1} ${y1}V${my}H${x2}V${y2}`:ST.mln==="straight"?`M${x1} ${y1}L${x2} ${y2}`:ST.mln==="brace"?`M${x1} ${y1}V${y1+g}${x2===x1?"":`H${x2+(x2>x1?-6:6)}Q${x2} ${y1+g} ${x2} ${y1+g+6}`}V${y2}`:`M${x1} ${y1}C${x1} ${my},${x2} ${my},${x2} ${y2}`;
-   paths+=`<path d="${d}" stroke="${col}" stroke-width="${o?lw+1:lw}" fill="none" opacity="${o?1:.7}" stroke-linejoin="round" stroke-linecap="round"/>`;return}
+ nodes.forEach(m=>(m.kids||[]).forEach(k=>{
   const x1=m.x+m.w,y1=m.y+m.h/2,x2=k.x,y2=k.y+k.h/2,mx=(x1+x2)/2;const o=on.has(k.n);
   const col=ST.mlc==="gray"?"var(--muted)":ST.mlc==="parent"&&m.n!==BK.root?`var(--k${m.n.depth})`:`var(--k${k.n.depth})`;const lw=+ST.mlw;
   const g=Math.min(14,(x2-x1)/2);const d=ST.mln==="elbow"?`M${x1} ${y1}H${mx}V${y2}H${x2}`:ST.mln==="straight"?`M${x1} ${y1}L${x2} ${y2}`:ST.mln==="brace"?`M${x1} ${y1}H${x1+g}${y2===y1?"":`V${y2+(y2>y1?-6:6)}Q${x1+g} ${y2} ${x1+g+6} ${y2}`}H${x2}`:`M${x1} ${y1}C${mx} ${y1},${mx} ${y2},${x2} ${y2}`;
@@ -315,7 +299,7 @@ function mapHTML(cur){if(MS.bk!==BK)mmReset(cur);const nodes=mmLayout();const on
   if(m.vb)return `<button class="nd vb ${on.has(n)?"on":""}" data-id="${n.id}" aria-label="${esc(n.title)} 颂词" style="--lc:var(--k${n.depth});left:${m.x}px;top:${m.y}px;width:${m.w}px;height:${m.h}px">${m.L.map(l=>l?`<span class="ln">${esc(l)}</span>`:'<span class="gp"></span>').join("")}</button>`;
   return `<button class="nd ${n.c.length?"":"leaf"} ${R?"root":""} ${!R&&ST.ring!=="none"&&!unlocked(n)?"lk":""} ${on.has(n)?"on":""} ${MS.sel===n?"sel":""}" data-id="${n.id}" aria-current="${n===cur}" style="--lc:${R?"var(--ink)":`var(--k${n.depth})`};--kt:var(--kt${n.depth});left:${m.x}px;top:${m.y}px;width:${m.w}px;height:${m.h}px">${R?"":ringHTML(n)}${R?"":badge(n)}<span class="t">${esc(R?BK.title:n.title)}</span>${cl?`<span class="cnt">+${n.c.length}</span>`:""}</button>`}).join("");
  const sel=MS.sel&&MS.sel!==BK.root?MS.sel:null;
- return `<div class="mmw ${V||mmVL()?"vt":""} n-${ST.mnd} l-${ST.mleaf} bg-${ST.mbg}" style="--mfs:${ST.mfs}px;--vls:${ST.vls/100}em;--vpd:${ST.vpd}px"><div class="mmc" style="width:${W}px;height:${H}px"><svg width="${W}" height="${H}" aria-hidden="true">${paths}</svg>${nd}</div>
+ return `<div class="mmw n-${ST.mnd} l-${ST.mleaf} bg-${ST.mbg}" style="--mfs:${ST.mfs}px"><div class="mmc" style="width:${W}px;height:${H}px"><svg width="${W}" height="${H}" aria-hidden="true">${paths}</svg>${nd}</div>
   <div class="mmtools"><button data-z="1.25" aria-label="放大">＋</button><button data-z="0.8" aria-label="缩小">－</button><button data-fit aria-label="看全图">⤢</button><button data-here aria-label="回到当前位置">◎</button>${(()=>{const any=BK.all.some(n=>n.c.length&&n!==BK.root&&MS.col.has(n.id));return `<button data-xall="${any?"open":"close"}" aria-label="${any?"全部展开":"收回到当前位置"}" title="${any?"全部展开":"收回到当前位置"}">${any?"⊞":"⊟"}</button>`})()}${wide()?`<button data-full aria-label="${ST.mfull?"退出全屏":"全屏导图"}" title="${ST.mfull?"退出全屏":"全屏导图"}">${ST.mfull?"⤡":"⛶"}</button>`:""}</div>
   ${sel?`<button class="mmgo" data-go="${sel.id}">跳到 ${esc(sel.code+" "+sel.title)} →</button>`:""}</div>`}
 function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=mm.querySelector(".mmc");const ap=()=>{c.style.transform=`translate(${MS.tx}px,${MS.ty}px) scale(${MS.k})`};
