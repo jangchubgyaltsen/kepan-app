@@ -73,7 +73,7 @@ def main():
         "window.KEPAN_CONFIG = " + json.dumps({"pushServer": os.environ.get("PUSH_SERVER", "").rstrip("/")}) + ";\n",
         encoding="utf-8")
 
-    shell = ["index.html", "app.js", "app.css", "pwa.css", "config.js", "manifest.webmanifest", "vendor/ts-fsrs.umd.js"]
+    shell = ["index.html", "app.js", "motion.js", "app.css", "pwa.css", "motion.css", "config.js", "manifest.webmanifest", "vendor/ts-fsrs.umd.js"]
     shell += sorted("icons/" + p.name for p in (OUT / "icons").glob("*.png"))
     pre = shell + ["data/books.json"]
     h = hashlib.sha256(conv_hash.encode())
