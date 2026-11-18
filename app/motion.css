@@ -1,0 +1,19 @@
+/* 动画（motion.js）：入场、退场都由 motion.js 按「新出现 / 消失」来播，这里把旧的 CSS 入场动画关掉，
+   免得弹窗每次重画（比如在学习节奏里点一个选项）都重播一遍、界面一闪 */
+.hsheet,.ssheet,.ltsh,.shy,.shy.side,.shyin,.hchaps{animation:none}
+html.mo-on .htoast:not([hidden]){animation:moToast var(--mo-t,240ms) var(--mo-e,ease) both}
+@keyframes moToast{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+/* 动画关掉时，导图的平移也一步到位 */
+html:not(.mo-on) .mmc{transition:none!important}
+/* 按下回弹 */
+html.mo-press :is(.tocbtn,.hmenu button,.cfb button,.lfab,.smore,.shyf button,.mmtools button,.schips button,.mo-replay,.bk,.sbg,.spal){transition:transform 160ms var(--mo-e,ease)}
+html.mo-press :is(.tocbtn,.hmenu button,.cfb button,.lfab,.smore,.shyf button,.mmtools button,.schips button,.mo-replay,.bk,.sbg,.spal):active{transform:scale(.94);transition-duration:60ms}
+html.mo-press [data-wopen]{transition:transform 180ms var(--mo-e,ease)}
+html.mo-press [data-wopen]:active:not(:has(button:active,[role="button"]:not([data-wopen]):active,.hmenu)){transform:scale(.985);transition-duration:80ms}
+/* 设置 → 动画 里的小样 */
+.modemo{position:relative;height:96px;border-radius:12px;overflow:hidden;background:color-mix(in srgb,var(--ink) 5%,transparent);margin-top:4px}
+.mdsheet{position:absolute;left:10px;right:10px;bottom:0;background:var(--panel);border-radius:12px 12px 0 0;box-shadow:0 -6px 18px rgb(0 0 0 / .12);padding:8px 14px 12px;display:grid;gap:3px;font-family:var(--serif)}
+.mdsheet i{justify-self:center;width:32px;height:4px;border-radius:2px;background:var(--line)}
+.mdsheet b{font-size:14px}.mdsheet span{font-size:12px;color:var(--muted);font-family:var(--sans)}
+.mo-replay{justify-self:start;align-self:flex-start;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:5px 14px;font-size:13px;cursor:pointer;font-family:var(--sans)}
+.mocur{font-size:12px!important;user-select:all}

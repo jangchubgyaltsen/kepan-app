@@ -324,12 +324,12 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
  mm.querySelectorAll(".nd").forEach(b=>b.onclick=()=>{if(MS.moved>4)return;const n=BK.by[b.dataset.id];if(!n)return;
   if(!n.c.length){fn(n);return}
   if(n!==BK.root){MS.col.has(n.id)?MS.col.delete(n.id):MS.col.add(n.id)}MS.sel=n;
-  const before=b.getBoundingClientRect();rer();const nb=el.querySelector(`.nd[data-id="${n.id}"]`);
+  const before=b.getBoundingClientRect();if(window.MO)MO.mapFlip(el,rer,n.id);else rer();const nb=el.querySelector(`.nd[data-id="${n.id}"]`);
   if(nb){const a=nb.getBoundingClientRect();MS.tx+=before.left-a.left;MS.ty+=before.top-a.top;el.querySelector(".mmc").style.transform=`translate(${MS.tx}px,${MS.ty}px) scale(${MS.k})`}});
  mm.querySelectorAll("[data-z]").forEach(b=>b.onclick=()=>{const r=mm.getBoundingClientRect();zoomAt(+b.dataset.z,r.width/2,r.height/2)});
  mm.querySelector("[data-fit]").onclick=fit;
  mm.querySelector("[data-xall]").onclick=e=>{const open=e.currentTarget.dataset.xall==="open";if(open)MS.col.clear();else{const keep=new Set(CUR?anc(CUR).map(a=>a.id):[]);BK.all.forEach(n=>{if(n.c.length&&n!==BK.root&&!keep.has(n.id))MS.col.add(n.id)})}
-  rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)here2(m2)})};
+  if(window.MO)MO.mapFlip(el,rer,BK.root.id);else rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)here2(m2)})};
  mm.querySelector("[data-here]").onclick=()=>{if(CUR){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)m2.querySelector("[data-here]").click()})}};
  mm.querySelector("[data-here]").onclick=(()=>{let busy=false;return()=>{if(busy){busy=false;here();return}if(CUR&&anc(CUR).some(a=>MS.col.has(a.id))){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();const b2=el.querySelector(".mmw [data-here]");if(b2){requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");const e2=nodeEl(CUR);here2(m2)})}}else here()}})();
  // 只在这一科不在屏幕内时，挪最少的距离把它带进来；不改缩放，不居中
@@ -1122,7 +1122,9 @@ let FOCM=null,focHold=0;
 function renderReader(){
  applyColors();const W=wide(),K=4;const nComp=Math.max(0,BK.maxA-K);const comp=l=>l<=nComp;
  const CW=nComp>0?ST.cw+8:0;const X=l=>CW+(l-1-Math.min(l-1,nComp))*18;
- const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px"><div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${BK.prose?proseHTML(n):n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${BK.prose?"":noteHTML(n.notes,n.title)}${clineHTML(n)}</div>`).join("");
+ // 一行里面的内容单独拿出来：展开 / 收起释义时只重画那一行，不重画整本书
+ const rowIn=n=>`<div class="lt ${lmOn(BK)&&leafState(n)?"ls-"+leafState(n):""}" ${n.v.length&&ST.pace==="course"&&lmOn(BK)?`data-lt="${n.id}" role="button"`:""}>${badge(n)}<span class="ltt">${esc(n.title)}</span>${ltProg(n)}</div>${BK.prose?proseHTML(n):n.v.length?verseHTML(n.v,shyIns(n),SHIYI[bkKey(BK)]&&SHIYI[bkKey(BK)][n.id]?"tap":""):""}${BK.prose?"":noteHTML(n.notes,n.title)}${clineHTML(n)}`;
+ const rows=BK.seq.map(n=>`<div class="row ${n.stub?"stub":""}" data-id="${n.id}" style="padding-left:${X(n.lvl)+10}px">${rowIn(n)}</div>`).join("");
  const TD=todayCount();const PR=ST.rentry==="btn"&&lmOn(BK)?`<button class="tocbtn lrn" data-learn>练习${TD.tot?`<em>${TD.tot}</em>`:""}</button>`:"";
  dev.innerHTML=`<div class="app fc-${ST.foc} pg-${ST.rprog} ${BK.prose?"prose"+(ST.bo?" bo-on":""):""} ${ST.mfull&&W&&ST.view==="map"?"mfull":""} ${ST.railt} ${ST.rline?"":"no-rline"}"><div class="appbar"><div class="ttl rb"><span class="tl1"><button class="bk" data-home aria-label="返回首页">‹</button><span class="tt" data-home role="button" title="回到书架">${esc(BK.title)}</span><span class="tch" aria-live="polite"></span></span><span class="tbs">${PR}${BK.prose?`<span class="shysw" role="group" aria-label="仪轨显示"><button data-botg aria-pressed="${!!ST.bo}">藏文</button></span>`:`<span class="shysw" role="group" aria-label="释义显示方式">${[["sheet","弹出"],["inline","展开"]].map(([v,t])=>`<button data-shysw="${v}" aria-pressed="${ST.shym===v}">${t}</button>`).join("")}</span>`}<button class="tocbtn" data-aa aria-label="颂词字号">Aa</button></span></div></div>
   <div class="body">${W?'<div class="dock" id="dock"></div>':""}<div class="scroll" id="rs"><button class="op" id="outer"></button><div class="wrapr" id="rw">${rows}</div></div></div>${ST.rentry==="fab"&&TD.tot&&lmOn(BK)?`<button class="lfab" data-learn>今日 ${TD.tot} ›</button>`:""}</div>`;
@@ -1131,14 +1133,16 @@ function renderReader(){
  const cardH=()=>{const o=dev.querySelector("#outer"),b=o&&o.querySelector(".pbx");return Math.max(o?o.offsetHeight:0,b?b.offsetHeight+2:0)};
  // 先一次量好每一行的位置，再画色带和编绳（边量边插会反复重排，整本书时很慢）
  const ROWS={};rw.querySelectorAll(".row").forEach(e=>ROWS[e.dataset.id]=e);const rowOf=n=>ROWS[n.id];
- const TOP=BK.seq.map(n=>ROWS[n.id].offsetTop);const HGT=BK.seq.map(n=>ROWS[n.id].offsetHeight);const geo={};BK.seq.forEach((n,i)=>geo[n.id]=[TOP[i],HGT[i]]);
+ const TOP=[],HGT=[],geo={};const measure=()=>{TOP.length=0;HGT.length=0;BK.seq.forEach(n=>{const e=ROWS[n.id],t=e.offsetTop,h=e.offsetHeight;TOP.push(t);HGT.push(h);geo[n.id]=[t,h]})};measure();
  const oT=n=>geo[n.id][0],oB=n=>geo[n.id][0]+geo[n.id][1];
  const lastRow=n=>n.tl?n.tl:n.c.length?lastRow(n.c[n.c.length-1]):n;
+ const compA=n=>anc(n).filter(x=>comp(x.lvl));
+ // 色带和编绳：按量好的位置画；只重画一行之后也用它重新画
+ const paint=()=>{rw.querySelectorAll(":scope>.rl,:scope>.cord,:scope>.twist,:scope>.tassel").forEach(e=>e.remove());
  const frag=document.createDocumentFragment();
  BK.all.filter(n=>n.p&&n.c.length&&!comp(n.lvl)).forEach(n=>{const a=fl(n),b=lastRow(n);const d=document.createElement("div");d.className="rl";
   d.style.cssText=`--lc:var(--k${n.depth});--kt:var(--kt${n.depth});left:${X(n.lvl)}px;width:18px;top:${oT(a)}px;height:${oB(b)-oT(a)}px`;
   d.innerHTML=`<span>${esc(n.code+" "+n.title)}</span>`;frag.appendChild(d)});
- const compA=n=>anc(n).filter(x=>comp(x.lvl));
  if(nComp>0){const segs=[];BK.seq.forEach(n=>{const A=compA(n);const key=A.map(x=>x.id).join();const last=segs[segs.length-1];if(last&&last.key===key)last.rows.push(n);else segs.push({key,A,rows:[n]})});
   const TH=Math.round(ST.cw*(ST.twist==="helix"?3.2:2.6)),CUT=Math.round(TH*.36);
   segs.forEach((s,i)=>{if(!s.A.length)return;const ra=s.rows[0],rb=s.rows[s.rows.length-1];const a={offsetTop:oT(ra)},b={offsetTop:oT(rb),offsetHeight:geo[rb.id][1]};const d=document.createElement("div");d.className="cord "+ST.cord;
@@ -1155,10 +1159,11 @@ function renderReader(){
    if(tw&&!last){const nx=segs[i+1],y=b.offsetTop+b.offsetHeight;const t=document.createElement("div");t.className="twist "+ST.cord;t.style.cssText=`top:${y-TH/2}px;height:${TH}px`;
     t.innerHTML=twistSVG(s.A.map(x=>KH[x.depth]),nx.A.map(x=>KH[x.depth]),ST.cw,TH,ST.twist);t.title="换段："+nx.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(t)}d.style.setProperty("--tex",cordTexC(s.A.map(x=>KH[x.depth]),ST.cord));
    d.title=s.A.map(x=>x.code+" "+x.title).join(" ／ ");frag.appendChild(d)})}
- rw.appendChild(frag);
+ rw.appendChild(frag)};paint();
  let cur=BK.seq[0];
  const focSet=(id,si)=>{FOCM={bk:BK.id,id,si};focHold=Date.now()+450};
- const jump=n=>{const t=n.c.length?fl(n):n;focSet(t.id,null);rs.scrollTop=oT(t)-2;upd()};
+ // 跳到某一科：近的平滑滚过去，远的直接到，落点轻轻闪一下
+ const jump=n=>{const t=n.c.length?fl(n):n;focSet(t.id,null);const d=window.MO?MO.scroll(rs,oT(t)-2):0;if(d)focHold=Date.now()+d+150;else rs.scrollTop=oT(t)-2;upd();if(window.MO)MO.land(ROWS[t.id])};
  const rowAt=y=>{let lo=0,hi=TOP.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(TOP[m]<=y)lo=m;else hi=m-1}return BK.seq[lo]};
  let focEl=null;
  const focPick=()=>{let n=null,z=null;
@@ -1170,15 +1175,16 @@ function renderReader(){
  const drawDock=()=>{dock.innerHTML=tocHTML(cur);bindToc(dock,jump);if(ST.view==="map"){centerCur(dock);return}const e=dock.querySelector('[aria-current="true"]');if(e){const r=e.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}};
  // 宽屏常驻导图：看释义时让导图跟到这一颂（全屏导图时不动）
  const dockAim=n=>{if(dock&&ST.view==="map"&&!ST.mfull)mmAim(n,true)};
- let lastC=null,recT=0;const tch=dev.querySelector(".tch");
+ let lastC=null,recT=0,lastPH=null;const tch=dev.querySelector(".tch");
  const upd=()=>{const c=focPick();cur=c;CUR=c;
   if(c!==lastC){lastC=c;const ch=BK.chOf[c.id];if(tch)tch.textContent=ch?"· "+ch.name:"";clearTimeout(recT);recT=setTimeout(()=>{SR.recent[BK.id]={id:c.id,t:Date.now()};save()},800)}
-  {const A=compA(c);outer.style.setProperty("--pc",A.length?`var(--k${A[A.length-1].depth})`:"var(--muted)");const dd=A.length?A[A.length-1].depth:0;outer.style.setProperty("--pkt",`var(--kt${dd})`);outer.innerHTML=`<span class="pbx"><span class="pth">${pathHTML(A)}</span>${W?"":`<span class="ttab t-${ST.tcol} s-${ST.tsty}" aria-label="打开目录"><span class="tx">${ST.ttxt}</span>${ST.tarr==="none"?"":`<span class="ta a-${ST.tarr} m-${ST.tani}">${{chev:CHEV,tri:TRI,arrow:ARW,right:RGT,dbl:DBL}[ST.tarr]}</span>`}</span>`}</span>`}const oh=cardH();rw.querySelectorAll(".rl span").forEach(s=>s.style.top=oh+"px");
+  {const A=compA(c);outer.style.setProperty("--pc",A.length?`var(--k${A[A.length-1].depth})`:"var(--muted)");const dd=A.length?A[A.length-1].depth:0;outer.style.setProperty("--pkt",`var(--kt${dd})`);const ph=`<span class="pbx"><span class="pth">${pathHTML(A)}</span>${W?"":`<span class="ttab t-${ST.tcol} s-${ST.tsty}" aria-label="打开目录"><span class="tx">${ST.ttxt}</span>${ST.tarr==="none"?"":`<span class="ta a-${ST.tarr} m-${ST.tani}">${{chev:CHEV,tri:TRI,arrow:ARW,right:RGT,dbl:DBL}[ST.tarr]}</span>`}</span>`}</span>`;if(ph!==lastPH){lastPH=ph;outer.innerHTML=ph;const oh=cardH();rw.querySelectorAll(".rl span").forEach(s=>s.style.top=oh+"px")}}
   if(dock){const nb=dock.querySelector(`[data-j="${c.id}"]`);if(!nb||nb.getAttribute("aria-current")!=="true"){
    // 目录已经画好时只挪当前标记，不整个重画
    if(nb&&ST.view!=="map"){const onp=new Set(anc(c).map(x=>x.id));dock.querySelectorAll('[data-j][aria-current="true"]').forEach(x=>x.setAttribute("aria-current","false"));dock.querySelectorAll(".on-path").forEach(x=>x.classList.remove("on-path"));onp.forEach(id=>{const e=dock.querySelector(`[data-j="${id}"]`);if(e)e.classList.add("on-path")});nb.setAttribute("aria-current","true");const r=nb.getBoundingClientRect(),dr=dock.getBoundingClientRect();if(r.top<dr.top||r.bottom>dr.bottom)dock.scrollTop+=r.top-dr.top-dr.height/3}
    else drawDock()}}};
- rs.onscroll=()=>{if(FOCM&&Date.now()>focHold)FOCM=null;upd()};
+ // 滚动时每帧最多算一次当前颂词（手机上一帧会来好几个 scroll 事件）
+ let rq=0;rs.onscroll=()=>{if(rq)return;rq=requestAnimationFrame(()=>{rq=0;if(FOCM&&Date.now()>focHold)FOCM=null;upd()})};
  const open=()=>{ST.tocOpen=true;if(ST.view==="map")mmAim(cur);const ov=document.createElement("div");ov.className="tocov";ov.innerHTML=`<div class="mh"><span></span>${toggleHTML()}<span class="mhr"><button class="tocbtn" data-x>关闭</button></span></div><div class="tl">${tocHTML(cur)}</div>`;app.appendChild(ov);
   const tl=ov.querySelector(".tl");centerCur(tl);
   const close=()=>{ST.tocOpen=false;ov.remove();const b=document.getElementById("opentoc");if(b)b.textContent="打开目录看效果"};
@@ -1195,15 +1201,19 @@ function renderReader(){
  dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;dockAim(cur);const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
   dev.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};ST.screen="home";ST.tocOpen=false;SHY=null;render()});
  dev.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>{SR.recent[BK.id]={id:cur.id,t:Date.now()};if(!SR.paceAsked){PACESH=BK.id;PRESTART=true;ST.screen="home";ST.tocOpen=false;render();return}startSession({B:BK})});
- dev.querySelectorAll("[data-lt]").forEach(b=>b.onclick=e=>{if(!e.target.closest(".badge,.ltt"))return;e.stopPropagation();ltSheet(BK.by[b.dataset.lt],dev.querySelector(".app"))});
- dev.querySelectorAll("[data-cmv]").forEach(b=>b.onclick=e=>{e.stopPropagation();moveCourse(+b.dataset.cmv)});
+ const bindRow=root=>{root.querySelectorAll("[data-lt]").forEach(b=>b.onclick=e=>{if(!e.target.closest(".badge,.ltt"))return;e.stopPropagation();ltSheet(BK.by[b.dataset.lt],dev.querySelector(".app"))});
+  root.querySelectorAll("[data-cmv]").forEach(b=>b.onclick=e=>{e.stopPropagation();moveCourse(+b.dataset.cmv)})};bindRow(dev);
  {const bk=bkKey(BK);
   const toTop=(id,si)=>{const row=rowOf(BK.by[id]);const t=(si!=null&&row.querySelector(`.stz[data-si="${si}"]`))||row;const r=t.getBoundingClientRect(),rr=rs.getBoundingClientRect();rs.scrollTop+=r.top-rr.top-cardH()-12};
   const pinOf=(id,si)=>{const t=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`);return t?{id,si,top:t.getBoundingClientRect().top-rs.getBoundingClientRect().top}:null};
-  const show=(id,gi,how)=>{const G=shyG(bk,id);SHY={bk,id,gi};dockAim(BK.by[id]);const si=G[gi].vs[0];if(how!=="tap")focSet(id,si);
-   if(ST.shym==="inline"){if(how==="tap")ST.pin=pinOf(id,si);else{ST.anchor=id;ST.anchorKeep=null}render();bindPanel();if(how!=="tap"){const r2=dev.querySelector(`.row[data-id="${id}"] .stz[data-si="${si}"]`),s2=dev.querySelector("#rs");if(r2)s2.scrollTop+=r2.getBoundingClientRect().top-s2.getBoundingClientRect().top-cardH()-12}return}
+  // 展开式释义：只重画涉及的那一两行，再重新量位置、画色带（以前是整本书重画，手机上要卡半秒）
+  const patch=ids=>{[...new Set(ids)].forEach(id=>{const e=ROWS[id],n=BK.by[id];if(!e||!n)return;e.innerHTML=rowIn(n);bindRow(e)});measure();paint();lastPH=null;shyMark(rw);bindShy()};
+  const keepAt=P=>{if(!P)return;const t=dev.querySelector(`.row[data-id="${P.id}"] .stz[data-si="${P.si}"]`);if(t)rs.scrollTop+=t.getBoundingClientRect().top-rs.getBoundingClientRect().top-P.top};
+  const show=(id,gi,how)=>{const G=shyG(bk,id);const o0=SHY&&SHY.bk===bk?SHY:null;SHY={bk,id,gi};dockAim(BK.by[id]);const si=G[gi].vs[0];if(how!=="tap")focSet(id,si);
+   if(ST.shym==="inline"){const P=how==="tap"?pinOf(id,si):null;patch(o0?[o0.id,id]:[id]);if(how==="tap")keepAt(P);else toTop(id,si);upd();if(MS.pend&&dock)drawDock();return}
    shyMark(rw);shySheet(app);bindShy();if(how!=="tap")toTop(id,si);if(MS.pend&&dock)drawDock()};
-  const close=()=>{const o=SHY;SHY=null;if(ST.shym==="inline"){if(o){const G=shyG(o.bk,o.id);ST.pin=pinOf(o.id,G&&G[o.gi]?G[o.gi].vs[0]:0)}render();bindPanel();return}shyMark(rw);shySheet(app)};
+  const close=()=>{const o=SHY;SHY=null;if(ST.shym==="inline"){if(!o)return;const G=shyG(o.bk,o.id);const P=pinOf(o.id,G&&G[o.gi]?G[o.gi].vs[0]:0);
+    const done=()=>{if(SHY&&SHY.id===o.id)return;patch([o.id]);if(!SHY)keepAt(P);upd()};const el=ROWS[o.id]&&ROWS[o.id].querySelector(".shyin");if(window.MO&&el)MO.fadeOut(el,done);else done();return}shyMark(rw);shySheet(app)};
   const bindShy=()=>{dev.querySelectorAll("[data-shyx]").forEach(b=>b.onclick=e=>{e.stopPropagation();close()});
    dev.querySelectorAll("[data-shyn]").forEach(b=>b.onclick=e=>{e.stopPropagation();const L=shyList();const i=L.findIndex(x=>x.n.id===SHY.id&&x.gi===SHY.gi);const t=L[i+ +b.dataset.shyn];if(t)show(t.n.id,t.gi,"nav")})};
   rw.addEventListener("click",e=>{if(e.target.closest(".shyin")&&!e.target.closest("button,a")&&SHY&&ST.shym==="inline"){const sel=window.getSelection&&String(window.getSelection()||"");if(!sel){e.stopPropagation();close()}return}if(e.target.closest(".shyin,.cline,button,a,.badge,.ltt"))return;const row=e.target.closest(".row");if(!row||!row.querySelector(".verse.tap"))return;let s=e.target.closest(".verse.tap .stz");
