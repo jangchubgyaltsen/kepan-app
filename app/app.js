@@ -315,7 +315,7 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
  const fit=()=>{const r=mm.getBoundingClientRect(),W=c.offsetWidth,H=c.offsetHeight;MS.k=Math.min(1.1,Math.max(.2,Math.min((r.width-24)/W,(r.height-24)/H)));MS.tx=12;MS.ty=Math.max(12,(r.height-H*MS.k)/2);ap()};
  if(!MS.init){MS.init=true;MS.k=mm.getBoundingClientRect().width<500?.85:1;MS.pend=true}
  // 同一帧里导图可能被重画几次，只对还在页面上的那一张定位
- if(MS.pend)requestAnimationFrame(()=>{if(!MS.pend||!mm.isConnected)return;const t=MS.aim,an=MS.anim;MS.pend=false;MS.aim=null;MS.anim=false;here2(mm,!an,t)});
+ if(MS.pend)requestAnimationFrame(()=>{if(!MS.pend||!mm.isConnected)return;const t=MS.aim,an=MS.anim;MS.pend=false;MS.aim=null;MS.anim=false;if(t)nudge(mm,t,an);else here2(mm,true)});
  ap();
  const zoomAt=(f,cx,cy)=>{const nk=Math.min(2.5,Math.max(.2,MS.k*f));MS.tx=cx-(cx-MS.tx)*nk/MS.k;MS.ty=cy-(cy-MS.ty)*nk/MS.k;MS.k=nk;ap()};
  const pts=new Map();let last=null,pinch=null;
@@ -339,6 +339,14 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
   rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)here2(m2)})};
  mm.querySelector("[data-here]").onclick=()=>{if(CUR){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");if(m2)m2.querySelector("[data-here]").click()})}};
  mm.querySelector("[data-here]").onclick=(()=>{let busy=false;return()=>{if(busy){busy=false;here();return}if(CUR&&anc(CUR).some(a=>MS.col.has(a.id))){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();const b2=el.querySelector(".mmw [data-here]");if(b2){requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");const e2=nodeEl(CUR);here2(m2)})}}else here()}})();
+ // 只在这一科不在屏幕内时，挪最少的距离把它带进来；不改缩放，不居中
+ function nudge(m2,n,anim){const r=m2.getBoundingClientRect();const c2=m2.querySelector(".mmc");let x=n,e=null;while(x&&!(e=c2.querySelector(`.nd[data-id="${x.id}"]`)))x=x.p;if(!e)return;
+  const M=16,L=parseFloat(e.style.left)*MS.k+MS.tx,T=parseFloat(e.style.top)*MS.k+MS.ty,Wd=e.offsetWidth*MS.k,Hd=e.offsetHeight*MS.k;
+  const right=r.width-M-48;/* 右边留出缩放按钮那一列 */let dx=0,dy=0;
+  if(Wd>r.width-2*M||L<M)dx=M-L;else if(L+Wd>right)dx=right-(L+Wd);
+  if(T<M)dy=M-T;else if(T+Hd>r.height-M)dy=r.height-M-(T+Hd);
+  if(dx||dy){MS.tx+=dx;MS.ty+=dy;if(anim){c2.style.transition="transform .25s ease";setTimeout(()=>{c2.style.transition=""},300)}c2.style.transform=`translate(${MS.tx}px,${MS.ty}px) scale(${MS.k})`}
+  m2.querySelectorAll(".nd.focus").forEach(z=>z.classList.remove("focus"));e.classList.add("focus");setTimeout(()=>e.classList.remove("focus"),1200)}
  function here2(m2,still,tgt){const r=m2.getBoundingClientRect();const c2=m2.querySelector(".mmc");let x=tgt||CUR;let e=null;while(x&&!(e=c2.querySelector(`.nd[data-id="${x.id}"]`)))x=x.p;if(!e)return;
   const FK=wide()?+ST.fkW:+ST.fkP;MS.k=FK;const ex=parseFloat(e.style.left)+e.offsetWidth/2,ey=parseFloat(e.style.top)+e.offsetHeight/2;
   MS.tx=r.width*.5-ex*MS.k;MS.ty=r.height*.42-ey*MS.k;
