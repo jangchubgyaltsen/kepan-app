@@ -52,7 +52,7 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .appbar{padding:10px 14px 8px;background:var(--panel);border-bottom:1px solid var(--line)}
 .ttl{font-family:var(--serif);font-weight:700;font-size:1rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .tbs{display:flex;gap:6px}
-.aapop{position:absolute;right:10px;top:46px;z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgb(0 0 0 / .18);padding:10px 12px;width:min(260px,80%);font-family:var(--sans)}
+.aapop{position:absolute;right:10px;top:46px;z-index:25;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgb(0 0 0 / .18);padding:10px 12px;width:min(260px,80%);font-family:var(--sans)}
 .aah{font-size:.75rem;color:var(--muted);margin-bottom:6px}
 .aar{display:flex;align-items:center;gap:8px}.aar input{flex:1}
 .aar button{border:0;background:none;cursor:pointer;font-family:var(--serif);color:var(--ink);padding:2px 4px}
@@ -448,13 +448,13 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .shy .shyb{flex:1;overflow:auto;padding:12px 16px 8px}
 .shyb p{font-family:var(--serif);font-size:var(--sf,15px);line-height:1.9;margin:0 0 .75em;text-indent:2em;letter-spacing:.02em}
 .shyb p.shyg{text-indent:0;padding-left:1em;color:var(--muted)}
-.shyb p.shy0{text-indent:0;color:var(--muted);font-size:13px}
-.shyb .shysrc{text-indent:0;text-align:right;color:var(--muted);font-size:12px}
+.shyb p.shy0{text-indent:0;color:var(--muted);font-size:calc(var(--sf,15px) - 2px)}
+.shyb .shysrc{text-indent:0;text-align:right;color:var(--muted);font-size:calc(var(--sf,15px) - 3px)}
 .shyv{font-family:var(--serif);font-size:calc(var(--sf,15px) + 1px);line-height:1.9;border-left:3px solid var(--k0);padding:2px 0 2px 12px;margin:0 0 12px;color:var(--ink)}
 .shyv>span{display:block}
 .shyv .verse{line-height:inherit}
 .shyn{border-top:1px dashed var(--line);margin-top:6px;padding-top:6px}
-.shyn p{text-indent:0;font-size:12.5px;color:var(--muted);line-height:1.7}
+.shyn p{text-indent:0;font-size:calc(var(--sf,15px) - 2.5px);color:var(--muted);line-height:1.7}
 .shyn b{color:var(--k0);margin-right:6px;font-weight:600}
 .shyf{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 .shyf span{font-size:12px;color:var(--muted)}
