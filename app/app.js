@@ -1176,15 +1176,10 @@ function renderReader(){
   refreshToc=sw=>{const y=tl.scrollTop;tl.innerHTML=tocHTML(cur);bindToc(tl,n=>{close();jump(n)});if(sw)centerCur(tl);else tl.scrollTop=y}};
  outer.onclick=open;const tb=dev.querySelector("[data-toc]");if(tb)tb.onclick=open;
  const aaOpen=()=>{let pp=app.querySelector(".aapop");if(pp){pp.remove();ST.aaOpen=false;return}ST.aaOpen=true;pp=document.createElement("div");pp.className="aapop";
-  pp.innerHTML=`<div class="aah">颂词字号</div><div class="aar"><button data-d="-1" aria-label="缩小">A</button><input type="range" data-vf min="14" max="26" step="1" value="${ST.vf}" aria-label="颂词字号"><button data-d="1" aria-label="放大">A</button></div><div class="aav">${ST.vf}px</div>${BK.prose?"":`<div class="aah aah2">释义字号</div><div class="aar"><button data-sd="-1" aria-label="缩小">A</button><input type="range" data-sf min="13" max="20" step=".5" value="${ST.shyf}" aria-label="释义字号"><button data-sd="1" aria-label="放大">A</button></div><div class="aav aavs">${ST.shyf}px</div>`}`;
-  app.appendChild(pp);{const bt=app.querySelector("[data-aa]"),op=pp.offsetParent;if(bt&&op){const r=bt.getBoundingClientRect(),o=op.getBoundingClientRect();const l=Math.max(8,Math.min(r.right-o.left-pp.offsetWidth,o.width-pp.offsetWidth-8));pp.style.right="auto";pp.style.left=l+"px";pp.style.top=(r.bottom-o.top+6)+"px"}}const set=v=>{v=Math.max(14,Math.min(26,v));if(v===ST.vf)return;ST.vf=v;ST.anchor=cur.id;dev.style.setProperty("--vf",v+"px");render();summary()};
-  pp.querySelector("[data-vf]").onchange=e=>set(+e.target.value);pp.querySelector("[data-vf]").oninput=e=>{pp.querySelector(".aav").textContent=e.target.value+"px"};
-  pp.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>set(ST.vf+ +b.dataset.d));
-  {const si=pp.querySelector("[data-sf]");if(si){const sv=pp.querySelector(".aavs");
-   const live=v=>{sv.textContent=v+"px";dev.querySelectorAll(".shy,.shyin,.whyb").forEach(e=>e.style.setProperty("--sf",v+"px"))};
-   const sset=v=>{v=Math.max(13,Math.min(20,Math.round(v*2)/2));si.value=v;live(v);if(v===ST.shyf)return;ST.shyf=v;save()};
-   si.oninput=e=>live(+e.target.value);si.onchange=e=>sset(+e.target.value);
-   pp.querySelectorAll("[data-sd]").forEach(b=>b.onclick=()=>sset(ST.shyf+ +b.dataset.sd*.5))}}};
+  pp.innerHTML=`<div class="aah">字号（颂词与释义一起调）</div><div class="aar"><button data-d="-1" aria-label="缩小">A</button><input type="range" min="14" max="26" step="1" value="${ST.vf}" aria-label="字号"><button data-d="1" aria-label="放大">A</button></div><div class="aav">${ST.vf}px</div>`;
+  app.appendChild(pp);{const bt=app.querySelector("[data-aa]"),op=pp.offsetParent;if(bt&&op){const r=bt.getBoundingClientRect(),o=op.getBoundingClientRect();const l=Math.max(8,Math.min(r.right-o.left-pp.offsetWidth,o.width-pp.offsetWidth-8));pp.style.right="auto";pp.style.left=l+"px";pp.style.top=(r.bottom-o.top+6)+"px"}}const set=v=>{v=Math.max(14,Math.min(26,v));if(v===ST.vf)return;ST.shyf=Math.max(12,Math.min(26,ST.shyf+v-ST.vf));ST.vf=v;ST.anchor=cur.id;dev.style.setProperty("--vf",v+"px");save();render();summary()};
+  pp.querySelector("input").onchange=e=>set(+e.target.value);pp.querySelector("input").oninput=e=>{pp.querySelector(".aav").textContent=e.target.value+"px"};
+  pp.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>set(ST.vf+ +b.dataset.d))};
  dev.querySelector("[data-aa]").onclick=aaOpen;
  {const b=dev.querySelector("[data-botg]");if(b)b.onclick=()=>{ST.bo=!ST.bo;save();const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y}}
  dev.querySelectorAll("[data-shysw]").forEach(b=>b.onclick=()=>{if(ST.shym===b.dataset.shysw)return;ST.shym=b.dataset.shysw;const y=rs.scrollTop;render();bindPanel();dev.querySelector("#rs").scrollTop=y});
