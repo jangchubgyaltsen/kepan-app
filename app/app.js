@@ -3,9 +3,9 @@ const NUM=["","一","二","三","四","五","六","七","八","九","十"];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hsh(i){i=(i*2654435761)>>>0;return (i>>>13)%97}
 // vp：仪轨偈句每一颂的音译（每句一行）。有音译时一句一行、音译在上，遮的只是汉义
-function verseMaskHTML(stanzas,r,vp){let ci=0;return `<div class="verse vm">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+function verseMaskHTML(stanzas,r,vp){let ci=0;return `<div class="verse vm">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：；;?!]+(?:[，。！？：；;?!]+|$)/g)||[s];const lines=[];
  const P=x=>{let out="";[...x].forEach((ch,j)=>{const pun=/[，。！？：；、?!]/.test(ch);const k=ci++;let m=false;if(!pun){if(r===1)m=hsh(k)%3===0;else if(r===2)m=hsh(k)%3!==0;else if(r>=3)m=j>0}out+=m?`<span class="mk">${esc(ch)}</span>`:esc(ch)});return out};
- if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x.replace(/[，。！？：?!]+$/,""))}</span>`));
+ if(vp&&vp[si])ph.forEach((x,j)=>lines.push(`<span class="vpyl">${esc(vp[si][j]||"")}</span><span class="ph">${P(x.replace(/[，。！？：；;?!]+$/,""))}</span>`));
  else for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${P(x)}</span>`).join(""));
  return lines.map(l=>`<span class="ln">${l}</span>`).join("")}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const RND=["通读","遮三分之一","遮三分之二","只留首字"],RNDC=["通读","下半首自己接","只给第一句","只给第一个字"];
@@ -39,7 +39,7 @@ function shySheet(app){const old=app.querySelector(".shy");const keep=old&&SHY&&
  el.innerHTML=`${W?"":'<span class="shyhd"></span>'}<div class="shyh">${badge(n)}<span class="shyt">${esc(n.title)}</span><button data-shyx aria-label="关闭">✕</button></div><div class="shyb">${shyBody(g,ST.shyv==="on",g.vs.map(i=>n.v[i]).filter(Boolean))}${BK.syName?`<p class="shysrc">——《${esc(BK.syName)}》</p>`:""}</div>${shyNav()}`;
  if(keep){el.querySelector(".shyb").scrollTop=0;return el}(W?app.querySelector(".body"):app).appendChild(el);if(!W)app.classList.add("shy-open");return el}
 
-function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];const lines=[];
+function verseHTML(stanzas,ins,cls){return `<div class="verse ${cls||""}">${stanzas.map((s,si)=>{const ph=s.match(/[^，。！？：；;?!]+(?:[，。！？：；;?!]+|$)/g)||[s];const lines=[];
  for(let i=0;i<ph.length;i+=2)lines.push(ph.slice(i,i+2).map(x=>`<span class="ph">${esc(x)}</span>`).join(""));
  return `<span class="stz" data-si="${si}">${lines.map(l=>`<span class="ln">${l}</span>`).join("")}</span>${ins&&ins[si]||""}`}).join('<span class="ln" style="height:.5em"></span>')}</div>`}
 const STEMS="甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥";
@@ -655,7 +655,7 @@ function initTask(t){if(!t)return null;const n=t.n;
  if(t.n.vp)return {kind:"mask",lines:shuffle(pyLines(t.n),Date.now()%9973+1).slice(0,8),li:0,rs:t.isNew?[0,2,3]:[3],ri:0,peek:false,wrong:false,done:false};
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
 // 仪轨偈句「对照」题：一句一题、打乱顺序，单数题看汉义选音译，双数题看音译选汉义；每题 4 个选项，一次最多 8 题
-const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
+const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：；;?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
 function pairTask(t){const seed=Date.now()%9973+1;const L=shuffle(pyLines(t.n),seed).slice(0,8);
  let pool=pyLines(t.n);if(pool.length<4)t.B.all.forEach(x=>{if(x!==t.n)pool=pool.concat(pyLines(x))});
  const qs=L.map((ln,i)=>{const dir=i%2?"py":"zh";const k=dir==="zh"?0:1;// 看汉义（ln[1]）选音译（ln[0]）；看音译选汉义
