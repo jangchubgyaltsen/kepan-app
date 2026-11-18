@@ -287,6 +287,8 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .nd{position:absolute;display:flex;align-items:center;gap:6px;padding:0 8px 0 4px;border-radius:8px;border:1.5px solid color-mix(in srgb,var(--lc) 70%,transparent);background:var(--panel);font-family:var(--serif);font-size:13px;color:var(--ink);white-space:nowrap;cursor:pointer;box-sizing:border-box}
 .nd .t{overflow:hidden;text-overflow:ellipsis;flex:1;text-align:left}
 .nd.leaf{border-width:0 0 2px;border-radius:0;background:transparent;padding-left:2px}
+.mmw .nd.vb{display:block;padding:6px 10px;border:1px solid color-mix(in srgb,var(--lc) 35%,transparent);border-radius:8px;background:color-mix(in srgb,var(--lc) 5%,var(--panel));font-size:calc(var(--mfs) * .93);line-height:1.6;font-weight:400;color:var(--ink);text-align:left;white-space:normal;overflow:hidden}
+.mmw .nd.vb .ln{display:block}.mmw .nd.vb .gp{display:block;height:.45em}.mmw .nd.vb.on{border-color:color-mix(in srgb,var(--lc) 70%,transparent)}
 .nd.root{background:var(--lc);color:var(--bg);font-weight:700;font-size:15px;justify-content:center;padding:0 10px}
 .nd.on{border-color:var(--lc);font-weight:700}
 .nd.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 30%,transparent)}

@@ -288,9 +288,17 @@ function mmLayoutVL(){const f=ST.mfs/13,Wn=Math.round(ST.mfs*2.3),GY=+ST.vgy,GX=
  (function lay(n,x){const R_=n===R,ww=R_?rw:Wn,hh=R_?36:h(n);const kids=MS.col.has(n.id)?[]:n.c;const me={n,x,w:ww,h:hh};nodes.push(me);
   if(!kids.length){me.y=y0;y0+=hh+GY}else{const ks=kids.map(k=>lay(k,x+ww+GX));me.kids=ks;me.y=(ks[0].y+ks[0].h/2+ks[ks.length-1].y+ks[ks.length-1].h/2)/2-hh/2}
   return me})(R,0);const mn=Math.min(...nodes.map(m=>m.y));if(mn<0)nodes.forEach(m=>m.y-=mn);return nodes}
+// 导图里颂词的分行：每颂两句一行，颂与颂之间用 null 隔开
+function mmVLines(v){const L=[];v.forEach((s,i)=>{if(i)L.push(null);const ph=s.match(/[^，。！？：?!]+(?:[，。！？：?!]+|$)/g)||[s];for(let j=0;j<ph.length;j+=2)L.push(ph.slice(j,j+2).join(""))});return L}
 function mmLayout(){if(mmV())return mmLayoutV();if(mmVL())return mmLayoutVL();const f=ST.mfs/13,H=Math.round(ST.mfs*2.3),GY=+ST.mgy,GX=+ST.mgx,R=BK.root;const nodes=[];let y0=0;
  const w=n=>n===R?Math.min(260,BK.title.length*15*f+30):Math.min(360,(n.title.length*13.5+50+(n.c.length?26:0)+(ST.ring==="none"?0:+ST.rsz+5))*f);
+ // 颂词框：挂在最末一科右边；有子科判又直接带颂词的（n.tl），挂在子科判之后。前行（引导文）不显示
+ const vb=src=>{const L=mmVLines(src.v),fs=ST.mfs*.93,mx=Math.max(...L.filter(Boolean).map(l=>l.length));const cw=Math.min(mx,30);
+  const rows=L.reduce((a,l)=>a+(l?Math.ceil(l.length/cw):0),0),gaps=L.filter(l=>!l).length;
+  return {n:src,vb:true,L,w:Math.round(cw*fs*1.08+22),h:Math.round(rows*fs*1.6+gaps*fs*.45+14)}};
+ const vOf=n=>BK.prose||n===R?null:!n.c.length?(n.v.length?n:null):(n.tl&&n.tl.v.length&&!MS.col.has(n.id)?n.tl:null);
  (function lay(n,x){const ww=w(n),h=n===R?36:H;const kids=MS.col.has(n.id)?[]:n.c;const me={n,x,w:ww,h};if(n===R)me.h=Math.round(h*1.15);nodes.push(me);
+  const vs=vOf(n);if(vs){const ks=kids.map(k=>lay(k,x+ww+GX));const b=vb(vs);b.x=x+ww+GX;b.y=y0;y0+=b.h+GY;nodes.push(b);ks.push(b);me.kids=ks;me.y=(ks[0].y+ks[0].h/2+ks[ks.length-1].y+ks[ks.length-1].h/2)/2-h/2;return me}
   if(!kids.length){me.y=y0;y0+=h+GY}else{const ks=kids.map(k=>lay(k,x+ww+GX));me.kids=ks;me.y=(ks[0].y+ks[0].h/2+ks[ks.length-1].y+ks[ks.length-1].h/2)/2-h/2}
   return me})(R,0);return nodes}
 function mapHTML(cur){if(MS.bk!==BK)mmReset(cur);const nodes=mmLayout();const on=new Set(cur?[...anc(cur),cur]:[]);
@@ -304,6 +312,7 @@ function mapHTML(cur){if(MS.bk!==BK)mmReset(cur);const nodes=mmLayout();const on
   const g=Math.min(14,(x2-x1)/2);const d=ST.mln==="elbow"?`M${x1} ${y1}H${mx}V${y2}H${x2}`:ST.mln==="straight"?`M${x1} ${y1}L${x2} ${y2}`:ST.mln==="brace"?`M${x1} ${y1}H${x1+g}${y2===y1?"":`V${y2+(y2>y1?-6:6)}Q${x1+g} ${y2} ${x1+g+6} ${y2}`}H${x2}`:`M${x1} ${y1}C${mx} ${y1},${mx} ${y2},${x2} ${y2}`;
   paths+=`<path d="${d}" stroke="${col}" stroke-width="${o?lw+1:lw}" fill="none" opacity="${o?1:.7}" stroke-linejoin="round" stroke-linecap="round"/>`}));
  const nd=nodes.map(m=>{const n=m.n,R=n===BK.root,cl=MS.col.has(n.id)&&n.c.length;
+  if(m.vb)return `<button class="nd vb ${on.has(n)?"on":""}" data-id="${n.id}" aria-label="${esc(n.title)} 颂词" style="--lc:var(--k${n.depth});left:${m.x}px;top:${m.y}px;width:${m.w}px;height:${m.h}px">${m.L.map(l=>l?`<span class="ln">${esc(l)}</span>`:'<span class="gp"></span>').join("")}</button>`;
   return `<button class="nd ${n.c.length?"":"leaf"} ${R?"root":""} ${!R&&ST.ring!=="none"&&!unlocked(n)?"lk":""} ${on.has(n)?"on":""} ${MS.sel===n?"sel":""}" data-id="${n.id}" aria-current="${n===cur}" style="--lc:${R?"var(--ink)":`var(--k${n.depth})`};--kt:var(--kt${n.depth});left:${m.x}px;top:${m.y}px;width:${m.w}px;height:${m.h}px">${R?"":ringHTML(n)}${R?"":badge(n)}<span class="t">${esc(R?BK.title:n.title)}</span>${cl?`<span class="cnt">+${n.c.length}</span>`:""}</button>`}).join("");
  const sel=MS.sel&&MS.sel!==BK.root?MS.sel:null;
  return `<div class="mmw ${V||mmVL()?"vt":""} n-${ST.mnd} l-${ST.mleaf} bg-${ST.mbg}" style="--mfs:${ST.mfs}px;--vls:${ST.vls/100}em;--vpd:${ST.vpd}px"><div class="mmc" style="width:${W}px;height:${H}px"><svg width="${W}" height="${H}" aria-hidden="true">${paths}</svg>${nd}</div>
@@ -341,8 +350,11 @@ function mmBind(el,fn){const mm=el.querySelector(".mmw");if(!mm)return;const c=m
  mm.querySelector("[data-here]").onclick=(()=>{let busy=false;return()=>{if(busy){busy=false;here();return}if(CUR&&anc(CUR).some(a=>MS.col.has(a.id))){anc(CUR).forEach(a=>MS.col.delete(a.id));rer();const b2=el.querySelector(".mmw [data-here]");if(b2){requestAnimationFrame(()=>{const m2=el.querySelector(".mmw");const e2=nodeEl(CUR);here2(m2)})}}else here()}})();
  // 只在这一科不在屏幕内时，挪最少的距离把它带进来；不改缩放，不居中
  function nudge(m2,n,anim){const r=m2.getBoundingClientRect();const c2=m2.querySelector(".mmc");let x=n,e=null;while(x&&!(e=c2.querySelector(`.nd[data-id="${x.id}"]`)))x=x.p;if(!e)return;
-  const M=16,L=parseFloat(e.style.left)*MS.k+MS.tx,T=parseFloat(e.style.top)*MS.k+MS.ty,Wd=e.offsetWidth*MS.k,Hd=e.offsetHeight*MS.k;
-  const right=r.width-M-48;/* 右边留出缩放按钮那一列 */let dx=0,dy=0;
+  const M=16,right=r.width-M-48;/* 右边留出缩放按钮那一列 */
+  const box=z=>{const l=parseFloat(z.style.left),t=parseFloat(z.style.top);return [l,t,l+z.offsetWidth,t+z.offsetHeight]};let B=box(e);
+  // 这一科的颂词框放得下就一起带进来
+  const vb=c2.querySelector(`.nd.vb[data-id="${CSS.escape(e.dataset.id)}"]`);if(vb){const v=box(vb),U=[Math.min(B[0],v[0]),Math.min(B[1],v[1]),Math.max(B[2],v[2]),Math.max(B[3],v[3])];if((U[2]-U[0])*MS.k<=right-M&&(U[3]-U[1])*MS.k<=r.height-2*M)B=U}
+  const L=B[0]*MS.k+MS.tx,T=B[1]*MS.k+MS.ty,Wd=(B[2]-B[0])*MS.k,Hd=(B[3]-B[1])*MS.k;let dx=0,dy=0;
   if(Wd>r.width-2*M||L<M)dx=M-L;else if(L+Wd>right)dx=right-(L+Wd);
   if(T<M)dy=M-T;else if(T+Hd>r.height-M)dy=r.height-M-(T+Hd);
   if(dx||dy){MS.tx+=dx;MS.ty+=dy;if(anim){c2.style.transition="transform .25s ease";setTimeout(()=>{c2.style.transition=""},300)}c2.style.transform=`translate(${MS.tx}px,${MS.ty}px) scale(${MS.k})`}
