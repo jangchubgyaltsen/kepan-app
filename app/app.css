@@ -719,12 +719,23 @@ header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
 .pq.py{color:var(--fg,inherit);letter-spacing:.02em}
 .pqo{display:grid;gap:10px}
 .pqo .ec{width:100%;text-align:left;font-family:var(--serif);font-size:calc(var(--vf,16px)*1.1);padding:12px 14px}
-.pqo .ec.no{opacity:.45}
-.pqlist{display:grid;gap:8px;margin:14px 0;font-family:var(--serif)}
-.pqlist div{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--line)}
-.pqlist small{color:var(--muted);font-size:.9em}
-.verse.vpy.one{font-size:calc(var(--vf,16px)*1.4);text-align:center;max-width:none;padding:14px 0}
-.verse.vpy.one .vpyl{font-size:.8em;margin-bottom:.3em}
+.pqo .ec.no{opacity:.45;cursor:default}
+.pqo .ec.hint{border-color:var(--k0);box-shadow:0 0 0 1px var(--k0)}
+/* 对照通读：音译在上，意思在下 */
+.pread{display:grid;margin:14px 0;font-family:var(--serif)}
+.pread div{display:flex;flex-direction:column;gap:2px;padding:9px 2px;border-bottom:1px dashed var(--line)}
+.pread div:last-child{border-bottom:0}
+.pread .ppy{font-size:calc(var(--vf,16px)*1.12);letter-spacing:.02em}
+.pread .pzh{font-size:var(--vf,16px);color:var(--k0)}
+/* 配对：左音译、右意思 */
+.pmt{display:grid;grid-template-columns:1.12fr 1fr;gap:8px;margin-top:16px}
+.pmt>div{display:grid;gap:10px;align-content:start}
+.pmt .ec{width:100%;min-height:60px;text-align:left;font-size:calc(var(--vf,16px)*.94);line-height:1.45;padding:10px 11px;transition:opacity .2s,border-color .15s,background .15s}
+.pmt .ec.sel{border-color:var(--k0);box-shadow:0 0 0 1px var(--k0)}
+.pmt .ec.got{opacity:.35;box-shadow:none;cursor:default}
+/* 翻卡：点开核对 */
+.pflip{display:block;width:100%;min-height:76px;border:1.5px dashed var(--line);background:transparent;border-radius:12px;padding:16px;font-family:var(--serif);font-size:15px;color:var(--muted);cursor:pointer;transition:background .2s,color .2s}
+.pflip.on{border-style:solid;border-color:var(--k0);background:var(--panel);color:var(--ink);font-size:calc(var(--vf,16px)*1.25);letter-spacing:.06em}
 
 /* 手机上：双击不放大；按钮长按不选中文字、不弹系统菜单（颂词和释义正文仍可长按复制） */
 html{touch-action:manipulation}
