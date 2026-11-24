@@ -127,7 +127,7 @@ const CORDS={sreal:"真实捻绳（柔光）",s3d:"立体圆编",snoshade:"圆�
 const RAILT={"rt-color":"彩色字","rt-ink":"深色字 + 浅色带","rt-solid":"实色带 + 反白字"};
 const SEPS=["／","›","→","▸","〉","»","·"];
 const STEMST={u:"下划线",b:"加粗",bu:"加粗 + 下划线",n:"普通"};
-const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",foc:"bg",foca:8,focy:45,shyv:"on",shyf:15,ret:90,pqs:"pick",npd:1,srem:false,remT:"20:30",tocOpen:false};
+const ST={cord:"sreal",cw:8,rtw:25,rlight:65,rfib:60,rshadow:12,pace:"course",qpw:5,lstate:"auto",cshow:"off",skst:"lamps",skc:"streak",rprog:"off",redit:"both",sklz:48,skbg:"none",sklay:"row",sktf:10,sknf:29,skm:"date",skgap:30,fkP:.9,fkW:.75,railt:"rt-ink",sep:"›",sepb:true,stem:"n",gap:.6,tocf:14,toclh:1,indP:4,indW:8,dockw:42,pal:"thangka",bg:"sys",rline:true,rlo:40,fsh:24,fop:82,fbl:8,pf:14,tcol:"k0",tsty:"solid",tw:33,ttxt:"目录",tarr:"dbl",tani:"none",twist:"helix",tas:"tassel",tn:8,tl:125,tsp:25,twv:7,screen:"home",hcard:"spine",hprog:"beads",hexp:"arrow",hsearch:"box",habout:"menu",hsort:"recent",hlast:"chip",lentry:"book",htab:"shelf",sview:"card",sprog:"num",sfb:"ring",locsty:"tree",expsty:"tree",mk:"box",ring:"lamp",rentry:"fab",lhint:"lamp",lhtxt:"off",mkb:"solid",mko:19,mkr:2,mkg:1,rgold:"glow",rfade:"char",rsz:21,rsw:2,lst:"t7",rglw:5,lp:null,plz:43,fbz:78,hlay:"side",hgap:12,hsidep:"edge",ew:52,efs:13.5,er:10,eal:"mid",eclr:"k0",edt:"off",esub:"two",view:"toc",mnd:"card",mleaf:"line",mln:"curve",mlw:1.5,mlc:"level",mbg:"dots",mfs:15,mgy:7,mgx:32,mfull:false,tgs:"seg",tgc:"k0",tgi:"text",tgw:110,vf:16,ofr:7,ofn:11,ofz:81,ofh:28,ofa:37,ofc:"red",ofs:"off",oft:26,ofg:100,ofw:130,ofy:37,ofd:100,ofi:"fire",ofo:"fan",ofit:1.5,ofsa:45,ofsv:85,ofsl:100,ofbd:10,ofbs:50,ofbt:0.5,oftd:50,ofvx:25,ofvy:55,shym:"sheet",foc:"bg",foca:8,focy:45,shyv:"on",shyf:15,ret:90,npd:1,srem:false,remT:"20:30",tocOpen:false};
 const TCOL={pc:"跟随当前层色",k0:"跟随色盘首色",ink:"墨色",zhe:"赭红",jin:"金色"},TSTY={solid:"实色",tint:"浅底",line:"线框"},TTXT={"目录":"目录","科判目录":"科判目录","☰":"☰ 图标"};
 const TARR={none:"无",chev:"⌄ 细折角",tri:"▾ 小三角",arrow:"↓ 箭头",right:"› 向右",dbl:"» 双折角"},TANI={none:"静止",bob:"轻跳",pulse:"呼吸"};
 const SV=d=>`<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -667,22 +667,19 @@ function initTask(t){if(!t)return null;const n=t.n;
   return {kind:"exp",order:shuffle([...n.c.map(x=>x.id),...dis],n.c.length*13+dis.length),dis:new Set(dis),placed:[],wrong:0,shake:null,done:false}}
  if(t.k==="pair")return pairTask(t);
  return {kind:"mask",r:t.isNew?0:3,peek:false,wrong:false,done:false}}
-// 仪轨偈句「对照」：记住每句音译是什么意思。新学先对照通读一遍，再认 4 句；复习认 3 句
-// 认的方式 ST.pqs：pick 看音译三选一 / match 一屏四对配对 / flip 看音译想意思，点开核对
+// 仪轨偈句「对照」：记住每句音译是什么意思。新学先对照通读一遍，再认 4 句；复习认 3 句。认法：看音译，三个意思里选一个
 // 干扰项取别的段落里的汉义，不和本段相近的句子混在一起
 const pyLines=n=>{const L=[];if(n.vp)n.v.forEach((s,si)=>(s.match(/[^，。！？：；;?!]+/g)||[s]).forEach((z,j)=>{const y=n.vp[si]&&n.vp[si][j];if(y)L.push([y,z])}));return L};
 function pairTask(t){const seed=Date.now()%9973+1;const all=pyLines(t.n);const L=shuffle(all,seed).slice(0,t.isNew?4:3);
  let pool=[];t.B.all.forEach(x=>{if(x!==t.n)pool=pool.concat(pyLines(x))});if(pool.length<3)pool=all;
  const own=new Set(all.map(x=>x[1]));const others=[...new Set(pool.map(x=>x[1]).filter(x=>!own.has(x)))];
  const qs=L.map((ln,i)=>({py:ln[0],ans:ln[1],opts:shuffle([ln[1],...shuffle(others,seed+i*7).slice(0,2)],seed+i*13)}));
- return {kind:"pair",sty:ST.pqs,all,read:!!t.isNew,qs,i:0,wrong:0,bad:{},peek:false,sl:null,sr:null,got:[],mz:shuffle(qs.map((_,i)=>i),seed+5),shake:null,done:false}}
+ return {kind:"pair",all,read:!!t.isNew,qs,i:0,wrong:0,bad:{},shake:null,done:false}}
 function pairHTML(t,T){const n=t.n;const N=T.qs.length;
  const head=sub=>`${chipsPath(anc(n).slice(-3))}<div class="eh" style="--lc:var(--k${n.depth})">${badge(n)}<b>${esc(n.title)}</b>${sub?`<span>${sub}</span>`:""}</div>`;
  if(T.read)return head(`对照着读一遍<small>共 ${T.all.length} 句</small>`)+`<div class="pread">${T.all.map(([y,z])=>`<div><span class="ppy">${esc(y)}</span><span class="pzh">${esc(z)}</span></div>`).join("")}</div>`;
  if(T.done)return head("")+`<div class="pread">${T.qs.map(q=>`<div><span class="ppy">${esc(q.py)}</span><span class="pzh">${esc(q.ans)}</span></div>`).join("")}</div><div class="sres ${T.wrong?"no":"ok"}">${T.wrong?"还有没记牢的，过一会儿再来":"都认得"}</div>`;
- if(T.sty==="match")return head(`把音译和意思配成对`)+`<div class="pmt"><div>${T.qs.map((q,i)=>{const g=T.got.includes(i);return `<button class="ec py ${g?"got":""} ${T.sl===i?"sel":""} ${T.shake==="l"+i?"shake":""}" data-pml="${i}" ${g?"disabled":""}>${esc(q.py)}</button>`}).join("")}</div><div>${T.mz.map(i=>{const g=T.got.includes(i);return `<button class="ec zh ${g?"got":""} ${T.sr===i?"sel":""} ${T.shake==="r"+i?"shake":""}" data-pmr="${i}" ${g?"disabled":""}>${esc(T.qs[i].ans)}</button>`}).join("")}</div></div>`;
  const q=T.qs[T.i];const sub=`这句是什么意思？<small>第 ${T.i+1} / ${N} 句</small>`;
- if(T.sty==="flip")return head(sub)+`<div class="pq py">${esc(q.py)}</div><button class="pflip ${T.peek?"on":""}" data-pflip>${T.peek?esc(q.ans):"心里想一想，点这里核对"}</button>`;
  return head(sub)+`<div class="pq py">${esc(q.py)}</div><div class="pqo">${q.opts.map((o,j)=>`<button class="ec zh ${T.bad[j]?"no":""} ${T.bad[j]&&T.shake===j?"shake":""} ${Object.keys(T.bad).length&&o===q.ans?"hint":""}" data-pq="${j}" ${T.bad[j]?"disabled":""}>${esc(o)}</button>`).join("")}</div>`}
 function dayMark(B){const T=todayRec();T.n++;SR.last[B.id]=Date.now();const h=SR.hist[T.date]||(SR.hist[T.date]={n:0});h.n=T.n}
 // 回向：当天第一次结束学习时弹一次
@@ -732,8 +729,7 @@ function taskHTML(t,T){const k=T.kind;const body=k==="loc"?locHTML(t,T):k==="exp
  const last=SS.i===SS.q.length-1;
  const foot=T.done?`${fbHTML(t)}<div class="sacts">${ST.sview==="sheet"&&!t.daily?`<button data-jump>在原文里看看</button>`:""}<button class="pri" data-next>${t.daily?"回书架":last?"完成":"下一题"}</button></div>`
   :k==="mask"?`<div class="sacts"><button data-mj="fuzzy">模糊</button><button class="pri" data-mj="ok">${T.r===3?"记得 · 完成":"记得"}</button></div>`
-  :k==="pair"&&T.read?`<div class="sacts"><button class="pri" data-pread>读完了</button></div>`
-  :k==="pair"&&T.sty==="flip"&&T.peek?`<div class="sacts"><button data-pf="fuzzy">模糊</button><button class="pri" data-pf="ok">记得</button></div>`:"";
+  :k==="pair"&&T.read?`<div class="sacts"><button class="pri" data-pread>读完了</button></div>`:"";
  return `<div class="tk tk-${k}"><div class="tkh"><span class="tkind ${t.isNew?"new":""} ${t.daily?"dly":""}">${t.daily?"每日一颂":(t.isNew?"新学":"复习")+" · "+SK[t.k]}</span><span class="tkb">${esc(shortT(t.B))}</span></div>${body}<div class="tkf">${foot}</div></div>`}
 function moreBtn(){const q=extraQueue(SS.B);return q.length?`<button class="smore" data-smore><b>继续学习</b><small>再学一支：${esc(q[0].n.code||"")} ${esc(q[0].n.title)}</small></button>`:""}
 function doneHTML(){const R=SS.res;const rv=R.filter(x=>!x.t.isNew&&!x.again),nw=[...new Set(R.filter(x=>x.t.isNew).map(x=>x.t.n))];const seen=[];R.forEach(x=>{if(!seen.includes(x.t.n))seen.push(x.t.n)});
@@ -771,12 +767,7 @@ function bindStudy(root,t,T){const rer=()=>{renderStudy()};
  if(T.kind==="pair"){const fin=()=>{T.done=true;grade(t,!T.wrong)};
   root.querySelectorAll("[data-pread]").forEach(b=>b.onclick=()=>{T.read=false;rer()});
   root.querySelectorAll("[data-pq]").forEach(b=>b.onclick=()=>{const q=T.qs[T.i];const j=+b.dataset.pq;T.shake=null;
-   if(q.opts[j]===q.ans){T.i++;T.bad={};if(T.i>=T.qs.length)fin()}else{T.wrong++;T.bad[j]=1;T.shake=j}rer()});
-  const fl_=root.querySelector("[data-pflip]");if(fl_)fl_.onclick=()=>{T.peek=!T.peek;rer()};
-  root.querySelectorAll("[data-pf]").forEach(b=>b.onclick=()=>{if(b.dataset.pf!=="ok")T.wrong++;T.peek=false;T.i++;if(T.i>=T.qs.length)fin();rer()});
-  const pm=()=>{if(T.sl==null||T.sr==null)return;if(T.sl===T.sr){T.got.push(T.sl);T.shake=null;if(T.got.length===T.qs.length)fin()}else{T.wrong++;T.shake="r"+T.sr}T.sl=T.sr=null};
-  root.querySelectorAll("[data-pml]").forEach(b=>b.onclick=()=>{const i=+b.dataset.pml;T.sl=T.sl===i?null:i;T.shake=null;pm();rer()});
-  root.querySelectorAll("[data-pmr]").forEach(b=>b.onclick=()=>{const i=+b.dataset.pmr;T.sr=T.sr===i?null:i;T.shake=null;pm();rer()})}
+   if(q.opts[j]===q.ans){T.i++;T.bad={};if(T.i>=T.qs.length)fin()}else{T.wrong++;T.bad[j]=1;T.shake=j}rer()})}
  if(T.kind==="mask"){const v=root.querySelector("[data-peek]");if(v)v.onclick=()=>{T.peek=!T.peek;v.classList.toggle("peek",T.peek);const s=root.querySelector(".mdots span");if(s)s.textContent=`第 ${T.r+1} 轮 · ${RND[T.r]}`};
   root.querySelectorAll("[data-mj]").forEach(b=>b.onclick=()=>{T.peek=false;if(b.dataset.mj==="ok"){if(T.r>=3){T.done=true;grade(t,!T.wrong)}else T.r++}else{if(!t.isNew){T.wrong=true;if(T.r===3)T.r=2}}rer()})}}
 // ---- 首页「今日」
